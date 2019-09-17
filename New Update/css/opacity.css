@@ -1,0 +1,11 @@
+.litetooltip-hotspot-container .hotspot{
+    opacity: 0 !important;
+    transition: opacity 0.5s ease;
+   
+}
+
+.litetooltip-hotspot-container .hotspot:hover{
+    opacity: 0.8 !important;
+   
+}
+
