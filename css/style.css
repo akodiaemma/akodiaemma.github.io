@@ -200,7 +200,7 @@ a:hover {
 	opacity: 0;
 	visibility: hidden;
 	width: 10px;
-	height: 40px;
+	height: 100px;
 	z-index: 251;
 	background-repeat: no-repeat;
 	background-position: top center;
@@ -802,6 +802,7 @@ body.nav-active .nav__list-item:nth-child(10) {
 	margin-bottom: 20px;
     -webkit-transition: all 200ms linear;
     transition: all 200ms linear; 
+    display: none;
 }
 .nav__list .sub-links li{ 
 	padding: 0;
