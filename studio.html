@@ -3,7 +3,7 @@
 <!--[if gt IE 8]>
 <!--><html class="no-js" lang="en"><!--<![endif]-->
 
-<!-- Mirrored from ivang-design.com/Akodia's Portfolio/studio.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Sep 2019 09:34:21 GMT -->
+ 
 <head>
 
 	<!-- Basic Page Needs
@@ -37,234 +37,94 @@
 
 	<!-- Web Fonts 
 	================================================== -->
-	<link href="https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext,vietnamese" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
-	
-	<!-- CSS
-	================================================== -->
-	<link rel="stylesheet" href="css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="css/font-awesome.min.css"/>
-	<link rel="stylesheet" href="css/animsition.min.css"/>
-	<link rel="stylesheet" href="css/swiper.min.css"/>
-	<link rel="stylesheet" href="css/style.css"/>
-			
-	<!-- Favicons
-	================================================== -->
-	<link rel="icon" type="image/png" href="favicon.jpg">
-	<link rel="apple-touch-icon" href="apple-touch-icon.jpg">
-	<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.jpg">
-	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.jpg">
+<style>
+    
+    @import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+h1 {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 4em;
+  color: #333;
+  -webkit-text-shadow: 0 2px 1px rgba(0, 0, 0, 0.6), 0 0 2px rgba(0, 0, 0, 0.7);
+  -moz-text-shadow: 0 2px 1px rgba(0, 0, 0, 0.6), 0 0 2px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 2px 1px rgba(0, 0, 0, 0.6), 0 0 2px rgba(0, 0, 0, 0.7);
+  word-spacing: 16px;
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #222;
+  text-shadow: 0 0 40px #FFFFFF, 0 0 30px #FFFFFF, 0 0 20px #FFFFFF;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: url('');
+  background-size: cover;
+}
+
+.wrapper {
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  display: table;
+}
+
+.content {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.item {
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  text-align: center;
+  padding: 8px;
+}
+
+@media only screen and (min-width: 800px) {
+  h1 {
+    font-size: 6em;
+  }
+  p {
+    font-size: 1.6em;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  h1 {
+    font-size: 2em;
+  }
+  p {
+    font-size: 1.2em;
+  }
+}
+    
+    </style>
 	
 	
 </head>
 <body>
-
-	<!-- Page preloader wrap
-	================================================== -->
-
-	<div class="animsition">	
-		
-		<!-- Nav and Logo
-		================================================== -->
-
-		<header class="cd-header cursor-show">
-			<div class="header-wrapper">
-				<div class="logo-wrap">
-					<a href="index-2.html" class="hover-target animsition-link"><img src="img/logo.png" alt=""></a>
-				</div>
-				<div class="nav-but-wrap">
-					<div class="menu-icon hover-target">
-						<span class="menu-icon__line menu-icon__line-left"></span>
-						<span class="menu-icon__line"></span>
-						<span class="menu-icon__line menu-icon__line-right"></span>
-					</div>					
-				</div>					
-			</div>				
-		</header>
-
-		<div class="nav cursor-show">
-			<div class="nav__content">
-				<div class="curent-page-name-shadow">studio</div>
-				<ul class="nav__list">
-					<li class="nav__list-item"><a data-toggle="collapse" href="#collapseSub" class="hover-target" role="button" aria-expanded="false" aria-controls="collapseSub">work</a>
-						<ul class="sub-links collapse" id="collapseSub">
-							<li><a href="index-2.html" class="hover-target animsition-link">slider centerd title</a></li>
-							<li><a href="index-1.html" class="hover-target animsition-link">slider centerd image</a></li>
-							<li><a href="index-3.html" class="hover-target animsition-link">slider bottom title</a></li>
-							<li><a href="index-4.html" class="hover-target animsition-link">slice revealer</a></li>
-							<li><a href="index-5.html" class="hover-target animsition-link">masonry version</a></li>
-						</ul>
-					</li>
-					<li class="nav__list-item active-nav"><a href="studio.html" class="hover-target animsition-link">studio</a></li>
-					<li class="nav__list-item"><a href="blog.html" class="hover-target animsition-link">news</a></li>
-					<li class="nav__list-item"><a href="contact.html" class="hover-target animsition-link">contact</a></li>
-				</ul>
-			</div>
-		</div>	
-
-		<!-- Primary Page Layout
-		================================================== -->	
-
-		<div class="shadow-title parallax-top-shadow">Studio</div>
-		
-		<div class="section padding-page-top padding-bottom over-hide z-bigger">
-			<div class="container z-bigger">
-				<div class="row page-title px-5 px-xl-2">
-					<div class="col-12 parallax-fade-top">
-						<h1>Design Studio</h1>
-					</div>
-					<div class="offset-1 col-11 parallax-fade-top mt-2 mt-sm-3">
-						<p>we build great brands</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="section padding-bottom-big over-hide z-bigger">
-			<div class="container">
-				<div class="row px-5 px-xl-2">
-					<div class="col-12">
-						<div class="img-wrap">
-							<img class="img-mask" src="img/studio.jpg" alt="">
-						</div>	
-					</div>	
-					<div class="col-12 padding-top">
-						<h3>What I do</h3>	
-					</div>
-					<div class="col-12 mt-2 mb-5 page-title-small">
-						<p class="mb-0 pb-0">stuff to note</p>	
-					</div>	
-					<div class="col-md-4" data-scroll-reveal="enter bottom move 30px over 0.5s after 0.1s">	
-						<ul class="studio-list">
-							<li><p>Banner creation</p></li>
-							<li><p>Media campaigns</p></li>
-							<li><p>Photography</p></li>
-							<li><p>Copywritting</p></li>
-							<li><p>Prototyping</p></li>
-						</ul>	
-					</div>	
-					<div class="col-md-4" data-scroll-reveal="enter bottom move 30px over 0.5s after 0.15s">	
-						<ul class="studio-list">
-							<li><p>Design</p></li>
-							<li><p>Animation</p></li>
-							<li><p>Art direction</p></li>
-							<li><p>User experiencde</p></li>
-							<li><p>Front-end</p></li>
-						</ul>	
-					</div>
-					<div class="col-md-4" data-scroll-reveal="enter bottom move 30px over 0.5s after 0.2s">	
-						<ul class="studio-list">
-							<li><p>Web development</p></li>
-							<li><p>Identity</p></li>
-							<li><p>Branding</p></li>
-							<li><p>User testing</p></li>
-							<li><p>Search engine</p></li>
-						</ul>	
-					</div>
-					<div class="col-12 padding-top">
-						<h3>Our partners</h3>	
-					</div>
-					<div class="col-12 mt-2 mb-5 page-title-small">
-						<p class="mb-0 pb-0">team of creatives</p>	
-					</div>	
-					<div class="col-md-3">	
-						<div class="logo-box">
-							<a href="#" class="hover-target"><img src="img/logos/d1.png" alt=""></a>
-						</div>	
-					</div>	
-					<div class="col-md-3 mt-4 mt-md-0">	
-						<div class="logo-box">
-							<a href="#" class="hover-target"><img src="img/logos/d2.png" alt=""></a>
-						</div>	
-					</div>
-					<div class="col-md-3 mt-4 mt-md-0">	
-						<div class="logo-box">
-							<a href="#" class="hover-target"><img src="img/logos/d3.png" alt=""></a>
-						</div>	
-					</div>
-					<div class="col-md-3 mt-4 mt-md-0">	
-						<div class="logo-box">
-							<a href="#" class="hover-target"><img src="img/logos/d4.png" alt=""></a>
-						</div>	
-					</div>	
-					<div class="col-md-3 mt-4">	
-						<div class="logo-box">
-							<a href="#" class="hover-target"><img src="img/logos/d2.png" alt=""></a>
-						</div>	
-					</div>	
-					<div class="col-md-3 mt-4">	
-						<div class="logo-box">
-							<a href="#" class="hover-target"><img src="img/logos/d5.png" alt=""></a>
-						</div>	
-					</div>
-					<div class="col-md-3 mt-4">	
-						<div class="logo-box">
-							<a href="#" class="hover-target"><img src="img/logos/d1.png" alt=""></a>
-						</div>	
-					</div>
-					<div class="col-md-3 mt-4">	
-						<div class="logo-box">
-							<a href="#" class="hover-target"><img src="img/logos/d6.png" alt=""></a>
-						</div>	
-					</div>
-					<div class="col-lg-7 padding-top" data-scroll-reveal="enter bottom move 30px over 0.5s after 0.2s">
-						<blockquote class="blockquote">
-							<p class="lead-big color-white mb-0"><em>Design must reflect the practical and aesthetic in business but above all... good design must primarily serve people.</em></p>
-							<h6 class="mt-5">Thomas J. Watson</h6>
-						</blockquote>
-					</div>
-				</div>		
-			</div>				
-		</div>
-
-		<div class="section padding-top-bottom over-hide z-bigger background-dark-3 footer">
-			<div class="shadow-on-footer" data-scroll-reveal="enter bottom move 30px over 0.5s after 0.1s">Say Hello</div>
-			<div class="container" data-scroll-reveal="enter bottom move 20px over 0.5s after 0.4s">
-				<div class="row">
-					<div class="col-12 text-center z-bigger py-5">
-						<div class="footer-lines">
-							<a href="contact.html" class="hover-target animsition-link"><h4>Have a Project?</h4></a>
-						</div>
-					</div>
-				</div>
-			</div>		
-		</div>	
-		
-		<!-- Social links
-		================================================== -->
-		
-		<div class="social-fixed">
-			<a class="hover-target" href="https://www.behance.net/comprepair7f53">Be</a>
-			<a class="hover-target" href="https://web.facebook.com/officialpixelking/">Fb</a>
-			<a class="hover-target" href="https://instagram.com/emmanuelakodia/?hl=en">In</a>
-			<a class="hover-target" href="https://www.youtube.com/channel/UCWLlQQn_VUmFEFuaom6tbYA">Yt</a>
-		</div>
-		<div class="copyr">
-			2019 © <a href="https://themeforest.net/user/ig_design/portfolio" class="hover-target">Akodia's Portfolio</a>
-		</div>
-		
-		<div class="scroll-to-top hover-target"></div>
-		
-		<!-- Page cursor
-		================================================== -->
-		
-        <div class='cursor' id="cursor"></div>
-        <div class='cursor2' id="cursor2"></div>
-        <div class='cursor3' id="cursor3"></div>		
-		
-	</div>
-
-	
-	<!-- JAVASCRIPT
-    ================================================== -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/popper.min.js"></script> 
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/plugins.js"></script> 
-	<script src="js/custom.js"></script>  
-<!-- End Document
-================================================== -->
+<div class="container">
+  <div class="wrapper">
+    <div class="content">
+      <div class="item">
+        <!-- Place your content here to have it be centered vertically and horizontally  -->
+        <h1>COMING SOON</h1>
+        <p>This page is being contructed.</p>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 
-<!-- Mirrored from ivang-design.com/Akodia's Portfolio/studio.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Sep 2019 09:34:24 GMT -->
+<!-- Mirrored from ivang-design.com/Akodia's Portfolio/post.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Sep 2019 09:34:35 GMT -->
 </html>
