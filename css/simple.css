@@ -1,0 +1,48 @@
+
+.map-popup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 99;
+  width: 60%;
+  padding: 2rem;
+  background-color: #fff;
+  transition: all 300ms ease-in;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 24px rgba(0,0,0,0.22);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.map-popup > *:first-child { margin-top: 0; }
+.map-popup > *:last-child { margin-bottom: 0; }
+
+.map-popup.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.marker {
+  position: absolute;
+  z-index: 1;
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  color: #fff;
+  line-height: 36px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+  background-color: tomato;
+  transition: all 300ms;
+}
+
+.marker1 {
+  top: 30%;
+  left: 20%;
+}
+.marker2 {
+  top: 50%;
+  left: 64%;
+}
+
