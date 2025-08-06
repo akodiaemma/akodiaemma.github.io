@@ -1,0 +1,50 @@
+.litetooltip-hotspot-container .hotspot{
+    transition: background 0.5s ease !important;;
+    border: 2px solid #FFC107 !important;;
+    background: none !important;;
+   
+}
+
+.litetooltip-hotspot-container .hotspot:hover{
+    opacity: 0.8 !important;
+    background: antiquewhite !important;
+   
+}
+
+body, html {
+  margin: 0;
+ font-family: 'Montserrat', sans-serif !important;
+}
+#box {
+  /* The box that will responsively resize */
+  border: 10px solid #000;
+  position: relative;
+}
+#box img {
+  display: block;
+}
+#box .static {
+  /* The static image helps responsively resizing the bounding box correctly */ 
+  width: 100%;
+  height: auto;
+}
+
+#box .cat {
+  /* Placing the cat absolutely and with percentage values makes it responsive within the bounding box */
+  position: absolute;
+  top: 25%;
+  left: 60%;
+  width: 20%;
+  height: auto;
+}
+#box .text {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  color: #fff;
+  font-family: sans-serif;
+}
+
+.compress{
+  width: 50% !important;
+}

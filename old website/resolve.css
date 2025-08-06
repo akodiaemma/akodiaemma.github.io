@@ -1,0 +1,10 @@
+.notCssPerBreakpoint .a0WjOo {
+    grid-template-columns: 1fr 1fr!important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-gap: 10px !important;
+    list-style: none !important;
+    padding: 0 !important;
+}
+
+body .container .notCssPerBreakpoint .a0WjOo { grid-template-columns: 1fr 1fr !important; }
