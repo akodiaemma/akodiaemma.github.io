@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Palm Tree Flythrough</title>
+  <style>
+    body { margin: 0; overflow-y: scroll; height: 300vh; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+<script>
+const scene = new THREE.Scene();
+
+// Camera
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 0, 5);
+
+// Renderer
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Lighting
+const light = new THREE.AmbientLight(0xffffff, 1);
+scene.add(light);
+
+// Loader
+const loader = new THREE.TextureLoader();
+
+// Background gradient as a giant plane
+loader.load('gta-6-teaser-3840x2160-13559.png', (texture) => {
+  const aspect = texture.image.width / texture.image.height;
+  const height = 20;
+  const width = height * aspect;
+
+  const bgGeo = new THREE.PlaneGeometry(width, height);
+  const bgMat = new THREE.MeshBasicMaterial({ map: texture });
+  const bgMesh = new THREE.Mesh(bgGeo, bgMat);
+  bgMesh.position.z = -50; // far behind
+  scene.add(bgMesh);
+});
+
+// Palm tree billboard creator
+function createPalm(x, z) {
+  loader.load('palm.png', (tex) => {
+    tex.transparent = true;
+    const geo = new THREE.PlaneGeometry(3, 6); // match palm proportions
+    const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(x, -1, z);
+    scene.add(mesh);
+  });
+}
+
+// Place palms on both sides
+for (let i = 0; i < 20; i++) {
+  const z = -i * 5;
+  createPalm(-3, z);
+  createPalm(3, z);
+}
+
+// Scroll moves camera forward
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  camera.position.z = 5 - scrollY * 0.02;
+});
+
+// Animate
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+animate();
+
+// Resize
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>
