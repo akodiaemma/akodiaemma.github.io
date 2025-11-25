@@ -18,6 +18,23 @@ html, body, span, div, p, h1, h2, h3, h4, h5, h6, span, a {
 
     </style>
 	<style>
+	
+	/* Mobile only */
+@media (max-width: 767px) {
+
+  /* Add 50px row gap */
+  .elementor-container.elementor-column-gap-default {
+    row-gap: 50px !important;
+  }
+
+  /* Make all direct children full width */
+  .elementor-container.elementor-column-gap-default > * {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+}
+
         /* Target the specific animated elements */
         .fto-home-banner-left,
         .fto-home-banner-right {
