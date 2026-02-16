@@ -1,0 +1,946 @@
+<meta name="p:domain_verify" content="3a5241c7a311293d113f084f1eead073"/>
+<meta name="google-site-verification" content="2B4ItucqH9zi4ebyoFxkYO289zR4deWS2wp_DfDNpYk" />
+<meta name="msvalidate.01" content="CAF06E0535870047F99A9ACAA1ED937E" />
+<meta name="yandex-verification" content="076b241f3275bf08" />
+<script src="https://analytics.ahrefs.com/analytics.js" data-key="5BXR0va1bmTXm+YG3ob5kA" async></script>
+<style>
+	@font-face {
+    font-family: 'Adobe Garamond Pro';
+    src: url('https://verveonmag.com/wp-content/uploads/2025/12/agaramondpro-regular-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 2. Define the Italic Font */
+@font-face {
+    font-family: 'Adobe Garamond Pro';
+    src: url('https://verveonmag.com/wp-content/uploads/2025/12/agaramondpro-italic-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* 3. Define the Bold Font */
+@font-face {
+    font-family: 'Adobe Garamond Pro';
+    src: url('https://verveonmag.com/wp-content/uploads/2025/12/agaramondpro-bold-webfont.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+	
+	.jeg_midbar{
+		    filter: invert(1);
+	}
+	
+	.jeg_topbar.dark {
+    background: #000000 !important;
+    border-bottom-width: 1px !important;
+    color: #f5f5f5;
+}
+	
+	.jeg_navbar_dark.jeg_navbar_boxed .jeg_nav_row, .jeg_navbar_dark:not(.jeg_navbar_boxed) {
+    background: #000000 !important;
+}
+	
+	.jeg_bottombar{
+		    filter: invert(1);
+	}
+	
+	/* This resets the filter specifically when dark mode is active */
+body.jnews-dark-mode .jeg_bottombar {
+    filter: invert(0) !important;
+}
+	
+	/* This resets the filter specifically when dark mode is active */
+body.jnews-dark-mode .jeg_midbar {
+    filter: invert(0) !important;
+}
+	
+	.jnews_header_bottom_ads{
+		margin-top:50px;
+	}
+	
+	.jeg_navbar_mobile_wrapper {
+    filter: invert(1);
+}
+	
+	.jeg_mobile_wrapper {
+    filter: invert(1);
+}
+	
+	.jeg_main_menu > li > a {
+    font-family: "VFSans Book", Helvetica, Arial, sans-serif;
+    font-weight: 600 !important;
+    font-style: normal;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+	
+	/* Targets the text inside the content area of a single post only */
+.single-post .entry-content p,
+.single-post .entry-content li,
+.single-post .entry-content blockquote {
+    font-family: "Agaramond Pro", "Adobe Garamond Pro", serif; /* Fallback added */
+    font-size: 21px;
+    font-weight: 100;
+	font-weight:400 !important;
+
+    line-height: 32px;
+    color: black; /* Optional: adds a dark grey for readability */
+}
+
+/* Specifically styles the links within that post content */
+.single-post .entry-content a {
+    color: #fc7337;
+    text-decoration: none; /* Standard for accessibility, can be 'none' */
+    transition: color 0.3s ease;
+}
+
+/* Hover effect for the links */
+.single-post .entry-content a:hover {
+    color: #e35d21; /* A slightly darker shade for the hover state */
+}
+
+	
+	html {
+    /*max-width: 100%;*/
+    overflow-x: hidden;
+   /* position: relative;*/
+}
+	
+	.thumbnail-container.animate-lazy>img {
+    opacity: 0;
+    object-fit: cover;
+}
+	
+/* Targets the share container inside the body tag on all singular pages */
+.entry-header {
+    /*display: none !important;*/
+}
+	
+	/* Main Footer Styles */
+.verveon-footer {
+  padding: 60px 20px 40px;
+}
+	
+	div.sharedaddy, #content div.sharedaddy, #main div.sharedaddy {
+    clear: both;
+    DISPLAY: NONE;
+}
+
+/* Footer Grid */
+.footer-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 250px repeat(5, 1fr);
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+/* Logo Column */
+.footer-logo-col img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+}
+
+/* Accordion Sections */
+.footer-accordion-header {
+font-weight:600 !important;
+text-transform: uppercase;
+  font-size: black !important;
+  font-weight: inherit;
+  margin: 0 0 20px 0 !important;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.accordion-icon {
+  display: none;
+}
+
+.accordion-arrow {
+  width: 16px;
+  height: 16px;
+}
+
+.footer-accordion-content {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-accordion-content li {
+  margin-bottom: 5px;
+}
+
+.footer-accordion-content a {
+  color: black;
+  font-size: black;
+}
+
+/* Center Section */
+.footer-center-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.footer-main-logo {
+  width: 200px;
+  height: auto;
+  margin-bottom: 15px;
+  mix-blend-mode: difference;
+  filter: invert(1);
+}
+
+.footer-tagline {
+  font-size: black;
+  margin-bottom: 10px;
+}
+
+.footer-subscribe-btn {
+  display: inline-block;
+  background-color: black;
+  color: white;
+  padding: 12px 30px;
+  font-size: black;
+  font-weight: bold;
+}
+
+/* Copyright Section */
+.footer-copyright {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1em;
+  color: black;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.copyright-text {
+  margin-bottom: 15px;
+  font-size:16px;
+  color:black !important;
+}
+
+.news-tip {
+  margin: 0;
+}
+
+.news-tip a {
+  color: darkorange;
+  text-decoration: none;
+}
+
+/* Bottom PMC Section */
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-bottom-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pmc-logo {
+  height: 40px;
+  width: auto;
+}
+
+.pmc-text {
+  font-size: 16px;
+  color: black;
+  line-height:normal;
+  margin: 0;
+}
+
+.footer-bottom-right {
+  position: relative;
+}
+
+.our-sites-btn {
+  border: 1px solid #000;
+  padding: 8px 20px;
+  font-size: black;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.our-sites-dropup {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
+  min-width: 200px;
+  margin-bottom: 10px;
+  z-index: 1000;
+}
+
+.our-sites-dropup ul {
+  list-style: none;
+  padding: 15px;
+  margin: 0;
+}
+
+.our-sites-dropup li {
+  margin-bottom: 10px;
+}
+
+.our-sites-dropup li:last-child {
+  margin-bottom: 0;
+}
+
+.our-sites-dropup a {
+  font-size: black;
+  display: block;
+}
+
+/* Hover Effects */
+footer a:hover {
+  text-decoration: underline !important;
+  transition: color 0.2s ease;
+}
+
+.our-sites-dropup a:hover {
+  background-color: black;
+  padding-left: 5px;
+  transition: all 0.2s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .footer-logo-col {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+
+  .footer-logo-col {
+    margin-bottom: 30px;
+  }
+
+  .footer-accordion {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+  }
+
+  .footer-accordion-header {
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .footer-accordion .accordion-icon {
+    display: inline-block !important;
+    transition: transform 0.3s ease;
+  }
+
+  .footer-accordion.active .accordion-icon {
+    transform: rotate(180deg);
+  }
+
+  .footer-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .footer-accordion.active .footer-accordion-content {
+    max-height: 500px;
+    margin-top: 10px;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    gap: 20px !important;
+    text-align: center !important;
+  }
+
+  .footer-bottom-left {
+    flex-direction: column !important;
+  }
+}
+	
+
+body.author .jeg_post_title {
+        font-family: 'VF Didot Regular' !important;
+        font-size: 20px !important;
+        font-weight: 200;
+		}
+
+	
+	body.error404 .jeg_breadcrumbs{
+	display:none !important;
+	}
+	
+	.entry-header .jeg_meta_author a, .jeg_postblock .jeg_meta_author a {
+    color: inherit !important;
+}
+	
+.jeg_block_heading_6 .jeg_block_title {
+    font-family: "VF Sans", Sans-serif;
+    font-size: 16px !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.9px;
+}	
+	
+	body.archive .jnews_category_header_bottom{
+	display:none !important;
+	}
+	
+	.jnews_header_bottom_ads, .jnews_header_top_ads {
+    background: inherit !important;
+}
+	.jeg_heroblock_9 .jeg_heroblock_wrapper {
+    height: 540px;
+}
+	
+	.jeg_cat_subtitle {
+    color: #000000 !important;
+    font-size: 16px !important;
+}
+	
+	.jeg_socialcounter.col3 li {
+    width: 50% !important;
+}
+	
+	.fa {
+    color: inherit !important;
+}
+	
+	@media only screen and (max-width: 480px) {
+    .jeg_postblock_14 .jeg_posts .jeg_post, .jeg_postblock_15 .jeg_post, .jeg_postblock_9 .jeg_post {
+        display: flex !important;
+    }
+}
+	
+	.jeg_pl_sm .jeg_post_title {
+    font-size: 16px !important;
+}
+	
+	@media only screen and (max-width: 768px) {
+    .jeg_pl_lg_2 .jeg_thumb {
+        margin-right: 0px !important;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .jeg_pl_md_1 .jeg_thumb {
+        margin-bottom: 16px !important;
+        min-width: 95px !important;
+    }
+}
+	
+	@media only screen and (max-width: 480px) {
+    .jeg_postblock_14 .jeg_posts .jeg_post, .jeg_postblock_15 .jeg_post, .jeg_postblock_9 .jeg_post {
+        float: none;
+        margin-bottom: 20px !important;
+        padding-right: 0;
+        width: 100% !important;
+        display: flex !important;
+        column-gap: 18px !important;
+    }
+}
+	
+	
+	@media only screen and (max-width: 1199px) {
+    .jeg_heroblock_9 .jeg_post, .jeg_heroblock_skew .jeg_post {
+        height: 335px !important;
+    }
+		
+		.jeg_post_excerpt {
+    display: none !important;
+}
+}
+	
+	@media only screen and (max-width: 767px) {
+    .jeg_heroblock_9 .jeg_heroblock_wrapper, .jeg_heroblock_skew .jeg_heroblock_wrapper {
+        height: auto !important;
+    }
+}
+	
+	@media only screen and (max-width: 767px) {
+    .jeg_pl_lg_2, .jeg_pl_lg_3 {
+        margin-bottom: 20px !important;
+			padding-bottom:16px;
+			  border-bottom: 1px #00000020 solid;
+			display: flex;
+			        justify-content: space-between;
+    }
+		
+		    .jeg_pl_lg_2 .jeg_post_title, .jeg_pl_lg_3 .jeg_post_title {
+        font-size: 20px;
+    }
+		
+		    .jeg_pl_lg_2 .jeg_thumb {
+        margin-left: 32px;
+    }
+		
+			.thumbnail-container {
+    background: #fe101000;
+    height: 95px;
+    width: 90px;
+		padding: 0px !important;		
+}
+		.jeg_pl_lg_2 .jeg_postblock_content, .jeg_pl_lg_3 .jeg_postblock_content {
+    display: table-footer-group;
+}
+	
+	.thumbnail-container>img {
+    color: #ffffff;
+    min-height: 95px !important;
+    width: 90px !important;
+		object-fit: cover;
+}
+}
+	
+	@media only screen and (max-width: 767px) {
+    .jeg_pl_lg_2 .jeg_thumb, .jeg_pl_lg_3 .jeg_thumb {
+        width: fit-content;
+			  min-width: 90px;
+			order: 2;
+    }
+}
+
+	
+	.jeg_postblock_content {
+    display: flex;
+    flex-direction: column;
+}
+	.jeg_post_meta>div {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.108rem;
+    color: black;
+}
+	
+	.jeg_post_meta {
+    color: black;
+    font-size: 12px;
+    order: 8;
+    margin-top: 10px;
+}
+	
+	
+	/* Targets only text, email, and password fields */
+input[type="text"], 
+input[type="email"], 
+input[type="password"],
+input[type="search"] {
+    width: 250px !important;
+}
+	
+	.jeg_menu > li{
+		    font-family: "VFSans Book",Helvetica,Arial,sans-serif !important;
+	}
+	
+	.jeg_top_date{
+		    font-family: "VFSans Book",Helvetica,Arial,sans-serif !important;
+	}
+	
+.verveon-clock-container{
+		    font-family: "VFSans Book",Helvetica,Arial,sans-serif !important;
+	}
+	
+/* Apply centering logic from tablets downwards */
+@media (max-width: 1024px) {
+    /* Target the container to center its contents */
+    .site-title {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important; /* Fixed: align-content usually requires multiple lines; align-items is better for single lines */
+    }
+
+    /* Target the link/logo inside the container */
+    .site-title a {
+        width: 50% !important;
+        display: block !important; /* Ensures the width property is respected */
+        margin: 0 auto;            /* Extra security for centering */
+    }
+}
+	
+	.footer-bottom-right{
+		display:none;
+	}
+	
+	.item_bottom .jeg_aside_item:last-child {
+  font-family: "VF Sans";
+  color: black;
+}
+	
+	.jeg_mobile_menu li a {
+  text-transform: uppercase;
+  font-size: black !important;
+  font-weight: inherit;
+  margin: 0 0 20px 0 !important;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: inherit;
+		font-family: "VF Sans";}
+	
+	/* Hide Elementor Dividers from tablets downwards but keep the gap */
+@media (max-width: 1024px) {
+    .elementor-divider {
+        visibility: hidden !important;
+    }
+}
+	/* Hide the JNews Ad Widget on tablets and mobile devices */
+@media (max-width: 1024px) {
+    .elementor-widget-jnews_element_ads_elementor {
+        display: none !important;
+    }
+}
+	
+	/* Target the FontAwesome close/times icon */
+.fa-close:before, .fa-times:before {
+    /* Remove the default 'X' font character */
+    content: "" !important;
+    
+    /* Set the custom icon as the background */
+    background-image: url('https://img.icons8.com/?size=100&id=648&format=png&color=000000');
+    
+    /* Define the size and layout */
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    
+    /* Image fitting settings */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+}
+	/* Target the specific FontAwesome search icon */
+.fa-search:before {
+    /* Remove the default magnifying glass font character */
+    content: "" !important;
+    
+    /* Set your custom image as the background */
+    /* Ensure you replace 'undefined' with the correct ID in the URL below */
+    background-image: url('https://img.icons8.com/?size=100&id=132&format=png&color=000000');
+    
+    /* Define the size and layout */
+    display: inline-block;
+    width: 20px;   /* Slightly smaller than the burger menu for balance */
+    height: 20px;
+    
+    /* Image fitting settings */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+}
+	/* Target the specific FontAwesome bars icon */
+.fa-bars:before {
+    /* Remove the default font-based burger icon */
+    content: "" !important;
+    
+    /* Set your custom image as the background */
+    background-image: url('https://img.icons8.com/?size=100&id=LuWobdQwG1GI&format=png&color=000000');
+    
+    /* Define the size of your new icon */
+    display: inline-block;
+    width: 24px;   /* Adjust size as needed */
+    height: 24px;  /* Adjust size as needed */
+    
+    /* Ensure the image fits perfectly inside the box */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    /* Optional: fix alignment with text */
+    vertical-align: middle;
+}
+	/* Hide the header banner only on mobile devices */
+@media (max-width: 767px) {
+    .header-ad-banner {
+        display: none !important;
+    }
+}
+	
+	.jeg_slide_caption {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%) !important;
+  }
+
+	
+	/* 1. Target the list container to hide the commas */
+.elementor-post-info__terms-list {
+    font-size: 0 !important; /* Makes the commas invisible */
+    visibility: hidden;      /* Double security to hide text nodes */
+}
+
+/* 2. Hide every individual category item by default */
+.elementor-post-info__terms-list-item {
+    display: none !important;
+}
+
+/* 3. Specifically show ONLY the first category */
+.elementor-post-info__terms-list-item:first-child {
+    display: inline-block !important; /* Brings it back into the layout */
+    visibility: visible;             /* Makes it visible again */
+    font-size: 11px !important;      /* Manually set your desired font size here */
+}
+
+	/* 1. Regular Weight */
+@font-face {
+    font-family: 'VFDidot';
+    src: url('https://verveonmag.com/wp-content/uploads/2025/12/VFDidot5-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 2. Regular Italic */
+@font-face {
+    font-family: 'VFDidot';
+    src: url('https://verveonmag.com/wp-content/uploads/2025/12/VFDidot5-RegularItalic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* 3. Medium Weight */
+@font-face {
+    font-family: 'VFDidot';
+    src: url('https://verveonmag.com/wp-content/uploads/2025/12/VFDidot5Web-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 4. Medium Italic */
+@font-face {
+    font-family: 'VFDidot';
+    src: url('https://verveonmag.com/wp-content/uploads/2025/12/VFDidot5Web-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Correct Way: Only affects P and SPAN inside JNews Dark Mode */
+body.jnews-dark-mode p, 
+body.jnews-dark-mode span {
+    color: white !important;
+}
+	
+	
+.italic-prefix {
+    font-style: italic !important;
+    margin-right: 0.15em; /* Adds a tiny bit of breathing room after the italic word */
+}
+	#verveon-clock{
+	font-size: 12px;
+  font-weight: 500;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 16px;	
+	}
+	
+	.jeg_top_date{
+		text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 16px;
+}
+	
+	.jeg_post_excerpt {
+  line-height: 1.3rem !important;
+}
+	.elementor-posts .elementor-post__excerpt p {
+  font-size: 16px !important;
+		color:black !important;
+}
+	
+	a:hover{
+color: inherit !important;
+  text-decoration: underline;
+	}
+	
+	p.elementor-post__title{
+		font-size:16px !important;
+	}
+	
+		p.elementor-post__title:hover{
+		text-decoration:underline;
+	}
+	
+	h3.elementor-post__title:hover{
+		text-decoration:underline;
+	}
+	
+	
+	h3.elementor-heading-title:hover{
+		text-decoration:underline;
+	}
+	
+	p.elementor-heading-title {
+    font-size: 16px !important;
+}
+	
+	.jeg_post_title{
+		font-weight:inherit !important;
+	}
+	
+	
+	/* Styling for the ad banner container */
+.header-ad-banner {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+	margin-top: 10px;
+    line-height: 0;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+/* Styling for the image itself */
+.header-ad-banner img {
+    max-width: 970px;
+    height: auto;
+    display: block;
+}
+	
+	
+#full-screen-menu-wrapper {
+    /* Critical positioning and hidden state */
+	/* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+	overflow: scroll;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    transform: translateY(-100%); /* HIDES the menu off-screen */
+    opacity: 0;
+    
+    /* UPDATED: Applying the cubic-bezier to the transition property */
+    transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), 
+                opacity 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+    
+    pointer-events: none;
+    background-color: #fff; /* Set your background color */
+}
+
+#full-screen-menu-wrapper.open {
+    /* Reveals the menu */
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+	
+.jeg_readmore {
+    display:none !important;
+}
+
+/* ========================================================= */
+/* 1. FORCE BANNER TO TOP & STYLE */
+/* ========================================================= */
+#top-scrolling-banner {
+    /* Fixed positioning forces it to the very top and keeps it there */
+    position: relative; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    /* Styling from your image */
+    background-color: #111111; /* Black background */
+    color: #ffffff;           /* White text */
+    padding: 0px;           /* Vertical padding */
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1;           /* Ensures single line */
+    z-index: 9999;            /* Ensures it stays above all other content */
+    
+    /* Hide the overflow to ensure only one line of text is visible */
+    overflow: hidden; 
+    white-space: nowrap; /* Essential for keeping content on one line */
+}
+
+/* ========================================================= */
+/* 2. SCROLLING EFFECT (CSS Marquee) */
+/* ========================================================= */
+.marquee-content {
+    /* Use flexbox to put all the repeated spans side-by-side */
+    display: flex;
+    width: fit-content; /* Allows the content to exceed the screen width */
+    
+    /* Apply the animation */
+    animation: marquee-scroll 60s linear infinite; /* Adjust '60s' for speed */
+}
+
+/* Pause the scrolling when the user hovers over the banner
+#top-scrolling-banner:hover .marquee-content {
+    animation-play-state: paused;
+}*/
+
+/* The actual scrolling animation */
+@keyframes marquee-scroll {
+    0% { transform: translateX(0); }
+    /* Translate the content by one-third of its total width
+       because we repeated the content three times in the HTML */
+    100% { transform: translateX(-33.333%); } 
+}
+
+
+/* ========================================================= */
+/* 3. MOBILE HIDING (Media Query) */
+/* ========================================================= */
+@media screen and (max-width: 767px) {
+    /* Hide the banner completely on screens smaller than 768px (standard tablet breakpoint) */
+    #top-scrolling-banner {
+        display: none !important;
+    }
+}
+
+/* ADJUSTMENT: Push the main content down by the height of the fixed banner */
+body {
+    /* IMPORTANT: Measure the height of your banner (e.g., 30px, 40px)
+       and set the margin-top accordingly. 
+       If you don't know the exact height, you can estimate it. */
+   /* margin-top: 35px;  Adjust this value to match the banner's actual height */
+}
+</style>
