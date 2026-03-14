@@ -94,7 +94,7 @@ svg#svgl{position:absolute;top:0;left:0;pointer-events:none}
 </div>
 <div id="wrap">
 <div id="sidebar">
-  <div id="sb-top"><div id="sb-title">Modules + pricing</div><div id="sb-sub">Click module to expand features. Untick any feature to remove it from the total.</div><div id="sb-lock-note" style="font-size:9.5px;color:#D85A30;margin-top:3px;font-weight:500">🔒 Unlock to make changes</div></div>
+  <div id="sb-top"><div id="sb-title">Modules + pricing</div><div id="sb-sub">Tick or untick any module or feature to update the total price.</div><div id="sb-lock-note" style="font-size:9.5px;color:#888780;margin-top:3px">🔒 Password needed to reassign phases</div></div>
   <div id="sb-scroll"></div>
   <div id="sb-footer">
     <div id="total-label">Selected total</div>
@@ -162,7 +162,8 @@ function tryUnlock(){
     document.getElementById('lock-overlay').style.display = 'none';
     document.getElementById('edit-mode-bar').style.display = 'flex';
     document.getElementById('make-changes-btn').style.display = 'none';
-    document.getElementById('sb-lock-note').style.display = 'none';
+    document.getElementById('sb-lock-note').textContent = '✏️ Edit mode — phase reassignment unlocked';
+    document.getElementById('sb-lock-note').style.color = '#1D9E75';
   } else {
     const err = document.getElementById('lock-error');
     err.textContent = 'Incorrect password. Try again.';
@@ -177,28 +178,26 @@ function lockEditing(){
   document.getElementById('lock-overlay').style.display = 'none';
   document.getElementById('edit-mode-bar').style.display = 'none';
   document.getElementById('make-changes-btn').style.display = '';
-  document.getElementById('sb-lock-note').style.display = 'block';
+  document.getElementById('sb-lock-note').textContent = '🔒 Password needed to reassign phases';
+  document.getElementById('sb-lock-note').style.color = '#888780';
 }
 
-// Guard all state-changing actions
+// Guard only phase-changing and reset actions — checkboxes are open to all
 function guardedToggleMod(id, on){
-  if(!editMode) return;
   toggleMod(id, on);
 }
 function guardedToggleFeat(key, on){
-  if(!editMode) return;
   toggleFeat(key, on);
 }
 function guardedTogglePhase(fn){
-  if(!editMode) return;
+  if(!editMode){ showLockModal(); return; }
   fn();
 }
 function guardedReset(){
-  if(!editMode) return;
+  if(!editMode){ showLockModal(); return; }
   resetState();
 }
 function guardedTogglePhaseAll(modsInPhase, on){
-  if(!editMode) return;
   modsInPhase.forEach(m => { if(on) modChecked.add(m.id); else modChecked.delete(m.id); });
   saveState(); renderSidebar(); renderCanvas();
 }
