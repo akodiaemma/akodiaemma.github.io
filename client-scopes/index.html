@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>CrossGate Connect - Full Scope Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Google Sans',system-ui,-apple-system,sans-serif}
 body{background:#f5f5f3;padding:12px;min-height:100vh}
 #wrap{display:flex;height:calc(100vh - 24px);min-height:620px;border-radius:12px;border:0.5px solid #d3d1c7;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.08)}
 #sidebar{width:275px;min-width:275px;display:flex;flex-direction:column;border-right:0.5px solid #d3d1c7;background:#f1efe8;overflow:hidden}
@@ -91,7 +94,7 @@ svg#svgl{position:absolute;top:0;left:0;pointer-events:none}
 </div>
 <div id="wrap">
 <div id="sidebar">
-  <div id="sb-top"><div id="sb-title">Modules + pricing</div><div id="sb-sub">Click module to expand features. Untick any feature to remove it from the total.</div></div>
+  <div id="sb-top"><div id="sb-title">Modules + pricing</div><div id="sb-sub">Click module to expand features. Untick any feature to remove it from the total.</div><div id="sb-lock-note" style="font-size:9.5px;color:#D85A30;margin-top:3px;font-weight:500">🔒 Unlock to make changes</div></div>
   <div id="sb-scroll"></div>
   <div id="sb-footer">
     <div id="total-label">Selected total</div>
@@ -105,6 +108,14 @@ svg#svgl{position:absolute;top:0;left:0;pointer-events:none}
     <button class="bbtn on" onclick="setBuild('alpha',this)">Alpha — 10M UGX</button>
     <button class="bbtn" onclick="setBuild('beta',this)">Beta — +17M UGX</button>
     <button class="bbtn" onclick="setBuild('full',this)">Full scope — 44.5M UGX</button>
+    <div style="margin-left:auto;display:flex;gap:6px;align-items:center">
+      <button class="bbtn" onclick="guardedReset()" style="color:#D85A30;border-color:#D85A30">&#8635; Reset to defaults</button>
+      <button id="make-changes-btn" class="bbtn" onclick="showLockModal()" style="color:#1D9E75;border-color:#1D9E75;font-weight:600">&#9998; Make changes</button>
+    </div>
+  </div>
+  <div id="edit-mode-bar" style="display:none;padding:5px 12px;background:#1D9E75;align-items:center;gap:8px;flex-shrink:0">
+    <span style="font-size:10px;font-weight:600;color:#fff">&#9998; Edit mode active — changes are being saved</span>
+    <button onclick="lockEditing()" style="margin-left:auto;padding:3px 10px;font-size:10px;background:rgba(255,255,255,.2);color:#fff;border:0.5px solid rgba(255,255,255,.4);border-radius:6px;cursor:pointer;font-weight:600">Lock &#128274;</button>
   </div>
   <div class="legend">
     <div class="leg"><div class="leg-dot" style="background:#1D9E75"></div>SME / Farmer</div>
@@ -117,8 +128,80 @@ svg#svgl{position:absolute;top:0;left:0;pointer-events:none}
 </div>
 </div>
 
+<!-- Lock modal (hidden by default — triggered by Make changes button) -->
+<div id="lock-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2000;display:none;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:12px;padding:28px 32px;width:320px;box-shadow:0 8px 40px rgba(0,0,0,.25);text-align:center;font-family:'Google Sans',sans-serif">
+    <div style="font-size:28px;margin-bottom:8px">🔒</div>
+    <div style="font-size:14px;font-weight:600;color:#2c2c2a;margin-bottom:4px">Enter password to edit</div>
+    <div style="font-size:11px;color:#5f5e5a;margin-bottom:18px">Only authorised users can make changes</div>
+    <input id="lock-input" type="password" placeholder="Password" style="width:100%;padding:8px 12px;font-size:13px;border:0.5px solid #d3d1c7;border-radius:8px;outline:none;margin-bottom:8px;font-family:'Google Sans',sans-serif" onkeydown="if(event.key==='Enter')tryUnlock()">
+    <div id="lock-error" style="font-size:11px;color:#D85A30;min-height:16px;margin-bottom:8px"></div>
+    <button onclick="tryUnlock()" style="width:100%;padding:9px;background:#2c2c2a;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Google Sans',sans-serif">Unlock editing</button>
+    <button onclick="document.getElementById('lock-overlay').style.display='none'" style="width:100%;padding:7px;background:transparent;color:#888780;border:none;font-size:11px;cursor:pointer;margin-top:6px;font-family:'Google Sans',sans-serif">Cancel</button>
+  </div>
+</div>
+
 <script>
 const BADGE={alpha:{cls:'b-alpha',lbl:'Alpha'},beta:{cls:'b-beta',lbl:'Beta'},full:{cls:'b-full',lbl:'Full'}};
+
+// ── EDIT MODE ──────────────────────────────────────────────────────────────
+let editMode = false;
+const EDIT_PASSWORD = 'change';
+
+function showLockModal(){
+  document.getElementById('lock-overlay').style.display = 'flex';
+  document.getElementById('lock-input').value = '';
+  document.getElementById('lock-error').textContent = '';
+  setTimeout(()=>document.getElementById('lock-input').focus(), 100);
+}
+
+function tryUnlock(){
+  const val = document.getElementById('lock-input').value;
+  if(val === EDIT_PASSWORD){
+    editMode = true;
+    document.getElementById('lock-overlay').style.display = 'none';
+    document.getElementById('edit-mode-bar').style.display = 'flex';
+    document.getElementById('make-changes-btn').style.display = 'none';
+    document.getElementById('sb-lock-note').style.display = 'none';
+  } else {
+    const err = document.getElementById('lock-error');
+    err.textContent = 'Incorrect password. Try again.';
+    document.getElementById('lock-input').value = '';
+    document.getElementById('lock-input').focus();
+    setTimeout(()=>{ err.textContent=''; }, 2500);
+  }
+}
+
+function lockEditing(){
+  editMode = false;
+  document.getElementById('lock-overlay').style.display = 'none';
+  document.getElementById('edit-mode-bar').style.display = 'none';
+  document.getElementById('make-changes-btn').style.display = '';
+  document.getElementById('sb-lock-note').style.display = 'block';
+}
+
+// Guard all state-changing actions
+function guardedToggleMod(id, on){
+  if(!editMode) return;
+  toggleMod(id, on);
+}
+function guardedToggleFeat(key, on){
+  if(!editMode) return;
+  toggleFeat(key, on);
+}
+function guardedTogglePhase(fn){
+  if(!editMode) return;
+  fn();
+}
+function guardedReset(){
+  if(!editMode) return;
+  resetState();
+}
+function guardedTogglePhaseAll(modsInPhase, on){
+  if(!editMode) return;
+  modsInPhase.forEach(m => { if(on) modChecked.add(m.id); else modChecked.delete(m.id); });
+  saveState(); renderSidebar(); renderCanvas();
+}
 const COLX=[10,260,510,760],NW=220,NH=82,GAP=8;
 const COL_HEADS=[
   {label:'SME / Farmer',x:10,color:'#1D9E75'},
@@ -857,69 +940,250 @@ MODS.forEach(m => {
   });
 });
 
+// ── STATE ──────────────────────────────────────────────────────────────────
+const LS_KEY = 'cg_scope_v2';
 let currentBuild = 'alpha';
 const modChecked = new Set(MODS.map(m=>m.id));
 
+// Phase overrides — stored per module id and per feature key
+// Loaded from localStorage on init, saved on every change
+let modPhase = {};   // {modId: 'alpha'|'beta'|'full'}  — overrides m.phase
+let featPhase = {};  // {'A_0': 'beta', ...}             — overrides f.b
+
+function saveState(){
+  try { localStorage.setItem(LS_KEY, JSON.stringify({modPhase, featPhase,
+    modCheckedArr:[...modChecked], featChecked})); } catch(e){}
+}
+function loadState(){
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return;
+    const s = JSON.parse(raw);
+    if(s.modPhase)   modPhase   = s.modPhase;
+    if(s.featPhase)  featPhase  = s.featPhase;
+    if(s.modCheckedArr) { modChecked.clear(); s.modCheckedArr.forEach(id=>modChecked.add(id)); }
+    if(s.featChecked) Object.assign(featChecked, s.featChecked);
+  } catch(e){}
+}
+function resetState(){
+  if(!confirm('Reset all phase assignments and selections to the original defaults?')) return;
+  modPhase = {}; featPhase = {};
+  modChecked.clear(); MODS.forEach(m=>modChecked.add(m.id));
+  MODS.forEach(m=>m.features.forEach((_,i)=>{ featChecked[m.id+'_'+i]=true; }));
+  try { localStorage.removeItem(LS_KEY); } catch(e){}
+  renderSidebar(); renderCanvas();
+}
+
+// Effective phase helpers
+function effModPhase(m){ return modPhase[m.id] || m.phase; }
+function effFeatPhase(m,fi){ return featPhase[m.id+'_'+fi] || m.features[fi].b; }
+
 function buildRank(b){return b==='alpha'?0:b==='beta'?1:2;}
-function featureVisible(f){
-  if(currentBuild==='alpha' && f.b!=='alpha') return false;
-  if(currentBuild==='beta' && buildRank(f.b)>1) return false;
+function featureVisible(m,fi){
+  const fp = effFeatPhase(m,fi);
+  const mp = effModPhase(m);
+  // use the more restrictive of module phase and feature phase
+  const effective = buildRank(fp) > buildRank(mp) ? fp : mp;
+  if(currentBuild==='alpha' && effective!=='alpha') return false;
+  if(currentBuild==='beta'  && buildRank(effective)>1) return false;
   return true;
 }
 function modInScope(mod){
-  return currentBuild==='full'||(currentBuild==='beta'&&buildRank(mod.phase)<=1)||(currentBuild==='alpha'&&mod.phase==='alpha');
+  const p = effModPhase(mod);
+  return currentBuild==='full'||(currentBuild==='beta'&&buildRank(p)<=1)||(currentBuild==='alpha'&&p==='alpha');
 }
 
+// ── PHASE PILL ─────────────────────────────────────────────────────────────
+const PHASE_COLORS = {alpha:'#1D9E75', beta:'#378ADD', full:'#534AB7'};
+const PHASE_LABELS = {alpha:'Alpha', beta:'Beta', full:'Full'};
+
+function phasePill(currentPhase, onChangeFn){
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:relative;display:inline-flex;flex-shrink:0';
+  const pill = document.createElement('button');
+  pill.className = 'phase-pill';
+  pill.style.cssText = `background:${PHASE_COLORS[currentPhase]};color:#fff;border:none;border-radius:4px;font-size:8.5px;font-weight:700;padding:2px 6px;cursor:pointer;line-height:1.4;letter-spacing:.03em`;
+  pill.textContent = PHASE_LABELS[currentPhase];
+  pill.title = 'Click to reassign phase';
+
+  const menu = document.createElement('div');
+  menu.style.cssText = 'display:none;position:absolute;top:100%;right:0;z-index:200;background:#fff;border:0.5px solid #d3d1c7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.15);overflow:hidden;min-width:90px;margin-top:3px';
+  ['alpha','beta','full'].forEach(ph=>{
+    const opt = document.createElement('div');
+    opt.style.cssText = `padding:6px 10px;font-size:10px;font-weight:600;cursor:pointer;color:${PHASE_COLORS[ph]};transition:background .1s`;
+    opt.textContent = PHASE_LABELS[ph];
+    opt.onmouseenter = ()=>opt.style.background='#f1efe8';
+    opt.onmouseleave = ()=>opt.style.background='';
+    opt.onclick = (e)=>{
+      e.stopPropagation();
+      menu.style.display='none';
+      onChangeFn(ph);
+    };
+    menu.appendChild(opt);
+  });
+  pill.onclick = (e)=>{
+    e.stopPropagation();
+    const open = menu.style.display==='block';
+    // close all other open menus
+    document.querySelectorAll('.phase-menu-open').forEach(m=>{ m.style.display='none'; m.classList.remove('phase-menu-open'); });
+    menu.style.display = open ? 'none' : 'block';
+    if(!open) menu.classList.add('phase-menu-open');
+  };
+  // close on outside click
+  document.addEventListener('click', ()=>{ menu.style.display='none'; }, {capture:false});
+  wrap.appendChild(pill);
+  wrap.appendChild(menu);
+  return wrap;
+}
+
+// ── CALC ───────────────────────────────────────────────────────────────────
 function calcTotal(){
   let total = 0;
   MODS.forEach(m => {
     if(!modChecked.has(m.id)) return;
-    const totalFeats = m.features.length;
-    const pricePerFeat = m.price / totalFeats;
-    m.features.forEach((f,i) => {
+    const pricePerFeat = m.price / m.features.length;
+    m.features.forEach((_,i) => {
       if(featChecked[m.id+'_'+i]) total += pricePerFeat;
     });
   });
   return Math.round(total);
 }
 
+// ── SIDEBAR ────────────────────────────────────────────────────────────────
 function renderSidebar(){
   const sb = document.getElementById('sb-scroll');
   sb.innerHTML = '';
-  const phases = [
+
+  // Group modules by their EFFECTIVE phase
+  const groups = {alpha:[], beta:[], full:[]};
+  MODS.forEach(m => groups[effModPhase(m)].push(m));
+
+  const phaseLabels = [
     {key:'alpha', label:'Alpha build', sub:'10,000,000 UGX'},
     {key:'beta',  label:'Beta additions', sub:'17,000,000 UGX'},
     {key:'full',  label:'Full scope additions', sub:'17,500,000 UGX'},
   ];
-  phases.forEach(ph => {
-    const modsInPhase = MODS.filter(m => m.phase === ph.key);
+
+  phaseLabels.forEach(ph => {
+    const modsInPhase = groups[ph.key];
+
+    // Check if all modules in this phase are currently checked
+    const allChecked = modsInPhase.length > 0 && modsInPhase.every(m => modChecked.has(m.id));
+    const someChecked = modsInPhase.some(m => modChecked.has(m.id));
+
     const sec = document.createElement('div');
     sec.className = 'sb-phase';
-    sec.innerHTML = ph.label + '<span class="sb-phase-price"> — ' + ph.sub + '</span>';
+    sec.style.cssText = 'display:flex;align-items:center;gap:6px;margin:8px 0 3px 4px';
+
+    const phChk = document.createElement('input');
+    phChk.type = 'checkbox';
+    phChk.style.cssText = 'width:12px;height:12px;flex-shrink:0;accent-color:'+PHASE_COLORS[ph.key]+';cursor:pointer';
+    phChk.checked = allChecked;
+    phChk.indeterminate = !allChecked && someChecked;
+    phChk.title = (allChecked ? 'Untick' : 'Tick') + ' all ' + ph.label + ' modules';
+    phChk.onchange = (e) => {
+      const on = e.target.checked;
+      guardedTogglePhaseAll(modsInPhase, on);
+    };
+
+    const secLabel = document.createElement('span');
+    secLabel.innerHTML = ph.label + '<span class="sb-phase-price"> — ' + ph.sub + '</span>';
+
+    sec.appendChild(phChk);
+    sec.appendChild(secLabel);
     sb.appendChild(sec);
+
     modsInPhase.forEach(m => {
-      const locked = m.phase === 'alpha';
+      const currentMPhase = effModPhase(m);
       const wrap = document.createElement('div');
+
       // Module header
       const hdr = document.createElement('div');
       hdr.className = 'mod-header';
-      hdr.innerHTML = `<div class="mod-dot" style="background:${m.color}"></div><input class="mod-check" type="checkbox" id="mc_${m.id}" ${modChecked.has(m.id)?'checked':''} ${locked?'disabled':''} onclick="event.stopPropagation();toggleMod('${m.id}',this.checked)"><div class="mod-label">${m.name}</div><div class="mod-price">${(m.price/1000000).toFixed(1)}M</div><div class="mod-arrow" id="arr_${m.id}">&#9658;</div>`;
-      hdr.addEventListener('click', () => toggleModExpand(m.id));
+      hdr.style.cssText = 'gap:5px';
+
+      const dot = document.createElement('div');
+      dot.className = 'mod-dot';
+      dot.style.background = m.color;
+
+      const chk = document.createElement('input');
+      chk.type = 'checkbox';
+      chk.className = 'mod-check';
+      chk.id = 'mc_'+m.id;
+      chk.checked = modChecked.has(m.id);
+      chk.onclick = (e)=>{ e.stopPropagation(); guardedToggleMod(m.id, e.target.checked); };
+
+      const lbl = document.createElement('div');
+      lbl.className = 'mod-label';
+      lbl.textContent = m.name;
+
+      const price = document.createElement('div');
+      price.className = 'mod-price';
+      price.textContent = (m.price/1000000).toFixed(1)+'M';
+
+      // Phase pill for module
+      const mpill = phasePill(currentMPhase, (newPhase)=>{
+        guardedTogglePhase(()=>{
+          modPhase[m.id] = newPhase;
+          saveState(); renderSidebar(); renderCanvas();
+        });
+      });
+
+      const arrow = document.createElement('div');
+      arrow.className = 'mod-arrow';
+      arrow.id = 'arr_'+m.id;
+      arrow.innerHTML = '&#9658;';
+
+      hdr.appendChild(dot);
+      hdr.appendChild(chk);
+      hdr.appendChild(lbl);
+      hdr.appendChild(price);
+      hdr.appendChild(mpill);
+      hdr.appendChild(arrow);
+      hdr.addEventListener('click', ()=>toggleModExpand(m.id));
       wrap.appendChild(hdr);
+
       // Feature list
       const fl = document.createElement('div');
       fl.className = 'feat-list';
-      fl.id = 'fl_' + m.id;
+      fl.id = 'fl_'+m.id;
+
       m.features.forEach((f, fi) => {
-        const key = m.id + '_' + fi;
-        const featLocked = locked; // alpha features locked
+        const key = m.id+'_'+fi;
+        const curFPhase = effFeatPhase(m, fi);
+        const badgeCls = curFPhase==='alpha'?'b-alpha':curFPhase==='beta'?'b-beta':'b-full';
+
         const row = document.createElement('div');
         row.className = 'feat-row';
-        const bc = BADGE.alpha;
-        const badgeCls = f.b === 'alpha' ? 'b-alpha' : f.b === 'beta' ? 'b-beta' : 'b-full';
-        row.innerHTML = `<input class="feat-check" type="checkbox" id="fc_${key}" ${featChecked[key]?'checked':''} ${featLocked?'disabled':''} onchange="toggleFeat('${key}',this.checked)"><label class="feat-label" for="fc_${key}">${f.t}</label><span class="feat-badge ${badgeCls}">${f.b}</span>`;
+        row.style.cssText = 'align-items:flex-start;gap:4px';
+
+        const fc = document.createElement('input');
+        fc.type = 'checkbox';
+        fc.className = 'feat-check';
+        fc.id = 'fc_'+key;
+        fc.checked = !!featChecked[key];
+        fc.onchange = ()=>{ guardedToggleFeat(key, fc.checked); };
+
+        const flbl = document.createElement('label');
+        flbl.className = 'feat-label';
+        flbl.htmlFor = 'fc_'+key;
+        flbl.textContent = f.t;
+
+        // Phase pill per feature
+        const fpill = phasePill(curFPhase, (newPhase)=>{
+          guardedTogglePhase(()=>{
+            featPhase[key] = newPhase;
+            saveState(); renderSidebar(); renderCanvas();
+          });
+        });
+        fpill.style.cssText = 'flex-shrink:0;margin-top:2px';
+
+        row.appendChild(fc);
+        row.appendChild(flbl);
+        row.appendChild(fpill);
         fl.appendChild(row);
       });
+
       wrap.appendChild(fl);
       sb.appendChild(wrap);
     });
@@ -928,38 +1192,40 @@ function renderSidebar(){
 }
 
 function toggleModExpand(id){
-  const fl = document.getElementById('fl_' + id);
-  const arr = document.getElementById('arr_' + id);
+  const fl = document.getElementById('fl_'+id);
+  const arr = document.getElementById('arr_'+id);
   if(!fl) return;
   fl.classList.toggle('open');
-  arr.classList.toggle('open');
+  if(arr) arr.classList.toggle('open');
 }
 
 function toggleMod(id, on){
   if(on) modChecked.add(id); else modChecked.delete(id);
+  saveState();
   renderCanvas();
   updateTotal();
 }
 
 function toggleFeat(key, on){
   featChecked[key] = on;
+  saveState();
   updateTotal();
   renderCanvas();
 }
 
 function updateTotal(){
   const total = calcTotal();
-  document.getElementById('total-val').textContent = total.toLocaleString() + ' UGX';
+  document.getElementById('total-val').textContent = total.toLocaleString()+' UGX';
   const builds = [];
-  if(MODS.some(m => modChecked.has(m.id) && m.phase==='alpha')) builds.push('Alpha');
-  if(MODS.some(m => modChecked.has(m.id) && m.phase==='beta')) builds.push('+ Beta');
-  if(MODS.some(m => modChecked.has(m.id) && m.phase==='full')) builds.push('+ Full');
-  document.getElementById('total-build').textContent = builds.join(' ') || 'None selected';
+  if(MODS.some(m=>modChecked.has(m.id)&&effModPhase(m)==='alpha')) builds.push('Alpha');
+  if(MODS.some(m=>modChecked.has(m.id)&&effModPhase(m)==='beta'))  builds.push('+ Beta');
+  if(MODS.some(m=>modChecked.has(m.id)&&effModPhase(m)==='full'))  builds.push('+ Full');
+  document.getElementById('total-build').textContent = builds.join(' ')||'None selected';
 }
 
 function setBuild(b, btn){
   currentBuild = b;
-  document.querySelectorAll('.bbtn').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('.bbtn').forEach(x=>x.classList.remove('on'));
   btn.classList.add('on');
   renderSidebar();
   renderCanvas();
@@ -1024,27 +1290,38 @@ function renderCanvas(){
     if(!modInScope(mod) || !modChecked.has(mod.id)) return;
     mod.features.forEach((f, fi) => {
       const key = mod.id + '_' + fi;
-      const vis = featureVisible(f) && featChecked[key];
+      const vis = featureVisible(mod, fi) && featChecked[key];
       const y = colY[mod.col];
       const div = document.createElement('div');
       div.className = 'node ' + mod.cls;
       div.id = 'nd_' + key;
       div.style.cssText = `left:${COLX[mod.col]}px;top:${y}px;`;
-      const badgeCls = f.b==='alpha'?'b-alpha':f.b==='beta'?'b-beta':'b-full';
-      div.innerHTML = `<div class="node-title">${f.t}</div><div class="node-sub">${f.s}</div><span class="nbadge ${badgeCls}">${f.b}</span><div class="info-btn" onclick="openInfo('${mod.id}',${fi})" title="Feature detail">i</div>`;
+      const curFP = effFeatPhase(mod, fi);
+      const badgeCls = curFP==='alpha'?'b-alpha':curFP==='beta'?'b-beta':'b-full';
+      div.innerHTML = `<div class="node-title">${f.t}</div><div class="node-sub">${f.s}</div><span class="nbadge ${badgeCls}">${curFP}</span><div class="info-btn" onclick="openInfo('${mod.id}',${fi})" title="Feature detail">i</div>`;
       if(!vis) div.classList.add('hidden');
+      div.style.zIndex = '1';
       canvas.appendChild(div);
       nodeReg[key] = {x:COLX[mod.col], y, col:mod.col, vis};
       if(vis) colY[mod.col] += NH + GAP;
     });
-    if(mod.features.some((f,fi) => featureVisible(f) && featChecked[mod.id+'_'+fi])) colY[mod.col] += 12;
+    if(mod.features.some((f,fi) => featureVisible(mod,fi) && featChecked[mod.id+'_'+fi])) colY[mod.col] += 12;
   });
   const maxH = Math.max(...colY) + 40;
   canvas.style.minHeight = maxH + 'px';
-  const svg = document.getElementById('svgl');
+
+  // Remove old SVG and create fresh one sized correctly
+  const oldSvg = document.getElementById('svgl');
+  if(oldSvg) oldSvg.remove();
+  const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.id = 'svgl';
   svg.setAttribute('width','990');
   svg.setAttribute('height', maxH);
-  svg.innerHTML = `<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>`;
+  svg.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;z-index:0';
+  canvas.insertBefore(svg, canvas.firstChild);
+
+  svg.innerHTML = `<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>`;
+
   // Vertical flow lines per column
   const cols = [[],[],[],[]];
   Object.entries(nodeReg).forEach(([k,n]) => { if(n.vis) cols[n.col].push({...n,k}); });
@@ -1057,13 +1334,13 @@ function renderCanvas(){
       const x = COLX[ci] + NW/2;
       const y1 = prev.y + NH;
       const y2 = n.y;
-      if(y2 <= y1) return;
+      if(y2 <= y1 + 2) return;
       const line = document.createElementNS('http://www.w3.org/2000/svg','line');
       line.setAttribute('x1',x); line.setAttribute('y1',y1);
-      line.setAttribute('x2',x); line.setAttribute('y2',y2);
+      line.setAttribute('x2',x); line.setAttribute('y2',y2 - 2);
       line.setAttribute('stroke', colColors[ci]);
-      line.setAttribute('stroke-width','1.5');
-      line.setAttribute('stroke-opacity','0.28');
+      line.setAttribute('stroke-width','1.8');
+      line.setAttribute('stroke-opacity','0.45');
       line.setAttribute('marker-end','url(#ar)');
       svg.appendChild(line);
     });
@@ -1095,6 +1372,7 @@ function renderCanvas(){
   });
 }
 
+loadState();
 renderSidebar();
 renderCanvas();
 </script>
