@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CrossGate Connect - Full Scope Map</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif}
+body{background:#f5f5f3;padding:12px;min-height:100vh}
+#wrap{display:flex;height:calc(100vh - 24px);min-height:620px;border-radius:12px;border:0.5px solid #d3d1c7;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.08)}
+#sidebar{width:275px;min-width:275px;display:flex;flex-direction:column;border-right:0.5px solid #d3d1c7;background:#f1efe8;overflow:hidden}
+#sb-top{padding:10px 12px;border-bottom:0.5px solid #d3d1c7}
+#sb-title{font-size:12px;font-weight:600;color:#2c2c2a;margin-bottom:2px}
+#sb-sub{font-size:10px;color:#5f5e5a}
+#sb-scroll{flex:1;overflow-y:auto;padding:6px 8px;display:flex;flex-direction:column;gap:1px}
+.sb-phase{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#888780;margin:8px 0 3px 4px}
+.sb-phase-price{font-size:9px;color:#5f5e5a;font-weight:400;letter-spacing:0;text-transform:none;margin-left:4px}
+.mod-header{display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:6px;cursor:pointer;transition:background .12s;user-select:none}
+.mod-header:hover{background:#e8e6df}
+.mod-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.mod-check{width:12px;height:12px;flex-shrink:0;accent-color:#1D9E75;cursor:pointer}
+.mod-check:disabled{cursor:default;opacity:.5}
+.mod-label{flex:1;font-size:10.5px;font-weight:500;color:#2c2c2a;line-height:1.3}
+.mod-price{font-size:10px;color:#5f5e5a;white-space:nowrap}
+.mod-arrow{font-size:9px;color:#888780;transition:transform .2s;margin-left:2px;flex-shrink:0}
+.mod-arrow.open{transform:rotate(90deg)}
+.feat-list{display:none;padding:2px 0 4px 14px;flex-direction:column;gap:1px}
+.feat-list.open{display:flex}
+.feat-row{display:flex;align-items:flex-start;gap:5px;padding:3px 4px;border-radius:4px;transition:background .1s}
+.feat-row:hover{background:#e8e6df}
+.feat-check{width:11px;height:11px;flex-shrink:0;margin-top:2px;accent-color:#1D9E75;cursor:pointer}
+.feat-check:disabled{opacity:.4;cursor:default}
+.feat-label{font-size:9.5px;color:#444441;line-height:1.35;flex:1}
+.feat-badge{font-size:8px;font-weight:700;border-radius:3px;padding:1px 4px;flex-shrink:0;margin-top:2px}
+#sb-footer{padding:10px 12px;border-top:0.5px solid #d3d1c7;background:#fff}
+#total-label{font-size:9.5px;color:#5f5e5a;margin-bottom:2px}
+#total-val{font-size:17px;font-weight:600;color:#2c2c2a}
+#total-build{font-size:10px;color:#888780;margin-top:1px}
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#fff;min-width:0}
+#topbar{padding:8px 12px;border-bottom:0.5px solid #d3d1c7;display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:#fff;flex-shrink:0}
+.bbtn{padding:5px 12px;font-size:11px;border-radius:16px;border:0.5px solid #b4b2a9;background:transparent;color:#5f5e5a;cursor:pointer;font-weight:500;transition:all .18s}
+.bbtn:hover{background:#f1efe8}
+.bbtn.on{background:#2c2c2a;color:#fff;border-color:#2c2c2a}
+.legend{display:flex;gap:8px;flex-wrap:wrap;padding:5px 12px;font-size:9.5px;color:#5f5e5a;border-bottom:0.5px solid #d3d1c7;background:#f9f9f7;flex-shrink:0}
+.leg{display:flex;align-items:center;gap:4px}
+.leg-dot{width:7px;height:7px;border-radius:50%}
+#canvas-wrap{flex:1;overflow:auto;padding:16px;position:relative}
+#canvas{position:relative;width:990px}
+.col-head-el{position:absolute;top:0;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-align:center;padding-bottom:5px;border-bottom:2px solid currentColor;width:220px}
+.node{position:absolute;width:220px;border-radius:8px;padding:7px 28px 7px 9px;transition:opacity .25s,transform .25s;border:0.5px solid transparent}
+.node:hover{z-index:20;box-shadow:0 2px 10px rgba(0,0,0,.13)}
+.node.hidden{opacity:0;pointer-events:none;transform:scale(0.85)}
+.node-title{font-weight:600;font-size:10px;line-height:1.3;margin-bottom:1px;color:inherit}
+.node-sub{font-size:9px;opacity:.7;line-height:1.3;color:inherit}
+.nbadge{display:inline-block;font-size:8px;font-weight:700;border-radius:3px;padding:1px 4px;margin-top:3px}
+.b-alpha{background:#1D9E75;color:#fff}.b-beta{background:#378ADD;color:#fff}.b-full{background:#534AB7;color:#fff}
+.n-teal{background:#E1F5EE;border-color:#5DCAA5;color:#04342C}
+.n-blue{background:#E6F1FB;border-color:#85B7EB;color:#042C53}
+.n-purple{background:#EEEDFE;border-color:#AFA9EC;color:#26215C}
+.n-coral{background:#FAECE7;border-color:#F0997B;color:#4A1B0C}
+.n-amber{background:#FAEEDA;border-color:#EF9F27;color:#412402}
+.n-green{background:#EAF3DE;border-color:#97C459;color:#173404}
+.n-gray{background:#f1efe8;border-color:#b4b2a9;color:#5f5e5a}
+.info-btn{position:absolute;top:7px;right:7px;width:16px;height:16px;border-radius:50%;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;cursor:pointer;opacity:.55;transition:opacity .15s;z-index:5}
+.info-btn:hover{opacity:1}
+#info-panel{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:460px;max-width:95vw;max-height:82vh;background:#fff;border-radius:12px;border:0.5px solid #d3d1c7;box-shadow:0 8px 40px rgba(0,0,0,.18);z-index:1000;display:none;flex-direction:column;overflow:hidden}
+#info-panel.open{display:flex}
+#info-overlay{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:999;display:none}
+#info-overlay.open{display:block}
+#info-head{padding:14px 16px 10px;border-bottom:0.5px solid #e8e6df;display:flex;align-items:flex-start;gap:8px}
+#info-title{font-size:13px;font-weight:600;color:#2c2c2a;flex:1;line-height:1.4}
+#info-close{background:none;border:none;font-size:18px;color:#888780;cursor:pointer;line-height:1;padding:0;flex-shrink:0}
+#info-body{padding:14px 16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.info-sec-title{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#888780;margin-bottom:5px}
+.info-text{font-size:11px;color:#444441;line-height:1.65}
+.tech-tag{display:inline-block;font-size:9.5px;background:#f1efe8;border:0.5px solid #d3d1c7;color:#444441;border-radius:4px;padding:2px 7px;margin:2px 3px 2px 0}
+.info-badge{display:inline-block;font-size:9px;font-weight:700;border-radius:3px;padding:2px 6px;margin-right:4px}
+.ui-box{background:#f9f9f7;border:0.5px solid #d3d1c7;border-radius:8px;padding:10px 12px;font-size:10.5px;color:#444441;line-height:1.6}
+.ui-box strong{color:#2c2c2a;font-weight:600}
+svg#svgl{position:absolute;top:0;left:0;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="info-overlay" onclick="closeInfo()"></div>
+<div id="info-panel">
+  <div id="info-head">
+    <div id="info-title">Feature detail</div>
+    <button id="info-close" onclick="closeInfo()">×</button>
+  </div>
+  <div id="info-body"></div>
+</div>
+<div id="wrap">
+<div id="sidebar">
+  <div id="sb-top"><div id="sb-title">Modules + pricing</div><div id="sb-sub">Click module to expand features. Untick any feature to remove it from the total.</div></div>
+  <div id="sb-scroll"></div>
+  <div id="sb-footer">
+    <div id="total-label">Selected total</div>
+    <div id="total-val">10,000,000 UGX</div>
+    <div id="total-build">Alpha build</div>
+  </div>
+</div>
+<div id="main">
+  <div id="topbar">
+    <span style="font-size:11px;font-weight:600;color:#5f5e5a">View:</span>
+    <button class="bbtn on" onclick="setBuild('alpha',this)">Alpha — 10M UGX</button>
+    <button class="bbtn" onclick="setBuild('beta',this)">Beta — +17M UGX</button>
+    <button class="bbtn" onclick="setBuild('full',this)">Full scope — 44.5M UGX</button>
+  </div>
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:#1D9E75"></div>SME / Farmer</div>
+    <div class="leg"><div class="leg-dot" style="background:#378ADD"></div>UK/EU Buyer</div>
+    <div class="leg"><div class="leg-dot" style="background:#7F77DD"></div>Diaspora Investor</div>
+    <div class="leg"><div class="leg-dot" style="background:#D85A30"></div>Admin + Shared</div>
+    <span style="margin-left:auto;font-size:9px;color:#888780">Click i on any feature for full build detail + UI notes</span>
+  </div>
+  <div id="canvas-wrap"><div id="canvas"><svg id="svgl"></svg></div></div>
+</div>
+</div>
+
+<script>
+const BADGE={alpha:{cls:'b-alpha',lbl:'Alpha'},beta:{cls:'b-beta',lbl:'Beta'},full:{cls:'b-full',lbl:'Full'}};
+const COLX=[10,260,510,760],NW=220,NH=82,GAP=8;
+const COL_HEADS=[
+  {label:'SME / Farmer',x:10,color:'#1D9E75'},
+  {label:'UK/EU Buyer',x:260,color:'#378ADD'},
+  {label:'Diaspora Investor',x:510,color:'#7F77DD'},
+  {label:'Admin + Shared',x:760,color:'#D85A30'},
+];
+
+// Feature price = module price / number of features (evenly split, used for per-feature deduction)
+// We track which features are checked — unchecking deducts its share from total
+
+const MODS = [
+ {id:'A',name:'Registration & Onboarding',phase:'alpha',price:1000000,color:'#1D9E75',cls:'n-teal',col:0,features:[
+  {t:'Email + phone account creation',s:'All 4 user types',b:'alpha',
+   info:'Handles secure account creation for SME farmers, diaspora investors, UK/EU buyers, and platform admins. Uses email OTP and phone SMS confirmation. Passwords are hashed with bcrypt. Sessions use JWT tokens with 24-hour expiry.',
+   ui:'Screen: Full-page registration form. Top: CrossGate logo. Fields: Full name, email, phone number, password, confirm password, user type selector (4 large icon buttons — SME, Buyer, Diaspora, Admin). Bottom: "Create account" primary button. Below that: "Already have an account? Sign in" link. On mobile: single-column stacked layout. Error states shown inline below each field in red.',
+   tech:['Firebase Auth or Supabase Auth','JWT tokens','Twilio SMS OTP','bcrypt password hashing','PostgreSQL users table']},
+  {t:'User type selection at registration',s:'SME, buyer, diaspora, admin',b:'alpha',
+   info:'Role selection at sign-up determines which dashboard the user sees and which features they can access. Role is stored in the JWT and enforced on every API call server-side.',
+   ui:'Screen: Step 2 of registration (after email/phone). Four large cards in a 2x2 grid, each with an icon and label: SME Farmer (tractor icon), UK/EU Buyer (handshake icon), Diaspora Investor (globe icon), Admin (shield icon). Selected card gets a green border. "Continue" button activates after selection.',
+   tech:['RBAC (PostgreSQL roles)','JWT role claims','React conditional rendering']},
+  {t:'Voice-first onboarding',s:'English, Swahili, Luganda',b:'alpha',
+   info:'Stiv AI guides the user through all onboarding steps by voice. User speaks answers, Stiv transcribes and confirms before proceeding. Critical for low-literacy rural users. Say "Hey Stiv" to activate at any point.',
+   ui:'Screen: Clean white screen with a large animated microphone icon in the centre. Stiv avatar (small robot face) in top-left corner with a speech bubble showing the current question in text and audio. Below: a waveform animation when user is speaking. "Skip to text" button bottom-right. Language selector (EN/SW/LG) top-right.',
+   tech:['Whisper API (speech-to-text)','ElevenLabs TTS (Stiv voice)','WebRTC audio capture','Wake word detection']},
+  {t:'Text-based onboarding',s:'Standard form flow alternative',b:'alpha',
+   info:'Standard form-based registration for users who prefer typing. Stiv AI is available as a floating chat button to explain any field.',
+   ui:'Screen: Multi-step form with a progress bar at the top (Step 1 of 4, Step 2 of 4 etc.). Each step has 2-3 fields maximum to avoid overwhelm. Stiv AI chat button fixed bottom-right — tapping it opens a chat overlay explaining the current field.',
+   tech:['React Hook Form','Zod validation','Stiv AI context-aware help']},
+  {t:'SME profile creation',s:'Name, location, commodity, contacts',b:'alpha',
+   info:'Creates the supplier profile used across the entire platform for buyer matching, ESG scoring, and compliance guidance.',
+   ui:'Screen: Profile setup wizard. Step 1: Business name + photo upload. Step 2: Location (Google Maps pin drop — user taps on map to set location). Step 3: Commodity type (checkbox grid — Coffee, Tea, Fish, Dairy, Vegetables, Grains, Other). Step 4: Contact details. Progress dots at top.',
+   tech:['Google Maps API (location pin)','react-dropzone (photo upload)','S3/Cloudinary','PostgreSQL SME_profiles table']},
+  {t:'Document upload for business proof',s:'Photo or scan of registration doc',b:'alpha',
+   info:'SME uploads proof of business registration. Stiv AI OCR extracts business name, registration number, and date to auto-fill profile fields.',
+   ui:'Screen: Large dashed upload box in the centre with a camera icon and text "Tap to upload or take a photo of your business registration document". Below the box: accepted formats listed (JPG, PNG, PDF). After upload: thumbnail preview with a green tick and extracted fields shown below for user to confirm.',
+   tech:['AWS Textract OCR','Stiv AI field extraction','S3/Cloudinary','react-dropzone']},
+  {t:'Onboarding completion tracker',s:'Visual progress shown per step',b:'alpha',
+   info:'Step-by-step progress bar saved server-side so user can resume from exactly where they left off after closing the app.',
+   ui:'Component: Horizontal step bar at top of onboarding screens. Each step is a numbered circle: grey (not started), blue (current), green tick (complete). On the SME dashboard home screen a separate "Complete your profile" card shows overall % with a "Continue" button.',
+   tech:['PostgreSQL onboarding_progress table','React stepper component','Stiv AI resume reminder']},
+  {t:'Onboarding completion rate for admin',s:'Live % tracked in admin dashboard',b:'alpha',
+   info:'Admin sees real-time completion rates by user type, country, and date range. Used to track the Alpha 1 KPI of 5-10 SMEs fully onboarded.',
+   ui:'Admin screen: A metric card on the admin dashboard showing "Onboarding completion rate" as a large percentage with a sparkline trend chart below. Clicking the card opens a drill-down table showing each user and their completion step.',
+   tech:['Chart.js sparkline','PostgreSQL aggregation','WebSocket real-time update']},
+  {t:'WhatsApp-linked onboarding',s:'Low-smartphone users',b:'beta',
+   info:'Full onboarding via WhatsApp messages. Stiv AI sends structured message sequences, collects responses, and writes to the database.',
+   ui:'No in-app screen — this is a WhatsApp conversation flow. Stiv sends numbered menu options (Reply 1 for English, 2 for Swahili, 3 for Luganda). Each answer triggers the next question. At the end a confirmation message links to the platform.',
+   tech:['WhatsApp Business API','Twilio WhatsApp','Stiv AI message flow','Webhook handler']},
+  {t:'USSD onboarding',s:'Feature phones, zero data required',b:'beta',
+   info:'Registration via USSD code for users with no smartphone. Menu-driven keypad navigation. Data synced when co-op leader connects online.',
+   ui:'No in-app screen — standard USSD menu displayed on any phone. *123# opens the CrossGate menu. Numbered options navigate through each step. Max 182 characters per screen.',
+   tech:["Africa's Talking USSD API",'Python USSD session handler','PostgreSQL offline sync']},
+  {t:'Co-op leader account',s:'Manages up to 50 linked SMEs',b:'beta',
+   info:'Special account type for co-operative leaders to onboard and manage up to 50 member SMEs from a single dashboard.',
+   ui:'Screen: Co-op leader dashboard has an extra tab "My Members" showing a table of all linked SMEs with their onboarding status, compliance score, and last active date. Top-right button "Add member" opens a form to register a new SME under this co-op.',
+   tech:['Parent-child account model (PostgreSQL)','Bulk document upload','Co-op admin view']},
+  {t:'Abandonment re-engagement',s:'SMS or WhatsApp if user drops off',b:'beta',
+   info:'If onboarding is not completed within 48 hours, Stiv AI sends a personalised re-engagement message with a deep link back to the exact step the user left at.',
+   ui:'No in-app screen — triggered automatically. The message reads: "Hi [Name], you are 60% through your CrossGate setup. Tap here to continue: [link]". Sent via SMS or WhatsApp based on user preference.',
+   tech:['Cron job','Twilio SMS','WhatsApp Business API','Stiv AI message generation']},
+ ]},
+ {id:'B',name:'SME Dashboard',phase:'alpha',price:2200000,color:'#1D9E75',cls:'n-teal',col:0,features:[
+  {t:'Home screen readiness status',s:'Export readiness at a glance',b:'alpha',
+   info:'Main SME landing screen. Shows readiness score, top 3 missing items, and a Stiv AI one-line daily briefing personalised to the SME.',
+   ui:'Screen: Dashboard home. Top section: large circular progress ring showing readiness score (e.g. 62%) in green/amber/red depending on value. Below ring: "Top 3 things to do today" — three action cards each with an icon, a one-line task description, and an arrow button. Bottom: Stiv AI briefing card with avatar and a short message.',
+   tech:['React circular progress (recharts RadialBar)','Stiv AI daily briefing (GPT-4o)','PostgreSQL aggregation']},
+  {t:'Export readiness score',s:'0-100 score from documents + ESG + listings',b:'alpha',
+   info:'Calculated from: completed certifications (40%), ESG questionnaire (30%), product listing quality (20%), profile completeness (10%). Stiv explains what is pulling the score down.',
+   ui:'Component: Used across multiple screens. In the dashboard home it is the large ring. On the listing page it appears as a smaller horizontal bar with a label. Colour: red 0-40, amber 41-70, green 71-100. Tapping it opens a breakdown modal showing each category and its contribution.',
+   tech:['Scoring algorithm (Node.js)','Stiv AI score explanation modal','React progress components']},
+  {t:'Missing requirements list',s:'Plain-language explanation per gap',b:'alpha',
+   info:'Every compliance gap is listed with a Stiv AI plain-language explanation and a direct action button.',
+   ui:'Screen: "What you need" tab on the dashboard. Each item is a card with: a red warning icon, a bold title (e.g. "Food safety certificate missing"), a plain-language explanation (e.g. "To sell fish to the UK you need a HACCP certificate. Here is how to get one."), and a green "Start this" button.',
+   tech:['Stiv AI explanation generation','PostgreSQL requirements table','React action cards']},
+  {t:'Step-by-step compliance guide',s:'Prioritised to-do list by Stiv AI',b:'alpha',
+   info:'Stiv AI generates a prioritised action list based on commodity type, target market, and current documents. Each step links to the relevant form or upload.',
+   ui:'Screen: "My compliance journey" — a vertical numbered list. Each step has: a number badge, a title, a status pill (Not started / In progress / Done), and a "Go" button. Completed steps show a green tick and are greyed out. The current active step has a blue border and is expanded to show sub-tasks.',
+   tech:['Stiv AI task generation','Commodity rules DB','React vertical stepper']},
+  {t:'Document upload centre',s:'All compliance documents in one place',b:'alpha',
+   info:'Central file hub for all documents. Stiv AI classifies uploads automatically and extracts key dates via OCR.',
+   ui:'Screen: "My documents" tab. Grid of document cards, each showing: document type icon, name, upload date, status pill (Pending review / Approved / Expired). Top-right: "Upload document" button which opens a modal with a drag-and-drop zone and a document type dropdown. Expired documents have a red border.',
+   tech:['S3/Cloudinary','AWS Textract OCR','Stiv AI classification','react-dropzone']},
+  {t:'Document status tracker',s:'Pending, approved, expired per document',b:'alpha',
+   info:'Tracks document lifecycle. Expiry dates monitored with 30-day alerts. Expired documents reduce the readiness score.',
+   ui:'Component: Status pill on each document card. Colours: grey (pending), green (approved), red (expired), amber (expiring soon). Clicking a document card opens a detail panel showing: issuing body, certificate number, valid from/to dates, and the action log.',
+   tech:['PostgreSQL status fields','Cron expiry checks','Stiv AI expiry alerts','React status pills']},
+  {t:'OCR document data extraction',s:'Auto-reads uploaded certificates',b:'alpha',
+   info:'On upload, OCR extracts certificate number, issuing body, validity dates, and covered commodities to auto-fill compliance fields.',
+   ui:'After upload: a loading spinner for 2-3 seconds then a "We found the following details" panel appears with extracted fields pre-filled in green. User confirms or edits each field before saving.',
+   tech:['AWS Textract','Tesseract.js fallback','Stiv AI field mapping']},
+  {t:'Certificate checksum + validation',s:'SHA-256 tamper detection',b:'alpha',
+   info:'Each certificate is hashed at upload. If ever altered or replaced, the hash mismatch is detected and admin is alerted.',
+   ui:'No visible UI for the user — this runs in the background. Admin sees a "Certificate integrity" column in the document review panel showing a green shield (valid) or red shield (hash mismatch).',
+   tech:['SHA-256 hashing (Node.js crypto)','PostgreSQL hash storage','Stiv AI fraud alert to admin']},
+  {t:'Notification centre',s:'All alerts in one inbox',b:'alpha',
+   info:'Unified notification drawer for all alert types. Real-time via WebSocket. Also sent via email and SMS.',
+   ui:'Component: Bell icon in the top navigation bar with a red badge showing unread count. Clicking opens a right-side drawer listing notifications in reverse chronological order. Each notification has: an icon (type), a short message, a timestamp, and a "View" button. Unread notifications have a blue left border.',
+   tech:['WebSocket (Socket.io)','PostgreSQL notifications table','SendGrid','Twilio SMS']},
+  {t:'Product listing creation',s:'Name, qty, harvest date, storage, price',b:'alpha',
+   info:'SME creates a structured product listing. Stiv AI validates fields and suggests improvements.',
+   ui:'Screen: "Create listing" — a clean multi-field form. Fields: Product name (text), Commodity type (dropdown), Available quantity + unit (number + dropdown), Harvest/production date (date picker), Storage conditions (multi-select chips: Refrigerated, Dry, Frozen), Unit price + currency, Origin location (map pin). Right side panel: Stiv AI tips updating in real time as fields are filled.',
+   tech:['React form','Google Maps origin pin','Stiv AI listing quality scorer','PostgreSQL listings table']},
+  {t:'AI product description generator',s:'Stiv writes export-ready text',b:'alpha',
+   info:'After basic fields are filled, Stiv generates a professional buyer-facing description. Target: 70-80% usable with minimal edits (Alpha 1 KPI).',
+   ui:'Component: Below the listing form, a section titled "AI-generated description". Shows a text area pre-filled with Stiv\'s generated text. Below it: three buttons — "Looks good" (accepts), "Edit" (makes text editable), "Regenerate" (Stiv tries again). A quality indicator (star rating) shows admin-tracked usability.',
+   tech:['Stiv AI (GPT-4o / Claude)','Prompt engineering per commodity','Admin correction panel']},
+  {t:'Listing completion tracker',s:'Started vs finished listings',b:'alpha',
+   info:'Tracks all listings. Stiv nudges SMEs with incomplete drafts older than 72 hours. Feeds the Alpha 1 KPI of 5 complete listings.',
+   ui:'Screen: "My listings" tab. Two sections: "Complete" (published listings as green cards) and "In progress" (draft listings as amber cards with a % completion indicator and a "Continue" button). Top: summary bar showing X complete, Y in progress.',
+   tech:['PostgreSQL listing_status','Stiv AI nudge messages','Admin KPI dashboard']},
+  {t:'Saved drafts',s:'Auto-saves every 30 seconds',b:'alpha',
+   info:'All forms auto-save as drafts. Stiv AI reminds user of old drafts at login.',
+   ui:'Component: Subtle "Saved" indicator (grey text + tick) in the top-right of any form, updating every 30 seconds. On the dashboard home: a "Continue where you left off" banner appears if a draft is older than 1 hour.',
+   tech:['Debounced API calls','PostgreSQL drafts table','Stiv AI draft reminder']},
+  {t:'Multi-language toggle',s:'EN / SW / LG on all screens',b:'alpha',
+   info:'Language toggle updates all UI text, Stiv responses, and notification copy instantly.',
+   ui:'Component: Flag/language selector in the top navigation bar (three options: EN, SW, LG). Switching language triggers an instant UI reload without a full page refresh. Language preference saved to user profile.',
+   tech:['i18next / react-i18next','Translation JSON files','Stiv AI multilingual responses']},
+  {t:'Help button on every screen',s:'Opens Stiv AI overlay',b:'alpha',
+   info:'Persistent help button opens a Stiv AI overlay that knows which screen the user is on. Auto-creates a helpdesk ticket if Stiv cannot resolve.',
+   ui:'Component: Floating circular button bottom-right of every screen with a "?" icon. Tapping opens a chat overlay from the bottom (slide-up animation). Stiv greets the user and asks "What do you need help with on this screen?" The overlay has a close X at the top.',
+   tech:['Stiv AI context-aware chat','React portal overlay','Helpdesk ticket auto-creation']},
+  {t:'Commodity compliance checklist',s:'Coffee, fish, dairy, vegetables etc.',b:'beta',
+   info:'Each commodity has its own checklist of required certifications and compliance steps maintained by the compliance team.',
+   ui:'Screen: On the compliance guide, after selecting their commodity, the SME sees a checklist specific to that product. Each item is a toggle row showing: requirement name, status (met / not met), and a "How to get this" link.',
+   tech:['Commodity rules DB (PostgreSQL)','Stiv AI checklist explanations','Admin checklist editor']},
+  {t:'Certification pathway guide',s:'Exactly what you need per destination',b:'beta',
+   info:'Personalised step-by-step pathway for each export destination. Updated by compliance team as regulations change.',
+   ui:'Screen: "Export to UK" pathway page. A vertical roadmap with 4-6 stages, each as a card showing: stage name, required documents, estimated time, and cost range. Completed stages are green, current is highlighted blue, future stages are grey.',
+   tech:['Destination rules engine','Stiv AI pathway generation','Versioned rules DB']},
+  {t:'DCTS eligibility flag',s:'Auto-alert when SME qualifies for UK tariff reduction',b:'beta',
+   info:'Stiv AI checks DCTS eligibility and surfaces an alert with next steps if the SME qualifies.',
+   ui:'Component: A banner on the SME dashboard (green background): "Good news — your coffee may qualify for reduced UK tariffs under DCTS. Tap to find out how." Dismissible. Tapping opens a Stiv AI explanation screen.',
+   tech:['DCTS eligibility rules','Stiv AI eligibility check','UK Trade Tariff API']},
+  {t:'AfCFTA trade protocol info',s:'Regional trade rules per commodity',b:'beta',
+   info:'AfCFTA regional trade rules summarised by Stiv AI for each commodity and trade route.',
+   ui:'Component: "Trade agreements" section on the compliance guide. A card per applicable agreement (AfCFTA, EAC, COMESA) showing: what it covers, how it helps this SME, and a "Read more" link to a Stiv AI explanation.',
+   tech:['AfCFTA rules DB','Stiv AI protocol summaries','Admin-editable knowledge base']},
+ ]},
+ {id:'C',name:'Stiv AI Mentor',phase:'alpha',price:2000000,color:'#7F77DD',cls:'n-purple',col:0,features:[
+  {t:'Conversational AI chat — text, voice, images, docs',s:'Say "Hey Stiv" to activate',b:'alpha',
+   info:'Core AI interaction. Stiv accepts text, voice, images, and uploaded PDFs. Responds in English, Swahili, or Luganda. Say "Hey Stiv" to activate voice mode at any point in the platform.',
+   ui:'Screen: Chat interface accessible from any screen via the help button or as a dedicated "Ask Stiv" tab. Layout: Stiv avatar and name at the top. Chat bubbles — user messages right-aligned (blue), Stiv messages left-aligned (white with subtle shadow). Input bar at the bottom with: text field, microphone icon, image attach icon, document attach icon. Send button. When an image or doc is attached a thumbnail preview appears above the input bar.',
+   tech:['GPT-4o or Claude 3.5 Sonnet (multimodal)','Whisper API','ElevenLabs TTS','WebSocket real-time chat','React chat UI']},
+  {t:'Voice input — say "Hey Stiv"',s:'Speak instead of type',b:'alpha',
+   info:'Wake word detection activates voice mode. User speaks, Stiv transcribes, processes, and responds in voice and text. Primary mode for low-literacy users.',
+   ui:'When voice is active: the microphone icon in the chat bar pulses with a green ring animation. A waveform appears above the input area showing the user\'s voice amplitude. Stiv\'s response plays as audio and the text appears in a chat bubble simultaneously. A "Stop listening" tap deactivates voice mode.',
+   tech:['Whisper API (OpenAI)','WebRTC audio','ElevenLabs TTS','Wake word detection ("Hey Stiv")']},
+  {t:'Multilingual Stiv responses',s:'Automatic per user language setting',b:'alpha',
+   info:'Stiv detects language from the user profile setting and responds in that language natively (not via post-hoc translation).',
+   ui:'No separate UI — language is inherited from the platform language toggle. Stiv\'s chat bubbles simply appear in the selected language. If Stiv detects the user has typed in a different language from their setting, it gently asks: "I noticed you wrote in Swahili — would you like me to switch?"',
+   tech:['GPT-4o multilingual generation','i18next UI layer','Whisper multilingual transcription']},
+  {t:'Rules-based compliance engine v1',s:'Stiv checks SME against known rules',b:'alpha',
+   info:'Structured rules engine grounding Stiv\'s compliance advice in current documented requirements rather than pure AI reasoning.',
+   ui:'No dedicated screen — this powers Stiv\'s answers. When Stiv gives compliance advice, a small "Source" pill appears below the message showing which rule it used (e.g. "UK SPS rules 2024"). Tapping the pill shows the rule in full.',
+   tech:['PostgreSQL rules DB','Node.js rules engine','Stiv AI with function calling']},
+  {t:'GLOBALG.A.P. / HACCP / SPS guidance',s:'Step-by-step certification walkthrough',b:'alpha',
+   info:'Stiv walks the SME through certification steps, explains each requirement, and identifies gaps in partial applications.',
+   ui:'Screen: "Certification guide" — Stiv opens a structured flow for the selected certification. Each step is a full-screen card: step title at top, Stiv explanation in the middle, action items as checkboxes at the bottom, and navigation arrows. Progress bar at the top.',
+   tech:['Stiv AI with compliance knowledge base','PDF reader (multimodal)','Structured guidance templates']},
+  {t:'Clarifying questions before advice',s:'Stiv asks before assuming',b:'alpha',
+   info:'Stiv asks targeted questions before giving compliance advice to ensure guidance is specific to the SME\'s exact situation.',
+   ui:'In the chat: when the user asks a compliance question, Stiv responds with a clarifying question card — a white card with 2-4 tappable answer chips (e.g. "Which market? UK / Germany / Netherlands / Other"). User taps an answer and Stiv proceeds with tailored advice.',
+   tech:['Multi-turn conversation memory','GPT-4o function calling','Structured clarification templates']},
+  {t:'AI output quality monitoring',s:'% of responses used without corrections',b:'alpha',
+   info:'Every Stiv response is tracked. Admin marks each as used as-is, lightly edited, or corrected. Rolling quality score tracked for Alpha 1 KPI (target: 70-80%).',
+   ui:'Admin screen: "Stiv quality panel" — a feed of recent Stiv responses each with three rating buttons (thumbs up, pencil, thumbs down). A quality score percentage is shown at the top. Clicking a response expands it to show full context.',
+   tech:['PostgreSQL ai_outputs table','Quality scoring algorithm','Admin feedback UI']},
+  {t:'Missing field detection',s:'Stiv flags unfilled required information',b:'alpha',
+   info:'Stiv monitors forms and proactively flags required fields that have been skipped, explaining the compliance reason.',
+   ui:'Component: When a required field is skipped, a Stiv AI tooltip appears next to it: a small Stiv avatar icon with a speech bubble saying why the field matters (e.g. "Your harvest date is needed to check if your product is within the UK\'s freshness window").',
+   tech:['Form field observer (React)','Stiv AI contextual explanation','PostgreSQL required_fields config']},
+  {t:'Regulatory term explanations',s:'Stiv explains jargon on demand',b:'alpha',
+   info:'Any regulatory term in the platform can be tapped to get a Stiv AI plain-language explanation.',
+   ui:'Component: All regulatory terms in the platform are underlined with a dotted blue underline. Tapping opens a small popup card (not a full modal) with: term name in bold, Stiv explanation in 2-3 sentences, and a "Ask Stiv more" button.',
+   tech:['React tooltip','Stiv AI term explanation','PostgreSQL terms_cache']},
+  {t:'Admin Stiv output review panel',s:'Flag and correct AI responses',b:'alpha',
+   info:'Dedicated admin panel for quality assurance of all Stiv outputs. Corrections feed back to improve prompts.',
+   ui:'Admin screen: Table of Stiv outputs with columns: timestamp, user, question asked, Stiv response, rating. Filter bar at top: All / Good / Needs edit / Wrong. Clicking a row expands it with a text area to enter a correction and a "Submit correction" button.',
+   tech:['PostgreSQL ai_review_queue','Feedback loop to prompt layer','Admin dashboard panel']},
+  {t:'Conversation history saved per user',s:'Stiv remembers previous sessions',b:'beta',
+   info:'Full conversation history retained across sessions. Stiv greets returning users by name and references previous progress.',
+   ui:'In the chat: when a returning user opens Stiv, the first message is: "Welcome back [Name]. Last time we were working on your HACCP application — shall we continue?" Previous conversations accessible via a "History" tab at the top of the chat screen.',
+   tech:['PostgreSQL conversations table','Vector embeddings for long-term memory (pgvector)','Session context injection']},
+  {t:'Predictive advisory engine v2',s:'Stiv learns from outcomes to give risk warnings',b:'full',
+   info:'Stiv analyses historical compliance outcomes and shipment data across similar SMEs to give forward-looking risk warnings before problems occur.',
+   ui:'Component: On the SME dashboard a "Stiv risk alert" card appears when a risk pattern is detected. Yellow background with a warning icon: "SMEs with your profile who skip lab testing at this stage typically fail customs checks. Act now to avoid this." Tapping opens a full explanation and action plan.',
+   tech:['ML model on outcomes data','Pinecone vector DB','GPT-4o with RAG','Python ML pipeline']},
+ ]},
+ {id:'D',name:'ESG Scoring Engine',phase:'alpha',price:1200000,color:'#639922',cls:'n-green',col:0,features:[
+  {t:'ESG score calculation',s:'Water, energy, waste, labour — 0 to 100',b:'alpha',
+   info:'Calculates a 0-100 ESG score across four categories weighted by commodity type. Stiv explains the breakdown.',
+   ui:'Component: ESG score shown as a horizontal segmented bar with four colour-coded sections (blue=water, yellow=energy, green=waste, purple=labour). Each section shows its sub-score. Tapping a section opens a Stiv explanation of that category.',
+   tech:['Scoring algorithm (Node.js)','PostgreSQL esg_scores','Recharts segmented bar']},
+  {t:'Commodity-specific ESG rules',s:'Different criteria per product type',b:'alpha',
+   info:'Each commodity has a tailored ESG scorecard. Water usage weighted higher for rice, labour for coffee.',
+   ui:'No separate UI — rules are applied automatically. The ESG questionnaire changes based on commodity selection. Admin sees an "ESG rules editor" in the admin panel where they can adjust weights per commodity.',
+   tech:['Commodity scorecard DB (PostgreSQL)','Admin scorecard editor','Rules versioning']},
+  {t:'ESG questionnaire',s:'Guided self-reporting with Stiv AI',b:'alpha',
+   info:'Structured questionnaire across four ESG dimensions. Stiv guides the SME through each question with explanations.',
+   ui:'Screen: Full-screen questionnaire flow. One question per screen (not a long scrolling form). Top: ESG category icon and name. Middle: The question in large text. Below: Answer options as large tappable cards (e.g. "Less than 100 litres per day", "100-500 litres", "More than 500 litres"). Bottom: Stiv AI tip card explaining why this question matters. Progress: "Question 4 of 12".',
+   tech:['Dynamic form (React)','Stiv AI question guidance','Auto-save (PostgreSQL)']},
+  {t:'Evidence upload per ESG question',s:'Photos and records supporting each answer',b:'alpha',
+   info:'SME can attach supporting evidence per question. Stiv AI reviews uploaded images for consistency with the claimed answer.',
+   ui:'Component: Below each questionnaire answer a collapsible "Add evidence (optional)" section. Expanding it shows a camera/upload button. After upload: thumbnail with a Stiv AI comment: "This photo appears consistent with your answer" or "This photo does not clearly show [X] — can you add another?"',
+   tech:['S3/Cloudinary','Stiv AI image review (GPT-4o vision)','PostgreSQL evidence_uploads']},
+  {t:'Verified ESG badge',s:'Displayed on profile and listings',b:'alpha',
+   info:'Badge awarded when ESG score exceeds minimum threshold. Visible to buyers and diaspora investors.',
+   ui:'Component: A green leaf badge with a tick and "ESG Verified" text. Appears on: the SME profile card, product listing cards, and in search results. Hovering (desktop) or tapping (mobile) shows a popup with the score breakdown and verification date.',
+   tech:['Badge eligibility check (Node.js)','PostgreSQL verified_esg flag','React badge component']},
+  {t:'ESG score history',s:'Track improvement over time',b:'beta',
+   info:'Timeline of ESG score changes across submissions. Stiv generates a trend summary and improvement suggestions.',
+   ui:'Screen: "ESG history" tab on the SME profile. A line chart showing ESG score over time with submission dates as data points. Below the chart: Stiv AI written summary of the trend. Tapping a data point shows that submission\'s details.',
+   tech:['PostgreSQL esg_score_history','Recharts line chart','Stiv AI trend summary']},
+  {t:'Carbon tracking per shipment',s:'Estimated footprint per delivery',b:'beta',
+   info:'Carbon footprint estimated per shipment based on origin, destination, transport mode, and weight.',
+   ui:'Component: On each shipment record a "Carbon footprint" row showing a leaf icon and the estimated kg CO2. Tapping opens a Stiv explanation: "This shipment produced approximately X kg of CO2 — equivalent to [relatable comparison]."',
+   tech:['Carbon calculation model','Google Routes API','Stiv AI carbon explanation']},
+  {t:'ESG score visible to buyers and diaspora',s:'On verified supplier profiles',b:'beta',
+   info:'Buyers and diaspora investors see the SME\'s ESG score and category breakdown on their supplier profile.',
+   ui:'Buyer-facing supplier profile card: ESG score shown as a badge with a numeric value and a colour ring (green/amber/red). Below it: four small category icons showing sub-scores. "View full ESG report" button (leads to premium report if buyer pays).',
+   tech:['Role-scoped profile view','Stiv AI buyer summary generation']},
+  {t:'Random audit trigger',s:'Independent verification of ESG claims',b:'beta',
+   info:'Configurable percentage of ESG submissions auto-flagged for independent audit. Admin assigns auditor.',
+   ui:'Admin screen: "Audit queue" tab showing a list of SMEs flagged for audit with: name, commodity, flag date, and assigned auditor (dropdown). "Assign audit" button opens a modal to select an auditor and set a deadline.',
+   tech:['Probabilistic audit trigger (Node.js)','Admin audit panel','PostgreSQL audit_queue']},
+  {t:'ESG non-compliance alert',s:'Notifies SME when score drops below threshold',b:'beta',
+   info:'If score drops below verified threshold, Stiv sends an alert explaining what caused the drop and how to recover. Badge is removed until score recovers.',
+   ui:'SME sees a red banner on their dashboard: "Your ESG score has dropped below the verified threshold. Your Verified badge has been temporarily removed." Below: a Stiv AI card listing the specific actions needed to recover the score.',
+   tech:['Threshold check on score update','Stiv AI alert generation','Twilio SMS + in-app notification']},
+  {t:'Premium ESG PDF report',s:'Paid downloadable report for buyers',b:'full',
+   info:'Detailed PDF ESG report generated by Stiv AI including full breakdown, evidence summary, carbon footprint, audit history, and improvement trend.',
+   ui:'Buyer screen: On the supplier profile a "Download ESG Report" button with a price (e.g. £15). Clicking opens a payment modal (Stripe). After payment the report generates in 10-15 seconds and downloads automatically. A link is also emailed.',
+   tech:['Stiv AI report generation','Puppeteer PDF','Stripe payment','SendGrid email delivery']},
+  {t:'Predictive ESG risk scoring v2',s:'Forecasts future ESG risk',b:'full',
+   info:'Stiv AI analyses patterns across similar SMEs to predict which SMEs are at risk of ESG score deterioration before it happens.',
+   ui:'Buyer screen: On supplier profile a "Risk outlook" section below the ESG score showing a Stiv AI-generated risk rating (Low / Medium / High) with a one-sentence explanation.',
+   tech:['ML risk model (Python)','Historical ESG outcomes','GPT-4o with RAG']},
+ ]},
+ {id:'L',name:'Stakeholder Listing Page',phase:'alpha',price:300000,color:'#1D9E75',cls:'n-teal',col:1,features:[
+  {t:'Read-only approved listing page',s:'Shareable link for any approved listing',b:'alpha',
+   info:'Admin generates a shareable public link for any approved SME listing. The link opens a clean read-only page showing the listing details, SME profile summary, readiness score, and ESG badge. No login required. This directly addresses the Alpha 1 KPI for buyer/stakeholder visibility.',
+   ui:'Screen: Clean public-facing page. Top: CrossGate logo + "Verified Supplier" banner. Left side: SME name, location, commodity type, ESG badge, readiness score. Right side: Product listing details (name, quantity, price, harvest date, storage). Below: A short Stiv AI-generated supplier summary in professional language. Bottom: "I am interested in this product" button (green, prominent).',
+   tech:['Public route (no auth required)','Unique shareable slug (nanoid)','Admin "Share listing" button','PostgreSQL public_listing_links table']},
+  {t:'Expression of interest contact form',s:'Stakeholder submits name, email, message',b:'alpha',
+   info:'The "I am interested" button opens a lightweight contact form. No account creation needed. Submission is logged as an expression of interest and notifies the admin and SME immediately. This is the mechanism to achieve the 1-3 meaningful stakeholder interactions KPI.',
+   ui:'Modal overlay (not a new page): Title "Express your interest". Fields: Full name, Company name, Email address, Phone number (optional), Message (textarea with placeholder "Tell the supplier what you are looking for"). Submit button. After submission: a thank-you screen saying "Your interest has been shared with the supplier. They will be in touch within 48 hours."',
+   tech:['No-auth form submission','PostgreSQL expressions_of_interest table','Stiv AI notification to SME and admin','SendGrid confirmation email to stakeholder']},
+  {t:'Stakeholder view counter (admin)',s:'Admin sees how many times each listing was viewed',b:'alpha',
+   info:'Admin sees a view count for each shared listing page. Used to track the Alpha 1 KPI "number of stakeholder views". Stiv AI flags listings with high views but zero expressions of interest as possible conversion issues.',
+   ui:'Admin screen: In the listing review panel, each approved listing shows a "Views" counter and an "Expressions of interest" counter as two small metric pills. Clicking either opens a drill-down showing individual view timestamps and interest submissions.',
+   tech:['Page view tracking (lightweight — no cookies)','PostgreSQL listing_views table','Stiv AI conversion flagging','Admin listing panel metric pills']},
+  {t:'Expression of interest inbox (admin)',s:'All stakeholder messages in one place',b:'alpha',
+   info:'Admin has a dedicated inbox of all expressions of interest received across all listings. Each submission shows: stakeholder details, which listing they viewed, their message, and the date. Admin can mark as followed up or forward to the SME.',
+   ui:'Admin screen: "Expressions of interest" tab in the admin dashboard. Table view: columns — Date, Stakeholder name, Company, Listing, Message preview, Status (New / Followed up). Clicking a row expands the full message. "Mark as followed up" button. "Forward to SME" button.',
+   tech:['PostgreSQL expressions_of_interest table','Admin inbox UI (React Table)','Stiv AI priority flagging','Email forward to SME']},
+ ]},
+ {id:'H',name:'Admin & Ops Dashboard',phase:'alpha',price:1700000,color:'#D85A30',cls:'n-coral',col:3,features:[
+  {t:'Admin login with role-based access',s:'Senior, country liaison, helpdesk',b:'alpha',
+   info:'Three admin role levels each seeing a tailored view. Stiv AI provides a daily digest at login.',
+   ui:'Screen: Admin login page (separate URL from main app). After login: a role-specific dashboard loads. Senior Admin sees all data. Country Liaison sees only their country. Helpdesk sees only the ticket queue. Top navigation bar shows the admin\'s role as a pill badge.',
+   tech:['RBAC (PostgreSQL roles)','JWT role claims','React conditional rendering per role','Stiv AI daily digest']},
+  {t:'Live KPI dashboard',s:'All Alpha 1 KPIs tracked in real time',b:'alpha',
+   info:'Primary Alpha 1 tracking screen. Shows live counts for every KPI from the KPI document.',
+   ui:'Screen: KPI dashboard. Grid of metric cards, each card: KPI name (small grey label), current value (large bold number), target value (small grey text below), a mini progress bar showing % of target reached. Colour: red if below 50% of target, amber 50-80%, green 80%+. Top-right: last updated timestamp.',
+   tech:['WebSocket real-time updates','Recharts progress bars','PostgreSQL KPI aggregations','Stiv AI anomaly flagging']},
+  {t:'Listing review queue',s:'Approve, revise, or reject SME listings',b:'alpha',
+   info:'All SME listings enter a review queue. Admin approves, requests revision, or rejects with Stiv AI-generated feedback.',
+   ui:'Screen: "Review queue" tab. Card list of pending listings. Each card: product name, SME name, submission date, commodity type. Three action buttons: green tick (Approve), pencil (Request revision), red X (Reject). Clicking the card expands it to show the full listing including AI description. Revision and rejection open a modal where admin types their reason — Stiv AI suggests the wording.',
+   tech:['PostgreSQL listing_status workflow','Stiv AI revision feedback','Email + in-app notification to SME']},
+  {t:'Review time tracking',s:'Admin efficiency against KPI targets',b:'alpha',
+   info:'Tracks time from listing submission to admin decision. Average and 90th percentile shown on KPI dashboard.',
+   ui:'Component: On the KPI dashboard a "Review efficiency" card showing: average review time (e.g. "4.2 hours"), target (e.g. "< 24 hours"), and a green/amber/red status pill.',
+   tech:['PostgreSQL review_timestamps','Stiv AI queue alert','KPI dashboard metric']},
+  {t:'SME compliance status overview',s:'All SMEs across all certification stages',b:'alpha',
+   info:'Table of all registered SMEs showing compliance stage, documents, ESG score, and readiness percentage.',
+   ui:'Screen: "SME overview" tab. Filterable table: columns — SME name, country, commodity, documents status (colour pill), ESG score (number), readiness % (mini bar), last active. Click any row to go to that SME\'s full profile.',
+   tech:['React data table (TanStack Table)','PostgreSQL SME_status view','Stiv AI SME summary','Export to CSV']},
+  {t:'Stiv AI output review panel',s:'Flag and correct AI responses',b:'alpha',
+   info:'Feed of all Stiv outputs with rating and correction capability. Core Alpha 1 quality assurance tool.',
+   ui:'Screen: "Stiv review" tab. Feed of Stiv output cards each showing: user who triggered it, Stiv question and response, timestamp, current rating. Three rating buttons per card. Clicking a card opens a full correction editor.',
+   tech:['PostgreSQL ai_outputs table','Admin feedback UI','Correction logging']},
+  {t:'User friction report',s:'Top 3 drop-off points identified',b:'alpha',
+   info:'Automated report showing where users abandon the flow, hardest fields, and longest steps. Stiv AI writes a plain-language interpretation.',
+   ui:'Screen: "Friction report" tab. Top section: three large numbered cards showing the top 3 friction points (e.g. "1. Document upload — 43% of users abandon here"). Below: a funnel chart showing completion rates per onboarding step. Bottom: Stiv AI written summary with recommended fixes.',
+   tech:['Frontend event tracking (PostHog)','PostgreSQL user_events','Stiv AI narrative','Recharts funnel']},
+  {t:'All Alpha 1 KPIs live view',s:'Every KPI from the KPI document',b:'alpha',
+   info:'Dedicated panel tracking every KPI from the CrossGate Alpha 1 KPI document with live data.',
+   ui:'Screen: "Alpha KPIs" tab. Two sections: Core KPIs (SME onboarding, voice usability, listing completion, AI quality, readiness visibility) and System KPIs (admin workflow, stakeholder visibility, dashboard performance, friction points, demo readiness). Each KPI shows: target, current value, status colour.',
+   tech:['PostgreSQL KPI_snapshots','Real-time aggregation','Recharts','Stiv AI KPI narrative']},
+  {t:'Demo mode',s:'Stable resettable stakeholder demo',b:'alpha',
+   info:'Separate demo environment pre-loaded with sample data. One-click reset before any presentation.',
+   ui:'Admin screen: "Demo mode" toggle in the admin settings. When activated: a yellow "DEMO MODE" banner appears at the top of every screen. The reset button appears in the admin nav bar. A "Start demo tour" button triggers Stiv AI to narrate a guided walkthrough of the platform.',
+   tech:['Seeded demo DB (separate schema)','One-click reset script','Stiv AI demo narrator']},
+  {t:'Random audit assignment',s:'Admin triggers and assigns ESG audits',b:'beta',
+   info:'Admin manually triggers or auto-triggers ESG audits and assigns them to external auditors.',
+   ui:'Admin screen: "Audit queue" tab. List of flagged SMEs. Each row: SME name, flag reason, flag date. "Assign auditor" button opens a modal: auditor name input, deadline date picker, notes field.',
+   tech:['PostgreSQL audit_assignments','SendGrid auditor email','Stiv AI audit checklist']},
+  {t:'Helpdesk ticket system',s:'Support requests routed to correct team',b:'beta',
+   info:'Tickets categorised by Stiv AI and routed to correct team member. Stiv attempts auto-resolution first.',
+   ui:'Admin screen: "Helpdesk" tab. Kanban-style board with columns: New, Stiv handling, Needs human, Resolved. Each ticket card shows: user, category pill (Compliance/Technical/Payment), priority dot, and a short message preview.',
+   tech:['Stiv AI ticket classification','PostgreSQL tickets table','Real-time assignment','Stiv AI auto-resolution']},
+  {t:'Helpdesk response time tracking',s:'1:200 helpdesk to SME ratio monitored',b:'beta',
+   info:'Tracks time to first response and resolution. Stiv flags when SLA thresholds are breached.',
+   ui:'Admin screen: On the KPI dashboard a "Helpdesk SLA" card showing: average first response time, target, and number of tickets breaching the SLA (shown in red).',
+   tech:['PostgreSQL ticket_timestamps','Stiv AI SLA monitoring','KPI dashboard integration']},
+ ]},
+ {id:'I',name:'Compliance & Cert APIs',phase:'alpha',price:900000,color:'#BA7517',cls:'n-amber',col:3,features:[
+  {t:'SPS standards reference in Stiv',s:'Food safety rules database',b:'alpha',
+   info:'SPS standards for Uganda and Kenya\'s main export commodities loaded into Stiv\'s knowledge base.',
+   ui:'No dedicated screen. Powers Stiv answers. When Stiv gives SPS advice, a "Source: UK SPS Rules 2024" pill appears below the message. Tapping it shows the full rule text in a bottom sheet.',
+   tech:['Structured SPS knowledge base (PostgreSQL)','Stiv AI function calling','Admin-editable rules interface']},
+  {t:'GDPR consent management',s:'Consent capture and audit log',b:'alpha',
+   info:'All data processing logged. Users consent at registration. Every access or deletion request is logged.',
+   ui:'Screen: At registration, after completing all fields, a full-screen consent step appears before account creation. Lists what data is collected and why. Two checkboxes: required (data processing) and optional (marketing). Large "I agree and create my account" button.',
+   tech:['PostgreSQL consent_log','Consent capture modal','Data deletion workflow','GDPR audit report']},
+  {t:'Data encryption at rest and in transit',s:'AES-256 + TLS 1.3 across all modules',b:'alpha',
+   info:'All stored data encrypted with AES-256. All network traffic uses TLS 1.3. S3 uploads encrypted server-side.',
+   ui:'No user-facing UI. Admin settings page shows a "Security status" panel with green ticks for: TLS active, DB encryption active, S3 encryption active, KMS configured.',
+   tech:['TLS 1.3','AES-256','AWS KMS','S3 SSE','PostgreSQL pgcrypto']},
+  {t:'Role-based data access control',s:'Users only see their own data',b:'alpha',
+   info:'Every data query filtered by user role. PostgreSQL row-level security enforced server-side on every API call.',
+   ui:'No user-facing UI — invisible to users. If a user somehow accesses a URL they should not have access to, they see a clean "You do not have permission to view this page" screen with a "Go back" button.',
+   tech:['PostgreSQL row-level security (RLS)','JWT role claims','API middleware authorization']},
+  {t:'GLOBALG.A.P. API certificate verification',s:'Auto-checks submitted certificates',b:'beta',
+   info:'When a GLOBALG.A.P. certificate is uploaded, the platform auto-queries the GLOBALG.A.P. database to verify it.',
+   ui:'After a GLOBALG.A.P. certificate is uploaded: a loading state for 3-5 seconds then either a green "Certificate verified — valid until [date]" banner or a red "Certificate not found in the GLOBALG.A.P. database — please check and re-upload" banner.',
+   tech:['GLOBALG.A.P. Certificate Database API','Node.js API integration','Stiv AI result summary']},
+  {t:'HACCP compliance checklist API',s:'Structured food safety checklist',b:'beta',
+   info:'Integrates HACCP checklist data to provide commodity-specific HACCP requirements to Stiv.',
+   ui:'Screen: "HACCP preparation" page within the compliance guide. A structured checklist of HACCP requirements for the SME\'s commodity. Each item: checkbox, requirement text, and a "What does this mean?" link that opens a Stiv explanation.',
+   tech:['HACCP checklist data feed','Stiv AI HACCP guidance tool','Commodity-mapped checklist DB']},
+  {t:'ISO certification verification',s:'Certificate validity check',b:'beta',
+   info:'Verifies ISO certificate numbers against issuing body databases where APIs are available.',
+   ui:'Same UI pattern as GLOBALG.A.P. — verification banner after upload.',
+   tech:['ISO API integration (where available)','OCR fallback','Admin manual review queue']},
+  {t:'URA API — tax registration check',s:'Uganda Revenue Authority verification',b:'beta',
+   info:'Verifies SME is registered with URA and in good tax standing before full verification is granted.',
+   ui:'On the SME profile setup: a "Verify with URA" step. User enters their TIN number. A check runs in the background showing a spinner then either: "URA registration confirmed" (green) or "TIN not found — please check your number" (red).',
+   tech:['URA API integration (TIN lookup)','PostgreSQL ura_verification table','Stiv AI status explanation']},
+  {t:'EORI number verification',s:'UK export registration check',b:'beta',
+   info:'Verifies EORI number required for UK export. Stiv guides SME through obtaining one if they do not have it.',
+   ui:'On the compliance checklist for UK export: "EORI number" row. If not yet provided, a "Do you have an EORI number?" toggle. If no: Stiv AI opens a step-by-step guide to obtaining one. If yes: text field to enter it with live verification.',
+   tech:['UK HMRC EORI validation API','Stiv AI EORI guidance','PostgreSQL eori_verifications']},
+  {t:'AfCFTA standards database',s:'Regional trade rules per commodity',b:'beta',
+   info:'Structured database of AfCFTA trade rules and harmonised standards. Stiv queries it for relevant pathways.',
+   ui:'Component: On the compliance guide, an "AfCFTA pathways" card showing applicable agreements. Tapping opens a Stiv AI explanation of how AfCFTA applies to this SME\'s specific trade route.',
+   tech:['AfCFTA rules DB (PostgreSQL)','Stiv AI function calling','Admin-editable knowledge base']},
+  {t:'EU AI Act compliance module',s:'Stiv outputs logged and auditable',b:'full',
+   info:'Ensures platform meets EU AI Act obligations. All Stiv outputs logged with context, model version, and timestamp. Explainability reports available for any AI-driven decision.',
+   ui:'Admin screen: "AI compliance" section in settings. Shows: total AI decisions logged, number reviewed, any flagged outputs. "Generate explainability report" button for any SME or decision. A human review gate toggle for high-stakes decisions.',
+   tech:['PostgreSQL ai_audit_log','Model version tracking','LIME/SHAP explainability','Human-in-the-loop gates']},
+ ]},
+ {id:'J',name:'Notifications & Support',phase:'alpha',price:700000,color:'#1D9E75',cls:'n-teal',col:3,features:[
+  {t:'In-app notification system',s:'Real-time alerts for all user types',b:'alpha',
+   info:'Unified notification centre for all users. Real-time via WebSocket.',
+   ui:'Component: Bell icon in the top nav bar with a red badge (unread count). Clicking opens a right-side drawer. Notifications are grouped by type: Compliance (blue), Listings (green), Payments (amber), System (grey). Each has a short message, timestamp, and "View" button. Unread have a blue left border.',
+   tech:['WebSocket (Socket.io)','PostgreSQL notifications table','React notification drawer']},
+  {t:'Email notification system',s:'Formal communications via email',b:'alpha',
+   info:'Transactional emails for account events and compliance updates. Stiv personalises key email bodies.',
+   ui:'Emails use a clean template: CrossGate logo top-left, content in the centre, unsubscribe link footer. Stiv AI-written emails show a small "Written by Stiv AI" label at the bottom.',
+   tech:['SendGrid or AWS SES','React Email','Stiv AI personalised copy','PostgreSQL email_log']},
+  {t:'Women and youth participation tracking',s:'Gender and age at registration for FCDO KPI',b:'alpha',
+   info:'Optional demographic data captured at registration. Feeds the FCDO women and youth participation KPI.',
+   ui:'Screen: Optional "About you" step at the end of registration. Simple two-question screen: "What is your gender?" (Woman / Man / Prefer not to say) and "What is your age range?" (Under 25 / 25-35 / 36-50 / Over 50). Framed as "This helps us measure our impact on underrepresented groups."',
+   tech:['Optional demographic fields','PostgreSQL demographics table','KPI dashboard metric','Stiv AI outreach suggestion']},
+  {t:'SMS notification fallback',s:'Critical alerts when no internet',b:'beta',
+   info:'Critical alerts sent via SMS when in-app notification has not been opened within 24 hours.',
+   ui:'No extra in-app UI. User receives an SMS. The SMS message links back to the relevant section of the platform.',
+   tech:["Twilio SMS","Africa's Talking SMS (Uganda fallback)",'Delivery status tracking','Read receipt check before SMS fallback']},
+  {t:'WhatsApp notification integration',s:'Compliance updates and shipment alerts',b:'beta',
+   info:'Key notifications sent via WhatsApp. Users can reply to Stiv directly via WhatsApp.',
+   ui:'WhatsApp message format: CrossGate logo as sender icon. Message: "[CrossGate] Your HACCP certificate expires in 14 days. Tap here to take action: [link]". Two-way: user can reply "Help" and Stiv responds within the WhatsApp thread.',
+   tech:['WhatsApp Business API','Twilio WhatsApp','Two-way Stiv AI via WhatsApp webhook']},
+  {t:'Multilingual helpdesk',s:'Support in EN, SW, LG',b:'beta',
+   info:'Human helpdesk staff respond in all three languages. Stiv AI suggests response drafts.',
+   ui:'Helpdesk staff screen: Ticket view shows the user\'s message. To the right of the reply box: "Stiv AI suggested reply" card showing a pre-written response in the user\'s language. Staff can accept, edit, or ignore it.',
+   tech:['Stiv AI response draft suggestion','Language detection (langdetect)','PostgreSQL tickets with language field']},
+  {t:'Automated reminder system',s:'Expiry and audit date reminders',b:'beta',
+   info:'Reminders sent 30, 14, and 3 days before certificate expiry, compliance deadlines, and audit dates. Stiv AI writes the copy.',
+   ui:'Notification: In-app banner on the dashboard showing "Your GLOBALG.A.P. certificate expires in 14 days. Renew now to keep your Verified status." with a "Renew" button. Same message pushed via SMS and WhatsApp.',
+   tech:['Cron job (node-cron)','Stiv AI reminder copy','Multi-channel delivery']},
+  {t:'Platform-wide announcement tool',s:'Admin broadcasts to all or selected user groups',b:'beta',
+   info:'Admin broadcasts to all users or filtered groups. Stiv AI drafts and translates the announcement.',
+   ui:'Admin screen: "Announcements" section. "New announcement" button opens a form: title, message body, target group (dropdown: All / SMEs only / Buyers only / Diaspora only / By country), delivery channels (checkboxes: In-app / Email / WhatsApp / SMS). "Preview" button shows how it will look. "Send" button dispatches.',
+   tech:['Admin broadcast UI','User group filtering (PostgreSQL)','Stiv AI drafting + translation','React banner component','SendGrid bulk email']},
+ ]},
+ {id:'M',name:'Mobile App — iOS & Android',phase:'beta',price:5000000,color:'#378ADD',cls:'n-blue',col:1,features:[
+  {t:'Native iOS app (App Store)',s:'Full platform access on iPhone',b:'beta',
+   info:'Native iOS application covering all Alpha and Beta features. Built with React Native for code sharing with Android. Submitted to Apple App Store. Supports iOS 14 and above. Includes push notifications via APNs.',
+   ui:'Mobile app follows the same design system as the web platform. Bottom tab navigation: Home, Listings, Stiv AI, ESG, Profile. The mobile layout is single-column with larger touch targets. The "Hey Stiv" voice activation works via the device microphone. Push notifications use native iOS notification banners.',
+   tech:['React Native (Expo)','Apple App Store submission','APNs push notifications','iOS 14+','Expo EAS Build']},
+  {t:'Native Android app (Google Play)',s:'Full platform access on Android',b:'beta',
+   info:'Native Android application. Built with React Native sharing the same codebase as iOS. Submitted to Google Play Store. Supports Android 8.0 and above. Includes push notifications via FCM.',
+   ui:'Same design as iOS app with minor Android-specific adaptations (material design conventions for navigation, back button support). Optimised for lower-spec Android devices common in East Africa (minimum 2GB RAM target).',
+   tech:['React Native (Expo)','Google Play Store submission','FCM push notifications','Android 8.0+','Expo EAS Build']},
+  {t:'Offline mode for low-connectivity areas',s:'Core features work without internet',b:'beta',
+   info:'SMEs in rural areas can complete the ESG questionnaire, add product listing drafts, and view their compliance status offline. Data syncs automatically when connectivity is restored.',
+   ui:'When offline: a grey "Offline mode" banner appears at the top of the screen. Features available offline are shown normally. Features requiring internet (Stiv AI chat, document upload, certificate verification) show a greyed-out state with a "Requires internet" label.',
+   tech:['AsyncStorage (React Native)','Background sync (react-native-background-fetch)','Conflict resolution on sync']},
+  {t:'Camera integration for document upload',s:'Take a photo of documents in-app',b:'beta',
+   info:'SMEs can use their phone camera directly within the app to photograph and upload compliance documents. Stiv AI OCR runs on the captured image immediately.',
+   ui:'On the document upload screen: two options shown as large cards — "Take a photo" (camera icon) and "Upload from gallery" (image icon). Tapping "Take a photo" opens the native camera. After capture: a preview screen with "Use this photo" and "Retake" buttons.',
+   tech:['expo-camera','expo-image-picker','AWS Textract OCR on captured image','react-native-image-crop-picker']},
+  {t:'Voice-first optimised for mobile',s:'Hey Stiv on mobile with native audio',b:'beta',
+   info:'Voice input to Stiv AI optimised for mobile device microphones. Background noise suppression applied.',
+   ui:'Mobile-specific: the microphone button in the Stiv chat is larger and more prominent than on web. A large pulsing circle animation shows when listening is active. Tapping anywhere outside the circle stops listening.',
+   tech:['expo-av (audio recording)','Whisper API','Background noise suppression','ElevenLabs TTS on mobile']},
+ ]},
+ {id:'E',name:'Buyer Portal',phase:'beta',price:3200000,color:'#378ADD',cls:'n-blue',col:1,features:[
+  {t:'Buyer account and login',s:'Separate dashboard from SME',b:'beta',
+   info:'UK and EU buyers have a completely separate dashboard. Stiv AI presents a personalised summary of new verified suppliers at login.',
+   ui:'Screen: Buyer dashboard home. Top: "Welcome back [Company name]" with a Stiv AI briefing card showing new suppliers matching their criteria. Main area: three sections — New verified suppliers (horizontal scroll of supplier cards), Active enquiries (list), Upcoming shipments (list).',
+   tech:['Separate buyer dashboard (React)','Role-based routing','Stiv AI buyer briefing']},
+  {t:'Buyer company verification',s:'Companies House or EU VAT check',b:'beta',
+   info:'UK companies verified via Companies House API. EU companies via VIES VAT validation. Stiv guides buyers through the steps.',
+   ui:'Screen: "Verify your company" step after buyer registration. Field: "Enter your Companies House number (UK) or VAT number (EU)". A live lookup runs as they type showing a loading spinner then "Company found: [Company name, registered address]" for the buyer to confirm.',
+   tech:['UK Companies House API','EU VIES VAT validation API','Stiv AI verification guidance','PostgreSQL buyer_verification']},
+  {t:'Supplier discovery search',s:'Filter by commodity, cert, ESG, price',b:'beta',
+   info:'Powerful search with filters and Stiv AI natural language query conversion.',
+   ui:'Screen: "Find suppliers" page. Top: search bar with placeholder "e.g. certified coffee suppliers in Uganda under £5/kg". Below: filter chips — Commodity (dropdown), Country (dropdown), Certification (multi-select), ESG score minimum (slider), Max price (text). Results appear as a card grid below. Each card: SME photo, name, commodity, ESG badge, readiness score, and price range.',
+   tech:['PostgreSQL full-text search + indexed filters','Stiv AI natural language to query','React filter UI','Elasticsearch (scale option)']},
+  {t:'Verified supplier profile view',s:'Full profile with certs, ESG, listings',b:'beta',
+   info:'Full supplier profile visible to verified buyers. Stiv AI generates a procurement-ready supplier summary.',
+   ui:'Screen: Supplier profile page. Left column: SME photo, name, location, certifications as badge icons, ESG score ring, Verified badges. Right column: Active product listings as cards. Below: Stiv AI-generated supplier summary in professional procurement language. Bottom: "Express interest" and "Compare with another supplier" buttons.',
+   tech:['React supplier profile','Stiv AI narrative generation','Role-scoped data access']},
+  {t:'Supplier comparison tool',s:'Up to 3 suppliers side by side',b:'beta',
+   info:'Side-by-side comparison of up to 3 suppliers with a Stiv AI written comparison summary.',
+   ui:'Screen: "Compare suppliers" page. A 3-column table. Rows: commodity, certifications, ESG score, readiness score, price range, available quantity, location, DCTS eligible. Below the table: Stiv AI written summary highlighting key differences and a recommendation.',
+   tech:['React comparison table','Stiv AI comparison narrative','localStorage comparison basket']},
+  {t:'Expression of interest button',s:'Buyer signals intent to SME',b:'beta',
+   info:'Buyer clicks Express Interest on a listing. SME and admin are notified. Stiv AI suggests how the SME should respond.',
+   ui:'Component: Large green "Express interest" button on supplier profile and listing pages. Clicking opens a modal: pre-filled with buyer company name, a message text area, and a "Send interest" button. After sending: "Your interest has been sent. The supplier will be notified." confirmation.',
+   tech:['PostgreSQL buyer_expressions table','WebSocket notification to SME','Stiv AI SME response suggestion','KPI counter update']},
+  {t:'Verified buyer badge shown to SMEs',s:'After company identity checks pass',b:'beta',
+   info:'Verified Buyer badge shown on any message or expression of interest received by the SME.',
+   ui:'Component: A blue shield badge with "Verified UK Buyer" text. Appears next to the buyer name in the SME\'s notification and inbox views. Tapping the badge shows: company name, registration number, verification date.',
+   tech:['PostgreSQL buyer_verified flag','React badge component','Stiv AI trust explanation']},
+  {t:'Buyer enquiry inbox',s:'Manage all supplier conversations',b:'beta',
+   info:'Dedicated inbox for managing conversations with multiple suppliers simultaneously. Stiv AI can draft responses.',
+   ui:'Screen: "My enquiries" tab. Left panel: list of conversations sorted by last message date. Each row: supplier name, commodity, last message preview, unread badge. Right panel: the conversation thread (chat-style bubbles). Below the thread: reply box with a "Stiv AI draft response" button.',
+   tech:['PostgreSQL messages table','React inbox UI','Stiv AI response drafting','Message read receipts']},
+  {t:'Contract creation tool',s:'Structured trade agreement',b:'beta',
+   info:'Generates a trade contract from a template with both parties\' verified details. Digital signature by both parties.',
+   ui:'Screen: "Create contract" — a 4-step wizard. Step 1: Confirm buyer and SME details (auto-filled from verified profiles). Step 2: Product specifications (from listing, editable). Step 3: Commercial terms (price, quantity, delivery date, payment terms). Step 4: Review and e-sign. Both parties sign digitally. Final PDF emailed to both.',
+   tech:['Contract template engine','Stiv AI clause explanation','DocuSign or HelloSign e-signature','PDF generation (Puppeteer)']},
+  {t:'Read-only SME listing access',s:'Browse before committing to interest',b:'beta',
+   info:'Verified buyers can browse all approved listings in read-only mode before any expression of interest.',
+   ui:'Screen: Browse mode where listings are visible without any contact option until the buyer clicks "I want to engage with this supplier" which then enables the expression of interest button.',
+   tech:['Role-scoped read access (PostgreSQL RLS)','React browse mode','No SME notification until expression of interest']},
+  {t:'Buyer compliance update alert',s:'Notified when engaged SME updates status',b:'beta',
+   info:'Automatic alert to buyer when an SME they have engaged with updates certifications or ESG score. Stiv AI summarises the change.',
+   ui:'Notification in buyer inbox: "Update from [SME name] — they have added a new GLOBALG.A.P. certificate. View their updated profile." with a "View" button.',
+   tech:['PostgreSQL subscription model (buyer watches SME)','Stiv AI change summary','Email + in-app notification']},
+  {t:'UKEF credit insurance pathway',s:'Trade credit info for eligible buyers',b:'full',
+   info:'Stiv AI presents UKEF trade credit insurance pathway information to eligible buyers.',
+   ui:'Component: On the supplier profile for verified buyers, a "Reduce your risk" section with a UKEF logo and a Stiv AI explanation: "You may be eligible for UK Export Finance trade credit insurance on this contract. Here is how." with a step-by-step guide.',
+   tech:['UKEF public info integration','Stiv AI eligibility check','Static UKEF pathway guide']},
+ ]},
+ {id:'F',name:'Diaspora Wallet & Mentor',phase:'beta',price:3800000,color:'#7F77DD',cls:'n-purple',col:2,features:[
+  {t:'Diaspora account and verification',s:'KYC identity + source of funds',b:'beta',
+   info:'Diaspora investors register with KYC verification: government ID, proof of address, source of funds declaration.',
+   ui:'Screen: Diaspora registration adds 3 extra steps after standard registration. Step: "Verify your identity" — upload government ID (passport, driving licence). Step: "Proof of address" — upload utility bill or bank statement. Step: "Source of funds" — dropdown (Employment income, Business income, Savings, Other) plus a brief text field.',
+   tech:['KYC document upload','Stiv AI KYC guidance','Admin verification panel','PostgreSQL diaspora_verifications']},
+  {t:'Portfolio dashboard',s:'Investments, returns, and active positions',b:'beta',
+   info:'Main diaspora screen. Shows total invested, active investments, and projected 12% annual returns.',
+   ui:'Screen: Portfolio home. Top: three metric cards — Total invested (e.g. UGX 12,500,000), Projected annual return (12%), Active investments (3). Below: a donut chart showing portfolio split by commodity. Below the chart: list of active investments each with: SME name, commodity, amount invested, current status, and a "Track shipment" link.',
+   tech:['Recharts donut chart','PostgreSQL investments table','Stiv AI monthly portfolio narrative','Returns calculation engine']},
+  {t:'SME discovery screen',s:'Browse verified SMEs for co-investment',b:'beta',
+   info:'Diaspora investors browse SMEs available for investment with ESG scores and readiness ratings.',
+   ui:'Screen: "Invest" tab. Filter bar at top: Commodity (chips), Country (chips), Min ESG score (slider), Min readiness % (slider). Below: card grid of investable SMEs. Each card: SME photo, name, commodity, location, ESG badge, readiness %, funding target (progress bar showing how much has been raised), and "Invest" button.',
+   tech:['React SME discovery feed','Stiv AI investment summary generation','Filter API','PostgreSQL investment_opportunities view']},
+  {t:'Investment commitment flow',s:'Select SME, amount, confirm',b:'beta',
+   info:'Guided 3-step investment flow with Stiv AI explaining terms in plain language.',
+   ui:'Screen: Investment wizard. Step 1: Confirm SME details and review Stiv AI investment summary. Step 2: Enter investment amount (with minimum shown, e.g. UGX 500,000 minimum). Stiv shows projected return based on amount entered. Step 3: Review terms (Stiv explains each term in plain language) and confirm. Payment method selection: mobile money or bank transfer.',
+   tech:['React 3-step wizard','Stiv AI terms explanation','MTN/Airtel mobile money','Stripe for cards','PostgreSQL investment_commitments']},
+  {t:'Remittance-to-trade converter',s:'Redirect remittances into investments',b:'beta',
+   info:'Diaspora users redirect standard remittances into SME investments instead. Stiv AI models the return difference.',
+   ui:'Screen: "Convert a remittance" page. Two-column comparison: Left: "Standard remittance — send UGX 500,000 to family". Right: "Trade investment — same UGX 500,000 invested in [SME name], projected return in 12 months: UGX 560,000". Large "Invest instead" button.',
+   tech:['Remittance provider API (Wise, WorldRemit)','Stiv AI comparison tool','PostgreSQL remittance_conversions']},
+  {t:'2-3% transaction fee structure',s:'Transparent fee on all wallet transactions',b:'beta',
+   info:'Platform fee disclosed before confirmation. Stiv explains what it funds.',
+   ui:'In the investment confirmation step: a fee breakdown card — "Investment amount: UGX 500,000 | Platform fee (2.5%): UGX 12,500 | Total: UGX 512,500". Stiv AI tooltip: "This fee funds platform operations and SME compliance support."',
+   tech:['Fee calculation middleware (Node.js)','Stripe fee handling','Fee disclosure UI']},
+  {t:'Investment tracking per position',s:'Shipment status for each investment',b:'beta',
+   info:'For each active investment, diaspora user sees real-time shipment status of the associated SME shipment.',
+   ui:'Screen: Investment detail page. Top: investment summary (SME, amount, date). Below: live shipment tracker showing the current status as a horizontal progress bar with stages: Preparing, In transit, Customs cleared, Delivered. Each stage has a timestamp when reached.',
+   tech:['PostgreSQL investment_shipment join','Real-time updates (WebSocket)','Stiv AI milestone messages']},
+  {t:'Diaspora mentor profile',s:'List expertise and availability',b:'beta',
+   info:'Experienced diaspora users create a mentor profile. Stiv AI suggests relevant SMEs to each mentor.',
+   ui:'Screen: "Become a mentor" page. Form fields: expertise area (multi-select chips), languages spoken, years of experience, brief bio (text area), availability (weekly hours dropdown). Submit button. After admin approval: profile appears in mentor directory.',
+   tech:['PostgreSQL mentor_profiles','Admin mentor verification','Stiv AI mentor-SME matching suggestion']},
+  {t:'Mentor matching system',s:'Paired by commodity and destination',b:'beta',
+   info:'Algorithm matches mentors with SMEs based on commodity alignment and export destination expertise.',
+   ui:'Screen: "My mentor" tab on SME dashboard. If not yet matched: "We are finding you a mentor" loading state with estimated time. When matched: mentor profile card showing photo, name, expertise, and a "Start conversation" button.',
+   tech:['Matching algorithm (weighted score, PostgreSQL)','Stiv AI introduction message','Match acceptance flow']},
+  {t:'Mentorship session log',s:'Meetings, advice, and follow-up tasks',b:'beta',
+   info:'Mentor logs each session. Stiv AI generates a summary from voice or text notes. Follow-up tasks appear on SME dashboard.',
+   ui:'Screen (mentor view): "Log a session" form. Fields: date, topics covered (chips), free text notes, follow-up tasks (add multiple with deadlines). "Use Stiv to summarise" button — mentor can voice-record their notes and Stiv transcribes and structures them automatically.',
+   tech:['Session log form (React)','Stiv AI session summary (audio or text)','PostgreSQL mentorship_sessions','Task creation in SME dashboard']},
+  {t:'Mentor verification process',s:'Identity and credential checks before listing',b:'beta',
+   info:'All mentor candidates submit ID, professional profile, and expertise description. Admin reviews within 72 hours.',
+   ui:'Admin screen: "Mentor applications" tab. Each application card shows: name, submitted documents (with preview), expertise claimed, and an "Approve" / "Reject" button. Stiv AI generates a one-paragraph credential summary for each candidate to speed up admin review.',
+   tech:['Document upload (S3)','Admin mentor review panel','Stiv AI credential summary','PostgreSQL mentor_verification_status']},
+  {t:'AI investment suggestion',s:'Stiv recommends diversification options',b:'full',
+   info:'Stiv AI analyses portfolio and recommends diversification based on concentration, ESG distribution, geography, and return profile.',
+   ui:'Component: On the portfolio dashboard a "Stiv suggests" section showing 2-3 investment cards each with: SME name, commodity, a Stiv AI rationale sentence ("This balances your coffee concentration with a fish supplier"), and an "Invest now" button.',
+   tech:['Stiv AI portfolio analysis (GPT-4o)','Recommendation engine (Node.js)','React suggestion cards']},
+  {t:'Diaspora investor council',s:'Group consultation feature for top investors',b:'full',
+   info:'Top investors by portfolio size invited to join the investor council. Quarterly updates and early listing access.',
+   ui:'Screen: "Investor council" tab (visible only to council members). Shows: council membership badge, private announcements feed, early access to new SME listings 48 hours before public release, and a council members directory.',
+   tech:['Council member flag (PostgreSQL)','Private in-app channel','Stiv AI communication moderation','Quarterly report generation']},
+ ]},
+ {id:'G',name:'Shipment Tracker',phase:'beta',price:3300000,color:'#D85A30',cls:'n-coral',col:3,features:[
+  {t:'Shipment creation',s:'SME logs new shipment with full details',b:'beta',
+   info:'SME creates a shipment record linked to a product listing. Stiv validates the customs checklist before departure.',
+   ui:'Screen: "Create shipment" — form linked from a product listing. Fields: quantity to ship, destination country, estimated departure date, logistics provider (dropdown), tracking reference (optional). After saving: Stiv AI shows a "Pre-departure checklist" of required customs documents.',
+   tech:['React shipment creation form','PostgreSQL shipments table','Stiv AI pre-departure check']},
+  {t:'GPS tracking integration',s:'Real-time location in transit',b:'beta',
+   info:'Pulls real-time GPS from logistics provider APIs. Location plotted on map visible to SME, buyer, and diaspora investor.',
+   ui:'Screen: "Track shipment" page. Top: status badge (In transit, Delivered etc.). Centre: a map (Google Maps) with the shipment route drawn as a dashed line and a moving pin showing current location. Below the map: last update timestamp and a text status from Stiv AI.',
+   tech:['Logistics API integrations (DHL, UPS, local providers)','Google Maps API','WebSocket real-time location','Stiv AI milestone commentary']},
+  {t:'Timestamped shipment log',s:'Every status change recorded',b:'beta',
+   info:'Immutable log of every shipment event with timestamp, actor, and optional note.',
+   ui:'Component: "Activity log" section on the shipment detail page. Vertical timeline: each event is a row with a dot, timestamp, event name (e.g. "Customs cleared"), and a note if applicable. The most recent event at the top.',
+   tech:['PostgreSQL shipment_events (append-only)','Stiv AI timeline summary','React timeline component']},
+  {t:'Shipment status visible to all parties',s:'SME, buyer, and diaspora see updates',b:'beta',
+   info:'Each party sees the shipment status scoped to their role. Stiv sends proactive updates at each milestone.',
+   ui:'On the buyer\'s enquiry/contract page: a "Shipment status" widget showing the same map and status bar as the SME sees but without the administrative detail. On the diaspora investor\'s investment detail page: a simplified "Your investment is on its way — estimated delivery in 5 days" card.',
+   tech:['Role-scoped shipment views (PostgreSQL RLS)','Stiv AI proactive milestone updates','Multi-channel notification']},
+  {t:'On-time delivery tracking',s:'Actual vs agreed delivery window',b:'beta',
+   info:'Records whether each shipment arrives within the agreed window. Late deliveries flagged and reason logged.',
+   ui:'Component: Each shipment card shows a small "On time" (green) or "Delayed" (red) badge. The shipment detail page shows: agreed delivery date, actual delivery date, variance in days.',
+   tech:['PostgreSQL delivery_window vs actual_delivery','On-time rate aggregation','Stiv AI late delivery alert']},
+  {t:'Shipment incident reporting',s:'SME logs delays, damage, customs issues',b:'beta',
+   info:'SME logs a shipment incident. Stiv AI collects structured details and notifies buyer and diaspora investor.',
+   ui:'Screen: "Report incident" button on active shipment page. Tapping opens a Stiv AI conversation: "What has happened?" — SME speaks or types. Stiv asks follow-up questions (type of incident, estimated delay, cause). Stiv generates a structured incident report and asks for confirmation before notifying all parties.',
+   tech:['Stiv AI structured incident intake','React incident form','Automated notifications','PostgreSQL shipment_incidents']},
+  {t:'Shipment history per SME',s:'All past and active shipments',b:'beta',
+   info:'Chronological list of all shipments. Stiv AI generates an annual performance summary.',
+   ui:'Screen: "My shipments" tab. Two sections: "Active" (shipments in progress) and "Completed" (historical). Each row: destination flag, product name, quantity, departure date, status badge, and an "Open" button.',
+   tech:['PostgreSQL shipments history','Stiv AI annual summary','React shipment table','Export to CSV']},
+  {t:'Estimated arrival date calculator',s:'Based on route and transit times',b:'beta',
+   info:'Calculates ETA based on origin, destination, transport mode, and standard transit times plus known seasonal delays.',
+   ui:'Component: On the shipment creation form after destination is selected: "Estimated arrival: 8-12 days (air) or 28-35 days (sea)" shown automatically. Stiv AI adds a note if there are known seasonal delays on that route.',
+   tech:['Transit time DB (admin-maintained)','Node.js ETA calculator','Stiv AI route commentary','Google Routes API']},
+  {t:'Customs documentation checklist',s:'Required paperwork per destination',b:'beta',
+   info:'Auto-generates a checklist of required customs documents for each destination. Stiv explains each document.',
+   ui:'Screen: "Customs checklist" tab on the shipment page. A list of required documents each with: document name, issuing body, status (have it / need it), and a "How to get this" Stiv AI link. Checklist must be 100% before departure is confirmed.',
+   tech:['Destination customs rules DB (admin-maintained)','Stiv AI document guidance','PostgreSQL customs_requirements']},
+  {t:'Blockchain-lite immutable shipment record',s:'Tamper-proof log of key events',b:'full',
+   info:'Key shipment events written to an immutable ledger. Buyers and financiers can verify independently.',
+   ui:'Component: On the shipment detail page a "Verified record" section with a chain link icon. Shows: number of events recorded, last recorded event, and a "Verify on chain" button that opens a proof of record modal showing the hash and timestamp.',
+   tech:['Hyperledger Fabric (lightweight)','OR: hash-chained PostgreSQL event log (v1 approach)','Verification API for buyers']},
+ ]},
+ {id:'K',name:'Data, Analytics & Reporting',phase:'full',price:2500000,color:'#534AB7',cls:'n-gray',col:3,features:[
+  {t:'Certificate hash storage',s:'Cryptographic tamper detection',b:'beta',
+   info:'Every certificate hashed at upload. Hash stored in immutable table. Any tampering detected instantly.',
+   ui:'Admin screen: "Document integrity" panel. Table of all certificates with columns: document name, upload date, hash status (green shield = intact, red shield = tampered). "Run integrity check" button re-verifies all hashes.',
+   tech:['SHA-256 hashing (Node.js crypto)','Immutable hash table (PostgreSQL append-only)','Hash verification API']},
+  {t:'Shipment GPS log archive',s:'Full historical tracking data',b:'beta',
+   info:'All GPS coordinates stored in a time-series archive. Stiv AI can answer queries about historical shipment locations.',
+   ui:'Admin screen: "GPS archive" section. Filter by SME, date range, destination. Map view showing all historical routes as faded lines. Download button to export raw GPS data as CSV.',
+   tech:['PostgreSQL time-series table (or TimescaleDB)','GPS log retention policy','Stiv AI archive query tool']},
+  {t:'ESG checklist and audit archive',s:'Long-term storage of all ESG submissions',b:'beta',
+   info:'Every ESG submission and audit result stored permanently. Builds a longitudinal ESG record.',
+   ui:'On the SME profile (buyer-facing): an "ESG history" section showing a timeline of submissions with dates and scores. Each entry is expandable to show the full questionnaire answers.',
+   tech:['PostgreSQL esg_archive (immutable)','Buyer-accessible ESG history view']},
+  {t:'Transaction-level ESG data capture',s:'Every trade event logged as ESG data',b:'full',
+   info:'Every trade transaction generates ESG data points captured automatically from platform events.',
+   ui:'No user-facing screen — runs in the background. Admin sees a "Data health" panel showing: number of ESG data points captured this week, data completeness percentage, and any gaps flagged by Stiv AI.',
+   tech:['Event-driven data capture (Node.js event emitter)','PostgreSQL esg_transactions','Data pipeline to ESG scoring engine']},
+  {t:'Aggregate ESG analytics for buyers',s:'Benchmarks by commodity and region',b:'full',
+   info:'Buyers access aggregate ESG statistics for commodity categories or regions to benchmark individual suppliers.',
+   ui:'Buyer screen: "Market ESG benchmarks" page. Select commodity and country. Recharts bar chart showing: average ESG score for that commodity/region, with the specific supplier highlighted. Stiv AI generates a written benchmark report below the chart.',
+   tech:['PostgreSQL aggregate views','Stiv AI benchmark report','React benchmark dashboard','Recharts']},
+  {t:'Value of verified contracts tracking',s:'GBP and USD value of platform-originated trade',b:'full',
+   info:'Tracks cumulative value of all contracts originated through CrossGate. Key FCDO impact metric.',
+   ui:'Admin screen and FCDO report: A large headline metric card — "Total verified trade value: £X,XXX". Below: breakdown by commodity, country, and buyer type as a stacked bar chart. Stiv AI generates a quarterly impact narrative.',
+   tech:['PostgreSQL contracts value aggregation','Open Exchange Rates API','Stiv AI impact narrative','FCDO reporting export']},
+  {t:'Incident rate reporting',s:'Shipment, compliance, and audit exception rates',b:'full',
+   info:'Tracks rate of shipment incidents, compliance failures, ESG audit exceptions, and AI output corrections.',
+   ui:'Admin screen: "Incident rates" panel showing four metric cards each with: incident type, rate (e.g. "3.2 per 100 shipments"), trend (up/down arrow vs previous period), and a Stiv AI analysis.',
+   tech:['PostgreSQL incident rate queries','Stiv AI trend analysis','Admin incident dashboard','Recharts trend charts']},
+  {t:'5-year revenue projection model',s:'Actual vs base and conservative case',b:'full',
+   info:'Tracks actual revenue against FCDO proposal projections (Y1 £250k, Y2 £1.5M, Y3 £4.5M, Y4 £7M, Y5 £10M).',
+   ui:'Admin screen: "Revenue projections" page. A dual-line Recharts chart: actual revenue (solid line), base case projection (dashed), conservative case (dotted). Below: Stiv AI quarterly variance report explaining the gap.',
+   tech:['PostgreSQL revenue_actuals','Projection model (updateable)','Stiv AI variance report','Recharts dual-line chart']},
+  {t:'Data export tool',s:'CSV and PDF for grant and investor reports',b:'full',
+   info:'Admin exports any dataset as CSV or PDF. Stiv AI drafts the written sections of FCDO and investor reports.',
+   ui:'Admin screen: "Export data" page. Dropdown: select report type (FCDO quarterly, Investor update, ESG impact, KPI summary). Date range picker. Format selector (CSV / PDF). "Generate report" button. Stiv AI fills in the written narrative sections automatically. Preview shown before download.',
+   tech:['CSV export (Node.js)','Puppeteer PDF generation','Report template engine','Stiv AI narrative sections','S3 + download link']},
+ ]},
+ {id:'N',name:'Advanced AI & Predictive Engines',phase:'full',price:3500000,color:'#534AB7',cls:'n-purple',col:0,features:[
+  {t:'Predictive compliance advisory (Stiv v2)',s:'AI learns from outcomes to give risk warnings',b:'full',
+   info:'Stiv v2 moves beyond rules-based advice to predictive guidance based on historical compliance outcomes across all platform SMEs.',
+   ui:'Component: "Stiv risk alert" card on SME dashboard (amber background). Shows a risk prediction: "Based on 47 similar SMEs, skipping lab testing at your stage typically causes customs delays of 2-3 weeks." Tapping shows full analysis and action plan.',
+   tech:['ML model on outcomes data','Pinecone vector DB','GPT-4o with RAG','Python ML pipeline','Scheduled retraining']},
+  {t:'AI investment suggestion engine',s:'Portfolio diversification recommendations',b:'full',
+   info:'Stiv AI analyses diaspora portfolios and recommends diversification based on commodity concentration, geography, and return profile.',
+   ui:'Diaspora dashboard: "Stiv suggests" section with 2-3 investment recommendation cards each showing: SME, commodity, Stiv rationale, projected return, and "Invest" button.',
+   tech:['GPT-4o portfolio analysis','Recommendation engine (Node.js)','React suggestion cards']},
+  {t:'Predictive ESG risk scoring',s:'Forecasts ESG deterioration before it happens',b:'full',
+   info:'ML model trained on historical ESG outcomes predicts which SMEs are at risk of score deterioration.',
+   ui:'Buyer profile view: "ESG risk outlook" section showing a Stiv AI-generated risk rating (Low/Medium/High) with a one-sentence explanation and the factors driving it.',
+   tech:['Python scikit-learn ML model','Historical ESG data training','Scheduled model refresh','GPT-4o with retrieved predictions']},
+  {t:'Stiv AI fine-tuning pipeline',s:'Continuously improves from admin corrections',b:'full',
+   info:'Admin corrections to Stiv outputs are fed back into a fine-tuning pipeline to continuously improve response quality over time.',
+   ui:'Admin screen: "AI training" section showing: corrections submitted this month, estimated quality improvement, and last fine-tune date. A "Trigger fine-tune" button (senior admin only).',
+   tech:['OpenAI fine-tuning API','Correction dataset pipeline','Quality score tracking','Scheduled fine-tune jobs']},
+ ]},
+ {id:'O',name:'Pan-African Scale & Integrations',phase:'full',price:2500000,color:'#336644',cls:'n-green',col:3,features:[
+  {t:'EAC region expansion infrastructure',s:'Tanzania, Rwanda, Kenya full support',b:'full',
+   info:'Platform infrastructure scaled to support the full East African Community. Country-specific compliance rules, languages, and payment methods added for each EAC member state.',
+   ui:'Admin screen: "Region management" panel showing each country as a card with: active users, compliance rule version, language packs installed, and payment methods enabled.',
+   tech:['Multi-tenancy architecture (PostgreSQL schemas per country)','Country-specific rules DBs','Additional language packs']},
+  {t:'ECOWAS pilot readiness layer',s:'Technical groundwork for West Africa expansion',b:'full',
+   info:'Infrastructure groundwork laid for future ECOWAS (West Africa) expansion including commodity rules and language support for French and Hausa.',
+   ui:'Admin: "Expansion readiness" tab showing ECOWAS readiness checklist with items marked as ready or pending.',
+   tech:['ECOWAS rules DB structure','French language pack (i18next)','Hausa language pack foundation']},
+  {t:'AfCFTA deep integration',s:'Full AfCFTA standards API and certificate of origin',b:'full',
+   info:'Deep AfCFTA integration including automated certificate of origin generation and full standards database coverage for all 54 AU member states.',
+   ui:'SME screen: "Generate certificate of origin" button on the shipment creation page. One click generates a pre-filled certificate of origin using verified SME and product data.',
+   tech:['AfCFTA API (where available)','Certificate of origin template engine','Digital signature integration']},
+  {t:'UKEF deep integration',s:'Direct UKEF application pathway',b:'full',
+   info:'Direct integration with UK Export Finance allowing verified buyers to apply for trade credit insurance directly from within the platform.',
+   ui:'Buyer screen: "Apply for UKEF cover" button on the contract creation page. Opens a pre-filled UKEF application form using the buyer and SME verified data. Stiv AI guides the buyer through each section.',
+   tech:['UKEF API (or form pre-fill)','Stiv AI UKEF application guidance','PostgreSQL ukef_applications table']},
+ ]},
+ {id:'P',name:'Security, Compliance & Blockchain',phase:'full',price:3500000,color:'#445566',cls:'n-gray',col:3,features:[
+  {t:'Blockchain-lite shipment record',s:'Tamper-proof log of key shipment events',b:'full',
+   info:'Key shipment events written to a permissioned immutable ledger. Buyers and financiers can independently verify the chain of custody.',
+   ui:'Shipment detail page: "Verified record" section with a chain icon. Shows number of recorded events and a "Verify" button opening a modal with the event hash and timestamp proof.',
+   tech:['Hyperledger Fabric (lightweight)','Hash-chained PostgreSQL event log (v1)','Verification API for buyers']},
+  {t:'EU AI Act full compliance module',s:'Auditable AI decisions across the platform',b:'full',
+   info:'Full EU AI Act compliance: all Stiv AI outputs logged with context, model version, timestamp. Explainability reports for any decision. Human review gates for high-stakes outputs.',
+   ui:'Admin screen: "AI compliance" panel. Total decisions logged, flagged outputs, model version currently deployed, and last audit date. "Generate explainability report" for any decision.',
+   tech:['PostgreSQL ai_audit_log','Model version tracking','LIME/SHAP explainability','Human review gates']},
+  {t:'Advanced data security hardening',s:'Penetration testing, SOC 2 prep',b:'full',
+   info:'Full penetration testing, vulnerability assessment, and SOC 2 Type I compliance preparation to meet enterprise buyer and FCDO security requirements.',
+   ui:'Admin: "Security status" dashboard showing all security checks as green/amber/red status items.',
+   tech:['Third-party penetration testing','SOC 2 Type I compliance checklist','AWS Security Hub','Dependabot automated dependency updates']},
+  {t:'GDPR full compliance audit',s:'Complete data protection review',b:'full',
+   info:'Full GDPR compliance audit covering all data flows, retention policies, and cross-border data transfer mechanisms.',
+   ui:'Admin: Downloadable GDPR compliance report. Data flow diagram showing all data processing activities.',
+   tech:['GDPR audit tools','Data flow mapping','Retention policy automation','Standard Contractual Clauses (SCCs) documentation']},
+ ]},
+ {id:'Q',name:'Mobile Advanced Features',phase:'full',price:5500000,color:'#994455',cls:'n-blue',col:1,features:[
+  {t:'Advanced offline mode',s:'Full ESG and listing features without internet',b:'full',
+   info:'Extended offline capability covering: full ESG questionnaire completion, product listing creation, document photo capture, and compliance guide reading. All data synced when connectivity is restored with conflict resolution.',
+   ui:'When offline: green "Working offline" indicator (not the grey one from basic offline). All main features accessible. Sync indicator appears when connectivity is restored showing "Syncing X items..."',
+   tech:['SQLite local DB (react-native)','Full offline-first architecture','Conflict resolution on sync','Background sync']},
+  {t:'Biometric login (fingerprint and Face ID)',s:'Fast secure login on mobile',b:'full',
+   info:'SMEs and buyers can log in using fingerprint or Face ID instead of password on supported devices.',
+   ui:'Login screen: after entering email once, a "Save this login" prompt appears. On subsequent logins: the password field is replaced with a fingerprint/Face ID button. Fallback to password always available.',
+   tech:['expo-local-authentication','Secure token storage (react-native-keychain)','Biometric prompt UI']},
+  {t:'Push notification advanced targeting',s:'Personalised push by behaviour and status',b:'full',
+   info:'Advanced push notification system targeting users based on behaviour, compliance status, and platform activity patterns. Stiv AI determines optimal send time per user.',
+   ui:'Notification arrives on device lockscreen with CrossGate icon, title, and a one-line preview. Tapping opens the platform directly to the relevant screen (deep link).',
+   tech:['APNs + FCM push','Expo Notifications','Deep linking (expo-linking)','Stiv AI optimal send time prediction']},
+  {t:'USSD advanced v2',s:'Full compliance journey via USSD',b:'full',
+   info:'Extended USSD capability allowing users to complete the full ESG questionnaire and submit compliance status updates via USSD — not just registration.',
+   ui:'USSD menus are hierarchical with numbered options. ESG questionnaire is broken into sessions of 5 questions each so users can complete it across multiple USSD sessions.',
+   tech:["Africa's Talking USSD API v2",'Session-persistent USSD state','PostgreSQL USSD_sessions table']},
+  {t:'In-app tutorial and onboarding tour',s:'Guided first-use experience',b:'full',
+   info:'On first login, a short guided tour highlights the key sections of the platform with tooltips and animated highlights. Stiv AI narrates the tour.',
+   ui:'Overlay tutorial: semi-transparent backdrop with a spotlight on the highlighted element. A Stiv AI bubble explains what the element does. Navigation: "Next" and "Skip tour" buttons. Tour steps: 1. Dashboard overview 2. Stiv AI chat 3. Documents 4. Listings 5. ESG score.',
+   tech:['react-native-copilot or custom tooltip overlay','Stiv AI tour narration','AsyncStorage to track tour completion']},
+ ]},
+];
+
+// Feature prices: each feature's price = module.price / feature count (for deduction calculation)
+// We track feature-level checked state
+const featChecked = {};
+MODS.forEach(m => {
+  m.features.forEach((f,i) => {
+    featChecked[m.id+'_'+i] = true;
+  });
+});
+
+let currentBuild = 'alpha';
+const modChecked = new Set(MODS.map(m=>m.id));
+
+function buildRank(b){return b==='alpha'?0:b==='beta'?1:2;}
+function featureVisible(f){
+  if(currentBuild==='alpha' && f.b!=='alpha') return false;
+  if(currentBuild==='beta' && buildRank(f.b)>1) return false;
+  return true;
+}
+function modInScope(mod){
+  return currentBuild==='full'||(currentBuild==='beta'&&buildRank(mod.phase)<=1)||(currentBuild==='alpha'&&mod.phase==='alpha');
+}
+
+function calcTotal(){
+  let total = 0;
+  MODS.forEach(m => {
+    if(!modChecked.has(m.id)) return;
+    const totalFeats = m.features.length;
+    const pricePerFeat = m.price / totalFeats;
+    m.features.forEach((f,i) => {
+      if(featChecked[m.id+'_'+i]) total += pricePerFeat;
+    });
+  });
+  return Math.round(total);
+}
+
+function renderSidebar(){
+  const sb = document.getElementById('sb-scroll');
+  sb.innerHTML = '';
+  const phases = [
+    {key:'alpha', label:'Alpha build', sub:'10,000,000 UGX'},
+    {key:'beta',  label:'Beta additions', sub:'17,000,000 UGX'},
+    {key:'full',  label:'Full scope additions', sub:'17,500,000 UGX'},
+  ];
+  phases.forEach(ph => {
+    const modsInPhase = MODS.filter(m => m.phase === ph.key);
+    const sec = document.createElement('div');
+    sec.className = 'sb-phase';
+    sec.innerHTML = ph.label + '<span class="sb-phase-price"> — ' + ph.sub + '</span>';
+    sb.appendChild(sec);
+    modsInPhase.forEach(m => {
+      const locked = m.phase === 'alpha';
+      const wrap = document.createElement('div');
+      // Module header
+      const hdr = document.createElement('div');
+      hdr.className = 'mod-header';
+      hdr.innerHTML = `<div class="mod-dot" style="background:${m.color}"></div><input class="mod-check" type="checkbox" id="mc_${m.id}" ${modChecked.has(m.id)?'checked':''} ${locked?'disabled':''} onclick="event.stopPropagation();toggleMod('${m.id}',this.checked)"><div class="mod-label">${m.name}</div><div class="mod-price">${(m.price/1000000).toFixed(1)}M</div><div class="mod-arrow" id="arr_${m.id}">&#9658;</div>`;
+      hdr.addEventListener('click', () => toggleModExpand(m.id));
+      wrap.appendChild(hdr);
+      // Feature list
+      const fl = document.createElement('div');
+      fl.className = 'feat-list';
+      fl.id = 'fl_' + m.id;
+      m.features.forEach((f, fi) => {
+        const key = m.id + '_' + fi;
+        const featLocked = locked; // alpha features locked
+        const row = document.createElement('div');
+        row.className = 'feat-row';
+        const bc = BADGE.alpha;
+        const badgeCls = f.b === 'alpha' ? 'b-alpha' : f.b === 'beta' ? 'b-beta' : 'b-full';
+        row.innerHTML = `<input class="feat-check" type="checkbox" id="fc_${key}" ${featChecked[key]?'checked':''} ${featLocked?'disabled':''} onchange="toggleFeat('${key}',this.checked)"><label class="feat-label" for="fc_${key}">${f.t}</label><span class="feat-badge ${badgeCls}">${f.b}</span>`;
+        fl.appendChild(row);
+      });
+      wrap.appendChild(fl);
+      sb.appendChild(wrap);
+    });
+  });
+  updateTotal();
+}
+
+function toggleModExpand(id){
+  const fl = document.getElementById('fl_' + id);
+  const arr = document.getElementById('arr_' + id);
+  if(!fl) return;
+  fl.classList.toggle('open');
+  arr.classList.toggle('open');
+}
+
+function toggleMod(id, on){
+  if(on) modChecked.add(id); else modChecked.delete(id);
+  renderCanvas();
+  updateTotal();
+}
+
+function toggleFeat(key, on){
+  featChecked[key] = on;
+  updateTotal();
+  renderCanvas();
+}
+
+function updateTotal(){
+  const total = calcTotal();
+  document.getElementById('total-val').textContent = total.toLocaleString() + ' UGX';
+  const builds = [];
+  if(MODS.some(m => modChecked.has(m.id) && m.phase==='alpha')) builds.push('Alpha');
+  if(MODS.some(m => modChecked.has(m.id) && m.phase==='beta')) builds.push('+ Beta');
+  if(MODS.some(m => modChecked.has(m.id) && m.phase==='full')) builds.push('+ Full');
+  document.getElementById('total-build').textContent = builds.join(' ') || 'None selected';
+}
+
+function setBuild(b, btn){
+  currentBuild = b;
+  document.querySelectorAll('.bbtn').forEach(x => x.classList.remove('on'));
+  btn.classList.add('on');
+  renderSidebar();
+  renderCanvas();
+}
+
+function openInfo(modId, featIdx){
+  const mod = MODS.find(m => m.id === modId);
+  if(!mod) return;
+  const f = mod.features[featIdx];
+  if(!f) return;
+  document.getElementById('info-title').textContent = f.t;
+  const body = document.getElementById('info-body');
+  body.innerHTML = '';
+  // Phase + module
+  const ph = document.createElement('div');
+  ph.style.cssText = 'display:flex;align-items:center;gap:6px;flex-wrap:wrap';
+  ph.innerHTML = `<span class="info-badge ${f.b==='alpha'?'b-alpha':f.b==='beta'?'b-beta':'b-full'}">${f.b.charAt(0).toUpperCase()+f.b.slice(1)} build</span><span style="font-size:10px;color:#5f5e5a">Module: ${mod.name}</span>`;
+  body.appendChild(ph);
+  // What it does
+  const d1 = document.createElement('div');
+  d1.innerHTML = `<div class="info-sec-title">What this feature does</div><div class="info-text">${f.info}</div>`;
+  body.appendChild(d1);
+  // UI notes
+  if(f.ui){
+    const d2 = document.createElement('div');
+    d2.innerHTML = `<div class="info-sec-title">UI / screen layout notes for the developer</div><div class="ui-box">${f.ui}</div>`;
+    body.appendChild(d2);
+  }
+  // Tech
+  if(f.tech && f.tech.length){
+    const d3 = document.createElement('div');
+    d3.innerHTML = `<div class="info-sec-title">Recommended technologies and tools</div><div>${f.tech.map(t=>`<span class="tech-tag">${t}</span>`).join('')}</div>`;
+    body.appendChild(d3);
+  }
+  // Stiv AI role
+  const d4 = document.createElement('div');
+  const stivInvolved = f.info.includes('Stiv') || f.ui.includes('Stiv');
+  d4.innerHTML = `<div class="info-sec-title">Stiv AI involvement</div><div class="info-text">${stivInvolved ? 'Stiv AI is actively involved in this feature as described above.' : 'This is a structural or infrastructure feature. Stiv AI is not the primary actor but may reference data from this module.'}</div>`;
+  body.appendChild(d4);
+  document.getElementById('info-panel').classList.add('open');
+  document.getElementById('info-overlay').classList.add('open');
+}
+
+function closeInfo(){
+  document.getElementById('info-panel').classList.remove('open');
+  document.getElementById('info-overlay').classList.remove('open');
+}
+
+function renderCanvas(){
+  const canvas = document.getElementById('canvas');
+  document.querySelectorAll('.node,.col-head-el').forEach(el => el.remove());
+  COL_HEADS.forEach(h => {
+    const d = document.createElement('div');
+    d.className = 'col-head-el';
+    d.style.cssText = `position:absolute;left:${h.x}px;top:0;width:${NW}px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-align:center;padding-bottom:5px;border-bottom:2px solid ${h.color};color:${h.color}`;
+    d.textContent = h.label;
+    canvas.appendChild(d);
+  });
+  const colY = [28,28,28,28];
+  const nodeReg = {};
+  MODS.forEach(mod => {
+    if(!modInScope(mod) || !modChecked.has(mod.id)) return;
+    mod.features.forEach((f, fi) => {
+      const key = mod.id + '_' + fi;
+      const vis = featureVisible(f) && featChecked[key];
+      const y = colY[mod.col];
+      const div = document.createElement('div');
+      div.className = 'node ' + mod.cls;
+      div.id = 'nd_' + key;
+      div.style.cssText = `left:${COLX[mod.col]}px;top:${y}px;`;
+      const badgeCls = f.b==='alpha'?'b-alpha':f.b==='beta'?'b-beta':'b-full';
+      div.innerHTML = `<div class="node-title">${f.t}</div><div class="node-sub">${f.s}</div><span class="nbadge ${badgeCls}">${f.b}</span><div class="info-btn" onclick="openInfo('${mod.id}',${fi})" title="Feature detail">i</div>`;
+      if(!vis) div.classList.add('hidden');
+      canvas.appendChild(div);
+      nodeReg[key] = {x:COLX[mod.col], y, col:mod.col, vis};
+      if(vis) colY[mod.col] += NH + GAP;
+    });
+    if(mod.features.some((f,fi) => featureVisible(f) && featChecked[mod.id+'_'+fi])) colY[mod.col] += 12;
+  });
+  const maxH = Math.max(...colY) + 40;
+  canvas.style.minHeight = maxH + 'px';
+  const svg = document.getElementById('svgl');
+  svg.setAttribute('width','990');
+  svg.setAttribute('height', maxH);
+  svg.innerHTML = `<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>`;
+  // Vertical flow lines per column
+  const cols = [[],[],[],[]];
+  Object.entries(nodeReg).forEach(([k,n]) => { if(n.vis) cols[n.col].push({...n,k}); });
+  const colColors = ['#1D9E75','#378ADD','#7F77DD','#D85A30'];
+  cols.forEach((colNodes, ci) => {
+    const sorted = colNodes.sort((a,b) => a.y - b.y);
+    sorted.forEach((n,i) => {
+      if(i===0) return;
+      const prev = sorted[i-1];
+      const x = COLX[ci] + NW/2;
+      const y1 = prev.y + NH;
+      const y2 = n.y;
+      if(y2 <= y1) return;
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1',x); line.setAttribute('y1',y1);
+      line.setAttribute('x2',x); line.setAttribute('y2',y2);
+      line.setAttribute('stroke', colColors[ci]);
+      line.setAttribute('stroke-width','1.5');
+      line.setAttribute('stroke-opacity','0.28');
+      line.setAttribute('marker-end','url(#ar)');
+      svg.appendChild(line);
+    });
+  });
+  // Cross-column connections
+  const CROSS = [
+    {from:'D_4', to:'E_3', color:'#639922'},
+    {from:'D_7', to:'F_2', color:'#1D9E75'},
+    {from:'G_3', to:'E_3', color:'#D85A30'},
+    {from:'H_2', to:'B_9', color:'#D85A30'},
+    {from:'L_1', to:'H_3', color:'#1D9E75'},
+  ];
+  CROSS.forEach(cr => {
+    const fn = nodeReg[cr.from];
+    const tn = nodeReg[cr.to];
+    if(!fn || !tn || !fn.vis || !tn.vis) return;
+    const x1 = fn.x + NW, y1 = fn.y + NH/2;
+    const x2 = tn.x, y2 = tn.y + NH/2;
+    const mx = (x1+x2)/2;
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', `M${x1} ${y1} C${mx} ${y1},${mx} ${y2},${x2} ${y2}`);
+    path.setAttribute('fill','none');
+    path.setAttribute('stroke', cr.color);
+    path.setAttribute('stroke-width','1.2');
+    path.setAttribute('stroke-opacity','0.4');
+    path.setAttribute('stroke-dasharray','5 3');
+    path.setAttribute('marker-end','url(#ar)');
+    svg.appendChild(path);
+  });
+}
+
+renderSidebar();
+renderCanvas();
+</script>
+</body>
+</html>
