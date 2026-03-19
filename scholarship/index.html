@@ -21,6 +21,7 @@
     :root {
       /* ── Core Palette ──────────────────────────────────── */
 --color-vio: #25406a;
+--color-black: black;
       --color-dark:         #2374b8;       /* page background dark sections  */
       --color-light:        #ffffff;       /* page background light sections  */
       --color-accent:       #1c75bc;  /* primary blue — CTA buttons, highlights */
@@ -77,11 +78,11 @@
     /* ─── Typography Utilities ─── */
     .label   { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.4rem, 1.5vw, 1.6rem); letter-spacing: 0.02em; }
     .h1      { font-family: var(--font-heading); font-weight: 700; font-size: clamp(4.2rem, 6vw, 7.6rem); line-height: 1.1; }
-    .h2      { font-family: var(--font-heading); font-weight: 700; font-size: clamp(3rem, 4.5vw, 5.4rem); line-height: 1.15; }
+    .h2      { font-family: var(--font-heading); font-weight: 700; font-size: 4em; line-height: 1.15; color: black; }
     .h3      { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.4rem, 3vw, 3.8rem); line-height: 1.2; }
     .h4      { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2rem, 2.2vw, 2.8rem); line-height: 1.2; }
-    .body-lg { font-family: var(--font-body); font-weight: 400; font-size: clamp(1.6rem, 1.8vw, 2rem); line-height: 1.65; }
-    .body-sm { font-family: var(--font-body); font-weight: 400; font-size: clamp(1.4rem, 1.5vw, 1.6rem); line-height: 1.6; }
+    .body-lg { font-family: var(--font-body); font-weight: 400; font-size: clamp(1.6rem, 1.8vw, 1.4rem); line-height: 1.65; }
+    .body-sm { font-family: var(--font-body); font-weight: 400; font-size: clamp(1.4rem, 1.5vw, 1.4rem); line-height: 1.6; }
 
     /* ─── Buttons — all shape/color driven by :root vars ─── */
     .btn {
@@ -125,12 +126,14 @@ box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.17);
 
     /* ─── Sticky anchor nav ─── */
     #anchor-nav {
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      background: var(--color-dark);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+  position: absolute;
+  top: 72px;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: transparent;
+  border-bottom: none;
+}
     #anchor-nav .inner {
       display: flex;
       align-items: center;
@@ -144,7 +147,7 @@ box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.17);
 /* This only triggers on screens wider than 768px */
 @media (min-width: 768px) {
     section, .site-footer, .app-banner {
-        margin: 2%;
+        margin: 1%;
         border-radius: 40px !important;
     }
 #hero {
@@ -169,12 +172,14 @@ border-radius: 40px !important;
 
     /* ─── SITE HEADER ─── */
     .site-header {
-      background: var(--color-dark);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      position: sticky;
-      top: 0;
-      z-index: 300;
-    }
+  background: transparent;
+  border-bottom: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 300;
+}
     .site-header .inner {
       display: flex;
       align-items: center;
@@ -233,8 +238,8 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
     radial-gradient(ellipse 40% 80% at 20% 80%, rgba(224,51,24,0.08) 0%, transparent 60%);
   opacity: var(--hero-before-opacity, 1);
 }
-    #hero .container { position: relative; z-index: 1; padding-top: 8rem; padding-bottom: 8rem; }
-    #hero .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1.6rem; }
+    #hero .container { position: relative; z-index: 1; padding-top: 22rem; padding-bottom: 8rem; }
+    #hero .overline { color: #fff; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1.6rem; }
     #hero h1 { color: #fff; max-width: 80rem; }
     #hero .sub { color: rgba(255,255,255,0.72); max-width: 60rem; margin-top: 2rem; }
     #hero .btn-group { margin-top: 3.6rem; }
@@ -271,7 +276,7 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
     /* ─── WHAT WE DO ─── */
     #what-we-do { background: #fff; }
     #what-we-do .intro { max-width: 76rem; margin: 0 auto 5rem; text-align: center; }
-    #what-we-do .intro .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    #what-we-do .intro .overline { color: var(--color-black); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
     .pillars-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
@@ -301,7 +306,7 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
     /* ─── PROGRAMS ─── */
     #programs { background: var(--color-vio); color: #fff; }
     #programs .section-title { text-align: center; margin-bottom: 5rem; }
-    #programs .section-title .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    #programs .section-title .overline { color: var(--color-white); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
     #programs .section-title h2 { color: #fff; }
     .accordion { display: flex; flex-direction: column; gap: 1.6rem; }
     .accordion-item {
@@ -365,7 +370,7 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
     }
     #scholarships .inner { display: flex; flex-wrap: wrap; gap: 6rem; align-items: center; }
     #scholarships .text { flex: 1; min-width: 28rem; }
-    #scholarships .text .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    #scholarships .text .overline { color: var(--color-black); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
     #scholarships .text p { color: #444; margin-top: 1.6rem; max-width: 52rem; }
     #scholarships .card-wrap { flex: 1; min-width: 28rem; }
     .scholarship-card {
