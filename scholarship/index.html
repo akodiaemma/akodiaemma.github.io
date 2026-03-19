@@ -134,6 +134,12 @@ box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.17);
   background: transparent;
   border-bottom: none;
 }
+
+@media only screen and (max-width: 768px) {
+  #anchor-nav {
+    display: none;
+  }
+}
     #anchor-nav .inner {
       display: flex;
       align-items: center;
@@ -248,8 +254,8 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
     #ticker { background: var(--color-warm-light); }
     #ticker .inner { display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; }
     #ticker .meta { flex: 1; min-width: 28rem; }
-    #ticker .goal-label { text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-accent); margin-bottom: 0.6rem; }
-    #ticker .goal-amount { font-family: var(--font-heading); font-weight: 800; font-size: clamp(4rem, 6vw, 7rem); color: var(--color-dark); line-height: 1; }
+    #ticker .goal-label { text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-black); margin-bottom: 0.6rem; }
+    #ticker .goal-amount { font-family: var(--font-heading); font-weight: 800; font-size: clamp(4rem, 6vw, 7rem); color: var(--color-black); line-height: 1; }
     #ticker .progress-wrap { flex: 2; min-width: 28rem; }
     #ticker .progress-stats {
       display: flex;
@@ -270,7 +276,7 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
       width: 38%;
       transition: width 1s ease;
     }
-    #ticker .sub-text { color: #555; margin-top: 1.2rem; }
+    #ticker .sub-text { color: black; margin-top: 1.2rem; }
     #ticker .btn-group { margin-top: 2.4rem; }
 
     /* ─── WHAT WE DO ─── */
@@ -300,7 +306,7 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
       color: #fff;
       font-size: 2.4rem;
     }
-    .pillar-card h4 { color: var(--color-dark); margin-bottom: 1rem; }
+    .pillar-card h4 { color: var(--color-black); margin-bottom: 1rem; }
     .pillar-card p { color: #555; }
 
     /* ─── PROGRAMS ─── */
@@ -711,7 +717,7 @@ display: none;
       gap: 3rem;
       text-align: center;
       padding-bottom: 4rem;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 0px solid rgba(255,255,255,0.08);
     }
    .footer-contact-item .icon {
   display: flex;
@@ -724,7 +730,7 @@ display: none;
     .footer-contact-item strong { display: block; font-family: var(--font-heading); font-weight: 700; font-size: 1.6rem; margin-bottom: 0.4rem; }
     .footer-contact-item p, .footer-contact-item a { color: rgba(255,255,255,0.6); font-size: 1.5rem; line-height: 1.5; }
 
-    .footer-social { display: flex; justify-content: center; gap: 2rem; padding: 3rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-social { display: flex; justify-content: center; gap: 2rem; padding: 3rem 0; border-bottom: 0px solid rgba(255,255,255,0.08); }
     .footer-social a {
       width: 4rem;
       height: 4rem;
@@ -1473,10 +1479,10 @@ display: none;
     <p id="app-body">Stay connected and engaged with everything happening at Abyssinian by downloading the Church Center app. Manage your giving, register for events, access sermons, and more — all from the convenience of your phone.</p>
     <div class="app-badges">
     <a id="app-appstore" href="#">
-  <img src="https://media.thechurchcoassets.com/accounts/4892/2f0d2f32-1228-4998-843b-b5d6cfaa97a8-./Download%20on%20the%20App%20Store%20(5).png" alt="Download on the App Store" style="height:48px; width:auto;" />
+  <img src="https://media.thechurchcoassets.com/accounts/4892/2f0d2f32-1228-4998-843b-b5d6cfaa97a8-./Download%20on%20the%20App%20Store%20(5).png" alt="Download on the App Store" style="height:100px; width:auto;" />
 </a>
 <a id="app-playstore" href="#">
-  <img src="https://media.thechurchcoassets.com/accounts/4892/400d4019-95e4-4793-9e95-dc218b391300-./Get%20it%20on%20Google%20Play%20(5).png" alt="Get it on Google Play" style="height:48px; width:auto;" />
+  <img src="https://media.thechurchcoassets.com/accounts/4892/400d4019-95e4-4793-9e95-dc218b391300-./Get%20it%20on%20Google%20Play%20(5).png" alt="Get it on Google Play" style="height:100px; width:auto;" />
 </a>
     </div>
   </div>
