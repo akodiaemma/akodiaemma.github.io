@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="minimum-scale=1, maximum-scale=1, initial-scale=1, width=device-width" />
+  <title>Scholarship Ministry | Abyssinian Baptist Church</title>
+<link rel="icon" type="image/jpeg" href="https://media.thechurchcoassets.com/accounts/4892/c7618913-58e5-4fd8-b2a3-9106d58208ce-./Abyssinian%20Baptist%20Church%20Favicon.jpg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700%7CInter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400" media="all" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ══════════════════════════════════════════════════════
+       ▌ PARENT DESIGN SYSTEM — Edit here to control the
+       ▌ entire page: colors, radii, icons, and fonts.
+       ══════════════════════════════════════════════════════ */
+    :root {
+      /* ── Core Palette ──────────────────────────────────── */
+      --color-dark:         #1A1A1A;       /* page background dark sections  */
+      --color-light:        #ffffff;       /* page background light sections  */
+      --color-accent:       #1c75bc;  /* primary blue — CTA buttons, highlights */
+      --color-accent-hover: #2689d8;    /* accent on hover / pressed            */
+      --color-warm-light:   #e5e7eb;      /* warm off-white section backgrounds  */
+      --color-sand:         #D6C5BB;      /* dividers, subtle tones               */
+
+      /* ── Typography ────────────────────────────────────── */
+      --font-heading: 'Poppins', sans-serif;
+      --font-body:    'Inter',   sans-serif;
+
+      /* ── Button Shape ──────────────────────────────────── */
+      --btn-radius:   3.4rem;   /* pill = 3.4rem | rounded = 1.2rem | sharp = 0.4rem */
+      --btn-border:   2px;      /* border thickness on outlined buttons               */
+
+      /* ── Card & Surface Radii ──────────────────────────── */
+      --radius-card:  1.6rem;   /* tier cards, story cards, pillar cards              */
+      --radius-chip:  1.2rem;   /* partner chips, stat chips, app badges              */
+      --radius-badge: 99px;     /* pill badges (event-badge, highlight-list tags)     */
+      --radius-input: 1rem;     /* form inputs if added later                         */
+
+      /* ── Section Icon Set ──────────────────────────────── */
+      /* Swap any emoji/icon below to restyle all section icons site-wide */
+      --icon-scholarships: "🎓";   /* What We Do — Scholarship pillar    */
+      --icon-career:       "💼";   /* What We Do — Career pillar          */
+      --icon-ai:           "🤖";   /* What We Do — AI Fluency pillar      */
+      --icon-finance:      "📈";   /* What We Do — Financial Literacy     */
+      --icon-quote:        "\201C"; /* Impact section quote mark           */
+      --icon-phone:        "📞";   /* Footer — Call Us                    */
+      --icon-location:     "📍";   /* Footer — Find Us                    */
+      --icon-email:        "✉️";   /* Footer — Email                      */
+
+      /* ── Giving Tier — Selected State ─────────────────── */
+      --tier-selected-bg:      var(--color-accent);
+      --tier-selected-border:  var(--color-accent);
+      --tier-hover-bg:         rgb(59 130 246 / 17%);
+
+      /* ── Navbar ────────────────────────────────────────── */
+      --nav-bg:           var(--color-dark);
+      --nav-link-color:   rgba(255,255,255,0.72);
+      --nav-link-hover:   #ffffff;
+
+      /* ── Footer accent (contact icon circle) ───────────── */
+      --footer-icon-bg:   #f5a623;
+    }
+
+    /* ─── CSS Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 10px; min-width: 320px; scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--color-light); color: var(--color-dark); }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── Typography Utilities ─── */
+    .label   { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.4rem, 1.5vw, 1.6rem); letter-spacing: 0.02em; }
+    .h1      { font-family: var(--font-heading); font-weight: 700; font-size: clamp(4.2rem, 6vw, 7.6rem); line-height: 1.1; }
+    .h2      { font-family: var(--font-heading); font-weight: 700; font-size: clamp(3rem, 4.5vw, 5.4rem); line-height: 1.15; }
+    .h3      { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.4rem, 3vw, 3.8rem); line-height: 1.2; }
+    .h4      { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2rem, 2.2vw, 2.8rem); line-height: 1.2; }
+    .body-lg { font-family: var(--font-body); font-weight: 400; font-size: clamp(1.6rem, 1.8vw, 2rem); line-height: 1.65; }
+    .body-sm { font-family: var(--font-body); font-weight: 400; font-size: clamp(1.4rem, 1.5vw, 1.6rem); line-height: 1.6; }
+
+    /* ─── Buttons — all shape/color driven by :root vars ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: clamp(1.5rem, 1.6vw, 1.8rem);
+      border-radius: var(--btn-radius);
+      padding: 0.9rem 2.8rem;
+      min-height: 5.4rem;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+      white-space: nowrap;
+      border: var(--btn-border) solid transparent;
+      text-decoration: none;
+    }
+    .btn-primary   { background: var(--color-accent); color: #fff; }
+    .btn-primary:hover { background: var(--color-accent-hover); }
+    .btn-secondary { background: transparent; color: var(--color-accent); border-color: var(--color-accent); }
+    .btn-secondary:hover { background: var(--tier-hover-bg); }
+    .btn-white     { background: #fff; color: var(--color-dark); }
+    .btn-white:hover { background: var(--color-warm-light); }
+    .btn-outline-white { background: transparent; color: #fff; border-color: #fff; }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.12); }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-top: clamp(2.4rem, 3vw, 3.6rem);
+    }
+
+    /* ─── Layout ─── */
+    .container { max-width: 128rem; margin: 0 auto; padding: 0 clamp(2rem, 4vw, 6rem); }
+    .section-pad { padding: clamp(6rem, 8vw, 10rem) 0; }
+    .section-pad-sm { padding: clamp(4rem, 5vw, 6rem) 0; }
+
+    /* ─── Sticky anchor nav ─── */
+    #anchor-nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--color-dark);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    #anchor-nav .inner {
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      gap: 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    max-width: 100%;
+    }
+
+/* This only triggers on screens wider than 768px */
+@media (min-width: 768px) {
+    section, .site-footer, .app-banner {
+        margin: 2%;
+        border-radius: 40px !important;
+    }
+#hero {
+border-radius: 40px !important;
+}
+
+}
+
+    #anchor-nav .inner::-webkit-scrollbar { display: none; }
+    #anchor-nav a {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.72);
+      padding: 1.6rem 2rem;
+      white-space: nowrap;
+      transition: color 0.15s;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    #anchor-nav a:hover { color: #fff; }
+
+    /* ─── SITE HEADER ─── */
+    .site-header {
+      background: var(--color-dark);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 300;
+    }
+    .site-header .inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem clamp(2rem, 4vw, 6rem);
+      /*max-width: 160rem;*/
+      margin: 0 auto;
+    }
+    .site-header .logo img {
+      height: 4.8rem;
+      width: auto;
+      display: block;
+    }
+    .main-nav {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .main-nav a {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: 2rem;
+      color: var(--nav-link-color);
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.6rem;
+      transition: background 0.15s, color 0.15s;
+    }
+    .main-nav a:hover { background: rgba(255,255,255,0.08); color: var(--nav-link-hover); }
+    @media (max-width: 768px) {
+      .main-nav { display: none; }
+    }
+
+    /* ─── HERO ─── */
+
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 70% 50%, rgb(24 55 224 / 18%) 0%, transparent 70%), radial-gradient(ellipse 40% 80% at 20% 80%, rgb(24 73 224 / 8%) 0%, #00000000 60%);
+}
+    #hero {
+       background:
+linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstatic.com/media/e5d1b5_c86ab605569f432090888f4be62d1f7b~mv2.jpg/v1/fill/w_3000,h_1123,al_c,q_90,enc_avif,quality_auto/e5d1b5_c86ab605569f432090888f4be62d1f7b~mv2.jpg) center / cover no-repeat;
+      color: #fff;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(224,51,24,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 80% at 20% 80%, rgba(224,51,24,0.08) 0%, transparent 60%);
+  opacity: var(--hero-before-opacity, 1);
+}
+    #hero .container { position: relative; z-index: 1; padding-top: 8rem; padding-bottom: 8rem; }
+    #hero .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1.6rem; }
+    #hero h1 { color: #fff; max-width: 80rem; }
+    #hero .sub { color: rgba(255,255,255,0.72); max-width: 60rem; margin-top: 2rem; }
+    #hero .btn-group { margin-top: 3.6rem; }
+
+    /* ─── FUNDRAISING TICKER ─── */
+    #ticker { background: var(--color-warm-light); }
+    #ticker .inner { display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; }
+    #ticker .meta { flex: 1; min-width: 28rem; }
+    #ticker .goal-label { text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-accent); margin-bottom: 0.6rem; }
+    #ticker .goal-amount { font-family: var(--font-heading); font-weight: 800; font-size: clamp(4rem, 6vw, 7rem); color: var(--color-dark); line-height: 1; }
+    #ticker .progress-wrap { flex: 2; min-width: 28rem; }
+    #ticker .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    #ticker .progress-stats span { font-family: var(--font-heading); font-weight: 700; font-size: 1.8rem; }
+    #ticker .bar-track {
+      background: rgba(0,0,0,0.12);
+      border-radius: 99px;
+      height: 1.4rem;
+      overflow: hidden;
+    }
+    #ticker .bar-fill {
+      background: var(--color-accent);
+      height: 100%;
+      border-radius: 99px;
+      width: 38%;
+      transition: width 1s ease;
+    }
+    #ticker .sub-text { color: #555; margin-top: 1.2rem; }
+    #ticker .btn-group { margin-top: 2.4rem; }
+
+    /* ─── WHAT WE DO ─── */
+    #what-we-do { background: #fff; }
+    #what-we-do .intro { max-width: 76rem; margin: 0 auto 5rem; text-align: center; }
+    #what-we-do .intro .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+      gap: 3rem;
+      margin-top: 4rem;
+    }
+    .pillar-card {
+      background: var(--color-warm-light);
+      border-radius: var(--radius-card);
+      padding: 3.2rem 3rem;
+    }
+    .pillar-card .icon {
+      width: 5.6rem;
+      height: 5.6rem;
+      background: var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      color: #fff;
+      font-size: 2.4rem;
+    }
+    .pillar-card h4 { color: var(--color-dark); margin-bottom: 1rem; }
+    .pillar-card p { color: #555; }
+
+    /* ─── PROGRAMS ─── */
+    #programs { background: var(--color-dark); color: #fff; }
+    #programs .section-title { text-align: center; margin-bottom: 5rem; }
+    #programs .section-title .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    #programs .section-title h2 { color: #fff; }
+    .accordion { display: flex; flex-direction: column; gap: 1.6rem; }
+    .accordion-item {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2.4rem 3rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .accordion-header h4 { color: #fff; font-size: clamp(1.8rem, 2vw, 2.2rem); }
+    .accordion-arrow {
+      width: 2.4rem;
+      height: 2.4rem;
+      border-right: 2px solid rgba(255,255,255,0.5);
+      border-bottom: 2px solid rgba(255,255,255,0.5);
+      transform: rotate(45deg);
+      transition: transform 0.25s;
+      flex-shrink: 0;
+      margin-left: 2rem;
+    }
+    .accordion-item.open .accordion-arrow { transform: rotate(225deg); }
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .accordion-item.open .accordion-body { max-height: 60rem; }
+    .accordion-body-inner {
+      padding: 0 3rem 2.8rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .accordion-body-inner p { color: rgba(255,255,255,0.75); margin-bottom: 1.6rem; }
+    .highlight-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.4rem;
+    }
+    .highlight-list li {
+      background: rgba(224,51,24,0.18);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.3rem;
+      padding: 0.5rem 1.4rem;
+      border-radius: var(--radius-badge);
+      border: 1px solid rgba(224,51,24,0.35);
+    }
+
+    /* ─── SCHOLARSHIPS ─── */
+    #scholarships {
+      background: #fff;
+    }
+    #scholarships .inner { display: flex; flex-wrap: wrap; gap: 6rem; align-items: center; }
+    #scholarships .text { flex: 1; min-width: 28rem; }
+    #scholarships .text .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    #scholarships .text p { color: #444; margin-top: 1.6rem; max-width: 52rem; }
+    #scholarships .card-wrap { flex: 1; min-width: 28rem; }
+    .scholarship-card {
+      background: var(--color-dark);
+      color: #fff;
+      border-radius: 2rem;
+      padding: 4rem;
+      text-align: center;
+    }
+    .scholarship-card .amount {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(5rem, 7vw, 8rem);
+      color: var(--color-accent);
+      line-height: 1;
+    }
+    .scholarship-card .amount-label { color: rgba(255,255,255,0.6); margin-top: 0.6rem; margin-bottom: 2.4rem; }
+    .scholarship-card .divider { border-top: 1px solid rgba(255,255,255,0.12); margin: 2.4rem 0; }
+    .scholarship-card p { color: rgba(255,255,255,0.7); font-size: 1.6rem; line-height: 1.6; }
+
+    /* ─── BRIDGE FUNDING ─── */
+    #bridge { background: var(--color-warm-light); }
+    #bridge .inner { display: flex; flex-wrap: wrap; gap: 6rem; align-items: center; }
+    #bridge .text { flex: 1; min-width: 28rem; }
+    #bridge .text .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    #bridge .text p { color: #444; margin-top: 1.6rem; max-width: 52rem; }
+    #bridge .stats-col { flex: 1; min-width: 26rem; display: flex; flex-direction: column; gap: 2rem; }
+    .stat-chip {
+      background: #fff;
+      border-radius: var(--radius-chip);
+      padding: 2.4rem 2.8rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .stat-chip .num {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 3.6rem;
+      color: var(--color-accent);
+      line-height: 1;
+    }
+    .stat-chip .desc { color: #444; font-size: 1.5rem; font-family: var(--font-heading); font-weight: 600; }
+
+    /* ─── COMMUNITY IMPACT ─── */
+    #impact { background: var(--color-dark); color: #fff; }
+    #impact .section-title { text-align: center; margin-bottom: 5rem; }
+    #impact .section-title .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    #impact .section-title h2 { color: #fff; }
+    #impact .section-title p { color: rgba(255,255,255,0.65); max-width: 60rem; margin: 1.6rem auto 0; }
+    .story-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr)); gap: 2.4rem; }
+    .story-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-card);
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+    .story-card .quote-icon { font-size: 3.6rem; color: var(--color-accent); line-height: 1; }
+    .story-card blockquote { color: rgba(255,255,255,0.85); font-style: italic; font-size: 1.7rem; line-height: 1.6; flex: 1; }
+    .story-card .attr { color: rgba(255,255,255,0.45); font-size: 1.4rem; font-family: var(--font-heading); font-weight: 600; }
+    .video-placeholder {
+      background: rgba(255,255,255,0.04);
+      border: 1px dashed rgba(255,255,255,0.15);
+      border-radius: 1.6rem;
+      padding: 6rem 3rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+    .video-placeholder p { color: rgba(255,255,255,0.4); font-size: 1.5rem; }
+
+    /* ─── VOLUNTEER ─── */
+    #volunteer { background: #fff; }
+    #volunteer .inner { display: flex; flex-wrap: wrap; gap: 6rem; align-items: flex-start; }
+    #volunteer .text { flex: 1; min-width: 28rem; }
+    #volunteer .text .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    #volunteer .text p { color: #444; margin-top: 1.6rem; max-width: 52rem; }
+    #volunteer .roles { flex: 1; min-width: 26rem; }
+    .role-list { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 3rem; }
+    .role-list li {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: var(--color-dark);
+    }
+    .role-list li::before {
+      content: '';
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 50%;
+      background: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    /* ─── PARTNERSHIPS ─── */
+    #partnerships { background: var(--color-warm-light); }
+    #partnerships .section-title { text-align: center; margin-bottom: 4rem; }
+    #partnerships .section-title .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      gap: 2rem;
+    }
+    .partner-chip {
+      background: #fff;
+      border-radius: var(--radius-chip);
+      padding: 2.4rem 2rem;
+      text-align: center;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--color-dark);
+      border: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 8rem;
+    }
+
+    /* ─── EVENTS ─── */
+    #events { background: #fff; }
+    #events .section-title { text-align: center; margin-bottom: 4rem; }
+    #events .section-title .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .events-list { display: flex; flex-direction: column; gap: 2rem; }
+    .event-row {
+      display: flex;
+      align-items: center;
+      gap: 2.4rem;
+      background: var(--color-warm-light);
+      border-radius: 1.2rem;
+      padding: 2.4rem 3rem;
+      flex-wrap: wrap;
+    }
+    .event-dot {
+      width: 1.2rem;
+      height: 1.2rem;
+      background: var(--color-accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .event-name {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.8rem;
+      flex: 1;
+      min-width: 20rem;
+    }
+    .event-badge {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.3rem;
+      background: rgb(59 130 246 / 17%);
+      color: var(--color-accent);
+      border: 1px solid rgb(59 130 246);
+      border-radius: var(--radius-badge);
+      padding: 0.4rem 1.4rem;
+    }
+
+    /* ─── GIVING TIERS ─── */
+    #giving { background: var(--color-dark); color: #fff; }
+    #giving .section-title { text-align: center; margin-bottom: 5rem; }
+    #giving .section-title .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    #giving .section-title h2 { color: #fff; }
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+      gap: 2rem;
+    }
+    .tier-card {
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-card);
+      padding: 3rem 2.4rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      user-select: none;
+    }
+    .tier-card:hover {
+      border-color: var(--color-accent);
+      background: var(--tier-hover-bg);
+      transform: translateY(-2px);
+    }
+    .tier-card.selected {
+      background: var(--tier-selected-bg);
+      border-color: var(--tier-selected-border);
+    }
+    .tier-card.featured {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .tier-card .tier-name { font-family: var(--font-heading); font-weight: 700; font-size: 1.6rem; color: rgba(255,255,255,0.7); margin-bottom: 1rem; }
+    .tier-card.featured .tier-name { color: rgba(255,255,255,0.85); }
+    .tier-card .tier-amount { font-family: var(--font-heading); font-weight: 900; font-size: 3.6rem; color: #fff; line-height: 1; }
+    .tiers-note {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-chip);
+      padding: 3rem;
+      margin-top: 4rem;
+      text-align: center;
+    }
+    .tiers-note p { color: rgba(255,255,255,0.75); font-size: 1.7rem; line-height: 1.7; max-width: 72rem; margin: 0 auto; }
+    .tiers-note strong { color: var(--color-accent); }
+
+    .tier-card .tier-check {
+      font-size: 1.8rem;
+      color: rgba(255,255,255,0);
+      margin-top: 1.2rem;
+      transition: color 0.2s;
+      font-weight: 700;
+    }
+    .tier-card.selected .tier-check { color: rgba(255,255,255,0.9); }
+
+    /* ── Custom amount input ── */
+    .custom-amount-wrap {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .custom-label {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .custom-input-row {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-chip);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .custom-input-row:focus-within {
+      border-color: var(--color-accent);
+    }
+    .custom-currency {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 2.2rem;
+      color: var(--color-accent);
+      padding: 0 1.4rem 0 2rem;
+    }
+    .custom-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 2.2rem;
+      color: #fff;
+      padding: 1.2rem 2rem 1.2rem 0;
+      width: 18rem;
+    }
+    .custom-input::placeholder { color: rgba(255,255,255,0.25); }
+    .custom-input::-webkit-inner-spin-button,
+    .custom-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+    /* ── Donate button states ── */
+    .donate-btn {
+      font-size: 2rem;
+      padding: 1.2rem 4rem;
+      transition: background 0.18s, opacity 0.18s, transform 0.15s;
+    }
+    .donate-btn:disabled {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.3);
+      cursor: not-allowed;
+      transform: none;
+    }
+    .donate-btn:not(:disabled):hover { transform: translateY(-2px); }
+    .donate-hint {
+      margin-top: 1.4rem;
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.35);
+      font-family: var(--font-heading);
+    }
+
+    /* ─── FINAL CTA ─── */
+    #final-cta {
+      background: var(--color-accent);
+      color: #fff;
+      text-align: center;
+    }
+    #final-cta h2 { color: #fff; margin-bottom: 1.6rem; }
+    #final-cta p { color: rgba(255,255,255,0.82); max-width: 54rem; margin: 0 auto; }
+    #final-cta .btn-group { justify-content: center; flex-wrap: wrap; }
+
+    /* ─── FOOTER (Abyssinian design from image) ─── */
+    .app-banner {
+      background: #2c4a72;
+      color: #fff;
+      text-align: center;
+      padding: 6rem clamp(2rem, 4vw, 6rem);
+    }
+    .app-banner h2 { color: #fff; font-size: clamp(2.8rem, 4vw, 4.2rem); margin-bottom: 1.4rem; }
+    .app-banner p { color: rgba(255,255,255,0.78); max-width: 56rem; margin: 0 auto 3.2rem; font-size: 1.6rem; line-height: 1.65; }
+    .app-badges { display: flex; justify-content: center; gap: 1.6rem; flex-wrap: wrap; }
+    .app-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: #000;
+      color: #fff;
+      border-radius: var(--radius-chip);
+      padding: 1.1rem 2.2rem;
+      min-width: 16rem;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .app-badge:hover { background: #222; }
+    .app-badge .badge-pre { font-size: 1.1rem; color: rgba(255,255,255,0.65); }
+    .app-badge .badge-name { font-family: var(--font-heading); font-weight: 700; font-size: 1.8rem; line-height: 1; }
+    .app-badge svg { flex-shrink: 0; }
+
+    .site-footer {
+      background: #1a1a1a;
+      color: #fff;
+      padding: clamp(5rem, 6vw, 7rem) clamp(2rem, 4vw, 6rem);
+    }
+
+
+
+    .footer-contact-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+      gap: 3rem;
+      text-align: center;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+   .footer-contact-item .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.4rem;
+  font-size: 2.8rem;
+  color: #f5a623;
+}
+    .footer-contact-item strong { display: block; font-family: var(--font-heading); font-weight: 700; font-size: 1.6rem; margin-bottom: 0.4rem; }
+    .footer-contact-item p, .footer-contact-item a { color: rgba(255,255,255,0.6); font-size: 1.5rem; line-height: 1.5; }
+
+    .footer-social { display: flex; justify-content: center; gap: 2rem; padding: 3rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-social a {
+      width: 4rem;
+      height: 4rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 1.5rem;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .footer-social a:hover { border-color: #fff; color: #fff; }
+
+    .footer-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem 2.4rem;
+      padding: 3rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-nav-links a { color: rgba(255,255,255,0.7); font-size: 1.5rem; transition: color 0.15s; }
+    .footer-nav-links a:hover { color: #fff; }
+
+    .footer-copy {
+      text-align: center;
+      padding-top: 3rem;
+    }
+    .footer-copy p { color: rgba(255,255,255,0.35); font-size: 1.3rem; margin-bottom: 0.4rem; }
+    .footer-copy a { color: rgba(255,255,255,0.3); transition: color 0.15s; }
+    .footer-copy a:hover { color: rgba(255,255,255,0.6); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 640px) {
+      .btn-group { flex-direction: column; }
+      .btn-group .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       SITE HEADER — Abyssinian main nav
+  ══════════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="inner">
+      <a href="https://www.abyssinian.org" class="logo">
+        <img
+          src="https://res.cloudinary.com/thechurchcov3production/image/fetch/f_auto/https://media.thechurchcoassets.com/accounts/4892/70b646d9-9af2-4979-85ca-cb6170996d89-./AbyssinianBC%20Logo_Primary%20White__largepreview__.webp"
+          alt="Abyssinian Baptist Church"
+        />
+      </a>
+     <style>
+  /* ── Dropdown Nav ── */
+  .main-nav { display: flex; align-items: center; gap: 0.4rem; }
+  .main-nav > .nav-item { position: relative; }
+  .main-nav > .nav-item > a,
+  .main-nav > .nav-item > span {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 2rem;
+    color: var(--nav-link-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.6rem;
+    transition: background 0.15s, color 0.15s;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 0.4rem;
+    white-space: nowrap;
+  }
+  .main-nav > .nav-item > a:hover,
+  .main-nav > .nav-item > span:hover { background: rgba(255,255,255,0.08); color: #fff; }
+  .main-nav > .nav-item > span::after { content: '▾'; font-size: 1rem; opacity: 0.6; }
+
+  /* Dropdown panel */
+  .nav-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    min-width: 20rem;
+    padding: 0.8rem 0;
+    z-index: 500;
+  }
+  .nav-item:hover .nav-dropdown,
+  .nav-item:focus-within .nav-dropdown { display: block; }
+  .nav-dropdown a {
+    display: block;
+    padding: 0.9rem 2rem;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    transition: background 0.12s;
+  }
+  .nav-dropdown a:hover { background: #f3f4f6; color: var(--color-accent); }
+
+  /* ── Hamburger button ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 3.6rem; height: 3.6rem;
+    background: none; border: none; cursor: pointer;
+    padding: 0.4rem;
+  }
+  .hamburger span {
+    display: block; height: 2px; width: 100%;
+    background: #fff; border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── Mobile menu overlay ── */
+  #mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    z-index: 400;
+    overflow-y: auto;
+    padding: 7rem 2.4rem 4rem;
+    flex-direction: column;
+  }
+  #mobile-menu.open { display: flex; }
+  .mob-item { border-bottom: 1px solid #f3f4f6; }
+  .mob-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 0;
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.8rem;
+    color: #1a1a1a; cursor: pointer;
+  }
+  .mob-top a { color: inherit; flex: 1; }
+  .mob-chevron {
+    font-size: 1.2rem; color: #9ca3af;
+    transition: transform 0.2s;
+  }
+  .mob-item.open .mob-chevron { transform: rotate(180deg); }
+  .mob-sub {
+    display: none;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    gap: 0;
+  }
+  .mob-item.open .mob-sub { display: flex; }
+  .mob-sub a {
+    padding: 1rem 1.6rem;
+    font-family: var(--font-heading); font-size: 1.5rem; font-weight: 500;
+    color: #374151; border-radius: 0.6rem;
+    transition: background 0.12s;
+  }
+  .mob-sub a:hover { background: #f3f4f6; color: var(--color-accent); }
+
+  @media (max-width: 768px) {
+    .main-nav { display: none; }
+    .hamburger { display: flex; }
+  }
+</style>
+
+<!-- Desktop nav -->
+<nav class="main-nav">
+
+  <div class="nav-item">
+    <a href="https://www.abyssinian.org/new-here">New Here?</a>
+  </div>
+
+  <div class="nav-item">
+    <span>About</span>
+    <div class="nav-dropdown">
+      <a href="https://www.abyssinian.org/about/history">Our History</a>
+      <a href="https://www.abyssinian.org/about/vision-mission">Our Vision and Mission</a>
+      <a href="https://www.abyssinian.org/about/beliefs">Our Beliefs</a>
+      <a href="https://www.abyssinian.org/about/pastor">Our Pastor</a>
+      <a href="https://www.abyssinian.org/about/impact">Our Impact</a>
+      <a href="https://www.abyssinian.org/about/affiliates">Our Affiliates</a>
+    </div>
+  </div>
+
+  <div class="nav-item">
+    <span>Next Steps</span>
+    <div class="nav-dropdown">
+      <a href="https://www.abyssinian.org/join-online">Join Online</a>
+      <a href="https://www.abyssinian.org/baptism">Baptism</a>
+      <a href="https://www.abyssinian.org/new-members">New Members</a>
+      <a href="https://www.abyssinian.org/serve">Serve</a>
+      <a href="https://www.abyssinian.org/prayer">Prayer</a>
+    </div>
+  </div>
+
+  <div class="nav-item">
+    <span>Get Involved</span>
+    <div class="nav-dropdown">
+      <a href="https://www.abyssinian.org/aby-kidz">Aby Kidz</a>
+      <a href="https://www.abyssinian.org/aby-women">Aby Women</a>
+      <a href="https://www.abyssinian.org/join-a-group">Join a Group</a>
+      <a href="https://www.abyssinian.org/join-a-team">Join a Team</a>
+      <a href="https://www.abyssinian.org/join-a-ministry">Join a Ministry</a>
+      <a href="https://www.abyssinian.org/aby-cares">Aby Cares</a>
+      <a href="https://www.abyssinian.org/serve">Serve</a>
+    </div>
+  </div>
+
+  <div class="nav-item">
+    <a href="https://www.abyssinian.org/events">Events</a>
+  </div>
+
+  <div class="nav-item">
+    <a href="https://www.abyssinian.org/watch-online">Watch Online</a>
+  </div>
+
+  <div class="nav-item">
+    <a href="https://www.abyssinian.org/give">Give</a>
+  </div>
+
+  <div class="nav-item">
+    <a href="https://www.abyssinian.org/jobs">Jobs</a>
+  </div>
+
+</nav>
+
+<!-- Hamburger button (mobile) -->
+<button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileMenu()">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- Mobile menu -->
+<div id="mobile-menu">
+
+  <div class="mob-item">
+    <div class="mob-top"><a href="https://www.abyssinian.org/new-here">New Here?</a></div>
+  </div>
+
+  <div class="mob-item">
+    <div class="mob-top" onclick="toggleMobItem(this)">
+      About <span class="mob-chevron">▾</span>
+    </div>
+    <div class="mob-sub">
+      <a href="https://www.abyssinian.org/about/history">Our History</a>
+      <a href="https://www.abyssinian.org/about/vision-mission">Our Vision and Mission</a>
+      <a href="https://www.abyssinian.org/about/beliefs">Our Beliefs</a>
+      <a href="https://www.abyssinian.org/about/pastor">Our Pastor</a>
+      <a href="https://www.abyssinian.org/about/impact">Our Impact</a>
+      <a href="https://www.abyssinian.org/about/affiliates">Our Affiliates</a>
+    </div>
+  </div>
+
+  <div class="mob-item">
+    <div class="mob-top" onclick="toggleMobItem(this)">
+      Next Steps <span class="mob-chevron">▾</span>
+    </div>
+    <div class="mob-sub">
+      <a href="https://www.abyssinian.org/join-online">Join Online</a>
+      <a href="https://www.abyssinian.org/baptism">Baptism</a>
+      <a href="https://www.abyssinian.org/new-members">New Members</a>
+      <a href="https://www.abyssinian.org/serve">Serve</a>
+      <a href="https://www.abyssinian.org/prayer">Prayer</a>
+    </div>
+  </div>
+
+  <div class="mob-item">
+    <div class="mob-top" onclick="toggleMobItem(this)">
+      Get Involved <span class="mob-chevron">▾</span>
+    </div>
+    <div class="mob-sub">
+      <a href="https://www.abyssinian.org/aby-kidz">Aby Kidz</a>
+      <a href="https://www.abyssinian.org/aby-women">Aby Women</a>
+      <a href="https://www.abyssinian.org/join-a-group">Join a Group</a>
+      <a href="https://www.abyssinian.org/join-a-team">Join a Team</a>
+      <a href="https://www.abyssinian.org/join-a-ministry">Join a Ministry</a>
+      <a href="https://www.abyssinian.org/aby-cares">Aby Cares</a>
+      <a href="https://www.abyssinian.org/serve">Serve</a>
+    </div>
+  </div>
+
+  <div class="mob-item">
+    <div class="mob-top"><a href="https://www.abyssinian.org/events">Events</a></div>
+  </div>
+
+  <div class="mob-item">
+    <div class="mob-top"><a href="https://www.abyssinian.org/watch-online">Watch Online</a></div>
+  </div>
+
+  <div class="mob-item">
+    <div class="mob-top"><a href="https://www.abyssinian.org/give">Give</a></div>
+  </div>
+
+  <div class="mob-item">
+    <div class="mob-top"><a href="https://www.abyssinian.org/jobs">Jobs</a></div>
+  </div>
+
+</div>
+
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const btn  = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function toggleMobItem(el) {
+    el.parentElement.classList.toggle('open');
+  }
+</script>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       ANCHOR NAV — jumps to sections
+  ══════════════════════════════════════════════ -->
+  <nav id="anchor-nav" aria-label="Scholarship Ministry Sections">
+    <div class="inner container">
+      <a href="#overview">Overview</a>
+      <a href="#programs">Programs</a>
+      <a href="#scholarships">Scholarships</a>
+      <a href="#events">Events</a>
+      <a href="#giving">Support</a>
+      <a href="#volunteer">Volunteer</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       1. HERO
+  ══════════════════════════════════════════════ -->
+  <section id="overview">
+    <div id="hero">
+      <div class="container">
+        <p id="hero-overline" class="label overline">Abyssinian Scholarship Ministry</p>
+        <h1 id="hero-heading" class="h1">Empowering Students.<br>Preparing Leaders.<br>Building Generational<br>Opportunity.</h1>
+        <p id="hero-sub" class="body-lg sub">The Abyssinian Scholarship Ministry supports students through scholarships, mentorship, career preparation, financial literacy, and educational programming designed to equip the next generation for long-term success.</p>
+        <div class="btn-group">
+          <a id="hero-btn1" href="#scholarships" class="btn btn-primary">Apply for Scholarships</a>
+          <a id="hero-btn2" href="#giving" class="btn btn-outline-white">Support the Fund</a>
+          <a id="hero-btn3" href="#programs" class="btn btn-outline-white">Explore Programs</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       2. FUNDRAISING TICKER
+  ══════════════════════════════════════════════ -->
+  <section id="ticker" class="section-pad">
+    <div class="container">
+      <div class="inner">
+        <div class="meta">
+          <p id="ticker-goal-label" class="label goal-label">2026 Scholarship Fund Goal</p>
+          <p id="ticker-goal-amount" class="goal-amount">$100,000</p>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-stats">
+            <span id="ticker-raised">$38,450 raised</span>
+            <span id="ticker-funded" style="color:var(--color-accent)">38% funded</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill"></div>
+          </div>
+          <p id="ticker-sub" class="body-sm sub-text">Help us reach our goal by December 2026.</p>
+          <div class="btn-group">
+            <a id="ticker-btn1" href="#giving" class="btn btn-primary">Donate</a>
+            <a id="ticker-btn2" href="#giving" class="btn btn-secondary">Become a Sponsor</a>
+            <a id="ticker-btn3" href="#giving" class="btn btn-secondary">Join the Founders Circle</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       3. WHAT WE DO
+  ══════════════════════════════════════════════ -->
+  <section id="what-we-do" class="section-pad">
+    <div class="container">
+      <div class="intro">
+        <p id="wwd-overline" class="label overline">What We Do</p>
+        <h2 id="wwd-heading" class="h2">More Than Scholarships</h2>
+        <p id="wwd-intro" class="body-lg" style="color:#555; margin-top:1.6rem;">The Scholarship Ministry has evolved from simply awarding scholarships to building a comprehensive educational and workforce preparation program for students and families in the Abyssinian community.</p>
+      </div>
+      <div id="pillars-grid" class="pillars-grid">
+        <div class="pillar-card">
+          <div class="icon">🎓</div>
+          <h4 class="h4">Preparing Competitive Scholarship Applicants</h4>
+          <p class="body-sm">Helping students navigate scholarship applications and financial aid to maximize their opportunities.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="icon">💼</div>
+          <h4 class="h4">Career Readiness &amp; Professional Success</h4>
+          <p class="body-sm">Resume development, interview training, mentorship, and career exposure for real-world readiness.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="icon">🤖</div>
+          <h4 class="h4">AI Fluency for Students &amp; Seniors</h4>
+          <p class="body-sm">Intergenerational digital literacy and responsible AI education for our entire community.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="icon">📈</div>
+          <h4 class="h4">Wealth &amp; Financial Literacy</h4>
+          <p class="body-sm">Education around investing, entrepreneurship, and homeownership to build generational wealth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       4. OUR PROGRAMS
+  ══════════════════════════════════════════════ -->
+  <section id="programs" class="section-pad">
+    <div class="container">
+      <div class="section-title">
+        <p id="programs-overline" class="label overline">Our Programs</p>
+        <h2 id="programs-heading" class="h2">Programs Built to Transform</h2>
+      </div>
+      <div class="accordion" id="programAccordion">
+
+        <div class="accordion-item open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <h4 class="h4">Preparing Competitive Scholarship Applicants</h4>
+            <div class="accordion-arrow"></div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <p class="body-lg">A structured 10-week cohort program designed to dramatically improve students' scholarship competitiveness.</p>
+              <ul class="highlight-list">
+                <li>10-Week Cohort</li>
+                <li>Essay Development</li>
+                <li>FAFSA Navigation</li>
+                <li>Mock Interviews</li>
+                <li>Application Review</li>
+              </ul>
+              <a href="#scholarships" class="btn btn-primary">Apply for the Program</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <h4 class="h4">Career Readiness &amp; Professional Success</h4>
+            <div class="accordion-arrow"></div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <p class="body-lg">From first resume to first offer — equipping students with every professional tool they need.</p>
+              <ul class="highlight-list">
+                <li>Resume Workshops</li>
+                <li>LinkedIn Development</li>
+                <li>Professional Etiquette</li>
+                <li>Internship Pathways</li>
+              </ul>
+              <a href="#volunteer" class="btn btn-primary">Get Involved</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <h4 class="h4">Practical AI for Everyday Success</h4>
+            <div class="accordion-arrow"></div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <p class="body-lg">An intergenerational program bringing together students and seniors to build digital confidence together.</p>
+              <ul class="highlight-list">
+                <li>AI Tools for Studying</li>
+                <li>Fraud Awareness</li>
+                <li>Digital Literacy</li>
+                <li>Intergenerational</li>
+              </ul>
+              <a href="#volunteer" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <h4 class="h4">Wealth &amp; Opportunity Summit</h4>
+            <div class="accordion-arrow"></div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <p class="body-lg">Our annual financial empowerment event bringing together keynote speakers, panels, and workshops on building lasting wealth.</p>
+              <ul class="highlight-list">
+                <li>Keynote Speakers</li>
+                <li>Investing Panels</li>
+                <li>Real Estate Workshops</li>
+                <li>Entrepreneurship Sessions</li>
+              </ul>
+              <a href="#events" class="btn btn-primary">View Upcoming Events</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       5. SCHOLARSHIP INFORMATION
+  ══════════════════════════════════════════════ -->
+  <section id="scholarships" class="section-pad">
+    <div class="container">
+      <div class="inner">
+        <div class="text">
+          <p id="sch-overline" class="label overline">Scholarships</p>
+          <h2 id="sch-heading" class="h2">Scholarship Awards</h2>
+          <p id="sch-body" class="body-lg">Scholarships are awarded annually to qualifying students in the Abyssinian community. We are working to increase awards to <strong>$2,500 per student</strong> — invest in education today to make it possible.</p>
+          <div class="btn-group">
+            <a id="sch-btn1" href="#" class="btn btn-primary">Apply for Scholarship</a>
+            <a id="sch-btn2" href="#" class="btn btn-secondary">Scholarship Requirements</a>
+            <a id="sch-btn3" href="#" class="btn btn-secondary">Application Timeline</a>
+          </div>
+        </div>
+        <div class="card-wrap">
+          <div class="scholarship-card">
+            <div id="sch-card-amount" class="amount">$2,500</div>
+            <p id="sch-card-label" class="amount-label body-sm">Proposed Award Per Student</p>
+            <div class="divider"></div>
+            <p id="sch-card-body">Scholarships awarded annually to qualifying students. Eligibility is based on academic performance, community involvement, and financial need.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       6. BRIDGE FUNDING PROGRAM
+  ══════════════════════════════════════════════ -->
+  <section id="bridge" class="section-pad">
+    <div class="container">
+      <div class="inner">
+        <div class="text">
+          <p id="bridge-overline" class="label overline">Bridge Funding Program</p>
+          <h2 id="bridge-heading" class="h2">No Student Left Behind</h2>
+          <p id="bridge-body" class="body-lg">The Bridge Funding Program supports students facing financial gaps that may prevent them from continuing their education. No one should have to stop learning because of money.</p>
+          <div class="btn-group" style="margin-top:2.4rem;">
+            <a id="bridge-btn" href="#giving" class="btn btn-primary">Support the Bridge Fund</a>
+          </div>
+        </div>
+        <div id="bridge-stats" class="stats-col">
+          <div class="stat-chip">
+            <div class="num">8</div>
+            <div class="desc">Students Supported<br>in Pilot Program</div>
+          </div>
+          <div class="stat-chip">
+            <div class="num">$25K</div>
+            <div class="desc">Bridge Funding<br>Goal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       7. COMMUNITY IMPACT / STORIES
+  ══════════════════════════════════════════════ -->
+  <section id="impact" class="section-pad">
+    <div class="container">
+      <div class="section-title">
+        <p id="impact-overline" class="label overline">Community Impact</p>
+        <h2 id="impact-heading" class="h2">Stories of Transformation</h2>
+        <p id="impact-intro">Hear from students whose paths have been shaped by the Abyssinian Scholarship Ministry — and see what's possible when community invests in community.</p>
+      </div>
+      <div id="story-grid" class="story-grid">
+        <!-- rendered by CMS -->
+      </div>
+      <div class="video-placeholder">
+        <p>📹 &nbsp; Video testimonials and recipient journeys coming soon — stay tuned for updates.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       8. VOLUNTEER & MENTOR
+  ══════════════════════════════════════════════ -->
+  <section id="volunteer" class="section-pad">
+    <div class="container">
+      <div class="inner">
+        <div class="text">
+          <p id="vol-overline" class="label overline">Get Involved</p>
+          <h2 id="vol-heading" class="h2">Volunteer &amp; Mentor Opportunities</h2>
+          <p id="vol-body" class="body-lg">Professionals from every sector are welcome. Your experience is exactly what our students need. Join us as a mentor, workshop facilitator, or program volunteer.</p>
+          <div class="btn-group">
+            <a id="vol-btn1" href="#" class="btn btn-primary">Volunteer</a>
+            <a id="vol-btn2" href="#" class="btn btn-secondary">Become a Mentor</a>
+            <a id="vol-btn3" href="#" class="btn btn-secondary">Teach a Workshop</a>
+          </div>
+        </div>
+        <div class="roles">
+          <h4 id="vol-roles-heading" class="h4" style="margin-bottom:2.4rem;">We Need Professionals In&hellip;</h4>
+          <ul id="vol-roles-list" class="role-list">
+            <li>Finance &amp; Banking</li>
+            <li>Technology &amp; AI</li>
+            <li>Education &amp; Academic Advising</li>
+            <li>Corporate Leadership</li>
+            <li>Real Estate &amp; Entrepreneurship</li>
+            <li>Law &amp; Public Policy</li>
+            <li>Healthcare &amp; STEM</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       9. PARTNERSHIPS
+  ══════════════════════════════════════════════ -->
+  <section id="partnerships" class="section-pad">
+    <div class="container">
+      <div class="section-title">
+        <p id="part-overline" class="label overline">Partnerships</p>
+        <h2 id="part-heading" class="h2">Our Partners &amp; Sponsors</h2>
+      </div>
+      <div id="partner-grid" class="partner-grid">
+        <!-- rendered by CMS -->
+      </div>
+      <div style="text-align:center; margin-top:3.6rem;">
+        <a id="part-btn" href="#" class="btn btn-primary">Become a Partner</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       10. UPCOMING EVENTS
+  ══════════════════════════════════════════════ -->
+  <section id="events" class="section-pad">
+    <div class="container">
+      <div class="section-title">
+        <p id="events-overline" class="label overline">Upcoming Events</p>
+        <h2 id="events-heading" class="h2">Mark Your Calendar</h2>
+      </div>
+      <div id="events-list" class="events-list">
+        <!-- rendered by CMS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       11. FUNDRAISING TIERS
+  ══════════════════════════════════════════════ -->
+  <section id="giving" class="section-pad">
+    <div class="container">
+      <div class="section-title">
+        <p id="giving-overline" class="label overline">Fundraising Participation</p>
+        <h2 id="giving-heading" class="h2">Choose Your Giving Level</h2>
+      </div>
+      <div class="tiers-grid" id="tiersGrid">
+        <div class="tier-card" data-amount="1000" data-label="Founders Circle" onclick="selectTier(this)">
+          <p class="tier-name">Founders Circle</p>
+          <p class="tier-amount">$1,000</p>
+          <p class="tier-check">✓</p>
+        </div>
+        <div class="tier-card" data-amount="500" data-label="Leadership Circle" onclick="selectTier(this)">
+          <p class="tier-name">Leadership Circle</p>
+          <p class="tier-amount">$500</p>
+          <p class="tier-check">✓</p>
+        </div>
+        <div class="tier-card" data-amount="250" data-label="Scholars Circle" onclick="selectTier(this)">
+          <p class="tier-name">Scholars Circle</p>
+          <p class="tier-amount">$250</p>
+          <p class="tier-check">✓</p>
+        </div>
+        <div class="tier-card" data-amount="100" data-label="Community Partners" onclick="selectTier(this)">
+          <p class="tier-name">Community Partners</p>
+          <p class="tier-amount">$100</p>
+          <p class="tier-check">✓</p>
+        </div>
+        <div class="tier-card" data-amount="50" data-label="Friends of Scholars" onclick="selectTier(this)">
+          <p class="tier-name">Friends of Scholars</p>
+          <p class="tier-amount">$50</p>
+          <p class="tier-check">✓</p>
+        </div>
+      </div>
+
+      <!-- Custom amount -->
+      <div class="custom-amount-wrap">
+        <label class="custom-label" for="customAmount">Or enter a custom amount</label>
+        <div class="custom-input-row">
+          <span class="custom-currency">$</span>
+          <input
+            type="number"
+            id="customAmount"
+            class="custom-input"
+            placeholder="Other amount"
+            min="1"
+            oninput="onCustomAmount(this)"
+          />
+        </div>
+      </div>
+
+      <div class="tiers-note">
+        <p id="giving-note">If <strong>500–600 members</strong> contribute just <strong>$5 per week</strong>, the ministry could raise nearly <strong>$100,000 annually</strong> to support scholarships and programming. Every dollar changes a life.</p>
+      </div>
+
+      <div id="donateWrap" style="text-align:center; margin-top:3.6rem;">
+        <button id="donateBtn" class="btn btn-primary donate-btn" onclick="goToDonate()" disabled>
+          <span id="donateBtnLabel">Select a giving level above</span>
+        </button>
+        <p id="donateHint" class="donate-hint">Choose a tier or enter an amount to continue</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       12. FINAL CTA
+  ══════════════════════════════════════════════ -->
+  <section id="final-cta" class="section-pad">
+    <div class="container">
+      <h2 id="cta-heading" class="h2">Support the Next Generation of Leaders</h2>
+      <p id="cta-body" class="body-lg">Together, we can open doors that students have never seen before — and build a Harlem legacy that lasts for generations.</p>
+      <div class="btn-group">
+        <a id="cta-btn1" href="#giving" class="btn btn-white">Donate</a>
+        <a id="cta-btn2" href="#scholarships" class="btn btn-outline-white">Apply for Scholarship</a>
+        <a id="cta-btn3" href="#volunteer" class="btn btn-outline-white">Volunteer</a>
+        <a id="cta-btn4" href="#partnerships" class="btn btn-outline-white">Partner With Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER — Abyssinian style (from image)
+  ══════════════════════════════════════════════ -->
+
+  <!-- App Download Banner -->
+  <div class="app-banner">
+    <h2 id="app-heading" class="h2" style="font-size:clamp(2.8rem,4vw,4.4rem);">Download the<br>Church Center App</h2>
+    <p id="app-body">Stay connected and engaged with everything happening at Abyssinian by downloading the Church Center app. Manage your giving, register for events, access sermons, and more — all from the convenience of your phone.</p>
+    <div class="app-badges">
+    <a id="app-appstore" href="#">
+  <img src="https://media.thechurchcoassets.com/accounts/4892/2f0d2f32-1228-4998-843b-b5d6cfaa97a8-./Download%20on%20the%20App%20Store%20(5).png" alt="Download on the App Store" style="height:48px; width:auto;" />
+</a>
+<a id="app-playstore" href="#">
+  <img src="https://media.thechurchcoassets.com/accounts/4892/400d4019-95e4-4793-9e95-dc218b391300-./Get%20it%20on%20Google%20Play%20(5).png" alt="Get it on Google Play" style="height:48px; width:auto;" />
+</a>
+    </div>
+  </div>
+
+  <!-- Main Footer -->
+  <footer class="site-footer">
+    <div class="footer-contact-row">
+     <div class="footer-contact-item">
+  <div class="icon"><i class="fa-solid fa-phone"></i></div>
+  <strong>Call Us</strong>
+        <p id="footer-phone">212-862-7474</p>
+      </div>
+     <div class="footer-contact-item">
+  <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+  <strong>Find Us</strong>
+        <p id="footer-address">132 Odell Clark Place,<br>New York, NY 10030</p>
+      </div>
+  <div class="footer-contact-item">
+  <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+  <strong>Email</strong>
+        <a id="footer-email" href="/cdn-cgi/l/email-protection#a7cec9c1c8e7c6c5ded4d4cec9cec6c989c8d5c0"><span class="__cf_email__" data-cfemail="5e373038311e3f3c272d2d3730373f3070312c39">[email&#160;protected]</span></a>
+      </div>
+    </div>
+
+    <div class="footer-social">
+      <a id="footer-facebook" href="https://facebook.com/abyssinian" aria-label="Facebook">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a id="footer-instagram" href="https://instagram.com/abyssinian" aria-label="Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a id="footer-youtube" href="https://youtube.com/abyssinian" aria-label="YouTube">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.5C5.12 20 12 20 12 20s6.88 0 8.59-.5a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a1a1a"/></svg>
+      </a>
+    </div>
+
+    <nav class="footer-nav-links" aria-label="Footer Navigation">
+      <a href="https://www.abyssinian.org">God First</a>
+      <a href="https://www.abyssinian.org/about">About</a>
+      <a href="https://www.abyssinian.org/give">Give</a>
+      <a href="https://www.abyssinian.org/events">Events</a>
+      <a href="https://www.abyssinian.org/new-here">New Here?</a>
+      <a href="https://www.abyssinian.org/prayer">Prayer</a>
+      <a href="https://www.abyssinian.org/sms-policy">SMS Policy</a>
+    </nav>
+
+    <div class="footer-copy">
+      <p id="footer-copyright">© 2026 The Abyssinian Baptist Church</p>
+      <p><a href="https://thechurchco.com">The Church Co</a></p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       CMS LOADER — reads live content from Firebase Firestore
+       ══════════════════════════════════════════════ -->
+  <script type="module">
+    /* ═══════════════════════════════════════════════════════════
+       FIREBASE CONFIG — paste your config values here.
+       Get them from: Firebase Console → Project Settings → Your apps
+    ═══════════════════════════════════════════════════════════ */
+    const firebaseConfig = {
+      apiKey:            "AIzaSyD3lXlEcE1dcMkeqXVNT1WOFmGiXGW6Gm4",
+      authDomain:        "church-523e6.firebaseapp.com",
+      projectId:         "church-523e6",
+      storageBucket:     "church-523e6.firebasestorage.app",
+      messagingSenderId: "572111411985",
+      appId:             "1:572111411985:web:4949df790e5ef7e8960ab0",
+    };
+
+    const FB_COLLECTION = 'cms';
+    const FB_DOC_ID     = 'page_content';
+
+    let STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/your_payment_link_here';
+    let selectedAmount = null;
+
+    /* ── Helpers ── */
+    function set(id, html, useInnerHTML = true) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (useInnerHTML) el.innerHTML = html;
+      else el.textContent = html;
+    }
+    function setHref(id, href) {
+      const el = document.getElementById(id);
+      if (el) el.href = href;
+    }
+    function show(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = '';
+    }
+
+    /* ── Render functions per section ── */
+
+function renderHero(d) {
+  if (d.bg) {
+    const hero = document.getElementById('hero');
+    if (hero) {
+      hero.style.background =
+        d.bg.startsWith('url(')
+          ? `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), ${d.bg} center/cover no-repeat`
+          : d.bg;
+      // suppress the red radial gradient overlay when a custom bg is set
+      if (d.bg.startsWith('url(')) hero.style.setProperty('--hero-before-opacity', '0');
+    }
+  }
+      set('hero-overline', d.overline);
+      set('hero-heading', d.heading);
+      set('hero-sub', d.subtext);
+      const b1 = document.getElementById('hero-btn1');
+      const b2 = document.getElementById('hero-btn2');
+      const b3 = document.getElementById('hero-btn3');
+      if (b1) { b1.textContent = d.btn1_text; b1.href = d.btn1_link; }
+      if (b2) { b2.textContent = d.btn2_text; b2.href = d.btn2_link; }
+      if (b3) { b3.textContent = d.btn3_text; b3.href = d.btn3_link; }
+    }
+
+    function renderTicker(d) {
+      set('ticker-goal-label', d.goal_label);
+      set('ticker-goal-amount', d.goal_amount);
+      set('ticker-raised', d.raised_text);
+      set('ticker-funded', d.funded_percent_text);
+      set('ticker-sub', d.sub_text);
+      const fill = document.querySelector('#ticker .bar-fill');
+      if (fill) fill.style.width = d.bar_fill_percent + '%';
+      const b1 = document.getElementById('ticker-btn1');
+      const b2 = document.getElementById('ticker-btn2');
+      const b3 = document.getElementById('ticker-btn3');
+      if (b1) { b1.textContent = d.btn1_text; b1.href = d.btn1_link; }
+      if (b2) { b2.textContent = d.btn2_text; b2.href = d.btn2_link; }
+      if (b3) { b3.textContent = d.btn3_text; b3.href = d.btn3_link; }
+    }
+
+    function renderWhatWeDo(d) {
+      set('wwd-overline', d.overline);
+      set('wwd-heading', d.heading);
+      set('wwd-intro', d.intro);
+      const grid = document.getElementById('pillars-grid');
+      if (grid && d.pillars) {
+       grid.innerHTML = d.pillars.map(p => `
+  <div class="pillar-card">
+    <div class="icon">
+      ${p.icon.startsWith('fa') ? `<i class="${p.icon}"></i>` : p.icon}
+    </div>
+            <h4 class="h4">${p.title}</h4>
+            <p class="body-sm">${p.text}</p>
+          </div>`).join('');
+      }
+    }
+
+    function renderPrograms(d) {
+      set('programs-overline', d.overline);
+      set('programs-heading', d.heading);
+      const acc = document.getElementById('programAccordion');
+      if (acc && d.items) {
+        acc.innerHTML = d.items.map((item, i) => `
+          <div class="accordion-item${i === 0 ? ' open' : ''}">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <h4 class="h4">${item.title}</h4>
+              <div class="accordion-arrow"></div>
+            </div>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="body-lg">${item.body}</p>
+                <ul class="highlight-list">
+                  ${item.tags.map(t => `<li>${t}</li>`).join('')}
+                </ul>
+                <a href="${item.btn_link}" class="btn btn-primary">${item.btn_text}</a>
+              </div>
+            </div>
+          </div>`).join('');
+      }
+    }
+
+    function renderScholarships(d) {
+      set('sch-overline', d.overline);
+      set('sch-heading', d.heading);
+      set('sch-body', d.body);
+      const b1 = document.getElementById('sch-btn1');
+      const b2 = document.getElementById('sch-btn2');
+      const b3 = document.getElementById('sch-btn3');
+      if (b1) { b1.textContent = d.btn1_text; b1.href = d.btn1_link; }
+      if (b2) { b2.textContent = d.btn2_text; b2.href = d.btn2_link; }
+      if (b3) { b3.textContent = d.btn3_text; b3.href = d.btn3_link; }
+      set('sch-card-amount', d.card_amount);
+      set('sch-card-label', d.card_label);
+      set('sch-card-body', d.card_body);
+    }
+
+    function renderBridge(d) {
+      set('bridge-overline', d.overline);
+      set('bridge-heading', d.heading);
+      set('bridge-body', d.body);
+      const btn = document.getElementById('bridge-btn');
+      if (btn) { btn.textContent = d.btn_text; btn.href = d.btn_link; }
+      const col = document.getElementById('bridge-stats');
+      if (col && d.stats) {
+        col.innerHTML = d.stats.map(s => `
+          <div class="stat-chip">
+            <div class="num">${s.num}</div>
+            <div class="desc">${s.desc.replace(/\n/g, '<br>')}</div>
+          </div>`).join('');
+      }
+    }
+
+    function renderImpact(d) {
+      set('impact-overline', d.overline);
+      set('impact-heading', d.heading);
+      set('impact-intro', d.intro);
+      const grid = document.getElementById('story-grid');
+      if (grid && d.stories) {
+        grid.innerHTML = d.stories.map(s => `
+          <div class="story-card">
+            <div class="quote-icon">&ldquo;</div>
+            <blockquote>${s.quote}</blockquote>
+            <p class="attr">${s.attr}</p>
+          </div>`).join('');
+      }
+    }
+
+    function renderVolunteer(d) {
+      set('vol-overline', d.overline);
+      set('vol-heading', d.heading);
+      set('vol-body', d.body);
+      const b1 = document.getElementById('vol-btn1');
+      const b2 = document.getElementById('vol-btn2');
+      const b3 = document.getElementById('vol-btn3');
+      if (b1) { b1.textContent = d.btn1_text; b1.href = d.btn1_link; }
+      if (b2) { b2.textContent = d.btn2_text; b2.href = d.btn2_link; }
+      if (b3) { b3.textContent = d.btn3_text; b3.href = d.btn3_link; }
+      set('vol-roles-heading', d.roles_heading);
+      const list = document.getElementById('vol-roles-list');
+      if (list && d.roles) {
+        list.innerHTML = d.roles.map(r => `<li>${r}</li>`).join('');
+      }
+    }
+
+    function renderPartnerships(d) {
+      set('part-overline', d.overline);
+      set('part-heading', d.heading);
+      const grid = document.getElementById('partner-grid');
+      if (grid && d.partners) {
+        grid.innerHTML = d.partners.map(p => `
+  <div class="partner-chip">
+    <img src="${p.img}" alt="${p.name}" style="max-height:48px; max-width:100%; object-fit:contain;" />
+  </div>`).join('') +
+  `<div class="partner-chip" style="border:2px dashed rgba(0,0,0,0.15); color:#999; font-weight:500; font-size:1.4rem;">Your Organization</div>`;
+      }
+      const btn = document.getElementById('part-btn');
+      if (btn) { btn.textContent = d.btn_text; btn.href = d.btn_link; }
+    }
+
+    function renderEvents(d) {
+      set('events-overline', d.overline);
+      set('events-heading', d.heading);
+      const list = document.getElementById('events-list');
+      if (list && d.items) {
+        list.innerHTML = d.items.map(e => `
+          <div class="event-row">
+            <div class="event-dot"></div>
+            <div class="event-name">${e.name}</div>
+            <span class="event-badge">${e.badge}</span>
+          </div>`).join('');
+      }
+    }
+
+    function renderGiving(d) {
+      set('giving-overline', d.overline);
+      set('giving-heading', d.heading);
+      set('giving-note', d.note);
+      if (d.stripe_link) STRIPE_PAYMENT_LINK = d.stripe_link;
+      const grid = document.getElementById('tiersGrid');
+      if (grid && d.tiers) {
+        grid.innerHTML = d.tiers.map(t => `
+          <div class="tier-card" data-amount="${t.amount}" data-label="${t.name}" onclick="selectTier(this)">
+            <p class="tier-name">${t.name}</p>
+            <p class="tier-amount">$${t.amount.toLocaleString()}</p>
+            <p class="tier-check">✓</p>
+          </div>`).join('');
+      }
+    }
+
+    function renderFinalCta(d) {
+      set('cta-heading', d.heading);
+      set('cta-body', d.body);
+      const b1 = document.getElementById('cta-btn1');
+      const b2 = document.getElementById('cta-btn2');
+      const b3 = document.getElementById('cta-btn3');
+      const b4 = document.getElementById('cta-btn4');
+      if (b1) { b1.textContent = d.btn1_text; b1.href = d.btn1_link; }
+      if (b2) { b2.textContent = d.btn2_text; b2.href = d.btn2_link; }
+      if (b3) { b3.textContent = d.btn3_text; b3.href = d.btn3_link; }
+      if (b4) { b4.textContent = d.btn4_text; b4.href = d.btn4_link; }
+    }
+
+    function renderAppBanner(d) {
+      set('app-heading', d.heading.replace(/\n/g, '<br>'));
+      set('app-body', d.body);
+      const as = document.getElementById('app-appstore');
+      const gp = document.getElementById('app-playstore');
+      if (as) as.href = d.appstore_link;
+      if (gp) gp.href = d.playstore_link;
+    }
+
+    function renderFooter(d) {
+      set('footer-phone', d.phone);
+      set('footer-address', d.address);
+      const emailEl = document.getElementById('footer-email');
+      if (emailEl) { emailEl.textContent = d.email; emailEl.href = 'mailto:' + d.email; }
+      const fb = document.getElementById('footer-facebook');
+      const ig = document.getElementById('footer-instagram');
+      const yt = document.getElementById('footer-youtube');
+      if (fb) fb.href = d.facebook_link;
+      if (ig) ig.href = d.instagram_link;
+      if (yt) yt.href = d.youtube_link;
+      set('footer-copyright', d.copyright);
+    }
+
+    /* ── Main CMS loader — reads from Firebase ── */
+    async function loadCMS() {
+      try {
+        const { initializeApp, getApps } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
+        const { getFirestore, doc, getDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+
+        const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+        const db  = getFirestore(app);
+        const ref = doc(db, FB_COLLECTION, FB_DOC_ID);
+        const snap = await getDoc(ref);
+
+        if (!snap.exists()) {
+          console.warn('CMS: No content document found in Firestore yet.');
+          return;
+        }
+
+        const c = snap.data();
+        if (c.hero)         renderHero(c.hero);
+        if (c.ticker)       renderTicker(c.ticker);
+        if (c.what_we_do)   renderWhatWeDo(c.what_we_do);
+        if (c.programs)     renderPrograms(c.programs);
+        if (c.scholarships) renderScholarships(c.scholarships);
+        if (c.bridge)       renderBridge(c.bridge);
+        if (c.impact)       renderImpact(c.impact);
+        if (c.volunteer)    renderVolunteer(c.volunteer);
+        if (c.partnerships) renderPartnerships(c.partnerships);
+        if (c.events)       renderEvents(c.events);
+        if (c.giving)       renderGiving(c.giving);
+        if (c.final_cta)    renderFinalCta(c.final_cta);
+        if (c.app_banner)   renderAppBanner(c.app_banner);
+        if (c.footer)       renderFooter(c.footer);
+
+        attachSmoothScroll();
+
+      } catch (err) {
+        console.warn('CMS: Could not load from Firebase — showing default content.', err);
+      }
+    }
+
+    /* ── Accordion ── */
+    function toggleAccordion(headerEl) {
+      const item = headerEl.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+    window.toggleAccordion = toggleAccordion;
+
+    /* ── Smooth scroll ── */
+    function attachSmoothScroll() {
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const id = a.getAttribute('href').slice(1);
+          const target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+          const offset = document.querySelector('.site-header').offsetHeight +
+                         (document.getElementById('anchor-nav') ? document.getElementById('anchor-nav').offsetHeight : 0);
+          const top = target.getBoundingClientRect().top + window.scrollY - offset - 16;
+          window.scrollTo({ top, behavior: 'smooth' });
+        });
+      });
+    }
+
+    /* ── Giving tiers ── */
+    function selectTier(card) {
+      document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      document.getElementById('customAmount').value = '';
+      selectedAmount = parseInt(card.dataset.amount, 10);
+      updateDonateButton();
+    }
+
+    function onCustomAmount(input) {
+      const val = parseInt(input.value, 10);
+      document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('selected'));
+      selectedAmount = (!isNaN(val) && val > 0) ? val : null;
+      updateDonateButton();
+    }
+
+    function updateDonateButton() {
+      const btn = document.getElementById('donateBtn');
+      const label = document.getElementById('donateBtnLabel');
+      const hint = document.getElementById('donateHint');
+      if (selectedAmount && selectedAmount > 0) {
+        btn.disabled = false;
+        label.textContent = `Donate $${selectedAmount.toLocaleString()} Now →`;
+        hint.textContent = "You'll be taken to our secure Stripe payment page.";
+      } else {
+        btn.disabled = true;
+        label.textContent = 'Select a giving level above';
+        hint.textContent = 'Choose a tier or enter an amount to continue';
+      }
+    }
+
+    function goToDonate() {
+      if (!selectedAmount || selectedAmount <= 0) return;
+      const amountInCents = selectedAmount * 100;
+      const url = `${STRIPE_PAYMENT_LINK}?prefilled_amount=${amountInCents}`;
+      window.open(url, '_blank', 'noopener');
+    }
+
+    /* Expose onclick handlers to global scope (required for type="module") */
+    window.selectTier     = selectTier;
+    window.onCustomAmount = onCustomAmount;
+    window.goToDonate     = goToDonate;
+
+    /* ── Boot ── */
+    attachSmoothScroll();
+    loadCMS();
+  </script>
+</body>
+</html>

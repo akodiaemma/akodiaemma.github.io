@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page Editor — Abyssinian Scholarship Ministry</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:wght@400;600;700%7CInter:wght@400;500" />
+  <style>
+    :root {
+      --blue: #1c75bc;
+      --blue-hover: #1560a0;
+      --dark: #1a1a1a;
+      --mid: #374151;
+      --light-bg: #f3f4f6;
+      --border: #e5e7eb;
+      --success: #059669;
+      --danger: #dc2626;
+      --warning: #d97706;
+      --radius: 10px;
+      --sidebar-w: 280px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Inter', sans-serif; font-size: 14px; background: var(--light-bg); color: var(--dark); }
+
+    /* ── Lock screen ── */
+    #lock-screen {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #lock-screen.hidden { display: none; }
+    .lock-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 48px 40px;
+      width: 100%; max-width: 380px;
+      text-align: center;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+    }
+    .lock-box h1 { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .lock-box p { color: #6b7280; font-size: 13px; margin-bottom: 28px; }
+    .lock-box input {
+      width: 100%; padding: 12px 16px;
+      border: 2px solid var(--border); border-radius: 8px;
+      font-size: 15px; letter-spacing: 0.1em;
+      outline: none; transition: border-color .2s;
+      margin-bottom: 14px;
+    }
+    .lock-box input:focus { border-color: var(--blue); }
+    .lock-box button {
+      width: 100%; padding: 12px;
+      background: var(--blue); color: #fff;
+      border: none; border-radius: 8px;
+      font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px;
+      cursor: pointer; transition: background .2s;
+    }
+    .lock-box button:hover { background: var(--blue-hover); }
+    #lock-error { color: var(--danger); font-size: 13px; margin-top: 10px; display: none; }
+
+    /* ── App shell ── */
+    #app { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── Sidebar ── */
+    #sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      background: var(--dark); color: #fff;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+    }
+    .sidebar-logo {
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-logo h2 {
+      font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 13px;
+      color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: .08em;
+    }
+    .sidebar-logo p { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+    .sidebar-nav { flex: 1; padding: 12px 0; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 20px;
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65);
+      cursor: pointer; transition: background .15s, color .15s;
+      border-left: 3px solid transparent;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .nav-item.active { background: rgba(28,117,188,0.2); color: #fff; border-left-color: var(--blue); }
+    .nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
+
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* ── Main content ── */
+    #main {
+      flex: 1; display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Top bar ── */
+    #topbar {
+      background: #fff; border-bottom: 1px solid var(--border);
+      padding: 14px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    #topbar h1 { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 16px; }
+    #topbar .subtitle { font-size: 12px; color: #6b7280; margin-top: 1px; }
+    .topbar-actions { display: flex; gap: 10px; align-items: center; }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 7px;
+      font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 13px;
+      cursor: pointer; border: none; transition: background .15s, opacity .15s;
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: var(--blue-hover); }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-success:hover { background: #047857; }
+    .btn-ghost { background: transparent; color: var(--mid); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { background: var(--light-bg); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-sm { padding: 5px 10px; font-size: 12px; border-radius: 5px; }
+
+    /* ── Editor area ── */
+    #editor-area {
+      flex: 1; overflow-y: auto;
+      padding: 28px;
+    }
+
+    /* ── Panels ── */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ── Section cards ── */
+    .section-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .section-card-header {
+      padding: 14px 20px;
+      background: var(--light-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-card-header h3 {
+      font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px;
+      flex: 1;
+    }
+    .section-card-body { padding: 20px; }
+
+    /* ── Form fields ── */
+    .field { margin-bottom: 16px; }
+    .field:last-child { margin-bottom: 0; }
+    .field label {
+      display: block; font-weight: 500; font-size: 12px;
+      color: #6b7280; text-transform: uppercase; letter-spacing: .05em;
+      margin-bottom: 5px;
+    }
+    .field input[type="text"],
+    .field input[type="url"],
+    .field input[type="email"],
+    .field input[type="number"],
+    .field textarea {
+      width: 100%; padding: 9px 12px;
+      border: 1.5px solid var(--border); border-radius: 7px;
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      color: var(--dark); outline: none;
+      transition: border-color .2s;
+    }
+    .field input:focus,
+    .field textarea:focus { border-color: var(--blue); }
+    .field textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+    .field .hint { font-size: 11px; color: #9ca3af; margin-top: 4px; }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    @media (max-width: 700px) {
+      .field-row, .field-row-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── Repeater ── */
+    .repeater { display: flex; flex-direction: column; gap: 12px; }
+    .repeater-item {
+      background: var(--light-bg); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 14px;
+      position: relative;
+    }
+    .repeater-item-header {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 12px;
+    }
+    .repeater-item-header span {
+      font-weight: 600; font-size: 13px; flex: 1;
+    }
+    .repeater-remove {
+      background: none; border: none; color: #ef4444;
+      font-size: 18px; cursor: pointer; line-height: 1;
+      padding: 2px 6px; border-radius: 4px;
+      transition: background .15s;
+    }
+    .repeater-remove:hover { background: #fee2e2; }
+    .repeater-add {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; padding: 10px;
+      border: 2px dashed var(--border); border-radius: 8px;
+      color: var(--blue); font-weight: 600; font-size: 13px;
+      cursor: pointer; transition: border-color .15s, background .15s;
+      background: none;
+    }
+    .repeater-add:hover { border-color: var(--blue); background: rgba(28,117,188,0.04); }
+
+    /* ── Tags ── */
+    .tags-editor { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .tag-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(28,117,188,0.1); color: var(--blue);
+      border: 1px solid rgba(28,117,188,0.3);
+      border-radius: 20px; padding: 3px 10px 3px 12px;
+      font-size: 12px; font-weight: 600;
+    }
+    .tag-remove {
+      background: none; border: none; color: inherit;
+      cursor: pointer; font-size: 14px; line-height: 1;
+      padding: 0 2px;
+    }
+    .tag-input-row { display: flex; gap: 6px; }
+    .tag-input-row input {
+      flex: 1; padding: 6px 10px;
+      border: 1.5px solid var(--border); border-radius: 6px;
+      font-size: 12px; outline: none;
+    }
+    .tag-input-row input:focus { border-color: var(--blue); }
+    .tag-input-row button {
+      padding: 6px 12px;
+      background: var(--blue); color: #fff;
+      border: none; border-radius: 6px;
+      font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9998;
+      background: var(--dark); color: #fff;
+      padding: 12px 20px; border-radius: 8px;
+      font-size: 13px; font-weight: 500;
+      transform: translateY(80px); opacity: 0;
+      transition: transform .3s, opacity .3s;
+      pointer-events: none;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.success { background: var(--success); }
+    #toast.warning { background: var(--warning); }
+
+    /* ── Status bar ── */
+    #statusbar {
+      background: #fff; border-top: 1px solid var(--border);
+      padding: 8px 28px; font-size: 12px; color: #6b7280;
+      display: flex; align-items: center; gap: 16px; flex-shrink: 0;
+    }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #d1d5db; display: inline-block;
+    }
+    .status-dot.saved { background: var(--success); }
+    .status-dot.unsaved { background: var(--warning); }
+
+    /* ── Download instructions box ── */
+    .instructions-box {
+      background: #eff6ff; border: 1.5px solid #bfdbfe;
+      border-radius: var(--radius); padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+    .instructions-box h3 { font-size: 14px; font-weight: 600; color: #1e40af; margin-bottom: 8px; }
+    .instructions-box ol { padding-left: 18px; }
+    .instructions-box li { font-size: 13px; color: #1e3a8a; line-height: 1.8; }
+    .instructions-box code {
+      background: #dbeafe; border-radius: 4px;
+      padding: 1px 5px; font-size: 12px; font-family: monospace;
+    }
+
+    /* ── Password change ── */
+    .password-note {
+      background: #fefce8; border: 1.5px solid #fde047;
+      border-radius: 8px; padding: 14px 16px;
+      font-size: 12px; color: #713f12; margin-top: 16px;
+    }
+    .password-note strong { display: block; margin-bottom: 4px; }
+
+    /* ── Preview pane ── */
+    #preview-frame {
+      width: 100%; height: 100%; border: none;
+    }
+    .preview-panel {
+      display: none; flex: 1; flex-direction: column; overflow: hidden;
+    }
+    .preview-panel.active { display: flex; }
+    .preview-bar {
+      background: #fff; border-bottom: 1px solid var(--border);
+      padding: 10px 20px; font-size: 13px; color: #6b7280;
+      display: flex; align-items: center; gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Lock Screen ── -->
+<div id="lock-screen">
+  <div class="lock-box">
+    <h1>🔐 Page Editor</h1>
+    <p>Abyssinian Scholarship Ministry<br>Enter your admin password to continue</p>
+    <input type="password" id="lock-input" placeholder="Password" onkeydown="if(event.key==='Enter')unlock()" autofocus />
+    <button onclick="unlock()">Sign In</button>
+    <p id="lock-error">Incorrect password. Try again.</p>
+  </div>
+</div>
+
+<!-- ── Toast ── -->
+<div id="toast"></div>
+
+<!-- ── App ── -->
+<div id="app">
+
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <div class="sidebar-logo">
+      <h2>Page Editor</h2>
+      <p>Scholarship Ministry CMS</p>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" onclick="showPanel('hero')" data-panel="hero">
+        <span class="icon">🏠</span> Hero
+      </div>
+      <div class="nav-item" onclick="showPanel('ticker')" data-panel="ticker">
+        <span class="icon">📊</span> Fundraising Ticker
+      </div>
+      <div class="nav-item" onclick="showPanel('what_we_do')" data-panel="what_we_do">
+        <span class="icon">🎯</span> What We Do
+      </div>
+      <div class="nav-item" onclick="showPanel('programs')" data-panel="programs">
+        <span class="icon">📚</span> Programs
+      </div>
+      <div class="nav-item" onclick="showPanel('scholarships')" data-panel="scholarships">
+        <span class="icon">🎓</span> Scholarships
+      </div>
+      <div class="nav-item" onclick="showPanel('bridge')" data-panel="bridge">
+        <span class="icon">🌉</span> Bridge Funding
+      </div>
+      <div class="nav-item" onclick="showPanel('impact')" data-panel="impact">
+        <span class="icon">💬</span> Impact / Stories
+      </div>
+      <div class="nav-item" onclick="showPanel('volunteer')" data-panel="volunteer">
+        <span class="icon">🤝</span> Volunteer
+      </div>
+      <div class="nav-item" onclick="showPanel('partnerships')" data-panel="partnerships">
+        <span class="icon">🏢</span> Partnerships
+      </div>
+      <div class="nav-item" onclick="showPanel('events')" data-panel="events">
+        <span class="icon">📅</span> Events
+      </div>
+      <div class="nav-item" onclick="showPanel('giving')" data-panel="giving">
+        <span class="icon">💳</span> Giving Tiers
+      </div>
+      <div class="nav-item" onclick="showPanel('final_cta')" data-panel="final_cta">
+        <span class="icon">📣</span> Final CTA
+      </div>
+      <div class="nav-item" onclick="showPanel('footer')" data-panel="footer">
+        <span class="icon">🦶</span> Footer
+      </div>
+      <div class="nav-item" onclick="showPanel('settings')" data-panel="settings">
+        <span class="icon">⚙️</span> Settings
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn btn-ghost" style="width:100%; justify-content:center; font-size:12px;" onclick="lockScreen()">🔒 Lock</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Top bar -->
+    <div id="topbar">
+      <div>
+        <h1 id="topbar-title">Hero Section</h1>
+        <p class="subtitle" id="topbar-subtitle">Edit content below, then click Publish</p>
+      </div>
+      <div class="topbar-actions">
+        <span id="firebase-status" style="font-size:12px; color:#6b7280; display:flex; align-items:center; gap:6px;">
+          <span id="fb-dot" style="width:8px;height:8px;border-radius:50%;background:#d1d5db;display:inline-block;"></span>
+          <span id="fb-label">Connecting…</span>
+        </span>
+        <button class="btn btn-success" id="publish-btn" onclick="publishToFirebase()" disabled>🚀 Publish</button>
+      </div>
+    </div>
+
+    <!-- Editor area -->
+    <div id="editor-area">
+
+      <!-- ── HERO ── -->
+      <div id="panel-hero" class="panel active">
+        <div id="setup-box" class="instructions-box">
+          <h3>⚡ One-time Firebase setup required</h3>
+          <ol>
+            <li>Go to <strong>console.firebase.google.com</strong> → your project (or create one, it's free)</li>
+            <li>Click <strong>Add app → Web</strong>, register the app, copy the <code>firebaseConfig</code> object</li>
+            <li>Go to <strong>Firestore Database → Create database</strong> → start in <strong>test mode</strong></li>
+            <li>Paste your config into the <strong>Settings</strong> panel (bottom of sidebar) and click <strong>Connect</strong></li>
+            <li>That's it — hit <strong>Publish</strong> and your live page updates instantly for everyone 🎉</li>
+          </ol>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><h3>🏠 Hero Section</h3></div>
+          <div class="section-card-body">
+<div class="field">
+  <label>Background</label>
+  <input type="text" id="hero-bg" placeholder="e.g. #1a1a1a  or  url('https://...image.jpg')" />
+  <p class="hint">Solid color: <code>#1a1a1a</code> — Image: <code>url('https://yourimage.jpg')</code> — Leave blank for default dark</p>
+</div>
+            <div class="field">
+              <label>Overline (small text above heading)</label>
+              <input type="text" id="hero-overline" />
+            </div>
+            <div class="field">
+              <label>Main Heading <span style="color:#9ca3af;font-weight:400;">(use &lt;br&gt; for line breaks)</span></label>
+              <textarea id="hero-heading" rows="3"></textarea>
+            </div>
+            <div class="field">
+              <label>Sub-text / Description</label>
+              <textarea id="hero-subtext"></textarea>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 1 Text</label><input type="text" id="hero-btn1_text" /></div>
+              <div class="field"><label>Button 1 Link</label><input type="text" id="hero-btn1_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 2 Text</label><input type="text" id="hero-btn2_text" /></div>
+              <div class="field"><label>Button 2 Link</label><input type="text" id="hero-btn2_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 3 Text</label><input type="text" id="hero-btn3_text" /></div>
+              <div class="field"><label>Button 3 Link</label><input type="text" id="hero-btn3_link" /></div>
+              <div class="field"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TICKER ── -->
+      <div id="panel-ticker" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>📊 Fundraising Ticker</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Goal Label</label><input type="text" id="ticker-goal_label" /></div>
+              <div class="field"><label>Goal Amount (display)</label><input type="text" id="ticker-goal_amount" placeholder="e.g. $100,000" /></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Raised Text</label><input type="text" id="ticker-raised_text" placeholder="e.g. $38,450 raised" /></div>
+              <div class="field"><label>Funded % Text</label><input type="text" id="ticker-funded_percent_text" placeholder="e.g. 38% funded" /></div>
+            </div>
+            <div class="field">
+              <label>Progress Bar Fill % (number only, e.g. 38)</label>
+              <input type="number" id="ticker-bar_fill_percent" min="0" max="100" />
+            </div>
+            <div class="field"><label>Sub Text</label><input type="text" id="ticker-sub_text" /></div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 1 Text</label><input type="text" id="ticker-btn1_text" /></div>
+              <div class="field"><label>Button 1 Link</label><input type="text" id="ticker-btn1_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 2 Text</label><input type="text" id="ticker-btn2_text" /></div>
+              <div class="field"><label>Button 2 Link</label><input type="text" id="ticker-btn2_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 3 Text</label><input type="text" id="ticker-btn3_text" /></div>
+              <div class="field"><label>Button 3 Link</label><input type="text" id="ticker-btn3_link" /></div>
+              <div class="field"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── WHAT WE DO ── -->
+      <div id="panel-what_we_do" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>🎯 What We Do</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Overline</label><input type="text" id="wwd-overline" /></div>
+              <div class="field"><label>Heading</label><input type="text" id="wwd-heading" /></div>
+            </div>
+            <div class="field"><label>Intro Paragraph</label><textarea id="wwd-intro"></textarea></div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><h3>Pillar Cards</h3></div>
+          <div class="section-card-body">
+            <div id="pillars-repeater" class="repeater"></div>
+            <button class="repeater-add" onclick="addPillar()">＋ Add Pillar Card</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PROGRAMS ── -->
+      <div id="panel-programs" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>📚 Programs</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Overline</label><input type="text" id="programs-overline" /></div>
+              <div class="field"><label>Heading</label><input type="text" id="programs-heading" /></div>
+            </div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><h3>Program Accordion Items</h3></div>
+          <div class="section-card-body">
+            <div id="programs-repeater" class="repeater"></div>
+            <button class="repeater-add" onclick="addProgram()">＋ Add Program</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SCHOLARSHIPS ── -->
+      <div id="panel-scholarships" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>🎓 Scholarships</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Overline</label><input type="text" id="sch-overline" /></div>
+              <div class="field"><label>Heading</label><input type="text" id="sch-heading" /></div>
+            </div>
+            <div class="field"><label>Body Text <span style="color:#9ca3af;font-weight:400;">(HTML ok, e.g. &lt;strong&gt;)</span></label><textarea id="sch-body"></textarea></div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 1 Text</label><input type="text" id="sch-btn1_text" /></div>
+              <div class="field"><label>Button 1 Link</label><input type="text" id="sch-btn1_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 2 Text</label><input type="text" id="sch-btn2_text" /></div>
+              <div class="field"><label>Button 2 Link</label><input type="text" id="sch-btn2_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 3 Text</label><input type="text" id="sch-btn3_text" /></div>
+              <div class="field"><label>Button 3 Link</label><input type="text" id="sch-btn3_link" /></div>
+              <div class="field"></div>
+            </div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><h3>Scholarship Card</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Award Amount</label><input type="text" id="sch-card_amount" placeholder="e.g. $2,500" /></div>
+              <div class="field"><label>Award Label</label><input type="text" id="sch-card_label" /></div>
+            </div>
+            <div class="field"><label>Card Body Text</label><textarea id="sch-card_body"></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── BRIDGE ── -->
+      <div id="panel-bridge" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>🌉 Bridge Funding Program</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Overline</label><input type="text" id="bridge-overline" /></div>
+              <div class="field"><label>Heading</label><input type="text" id="bridge-heading" /></div>
+            </div>
+            <div class="field"><label>Body Text</label><textarea id="bridge-body"></textarea></div>
+            <div class="field-row">
+              <div class="field"><label>Button Text</label><input type="text" id="bridge-btn_text" /></div>
+              <div class="field"><label>Button Link</label><input type="text" id="bridge-btn_link" /></div>
+            </div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><h3>Stats Chips</h3></div>
+          <div class="section-card-body">
+            <div id="bridge-stats-repeater" class="repeater"></div>
+            <button class="repeater-add" onclick="addBridgeStat()">＋ Add Stat</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── IMPACT ── -->
+      <div id="panel-impact" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>💬 Community Impact</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Overline</label><input type="text" id="impact-overline" /></div>
+              <div class="field"><label>Heading</label><input type="text" id="impact-heading" /></div>
+            </div>
+            <div class="field"><label>Intro Text</label><textarea id="impact-intro"></textarea></div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><h3>Testimonial Cards</h3></div>
+          <div class="section-card-body">
+            <div id="stories-repeater" class="repeater"></div>
+            <button class="repeater-add" onclick="addStory()">＋ Add Story</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── VOLUNTEER ── -->
+      <div id="panel-volunteer" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>🤝 Volunteer & Mentor</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Overline</label><input type="text" id="vol-overline" /></div>
+              <div class="field"><label>Heading</label><input type="text" id="vol-heading" /></div>
+            </div>
+            <div class="field"><label>Body Text</label><textarea id="vol-body"></textarea></div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 1 Text</label><input type="text" id="vol-btn1_text" /></div>
+              <div class="field"><label>Button 1 Link</label><input type="text" id="vol-btn1_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 2 Text</label><input type="text" id="vol-btn2_text" /></div>
+              <div class="field"><label>Button 2 Link</label><input type="text" id="vol-btn2_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 3 Text</label><input type="text" id="vol-btn3_text" /></div>
+              <div class="field"><label>Button 3 Link</label><input type="text" id="vol-btn3_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field"><label>Roles Heading</label><input type="text" id="vol-roles_heading" /></div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><h3>Professional Roles List</h3></div>
+          <div class="section-card-body">
+            <div id="roles-repeater" class="repeater"></div>
+            <button class="repeater-add" onclick="addRole()">＋ Add Role</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PARTNERSHIPS ── -->
+      <div id="panel-partnerships" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>🏢 Partnerships</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Overline</label><input type="text" id="part-overline" /></div>
+              <div class="field"><label>Heading</label><input type="text" id="part-heading" /></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Button Text</label><input type="text" id="part-btn_text" /></div>
+              <div class="field"><label>Button Link</label><input type="text" id="part-btn_link" /></div>
+            </div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><h3>Partner Names</h3></div>
+          <div class="section-card-body">
+            <div id="partners-repeater" class="repeater"></div>
+            <button class="repeater-add" onclick="addPartner()">＋ Add Partner</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── EVENTS ── -->
+      <div id="panel-events" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>📅 Events</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Overline</label><input type="text" id="events-overline" /></div>
+              <div class="field"><label>Heading</label><input type="text" id="events-heading" /></div>
+            </div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><h3>Event List</h3></div>
+          <div class="section-card-body">
+            <div id="events-repeater" class="repeater"></div>
+            <button class="repeater-add" onclick="addEvent()">＋ Add Event</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GIVING ── -->
+      <div id="panel-giving" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>💳 Giving Tiers</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Overline</label><input type="text" id="giving-overline" /></div>
+              <div class="field"><label>Heading</label><input type="text" id="giving-heading" /></div>
+            </div>
+            <div class="field">
+              <label>Note Text <span style="color:#9ca3af;font-weight:400;">(HTML ok)</span></label>
+              <textarea id="giving-note"></textarea>
+            </div>
+            <div class="field">
+              <label>Stripe Payment Link URL</label>
+              <input type="url" id="giving-stripe_link" placeholder="https://buy.stripe.com/..." />
+              <p class="hint">Replace with your actual Stripe Payment Link. Stripe will receive the selected amount in cents.</p>
+            </div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><h3>Giving Tiers</h3></div>
+          <div class="section-card-body">
+            <div id="tiers-repeater" class="repeater"></div>
+            <button class="repeater-add" onclick="addTier()">＋ Add Tier</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FINAL CTA ── -->
+      <div id="panel-final_cta" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>📣 Final CTA Banner</h3></div>
+          <div class="section-card-body">
+            <div class="field"><label>Heading</label><input type="text" id="cta-heading" /></div>
+            <div class="field"><label>Body Text</label><textarea id="cta-body"></textarea></div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 1 Text</label><input type="text" id="cta-btn1_text" /></div>
+              <div class="field"><label>Button 1 Link</label><input type="text" id="cta-btn1_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 2 Text</label><input type="text" id="cta-btn2_text" /></div>
+              <div class="field"><label>Button 2 Link</label><input type="text" id="cta-btn2_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 3 Text</label><input type="text" id="cta-btn3_text" /></div>
+              <div class="field"><label>Button 3 Link</label><input type="text" id="cta-btn3_link" /></div>
+              <div class="field"></div>
+            </div>
+            <div class="field-row-3">
+              <div class="field"><label>Button 4 Text</label><input type="text" id="cta-btn4_text" /></div>
+              <div class="field"><label>Button 4 Link</label><input type="text" id="cta-btn4_link" /></div>
+              <div class="field"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FOOTER ── -->
+      <div id="panel-footer" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>🦶 Footer</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Phone Number</label><input type="text" id="footer-phone" /></div>
+              <div class="field"><label>Email Address</label><input type="email" id="footer-email" /></div>
+            </div>
+            <div class="field">
+              <label>Address <span style="color:#9ca3af;font-weight:400;">(use &lt;br&gt; for line break)</span></label>
+              <input type="text" id="footer-address" />
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Facebook URL</label><input type="url" id="footer-facebook_link" /></div>
+              <div class="field"><label>Instagram URL</label><input type="url" id="footer-instagram_link" /></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>YouTube URL</label><input type="url" id="footer-youtube_link" /></div>
+              <div class="field"><label>Copyright Text</label><input type="text" id="footer-copyright" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SETTINGS ── -->
+      <div id="panel-settings" class="panel">
+        <div class="section-card">
+          <div class="section-card-header"><h3>🔥 Firebase Connection</h3></div>
+          <div class="section-card-body">
+            <p style="font-size:13px;color:#6b7280;margin-bottom:16px;">Paste your Firebase project config below. You only need to do this once — it's saved in your browser.</p>
+            <div class="field">
+              <label>apiKey</label>
+              <input type="text" id="fb-apiKey" placeholder="AIzaSy..." />
+            </div>
+            <div class="field-row">
+              <div class="field"><label>authDomain</label><input type="text" id="fb-authDomain" placeholder="your-project.firebaseapp.com" /></div>
+              <div class="field"><label>projectId</label><input type="text" id="fb-projectId" placeholder="your-project-id" /></div>
+            </div>
+            <div class="field">
+              <label>storageBucket</label>
+              <input type="text" id="fb-storageBucket" placeholder="your-project.appspot.com" />
+            </div>
+            <div class="field-row">
+              <div class="field"><label>messagingSenderId</label><input type="text" id="fb-messagingSenderId" placeholder="123456789" /></div>
+              <div class="field"><label>appId</label><input type="text" id="fb-appId" placeholder="1:123:web:abc" /></div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:8px;align-items:center;">
+              <button class="btn btn-primary" onclick="connectFirebase()">🔌 Connect to Firebase</button>
+              <span id="fb-connect-status" style="font-size:13px;color:#6b7280;"></span>
+            </div>
+            <div class="password-note" style="margin-top:16px;">
+              <strong>📋 Where to find your config:</strong>
+              Firebase Console → Project Settings (⚙️ gear icon) → Your apps → SDK setup and configuration → Config
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-card-header"><h3>⚙️ App Banner (Church Center)</h3></div>
+          <div class="section-card-body">
+            <div class="field">
+              <label>Heading <span style="color:#9ca3af;font-weight:400;">(use \n for line break)</span></label>
+              <input type="text" id="app-heading" />
+            </div>
+            <div class="field"><label>Body Text</label><textarea id="app-body"></textarea></div>
+            <div class="field-row">
+              <div class="field"><label>App Store Link</label><input type="url" id="app-appstore_link" /></div>
+              <div class="field"><label>Google Play Link</label><input type="url" id="app-playstore_link" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-card-header"><h3>🔐 Admin Password</h3></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field">
+                <label>New Password</label>
+                <input type="password" id="new-password" placeholder="Enter new password" />
+              </div>
+              <div class="field">
+                <label>Confirm Password</label>
+                <input type="password" id="confirm-password" placeholder="Repeat new password" />
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="changePassword()" style="margin-top:8px;">Update Password</button>
+            <div class="password-note">
+              <strong>⚠️ Note:</strong>
+              Password is stored in your browser's local storage. Share verbally with anyone else who needs admin access.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /editor-area -->
+
+    <!-- Status bar -->
+    <div id="statusbar">
+      <span class="status-dot" id="status-dot"></span>
+      <span id="status-text">Load a content.json to begin editing, or start typing to create from scratch.</span>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- (Firebase version — no file input needed) -->
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   CONFIG
+═══════════════════════════════════════════════════════ */
+const DEFAULT_PASSWORD = 'scholarship2026';
+const LS_PASSWORD_KEY  = 'cms_password';
+const LS_CONTENT_KEY   = 'cms_content_draft';
+
+/* ═══════════════════════════════════════════════════════
+   LOCK / UNLOCK
+═══════════════════════════════════════════════════════ */
+function getPassword() {
+  return localStorage.getItem(LS_PASSWORD_KEY) || DEFAULT_PASSWORD;
+}
+
+function unlock() {
+  const val = document.getElementById('lock-input').value;
+  if (val === getPassword()) {
+    document.getElementById('lock-screen').classList.add('hidden');
+    initApp();
+  } else {
+    document.getElementById('lock-error').style.display = 'block';
+    document.getElementById('lock-input').value = '';
+    document.getElementById('lock-input').focus();
+  }
+}
+
+function lockScreen() {
+  document.getElementById('lock-screen').classList.remove('hidden');
+  document.getElementById('lock-input').value = '';
+  document.getElementById('lock-error').style.display = 'none';
+}
+
+function changePassword() {
+  const np = document.getElementById('new-password').value;
+  const cp = document.getElementById('confirm-password').value;
+  if (!np) return toast('Enter a new password', 'warning');
+  if (np !== cp) return toast('Passwords do not match', 'warning');
+  localStorage.setItem(LS_PASSWORD_KEY, np);
+  document.getElementById('new-password').value = '';
+  document.getElementById('confirm-password').value = '';
+  toast('Password updated ✓', 'success');
+}
+
+/* ═══════════════════════════════════════════════════════
+   PANEL NAVIGATION
+═══════════════════════════════════════════════════════ */
+const panelTitles = {
+  hero: 'Hero Section', ticker: 'Fundraising Ticker',
+  what_we_do: 'What We Do', programs: 'Programs',
+  scholarships: 'Scholarships', bridge: 'Bridge Funding',
+  impact: 'Impact / Stories', volunteer: 'Volunteer & Mentor',
+  partnerships: 'Partnerships', events: 'Events',
+  giving: 'Giving Tiers', final_cta: 'Final CTA Banner',
+  footer: 'Footer', settings: 'Settings & App Banner'
+};
+
+function showPanel(key) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const panel = document.getElementById('panel-' + key);
+  if (panel) panel.classList.add('active');
+  const nav = document.querySelector(`[data-panel="${key}"]`);
+  if (nav) nav.classList.add('active');
+  document.getElementById('topbar-title').textContent = panelTitles[key] || key;
+}
+
+/* ═══════════════════════════════════════════════════════
+   HELPERS — get/set field values
+═══════════════════════════════════════════════════════ */
+function fv(id, val) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (val !== undefined) el.value = val ?? '';
+  else return el.value;
+}
+
+/* ═══════════════════════════════════════════════════════
+   POPULATE FORM from data object
+═══════════════════════════════════════════════════════ */
+function populateForm(c) {
+  // Hero
+fv('hero-bg', c.hero?.bg);
+  fv('hero-overline', c.hero?.overline);
+  fv('hero-heading', c.hero?.heading);
+  fv('hero-subtext', c.hero?.subtext);
+  fv('hero-btn1_text', c.hero?.btn1_text); fv('hero-btn1_link', c.hero?.btn1_link);
+  fv('hero-btn2_text', c.hero?.btn2_text); fv('hero-btn2_link', c.hero?.btn2_link);
+  fv('hero-btn3_text', c.hero?.btn3_text); fv('hero-btn3_link', c.hero?.btn3_link);
+
+  // Ticker
+  fv('ticker-goal_label', c.ticker?.goal_label);
+  fv('ticker-goal_amount', c.ticker?.goal_amount);
+  fv('ticker-raised_text', c.ticker?.raised_text);
+  fv('ticker-funded_percent_text', c.ticker?.funded_percent_text);
+  fv('ticker-bar_fill_percent', c.ticker?.bar_fill_percent);
+  fv('ticker-sub_text', c.ticker?.sub_text);
+  fv('ticker-btn1_text', c.ticker?.btn1_text); fv('ticker-btn1_link', c.ticker?.btn1_link);
+  fv('ticker-btn2_text', c.ticker?.btn2_text); fv('ticker-btn2_link', c.ticker?.btn2_link);
+  fv('ticker-btn3_text', c.ticker?.btn3_text); fv('ticker-btn3_link', c.ticker?.btn3_link);
+
+  // What We Do
+  fv('wwd-overline', c.what_we_do?.overline);
+  fv('wwd-heading', c.what_we_do?.heading);
+  fv('wwd-intro', c.what_we_do?.intro);
+  renderPillars(c.what_we_do?.pillars || []);
+
+  // Programs
+  fv('programs-overline', c.programs?.overline);
+  fv('programs-heading', c.programs?.heading);
+  renderPrograms(c.programs?.items || []);
+
+  // Scholarships
+  fv('sch-overline', c.scholarships?.overline);
+  fv('sch-heading', c.scholarships?.heading);
+  fv('sch-body', c.scholarships?.body);
+  fv('sch-btn1_text', c.scholarships?.btn1_text); fv('sch-btn1_link', c.scholarships?.btn1_link);
+  fv('sch-btn2_text', c.scholarships?.btn2_text); fv('sch-btn2_link', c.scholarships?.btn2_link);
+  fv('sch-btn3_text', c.scholarships?.btn3_text); fv('sch-btn3_link', c.scholarships?.btn3_link);
+  fv('sch-card_amount', c.scholarships?.card_amount);
+  fv('sch-card_label', c.scholarships?.card_label);
+  fv('sch-card_body', c.scholarships?.card_body);
+
+  // Bridge
+  fv('bridge-overline', c.bridge?.overline);
+  fv('bridge-heading', c.bridge?.heading);
+  fv('bridge-body', c.bridge?.body);
+  fv('bridge-btn_text', c.bridge?.btn_text);
+  fv('bridge-btn_link', c.bridge?.btn_link);
+  renderBridgeStats(c.bridge?.stats || []);
+
+  // Impact
+  fv('impact-overline', c.impact?.overline);
+  fv('impact-heading', c.impact?.heading);
+  fv('impact-intro', c.impact?.intro);
+  renderStories(c.impact?.stories || []);
+
+  // Volunteer
+  fv('vol-overline', c.volunteer?.overline);
+  fv('vol-heading', c.volunteer?.heading);
+  fv('vol-body', c.volunteer?.body);
+  fv('vol-btn1_text', c.volunteer?.btn1_text); fv('vol-btn1_link', c.volunteer?.btn1_link);
+  fv('vol-btn2_text', c.volunteer?.btn2_text); fv('vol-btn2_link', c.volunteer?.btn2_link);
+  fv('vol-btn3_text', c.volunteer?.btn3_text); fv('vol-btn3_link', c.volunteer?.btn3_link);
+  fv('vol-roles_heading', c.volunteer?.roles_heading);
+  renderRoles(c.volunteer?.roles || []);
+
+  // Partnerships
+  fv('part-overline', c.partnerships?.overline);
+  fv('part-heading', c.partnerships?.heading);
+  fv('part-btn_text', c.partnerships?.btn_text);
+  fv('part-btn_link', c.partnerships?.btn_link);
+  renderPartners(c.partnerships?.partners || []);
+
+  // Events
+  fv('events-overline', c.events?.overline);
+  fv('events-heading', c.events?.heading);
+  renderEvents(c.events?.items || []);
+
+  // Giving
+  fv('giving-overline', c.giving?.overline);
+  fv('giving-heading', c.giving?.heading);
+  fv('giving-note', c.giving?.note);
+  fv('giving-stripe_link', c.giving?.stripe_link);
+  renderTiers(c.giving?.tiers || []);
+
+  // Final CTA
+  fv('cta-heading', c.final_cta?.heading);
+  fv('cta-body', c.final_cta?.body);
+  fv('cta-btn1_text', c.final_cta?.btn1_text); fv('cta-btn1_link', c.final_cta?.btn1_link);
+  fv('cta-btn2_text', c.final_cta?.btn2_text); fv('cta-btn2_link', c.final_cta?.btn2_link);
+  fv('cta-btn3_text', c.final_cta?.btn3_text); fv('cta-btn3_link', c.final_cta?.btn3_link);
+  fv('cta-btn4_text', c.final_cta?.btn4_text); fv('cta-btn4_link', c.final_cta?.btn4_link);
+
+  // App Banner
+  fv('app-heading', c.app_banner?.heading);
+  fv('app-body', c.app_banner?.body);
+  fv('app-appstore_link', c.app_banner?.appstore_link);
+  fv('app-playstore_link', c.app_banner?.playstore_link);
+
+  // Footer
+  fv('footer-phone', c.footer?.phone);
+  fv('footer-address', c.footer?.address);
+  fv('footer-email', c.footer?.email);
+  fv('footer-facebook_link', c.footer?.facebook_link);
+  fv('footer-instagram_link', c.footer?.instagram_link);
+  fv('footer-youtube_link', c.footer?.youtube_link);
+  fv('footer-copyright', c.footer?.copyright);
+
+  setStatus('saved', 'Content loaded — edit fields and click Save & Download to publish');
+}
+
+/* ═══════════════════════════════════════════════════════
+   REPEATER RENDERERS
+═══════════════════════════════════════════════════════ */
+
+function repeaterItem(innerHTML, onRemove) {
+  const div = document.createElement('div');
+  div.className = 'repeater-item';
+  div.innerHTML = innerHTML;
+  div.querySelector('.repeater-remove').onclick = () => { div.remove(); markUnsaved(); };
+  return div;
+}
+
+// Pillars
+function renderPillars(arr) {
+  const r = document.getElementById('pillars-repeater');
+  r.innerHTML = '';
+  arr.forEach((p, i) => r.appendChild(makePillarItem(p, i)));
+}
+function makePillarItem(p = {}, i) {
+  return repeaterItem(`
+    <div class="repeater-item-header"><span>Pillar ${i + 1}</span><button class="repeater-remove" title="Remove">×</button></div>
+    <div class="field-row">
+      <div class="field"><label>Icon (emoji)</label><input type="text" class="p-icon" value="${esc(p.icon||'🎓')}" style="width:80px" /></div>
+      <div class="field"><label>Title</label><input type="text" class="p-title" value="${esc(p.title||'')}" /></div>
+    </div>
+    <div class="field"><label>Description</label><textarea class="p-text">${esc(p.text||'')}</textarea></div>`);
+}
+function addPillar() {
+  const r = document.getElementById('pillars-repeater');
+  r.appendChild(makePillarItem({}, r.children.length));
+  markUnsaved();
+}
+function getPillars() {
+  return [...document.querySelectorAll('#pillars-repeater .repeater-item')].map(el => ({
+    icon: el.querySelector('.p-icon').value,
+    title: el.querySelector('.p-title').value,
+    text: el.querySelector('.p-text').value
+  }));
+}
+
+// Programs
+function renderPrograms(arr) {
+  const r = document.getElementById('programs-repeater');
+  r.innerHTML = '';
+  arr.forEach((p, i) => r.appendChild(makeProgramItem(p, i)));
+}
+function makeProgramItem(p = {}, i) {
+  return repeaterItem(`
+    <div class="repeater-item-header"><span>Program ${i + 1}</span><button class="repeater-remove" title="Remove">×</button></div>
+    <div class="field"><label>Title</label><input type="text" class="pr-title" value="${esc(p.title||'')}" /></div>
+    <div class="field"><label>Body Text</label><textarea class="pr-body">${esc(p.body||'')}</textarea></div>
+    <div class="field">
+      <label>Tags / Badges</label>
+      <div class="tags-editor pr-tags-display"></div>
+      <div class="tag-input-row">
+        <input type="text" class="pr-tag-input" placeholder="Type a tag and press Add" />
+        <button onclick="addTagToItem(this)">Add</button>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Button Text</label><input type="text" class="pr-btn-text" value="${esc(p.btn_text||'')}" /></div>
+      <div class="field"><label>Button Link</label><input type="text" class="pr-btn-link" value="${esc(p.btn_link||'')}" /></div>
+    </div>`, null);
+  // Populate tags after appending (done separately below)
+}
+function addProgram() {
+  const r = document.getElementById('programs-repeater');
+  const item = makeProgramItem({}, r.children.length);
+  r.appendChild(item);
+  markUnsaved();
+}
+function renderPrograms(arr) {
+  const r = document.getElementById('programs-repeater');
+  r.innerHTML = '';
+  arr.forEach((p, i) => {
+    const item = makeProgramItem(p, i);
+    r.appendChild(item);
+    (p.tags || []).forEach(t => addTagChip(item.querySelector('.pr-tags-display'), t));
+  });
+}
+function addTagToItem(btn) {
+  const row = btn.closest('.repeater-item');
+  const input = row.querySelector('.pr-tag-input');
+  if (input.value.trim()) {
+    addTagChip(row.querySelector('.pr-tags-display'), input.value.trim());
+    input.value = '';
+    markUnsaved();
+  }
+}
+function addTagChip(container, text) {
+  const chip = document.createElement('span');
+  chip.className = 'tag-chip';
+  chip.dataset.tag = text;
+  chip.innerHTML = `${esc(text)}<button class="tag-remove" onclick="this.parentElement.remove(); markUnsaved()">×</button>`;
+  container.appendChild(chip);
+}
+function getPrograms() {
+  return [...document.querySelectorAll('#programs-repeater .repeater-item')].map(el => ({
+    title: el.querySelector('.pr-title').value,
+    body: el.querySelector('.pr-body').value,
+    tags: [...el.querySelectorAll('.pr-tags-display .tag-chip')].map(c => c.dataset.tag),
+    btn_text: el.querySelector('.pr-btn-text').value,
+    btn_link: el.querySelector('.pr-btn-link').value
+  }));
+}
+
+// Bridge stats
+function renderBridgeStats(arr) {
+  const r = document.getElementById('bridge-stats-repeater');
+  r.innerHTML = '';
+  arr.forEach((s, i) => r.appendChild(makeBridgeStat(s, i)));
+}
+function makeBridgeStat(s = {}, i) {
+  return repeaterItem(`
+    <div class="repeater-item-header"><span>Stat ${i + 1}</span><button class="repeater-remove">×</button></div>
+    <div class="field-row">
+      <div class="field"><label>Number / Value</label><input type="text" class="bs-num" value="${esc(s.num||'')}" /></div>
+      <div class="field"><label>Description (use \\n for line break)</label><input type="text" class="bs-desc" value="${esc(s.desc||'')}" /></div>
+    </div>`);
+}
+function addBridgeStat() {
+  const r = document.getElementById('bridge-stats-repeater');
+  r.appendChild(makeBridgeStat({}, r.children.length));
+  markUnsaved();
+}
+function getBridgeStats() {
+  return [...document.querySelectorAll('#bridge-stats-repeater .repeater-item')].map(el => ({
+    num: el.querySelector('.bs-num').value,
+    desc: el.querySelector('.bs-desc').value
+  }));
+}
+
+// Stories
+function renderStories(arr) {
+  const r = document.getElementById('stories-repeater');
+  r.innerHTML = '';
+  arr.forEach((s, i) => r.appendChild(makeStory(s, i)));
+}
+function makeStory(s = {}, i) {
+  return repeaterItem(`
+    <div class="repeater-item-header"><span>Story ${i + 1}</span><button class="repeater-remove">×</button></div>
+    <div class="field"><label>Quote</label><textarea class="st-quote">${esc(s.quote||'')}</textarea></div>
+    <div class="field"><label>Attribution (name / title)</label><input type="text" class="st-attr" value="${esc(s.attr||'')}" /></div>`);
+}
+function addStory() {
+  const r = document.getElementById('stories-repeater');
+  r.appendChild(makeStory({}, r.children.length));
+  markUnsaved();
+}
+function getStories() {
+  return [...document.querySelectorAll('#stories-repeater .repeater-item')].map(el => ({
+    quote: el.querySelector('.st-quote').value,
+    attr: el.querySelector('.st-attr').value
+  }));
+}
+
+// Roles
+function renderRoles(arr) {
+  const r = document.getElementById('roles-repeater');
+  r.innerHTML = '';
+  arr.forEach((role, i) => r.appendChild(makeRole(role, i)));
+}
+function makeRole(role = '', i) {
+  return repeaterItem(`
+    <div class="repeater-item-header"><span>Role ${i + 1}</span><button class="repeater-remove">×</button></div>
+    <div class="field"><input type="text" class="role-val" value="${esc(role)}" /></div>`);
+}
+function addRole() {
+  const r = document.getElementById('roles-repeater');
+  r.appendChild(makeRole('', r.children.length));
+  markUnsaved();
+}
+function getRoles() {
+  return [...document.querySelectorAll('#roles-repeater .repeater-item')].map(el =>
+    el.querySelector('.role-val').value);
+}
+
+// Partners
+function renderPartners(arr) {
+  const r = document.getElementById('partners-repeater');
+  r.innerHTML = '';
+  arr.forEach((p, i) => r.appendChild(makePartner(p, i)));
+}
+function makePartner(p = {}, i) {
+  const name = typeof p === 'string' ? p : (p.name || '');
+  const img  = typeof p === 'string' ? '' : (p.img || '');
+  return repeaterItem(`
+    <div class="repeater-item-header"><span>Partner ${i + 1}</span><button class="repeater-remove">×</button></div>
+    <div class="field"><label>Partner Name (for alt text)</label><input type="text" class="partner-name" value="${esc(name)}" /></div>
+    <div class="field"><label>Logo Image URL</label><input type="url" class="partner-img" value="${esc(img)}" placeholder="https://..." /></div>`);
+}
+function addPartner() {
+  const r = document.getElementById('partners-repeater');
+  r.appendChild(makePartner('', r.children.length));
+  markUnsaved();
+}
+function getPartners() {
+  return [...document.querySelectorAll('#partners-repeater .repeater-item')].map(el => ({
+    name: el.querySelector('.partner-name').value,
+    img:  el.querySelector('.partner-img').value,
+  }));
+}
+
+// Events
+function renderEvents(arr) {
+  const r = document.getElementById('events-repeater');
+  r.innerHTML = '';
+  arr.forEach((e, i) => r.appendChild(makeEvent(e, i)));
+}
+function makeEvent(e = {}, i) {
+  return repeaterItem(`
+    <div class="repeater-item-header"><span>Event ${i + 1}</span><button class="repeater-remove">×</button></div>
+    <div class="field-row">
+      <div class="field"><label>Event Name</label><input type="text" class="ev-name" value="${esc(e.name||'')}" /></div>
+      <div class="field"><label>Badge / Date Label</label><input type="text" class="ev-badge" value="${esc(e.badge||'')}" /></div>
+    </div>`);
+}
+function addEvent() {
+  const r = document.getElementById('events-repeater');
+  r.appendChild(makeEvent({}, r.children.length));
+  markUnsaved();
+}
+function getEvents() {
+  return [...document.querySelectorAll('#events-repeater .repeater-item')].map(el => ({
+    name: el.querySelector('.ev-name').value,
+    badge: el.querySelector('.ev-badge').value
+  }));
+}
+
+// Tiers
+function renderTiers(arr) {
+  const r = document.getElementById('tiers-repeater');
+  r.innerHTML = '';
+  arr.forEach((t, i) => r.appendChild(makeTier(t, i)));
+}
+function makeTier(t = {}, i) {
+  return repeaterItem(`
+    <div class="repeater-item-header"><span>Tier ${i + 1}</span><button class="repeater-remove">×</button></div>
+    <div class="field-row">
+      <div class="field"><label>Tier Name</label><input type="text" class="ti-name" value="${esc(t.name||'')}" /></div>
+      <div class="field"><label>Amount ($, number only)</label><input type="number" class="ti-amount" value="${t.amount||''}" min="1" /></div>
+    </div>`);
+}
+function addTier() {
+  const r = document.getElementById('tiers-repeater');
+  r.appendChild(makeTier({}, r.children.length));
+  markUnsaved();
+}
+function getTiers() {
+  return [...document.querySelectorAll('#tiers-repeater .repeater-item')].map(el => ({
+    name: el.querySelector('.ti-name').value,
+    amount: parseInt(el.querySelector('.ti-amount').value, 10) || 0
+  }));
+}
+
+/* ═══════════════════════════════════════════════════════
+   COLLECT FORM → DATA OBJECT
+═══════════════════════════════════════════════════════ */
+function collectForm() {
+  return {
+    hero: {
+ bg:        fv('hero-bg'),
+      overline:  fv('hero-overline'),
+      heading:   fv('hero-heading'),
+      subtext:   fv('hero-subtext'),
+      btn1_text: fv('hero-btn1_text'), btn1_link: fv('hero-btn1_link'),
+      btn2_text: fv('hero-btn2_text'), btn2_link: fv('hero-btn2_link'),
+      btn3_text: fv('hero-btn3_text'), btn3_link: fv('hero-btn3_link'),
+    },
+    ticker: {
+      goal_label: fv('ticker-goal_label'),
+      goal_amount: fv('ticker-goal_amount'),
+      raised_text: fv('ticker-raised_text'),
+      funded_percent_text: fv('ticker-funded_percent_text'),
+      bar_fill_percent: parseInt(fv('ticker-bar_fill_percent'),10) || 0,
+      sub_text: fv('ticker-sub_text'),
+      btn1_text: fv('ticker-btn1_text'), btn1_link: fv('ticker-btn1_link'),
+      btn2_text: fv('ticker-btn2_text'), btn2_link: fv('ticker-btn2_link'),
+      btn3_text: fv('ticker-btn3_text'), btn3_link: fv('ticker-btn3_link'),
+    },
+    what_we_do: {
+      overline: fv('wwd-overline'),
+      heading: fv('wwd-heading'),
+      intro: fv('wwd-intro'),
+      pillars: getPillars()
+    },
+    programs: {
+      overline: fv('programs-overline'),
+      heading: fv('programs-heading'),
+      items: getPrograms()
+    },
+    scholarships: {
+      overline: fv('sch-overline'),
+      heading: fv('sch-heading'),
+      body: fv('sch-body'),
+      btn1_text: fv('sch-btn1_text'), btn1_link: fv('sch-btn1_link'),
+      btn2_text: fv('sch-btn2_text'), btn2_link: fv('sch-btn2_link'),
+      btn3_text: fv('sch-btn3_text'), btn3_link: fv('sch-btn3_link'),
+      card_amount: fv('sch-card_amount'),
+      card_label: fv('sch-card_label'),
+      card_body: fv('sch-card_body'),
+    },
+    bridge: {
+      overline: fv('bridge-overline'),
+      heading: fv('bridge-heading'),
+      body: fv('bridge-body'),
+      btn_text: fv('bridge-btn_text'),
+      btn_link: fv('bridge-btn_link'),
+      stats: getBridgeStats()
+    },
+    impact: {
+      overline: fv('impact-overline'),
+      heading: fv('impact-heading'),
+      intro: fv('impact-intro'),
+      stories: getStories()
+    },
+    volunteer: {
+      overline: fv('vol-overline'),
+      heading: fv('vol-heading'),
+      body: fv('vol-body'),
+      btn1_text: fv('vol-btn1_text'), btn1_link: fv('vol-btn1_link'),
+      btn2_text: fv('vol-btn2_text'), btn2_link: fv('vol-btn2_link'),
+      btn3_text: fv('vol-btn3_text'), btn3_link: fv('vol-btn3_link'),
+      roles_heading: fv('vol-roles_heading'),
+      roles: getRoles()
+    },
+    partnerships: {
+      overline: fv('part-overline'),
+      heading: fv('part-heading'),
+      partners: getPartners(),
+      btn_text: fv('part-btn_text'),
+      btn_link: fv('part-btn_link'),
+    },
+    events: {
+      overline: fv('events-overline'),
+      heading: fv('events-heading'),
+      items: getEvents()
+    },
+    giving: {
+      overline: fv('giving-overline'),
+      heading: fv('giving-heading'),
+      tiers: getTiers(),
+      note: fv('giving-note'),
+      stripe_link: fv('giving-stripe_link'),
+    },
+    final_cta: {
+      heading: fv('cta-heading'),
+      body: fv('cta-body'),
+      btn1_text: fv('cta-btn1_text'), btn1_link: fv('cta-btn1_link'),
+      btn2_text: fv('cta-btn2_text'), btn2_link: fv('cta-btn2_link'),
+      btn3_text: fv('cta-btn3_text'), btn3_link: fv('cta-btn3_link'),
+      btn4_text: fv('cta-btn4_text'), btn4_link: fv('cta-btn4_link'),
+    },
+    app_banner: {
+      heading: fv('app-heading'),
+      body: fv('app-body'),
+      appstore_link: fv('app-appstore_link'),
+      playstore_link: fv('app-playstore_link'),
+    },
+    footer: {
+      phone: fv('footer-phone'),
+      address: fv('footer-address'),
+      email: fv('footer-email'),
+      facebook_link: fv('footer-facebook_link'),
+      instagram_link: fv('footer-instagram_link'),
+      youtube_link: fv('footer-youtube_link'),
+      copyright: fv('footer-copyright'),
+    }
+  };
+}
+
+/* ═══════════════════════════════════════════════════════
+   FIREBASE — dynamically loaded once config is available
+═══════════════════════════════════════════════════════ */
+const LS_FB_CONFIG_KEY = 'cms_firebase_config';
+const FB_COLLECTION    = 'cms';
+const FB_DOC_ID        = 'page_content';
+
+let db = null; // Firestore instance, set after connect
+
+function getSavedFbConfig() {
+  try { return JSON.parse(localStorage.getItem(LS_FB_CONFIG_KEY)); } catch { return null; }
+}
+
+function saveFbConfig(cfg) {
+  localStorage.setItem(LS_FB_CONFIG_KEY, JSON.stringify(cfg));
+}
+
+async function connectFirebase(cfg) {
+  // cfg can be passed directly (on boot) or read from fields (manual connect)
+  if (!cfg) {
+    cfg = {
+      apiKey:            document.getElementById('fb-apiKey').value.trim(),
+      authDomain:        document.getElementById('fb-authDomain').value.trim(),
+      projectId:         document.getElementById('fb-projectId').value.trim(),
+      storageBucket:     document.getElementById('fb-storageBucket').value.trim(),
+      messagingSenderId: document.getElementById('fb-messagingSenderId').value.trim(),
+      appId:             document.getElementById('fb-appId').value.trim(),
+    };
+    if (!cfg.apiKey || !cfg.projectId) {
+      document.getElementById('fb-connect-status').textContent = '⚠️ Fill in at least apiKey and projectId';
+      return;
+    }
+  }
+
+  // Populate fields in case called from boot
+  document.getElementById('fb-apiKey').value            = cfg.apiKey || '';
+  document.getElementById('fb-authDomain').value        = cfg.authDomain || '';
+  document.getElementById('fb-projectId').value         = cfg.projectId || '';
+  document.getElementById('fb-storageBucket').value     = cfg.storageBucket || '';
+  document.getElementById('fb-messagingSenderId').value = cfg.messagingSenderId || '';
+  document.getElementById('fb-appId').value             = cfg.appId || '';
+
+  setFbStatus('connecting', 'Connecting…');
+  document.getElementById('fb-connect-status').textContent = 'Connecting…';
+
+  try {
+    // Load Firebase SDK modules
+    const { initializeApp, getApps } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
+    const { getFirestore, doc, getDoc, setDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+
+    const app = getApps().length ? getApps()[0] : initializeApp(cfg);
+    db = getFirestore(app);
+
+    // Test connection by trying to read the doc
+    const ref = doc(db, FB_COLLECTION, FB_DOC_ID);
+    const snap = await getDoc(ref);
+
+    saveFbConfig(cfg);
+    setFbStatus('connected', 'Connected');
+    document.getElementById('fb-connect-status').textContent = '✅ Connected!';
+    document.getElementById('publish-btn').disabled = false;
+    document.getElementById('setup-box').style.display = 'none';
+
+    if (snap.exists()) {
+      populateForm(snap.data());
+      setStatus('saved', 'Content loaded from Firebase — edit and click Publish to update the live page');
+    } else {
+      setStatus('unsaved', 'Connected! No content saved yet — fill in your content and click Publish');
+    }
+
+    // Store Firestore helpers on db for later use
+    db._ref  = ref;
+    db._setDoc = setDoc;
+
+  } catch (err) {
+    setFbStatus('error', 'Connection failed');
+    document.getElementById('fb-connect-status').textContent = '❌ Failed: ' + err.message;
+    console.error('Firebase connect error:', err);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   PUBLISH TO FIREBASE
+═══════════════════════════════════════════════════════ */
+async function publishToFirebase() {
+  if (!db) return toast('Not connected to Firebase — go to Settings first', 'warning');
+  const btn = document.getElementById('publish-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Publishing…';
+
+  try {
+    const data = collectForm();
+    await db._setDoc(db._ref, data);
+    localStorage.setItem(LS_CONTENT_KEY, JSON.stringify(data));
+    setStatus('saved', 'Published ✓ — live page updated for everyone');
+    toast('Published! Live page updated instantly ✓', 'success');
+  } catch (err) {
+    toast('Publish failed: ' + err.message, 'warning');
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🚀 Publish';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   FIREBASE STATUS INDICATOR
+═══════════════════════════════════════════════════════ */
+function setFbStatus(state, label) {
+  const dot = document.getElementById('fb-dot');
+  const lbl = document.getElementById('fb-label');
+  const colors = { connecting: '#f59e0b', connected: '#059669', error: '#dc2626', idle: '#d1d5db' };
+  dot.style.background = colors[state] || colors.idle;
+  lbl.textContent = label;
+}
+
+/* ═══════════════════════════════════════════════════════
+   AUTO-LOAD on boot
+═══════════════════════════════════════════════════════ */
+async function tryAutoLoad() {
+  // Try to reconnect to Firebase using saved config
+  const cfg = getSavedFbConfig();
+  if (cfg && cfg.apiKey) {
+    await connectFirebase(cfg);
+    return;
+  }
+  // Fall back to localStorage draft
+  const draft = localStorage.getItem(LS_CONTENT_KEY);
+  if (draft) {
+    try {
+      populateForm(JSON.parse(draft));
+      setStatus('unsaved', 'Loaded local draft — connect Firebase in Settings, then Publish');
+      return;
+    } catch {}
+  }
+  setFbStatus('idle', 'Not connected');
+  setStatus('unsaved', 'Go to Settings → paste your Firebase config → Connect to get started');
+  // Auto-navigate to Settings so they see it first
+  showPanel('settings');
+}
+
+/* ═══════════════════════════════════════════════════════
+   STATUS & TOAST
+═══════════════════════════════════════════════════════ */
+function setStatus(state, msg) {
+  const dot = document.getElementById('status-dot');
+  dot.className = 'status-dot ' + (state === 'saved' ? 'saved' : 'unsaved');
+  document.getElementById('status-text').textContent = msg;
+}
+function markUnsaved() {
+  setStatus('unsaved', 'Unsaved changes — click Publish to push to the live page');
+}
+
+let toastTimer;
+function toast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.className = ''; }, 3800);
+}
+
+/* ═══════════════════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════════════════ */
+function esc(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ═══════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════ */
+function initApp() {
+  document.getElementById('editor-area').addEventListener('input', markUnsaved);
+  tryAutoLoad();
+}
+</script>
+</body>
+</html>
