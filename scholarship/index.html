@@ -20,10 +20,10 @@
        ══════════════════════════════════════════════════════ */
     :root {
       /* ── Core Palette ──────────────────────────────────── */
-      --color-dark:         #1A1A1A;       /* page background dark sections  */
+      --color-dark:         #2374b8;       /* page background dark sections  */
       --color-light:        #ffffff;       /* page background light sections  */
       --color-accent:       #1c75bc;  /* primary blue — CTA buttons, highlights */
-      --color-accent-hover: #2689d8;    /* accent on hover / pressed            */
+      --color-accent-hover: #1c75bc;    /* accent on hover / pressed            */
       --color-warm-light:   #e5e7eb;      /* warm off-white section backgrounds  */
       --color-sand:         #D6C5BB;      /* dividers, subtle tones               */
 
@@ -87,17 +87,19 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-heading);
-      font-weight: 900;
-      font-size: clamp(1.5rem, 1.6vw, 1.8rem);
+      font-family: var(--font-body);
+text-transform:uppercase;
+      font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
       border-radius: var(--btn-radius);
-      padding: 0.9rem 2.8rem;
-      min-height: 5.4rem;
+      padding: 1rem 2rem;
       cursor: pointer;
       transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
       white-space: nowrap;
       border: var(--btn-border) solid transparent;
       text-decoration: none;
+box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.17);
     }
     .btn-primary   { background: var(--color-accent); color: #fff; }
     .btn-primary:hover { background: var(--color-accent-hover); }
@@ -105,7 +107,7 @@
     .btn-secondary:hover { background: var(--tier-hover-bg); }
     .btn-white     { background: #fff; color: var(--color-dark); }
     .btn-white:hover { background: var(--color-warm-light); }
-    .btn-outline-white { background: transparent; color: #fff; border-color: #fff; }
+    .btn-outline-white { background: white; color: var(--color-accent); border-color: #fff; }
     .btn-outline-white:hover { background: rgba(255,255,255,0.12); }
 
     .btn-group {
@@ -376,7 +378,7 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
       font-family: var(--font-heading);
       font-weight: 800;
       font-size: clamp(5rem, 7vw, 8rem);
-      color: var(--color-accent);
+      color: white;
       line-height: 1;
     }
     .scholarship-card .amount-label { color: rgba(255,255,255,0.6); margin-top: 0.6rem; margin-bottom: 2.4rem; }
