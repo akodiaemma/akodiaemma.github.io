@@ -20,6 +20,7 @@
        ══════════════════════════════════════════════════════ */
     :root {
       /* ── Core Palette ──────────────────────────────────── */
+--color-vio: #25406a;
       --color-dark:         #2374b8;       /* page background dark sections  */
       --color-light:        #ffffff;       /* page background light sections  */
       --color-accent:       #1c75bc;  /* primary blue — CTA buttons, highlights */
@@ -108,7 +109,7 @@ box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.17);
     .btn-white     { background: #fff; color: var(--color-dark); }
     .btn-white:hover { background: var(--color-warm-light); }
     .btn-outline-white { background: white; color: var(--color-accent); border-color: #fff; }
-    .btn-outline-white:hover { background: rgba(255,255,255,0.12); }
+    .btn-outline-white:hover { opacity: 0.9; }
 
     .btn-group {
       display: flex;
@@ -298,7 +299,7 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
     .pillar-card p { color: #555; }
 
     /* ─── PROGRAMS ─── */
-    #programs { background: var(--color-dark); color: #fff; }
+    #programs { background: var(--color-vio); color: #fff; }
     #programs .section-title { text-align: center; margin-bottom: 5rem; }
     #programs .section-title .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
     #programs .section-title h2 { color: #fff; }
@@ -429,6 +430,7 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
     .story-card blockquote { color: rgba(255,255,255,0.85); font-style: italic; font-size: 1.7rem; line-height: 1.6; flex: 1; }
     .story-card .attr { color: rgba(255,255,255,0.45); font-size: 1.4rem; font-family: var(--font-heading); font-weight: 600; }
     .video-placeholder {
+display: none;
       background: rgba(255,255,255,0.04);
       border: 1px dashed rgba(255,255,255,0.15);
       border-radius: 1.6rem;
@@ -529,7 +531,7 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
     }
 
     /* ─── GIVING TIERS ─── */
-    #giving { background: var(--color-dark); color: #fff; }
+    #giving { background: var(--color-vio); color: #fff; }
     #giving .section-title { text-align: center; margin-bottom: 5rem; }
     #giving .section-title .overline { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
     #giving .section-title h2 { color: #fff; }
@@ -655,7 +657,7 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
 
     /* ─── FINAL CTA ─── */
     #final-cta {
-      background: var(--color-accent);
+      background: var(--color-vio);
       color: #fff;
       text-align: center;
     }
@@ -1345,9 +1347,10 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
   <section id="partnerships" class="section-pad">
     <div class="container">
       <div class="section-title">
-        <p id="part-overline" class="label overline">Partnerships</p>
-        <h2 id="part-heading" class="h2">Our Partners &amp; Sponsors</h2>
-      </div>
+  <p id="part-overline" class="label overline">Partnerships</p>
+  <h2 id="part-heading" class="h2">Our Partners &amp; Sponsors</h2>
+  <p id="part-body" class="body-lg" style="color:#555; max-width:64rem; margin:1.6rem auto 0;"></p>
+</div>
       <div id="partner-grid" class="partner-grid">
         <!-- rendered by CMS -->
       </div>
@@ -1363,9 +1366,10 @@ linear-gradient(rgb(0 0 0 / 75%), rgb(0 0 0 / 78%)), url(https://static.wixstati
   <section id="events" class="section-pad">
     <div class="container">
       <div class="section-title">
-        <p id="events-overline" class="label overline">Upcoming Events</p>
-        <h2 id="events-heading" class="h2">Mark Your Calendar</h2>
-      </div>
+  <p id="events-overline" class="label overline">Upcoming Events</p>
+  <h2 id="events-heading" class="h2">Mark Your Calendar</h2>
+  <p id="events-body" class="body-lg" style="color:#555; max-width:64rem; margin:1.6rem auto 0;"></p>
+</div>
       <div id="events-list" class="events-list">
         <!-- rendered by CMS -->
       </div>
@@ -1705,8 +1709,9 @@ function renderHero(d) {
     }
 
     function renderPartnerships(d) {
-      set('part-overline', d.overline);
-      set('part-heading', d.heading);
+  set('part-overline', d.overline);
+  set('part-heading', d.heading);
+  set('part-body', d.body || '');
       const grid = document.getElementById('partner-grid');
       if (grid && d.partners) {
         grid.innerHTML = d.partners.map(p => `
@@ -1719,9 +1724,10 @@ function renderHero(d) {
       if (btn) { btn.textContent = d.btn_text; btn.href = d.btn_link; }
     }
 
-    function renderEvents(d) {
-      set('events-overline', d.overline);
-      set('events-heading', d.heading);
+   function renderEvents(d) {
+  set('events-overline', d.overline);
+  set('events-heading', d.heading);
+  set('events-body', d.body || '');
       const list = document.getElementById('events-list');
       if (list && d.items) {
         list.innerHTML = d.items.map(e => `

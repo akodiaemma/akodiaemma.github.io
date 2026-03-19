@@ -666,10 +666,14 @@
               <div class="field"><label>Overline</label><input type="text" id="part-overline" /></div>
               <div class="field"><label>Heading</label><input type="text" id="part-heading" /></div>
             </div>
-            <div class="field-row">
-              <div class="field"><label>Button Text</label><input type="text" id="part-btn_text" /></div>
-              <div class="field"><label>Button Link</label><input type="text" id="part-btn_link" /></div>
-            </div>
+           <div class="field">
+  <label>Body Copy</label>
+  <textarea id="part-body"></textarea>
+</div>
+<div class="field-row">
+  <div class="field"><label>Button Text</label><input type="text" id="part-btn_text" /></div>
+  <div class="field"><label>Button Link</label><input type="text" id="part-btn_link" /></div>
+</div>
           </div>
         </div>
         <div class="section-card">
@@ -686,10 +690,14 @@
         <div class="section-card">
           <div class="section-card-header"><h3>📅 Events</h3></div>
           <div class="section-card-body">
-            <div class="field-row">
-              <div class="field"><label>Overline</label><input type="text" id="events-overline" /></div>
-              <div class="field"><label>Heading</label><input type="text" id="events-heading" /></div>
-            </div>
+           <div class="field-row">
+  <div class="field"><label>Overline</label><input type="text" id="events-overline" /></div>
+  <div class="field"><label>Heading</label><input type="text" id="events-heading" /></div>
+</div>
+<div class="field">
+  <label>Body Copy</label>
+  <textarea id="events-body"></textarea>
+</div>
           </div>
         </div>
         <div class="section-card">
@@ -1019,14 +1027,16 @@ fv('hero-bg', c.hero?.bg);
   // Partnerships
   fv('part-overline', c.partnerships?.overline);
   fv('part-heading', c.partnerships?.heading);
+fv('part-body', c.partnerships?.body);
   fv('part-btn_text', c.partnerships?.btn_text);
   fv('part-btn_link', c.partnerships?.btn_link);
   renderPartners(c.partnerships?.partners || []);
 
   // Events
-  fv('events-overline', c.events?.overline);
-  fv('events-heading', c.events?.heading);
-  renderEvents(c.events?.items || []);
+fv('events-overline', c.events?.overline);
+fv('events-heading', c.events?.heading);
+fv('events-body', c.events?.body);
+renderEvents(c.events?.items || []);
 
   // Giving
   fv('giving-overline', c.giving?.overline);
@@ -1387,18 +1397,20 @@ function collectForm() {
       roles_heading: fv('vol-roles_heading'),
       roles: getRoles()
     },
-    partnerships: {
-      overline: fv('part-overline'),
-      heading: fv('part-heading'),
-      partners: getPartners(),
-      btn_text: fv('part-btn_text'),
-      btn_link: fv('part-btn_link'),
-    },
-    events: {
-      overline: fv('events-overline'),
-      heading: fv('events-heading'),
-      items: getEvents()
-    },
+partnerships: {
+  overline: fv('part-overline'),
+  heading: fv('part-heading'),
+  body: fv('part-body'),
+  partners: getPartners(),
+  btn_text: fv('part-btn_text'),
+  btn_link: fv('part-btn_link'),
+},
+   events: {
+  overline: fv('events-overline'),
+  heading: fv('events-heading'),
+  body: fv('events-body'),
+  items: getEvents()
+},
     giving: {
       overline: fv('giving-overline'),
       heading: fv('giving-heading'),
