@@ -23,6 +23,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Loading... | Crossgates Connect</title>
 
+
   <!-- Firebase Compat SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -44,6 +45,17 @@
 
 .u-mt-4 {
     margin-top: var(--_spacing---space--4)
+}
+
+/* Target the exact RGB of the orange paths inside Lotties */
+[data-animation-type="lottie"] svg path[fill="rgb(236,103,43)"],
+[data-animation-type="lottie"] svg g[fill="rgb(236,103,43)"] {
+    fill: #6DA770 !important; /* Your Brand Green */
+}
+
+/* Also target strokes if the animation uses lines instead of fills */
+[data-animation-type="lottie"] svg path[stroke="rgb(236,103,43)"] {
+    stroke: #6DA770 !important;
 }
 
 .cta_background {
@@ -805,7 +817,7 @@ function renderFeatures(d) {
       <div class="features_contain u-container">
         <div class="features_layout">
           <div class="features_header">
-            <div data-wf--typography-heading--font-style="h3" class="class="c-heading w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994 w-richtext u-mb-3""><h2>${safeRich(d.block1Heading)}</h2></div>
+            <div data-wf--typography-heading--font-style="h2" class="c-heading w-variant-433d40c6-c261-f13f-c899-61d2cadf150f w-richtext u-mb-3 u-max-width-16ch"><h2>${safeRich(d.block1Heading)}</h2></div>
             <div data-wf--typography-paragraph--font-style="text-large" class="c-paragraph w-variant-fdb8e663-01e0-aae6-13eb-e6dfca16b689 w-richtext u-rich-text u-max-width-50ch u-mb-5"><p>${safeHtml(d.block1Body)}</p></div>
           </div>
           <div class="features_content u-grid-custom">
@@ -1198,7 +1210,7 @@ function renderFaq(d) {
 
     return `
       <div class="faqs_content_wrap u-grid-custom">
-        <div class="faqs_content_header u-column-4">
+        <div id="w-node-be3d1a67-a8d4-a117-f534-91243e83f885-3e83f884" class="faqs_content_header u-column-4">
           <div class="faqs_content_rtb u-text-style-large w-richtext"><p>${safeHtml(group.label)}</p></div>
         </div>
         <div class="faqs_content_items_wrap u-column-8">${questionsHtml}</div>
@@ -1886,6 +1898,7 @@ function initLottie() {
     el.dataset.state = 'playing';
   });
 }
+
 
 function closeModal(modal) {
   modal.style.opacity = '0';
