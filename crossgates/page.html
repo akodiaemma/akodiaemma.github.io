@@ -1530,16 +1530,35 @@ function renderBenefits(d) {
   const itemsHtml = items.map(item => {
     const bullets = item.bullets ? item.bullets.split('\n').filter(b => b.trim()) : [];
     const bulletsHtml = bullets.map(b => `<li>${safeHtml(b.trim())}</li>`).join('');
+    
     return `
       <div class="benefits_item u-grid-custom">
         <div class="benefits_header u-column-5 u-flex-vertical-nowrap u-justify-content-between u-margin-trim">
           <div class="benefits_header_wrap u-mb-4 u-flex-vertical-nowrap u-gap-row-3">
-            <div class="c-heading w-richtext"><h2>${safeHtml(item.heading)}</h2></div>
-            <div class="c-paragraph w-richtext u-rich-text"><p>${safeHtml(item.body)}</p></div>
+            
+            <div data-wf--typography-heading--font-style="h3" class="c-heading w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994 w-richtext">
+              <h2>${safeHtml(item.heading)}</h2>
+            </div>
+            
+            <div data-wf--typography-paragraph--font-style="text-large" class="c-paragraph w-variant-fdb8e663-01e0-aae6-13eb-e6dfca16b689 w-richtext u-rich-text">
+              <p>${safeHtml(item.body)}</p>
+            </div>
+            
           </div>
-          ${bulletsHtml ? `<div class="c-richtext u-rich-text w-richtext"><ul role="list">${bulletsHtml}</ul></div>` : ''}
+          
+          ${bulletsHtml ? `
+            <div class="c-richtext u-rich-text w-richtext">
+              <ul role="list">
+                ${bulletsHtml}
+              </ul>
+            </div>` : ''}
         </div>
-        ${item.image ? `<img src="${safe(item.image)}" loading="lazy" alt="" class="benefits_img u-column-6 u-ratio-1-1 u-radius-main u-background-skeleton">` : ''}
+        
+        ${item.image ? `
+          <img src="${safe(item.image)}" 
+               loading="lazy" 
+               alt="${safeHtml(item.heading)}" 
+               class="benefits_img u-column-6 u-ratio-1-1 u-radius-main u-background-skeleton">` : ''}
       </div>`;
   }).join('');
 
@@ -1552,7 +1571,6 @@ function renderBenefits(d) {
       <div class="u-section-spacer w-variant-8cc18b30-4618-8767-0111-f6abfe45aaa3"></div>
     </section>`;
 }
-
 // ─────────────────────────────────────────
 // SECTION: COMPARE
 // ─────────────────────────────────────────
