@@ -74,6 +74,28 @@
   max-width: 940px;
 }
 
+.u-max-width-30ch {
+    max-width: 30ch;
+}
+
+.u-mb-3 {
+    margin-bottom: var(--_spacing---space--3);
+}
+
+  /* Margin Trim */
+                        :is(.u-margin-trim, .u-rich-text) > :not(:not(.w-condition-invisible) ~ :not(.w-condition-invisible)), :is(.u-margin-trim, .u-rich-text) > :not(:not(.w-condition-invisible) ~ :not(.w-condition-invisible)).u-display-contents > :first-child {
+                            margin-top: 0;
+                        }
+
+                        :is(.u-margin-trim, .u-rich-text) > :not(:has(~ :not(.w-condition-invisible))), :is(.u-margin-trim, .u-rich-text) > :not(:has(~ :not(.w-condition-invisible))).u-display-contents > :last-child {
+                            margin-bottom: 0;
+                        }
+
+
+.u-mt-text {
+    margin-top: var(--_text-style---margin-top);
+}
+
 .outcomes_span.is-brand {
     color: green !important;
 }
@@ -783,7 +805,7 @@ function renderFeatures(d) {
       <div class="features_contain u-container">
         <div class="features_layout">
           <div class="features_header">
-            <div data-wf--typography-heading--font-style="h2" class="c-heading w-variant-433d40c6-c261-f13f-c899-61d2cadf150f w-richtext u-mb-3 u-max-width-16ch"><h2>${safeRich(d.block1Heading)}</h2></div>
+            <div data-wf--typography-heading--font-style="h3" class="class="c-heading w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994 w-richtext u-mb-3""><h2>${safeRich(d.block1Heading)}</h2></div>
             <div data-wf--typography-paragraph--font-style="text-large" class="c-paragraph w-variant-fdb8e663-01e0-aae6-13eb-e6dfca16b689 w-richtext u-rich-text u-max-width-50ch u-mb-5"><p>${safeHtml(d.block1Body)}</p></div>
           </div>
           <div class="features_content u-grid-custom">
@@ -1415,7 +1437,7 @@ function renderProblems(d) {
       <div class="u-section-spacer w-variant-8cc18b30-4618-8767-0111-f6abfe45aaa3"></div>
       <div class="problems_contain u-container">
         <div class="problems_layout">
-          <div data-wf--typography-heading--font-style="h3" class="c-heading w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994 w-richtext"><h2>${safe(d.heading)}</h2></div>
+          <div data-wf--typography-heading--font-style="h3" class="c-heading w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994 w-richtext u-mb-3"><h2>${safe(d.heading)}</h2></div>
 <div data-wf--typography-paragraph--font-style="text-large" class="c-paragraph w-variant-fdb8e663-01e0-aae6-13eb-e6dfca16b689 w-richtext u-rich-text u-max-width-50ch u-mb-5"><p>CrossGates uses AI as a practical system to provide guided onboarding, readiness logic, and smarter supplier visibility while maintaining strict verification discipline.</p></div>
           <div class="problems_grid u-grid-autofit u-mt-4">${itemsHtml}</div>
         </div>
