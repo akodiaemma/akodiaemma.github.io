@@ -1277,7 +1277,8 @@ function renderFaq(d) {
 
     return `
       <div class="faqs_content_wrap u-grid-custom">
-        <div id="w-node-be3d1a67-a8d4-a117-f534-91243e83f885-3e83f884" class="faqs_content_header u-column-4">
+        <div id="w-node-be3d1a67-a8d4-a117-f534-91243e83f885-3e83f884" class="faqs_content_header u-column-4" style="
+    grid-column: span 8 !important;">
           <div class="faqs_content_rtb u-text-style-large w-richtext"><p>${safeHtml(group.label)}</p></div>
         </div>
         <div class="faqs_content_items_wrap u-column-8">${questionsHtml}</div>
