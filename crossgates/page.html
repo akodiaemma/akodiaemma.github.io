@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" class="w-mod-js w-mod-ix w-mod-ix3">
 <head>
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+
+<title>CrossGates Connect | Structured. Verified. Buyer-Ready.</title>
+<meta name="title" content="CrossGates Connect | Structured. Verified. Buyer-Ready.">
+<meta name="description" content="The verification layer that turns Uganda's production potential into buyer-ready, audit-ready supply through intelligent onboarding and the Trade Passport.">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.crossgatesconnect.com/">
+<meta property="og:title" content="CrossGates Connect | Verified Trade Infrastructure">
+<meta property="og:description" content="CrossGates helps SMEs move from fragmented readiness into structured, verified, commercially usable supplier profiles.">
+<meta property="og:image" content="img/meta.png">
+
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://www.crossgatesconnect.com/">
+<meta property="twitter:title" content="CrossGates Connect | Verified Trade Infrastructure">
+<meta property="twitter:description" content="The verification layer that turns production potential into buyer-ready, audit-ready supply.">
+<meta property="twitter:image" content="img/meta.png">
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Loading... | Holocene</title>
+  <title>Loading... | Crossgates Connect</title>
 
   <!-- Firebase Compat SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -11,8 +29,8 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
   <!-- LOCAL CSS -->
-  <link href="css/holocenestaging.webflow.shared.e78957411.min.css" rel="stylesheet" type="text/css">
-  <link href="css/holocenestaging.webflow.686e647e87b303313e737853-8e9259ef9.min.css" rel="stylesheet" type="text/css">
+  <link href="css/crossgates.css" rel="stylesheet" type="text/css">
+  <link href="css/crossgates-min.css" rel="stylesheet" type="text/css">
   <link href="css/swiper-bundle.min.css" rel="stylesheet" type="text/css">
 
   <!-- LOCAL FONTS -->
@@ -385,7 +403,7 @@ async function boot() {
         `<div style="padding:100px 40px; text-align:center; color:#999;">Page not found: <strong>${slug}</strong></div>`;
     } else {
       // Set page meta
-      document.title = pageData.title ? `${pageData.title} | Holocene` : 'Holocene';
+      document.title = pageData.title ? `${pageData.title} | Crossgates` : 'Crossgates';
       if (pageData.meta) {
         const m = document.createElement('meta');
         m.name = 'description'; m.content = pageData.meta;
@@ -435,7 +453,7 @@ function renderNav(h) {
   const ctaLabel   = safe(h.ctaLabel)   || 'See 6-week pilot plan';
   const ctaHref    = safe(h.ctaHref)    || '/book-a-demo';
   const loginLabel = safe(h.loginLabel) || 'Login';
-  const loginHref  = safe(h.loginHref)  || 'https://app.holocene.eu/';
+  const loginHref  = safe(h.loginHref)  || 'https://app.crossgatesconnect.com/';
 
   // Logo: if custom images set in header, use them; else fall back to inline SVG
   const logoDesktop = h.logoDesktop
@@ -1691,7 +1709,7 @@ function renderFooter(f) {
           ${colsHtml}
         </div>
         <div class="footer_coypright u-flex-horizontal-wrap u-justify-content-between u-gap-2">
-          <div data-wf--typography-paragraph--font-style="text-small" class="c-paragraph w-variant-4099173f-f581-635c-a5fe-cf4a89c62029 w-richtext u-rich-text"><p>${safeHtml(f.copyright || '© 2025 Holocene. All rights reserved.')}</p></div>
+          <div data-wf--typography-paragraph--font-style="text-small" class="c-paragraph w-variant-4099173f-f581-635c-a5fe-cf4a89c62029 w-richtext u-rich-text"><p>${safeHtml(f.copyright || '© 2026 Crossgates Connect. All rights reserved.')}</p></div>
           <ul role="list" class="footer_copyright_list u-flex-horizontal-wrap u-gap-3">${legalHtml}</ul>
         </div>
       </div>
