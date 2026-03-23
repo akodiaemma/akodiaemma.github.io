@@ -51,6 +51,10 @@
   max-width: 940px;
 }
 
+.outcomes_span.is-brand {
+    color: green !important;
+}
+
 .video_modal_content .video_player {
   padding-top: 0 !important;
   width: 100%;
@@ -947,6 +951,7 @@ function renderTestimonials(d) {
 function renderOutcomes(d) {
   const card = (title, text, superscript) => `
     <div class="outcomes_item u-background-1">
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 24 24" fill="none" class="outcomes_svg"><g clip-path="url(#clip0_491_1090)"><path d="M19.5 14.25H17.25C15.5958 14.25 14.25 15.5958 14.25 17.25H12.75V6.75C12.75 5.92313 12.0771 5.25 11.25 5.25H9.75V4.5C9.75 2.8458 8.4042 1.5 6.75 1.5H4.5C2.8458 1.5 1.5 2.8458 1.5 4.5V6.75C1.5 8.4042 2.8458 9.75 4.5 9.75H6.75C8.4042 9.75 9.75 8.4042 9.75 6.75H11.25V17.25C11.25 18.0769 11.9229 18.75 12.75 18.75H14.25V19.5C14.25 21.1542 15.5958 22.5 17.25 22.5H19.5C21.1542 22.5 22.5 21.1542 22.5 19.5V17.25C22.5 15.5958 21.1542 14.25 19.5 14.25ZM8.25 6.75C8.25 7.57687 7.5771 8.25 6.75 8.25H4.5C3.6729 8.25 3 7.57687 3 6.75V4.5C3 3.67313 3.6729 3 4.5 3H6.75C7.5771 3 8.25 3.67313 8.25 4.5V6.75ZM21 19.5C21 20.3269 20.3271 21 19.5 21H17.25C16.4229 21 15.75 20.3269 15.75 19.5V17.25C15.75 16.4231 16.4229 15.75 17.25 15.75H19.5C20.3271 15.75 21 16.4231 21 17.25V19.5Z" fill="currentColor"></path></g></svg>
       <h3 class="outcomes_heading u-text-style-h5 u-mt-2 u-mb-6">
         <span class="outcomes_span">${safeHtml(title)}</span>
         <span class="outcomes_span is-brand">${superscript}</span>
@@ -966,6 +971,7 @@ function renderOutcomes(d) {
           <div class="outcomes_grid u-grid-autofit u-gap-0">
             ${card(d.card1Title, d.card1Text, '¹')}
             <div class="outcomes_item u-background-1 is-middle">
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 25 24" fill="none" class="outcomes_svg"><g clip-path="url(#clip0_491_1096)"><path d="M18.2272 16.5L8.16663 6.43943V1.5H2.16663V7.5H7.10605L17.1666 17.5606V22.5H23.1666V16.5H18.2272ZM6.66663 6H3.66663V3H6.66663V6ZM21.6666 21H18.6666V18H21.6666V21Z" fill="currentColor"></path><path d="M23.1666 4.5C23.1666 2.8458 21.8208 1.5 20.1666 1.5C18.7728 1.5 17.6087 2.45985 17.2732 3.75H10.4166V5.25H17.2732C17.5461 6.29918 18.3676 7.12057 19.4166 7.39342V14.25H20.9166V7.39342C22.2068 7.05795 23.1666 5.8938 23.1666 4.5ZM20.1666 6C19.3394 6 18.6666 5.32687 18.6666 4.5C18.6666 3.67313 19.3394 3 20.1666 3C20.9939 3 21.6666 3.67313 21.6666 4.5C21.6666 5.32687 20.9939 6 20.1666 6Z" fill="currentColor"></path><path d="M14.9166 18.75H8.06005C7.7872 17.7008 6.96565 16.8794 5.91663 16.6066V9.75H4.41663V16.6066C3.12648 16.942 2.16663 18.1062 2.16663 19.5C2.16663 21.1542 3.51243 22.5 5.16663 22.5C6.56043 22.5 7.72458 21.5401 8.06005 20.25H14.9166V18.75ZM5.16663 21C4.33938 21 3.66663 20.3269 3.66663 19.5C3.66663 18.6731 4.33938 18 5.16663 18C5.99388 18 6.66663 18.6731 6.66663 19.5C6.66663 20.3269 5.99388 21 5.16663 21Z" fill="currentColor"></path></g></svg>
               <h3 class="outcomes_heading u-text-style-h5 u-mt-2 u-mb-6">
                 <span class="outcomes_span">${safeHtml(d.card2Title)}</span>
                 <span class="outcomes_span is-brand">&nbsp;²</span>
