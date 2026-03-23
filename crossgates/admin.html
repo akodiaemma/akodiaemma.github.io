@@ -1280,25 +1280,24 @@ function buildSectionForm(section, index) {
         <textarea onchange="updateSectionData(${i},'logos',this.value)">${esc(d.logos)}</textarea></div>
     `;
 
-    case 'features': return `
-      <div class="form-group"><label>Block 1 — Heading</label>
-        <input type="text" value="${esc(d.block1Heading)}" onchange="updateSectionData(${i},'block1Heading',this.value)"></div>
-      <div class="form-group"><label>Block 1 — Body</label>
-        <textarea onchange="updateSectionData(${i},'block1Body',this.value)">${esc(d.block1Body)}</textarea></div>
-      <div class="form-group"><label>Block 1 — Side Image URL</label>
-        <input type="text" value="${esc(d.block1Image)}" onchange="updateSectionData(${i},'block1Image',this.value)"></div>
-      <div class="form-group"><label>Block 1 — Side Image Caption</label>
-        <input type="text" value="${esc(d.block1Caption)}" onchange="updateSectionData(${i},'block1Caption',this.value)"></div>
-      <hr>
-      <div class="form-group"><label>Block 2 — Heading</label>
-        <input type="text" value="${esc(d.block2Heading)}" onchange="updateSectionData(${i},'block2Heading',this.value)"></div>
-      <div class="form-group"><label>Block 2 — Body</label>
-        <textarea onchange="updateSectionData(${i},'block2Body',this.value)">${esc(d.block2Body)}</textarea></div>
-      <div class="form-group"><label>Block 2 — Side Image URL</label>
-        <input type="text" value="${esc(d.block2Image)}" onchange="updateSectionData(${i},'block2Image',this.value)"></div>
-      <div class="form-group"><label>Block 2 — Side Image Caption</label>
-        <input type="text" value="${esc(d.block2Caption)}" onchange="updateSectionData(${i},'block2Caption',this.value)"></div>
-    `;
+case 'features': return `
+  <div class="form-group"><label>Heading</label>
+    <input type="text" value="${esc(d.block1Heading)}" onchange="updateSectionData(${i},'block1Heading',this.value)"></div>
+  <div class="form-group"><label>Body</label>
+    <textarea onchange="updateSectionData(${i},'block1Body',this.value)">${esc(d.block1Body)}</textarea></div>
+  <div class="form-group"><label>Side Image</label>
+    ${imgUpload(i, 'block1Image', d.block1Image)}
+  </div>
+  <div class="form-group"><label>Side Image Caption</label>
+    <input type="text" value="${esc(d.block1Caption)}" onchange="updateSectionData(${i},'block1Caption',this.value)"></div>
+  <hr>
+  <div style="font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Feature Cards (right grid)</div>
+  <div style="font-size:11px; color:var(--text-3); margin-bottom:10px;">2+ cards display as a 2-column grid automatically.</div>
+  <div id="features-cards-${i}">
+    ${buildFeatureCards(d.lottieItems || [], i)}
+  </div>
+  <button class="btn btn-secondary btn-sm" onclick="addFeatureCard(${i})">＋ Add Feature Card</button>
+`;
 
     case 'metrics': return `
       <div class="form-group"><label>Eyebrow</label>
@@ -2331,6 +2330,32 @@ function removeFooterLink(colIndex, linkIndex) {
   document.getElementById('footer-links-' + colIndex).innerHTML =
     buildFooterLinks(footerColsData[colIndex].links, colIndex);
 }
+
+function buildFeatureCards(items, sectionIndex) {
+  return items.map((item, j) => `
+    <div class="faq-item" style="margin-bottom:8px;">
+      <div class="faq-item-header">
+        <span>${item.heading || 'Card ' + (j+1)}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeRepeaterItem(${sectionIndex},'lottieItems',${j},'features-cards-${sectionIndex}',buildFeatureCards)">✕</button>
+      </div>
+      <div class="form-group"><label>Card Heading</label>
+        <input type="text" value="${esc(item.heading)}" onchange="updateRepeaterItem(${sectionIndex},'lottieItems',${j},'heading',this.value)"></div>
+      <div class="form-group"><label>Card Body</label>
+        <textarea onchange="updateRepeaterItem(${sectionIndex},'lottieItems',${j},'body',this.value)">${esc(item.body)}</textarea></div>
+      <div class="form-group"><label>Lottie JSON URL</label>
+        <input type="text" value="${esc(item.lottieUrl)}" onchange="updateRepeaterItem(${sectionIndex},'lottieItems',${j},'lottieUrl',this.value)" placeholder="https://cdn.prod.website-files.com/...json"></div>
+      <div class="form-group"><label>Card Size Class (e.g. is-7, is-5, is-full)</label>
+        <input type="text" value="${esc(item.sizeClass)}" onchange="updateRepeaterItem(${sectionIndex},'lottieItems',${j},'sizeClass',this.value)" placeholder="is-7"></div>
+    </div>`).join('');
+}
+
+function addFeatureCard(sectionIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.lottieItems = s.data.lottieItems || [];
+  s.data.lottieItems.push({ heading: '', body: '', lottieUrl: '', sizeClass: 'is-7' });
+  document.getElementById('features-cards-' + sectionIndex).innerHTML = buildFeatureCards(s.data.lottieItems, sectionIndex);
+}
+
 
 function renderFooterLegal() {
   const list = document.getElementById('footer-legal-list');

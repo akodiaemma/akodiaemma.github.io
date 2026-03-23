@@ -9,7 +9,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
   <!-- LOCAL CSS -->
   <link href="css/holocenestaging.webflow.shared.e78957411.min.css" rel="stylesheet" type="text/css">
   <link href="css/holocenestaging.webflow.686e647e87b303313e737853-8e9259ef9.min.css" rel="stylesheet" type="text/css">
@@ -22,6 +22,14 @@
     padding: 0 !important;
     margin-bottom: 1.5rem;
   }
+}
+
+.u-mt-4 {
+    margin-top: var(--_spacing---space--4)
+}
+
+.problems_text_wrap {
+  align-items: center !important;
 }
 
 .video_modal_content {
@@ -72,6 +80,25 @@
   inset: 0;
   z-index: 1;
 }
+
+.problems_img_wrap .problems_img.u-position-absolute {
+  position: absolute !important;
+  inset: auto !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 70% !important;
+  height: auto !important;
+}
+
+
+@media screen and (max-width: 767px) {
+  .features_grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
     @font-face {
       font-family: 'Aeonik';
       src: url('fonts/6889f8a57de48ad4dab5b670_aeonik-regular.woff2') format('woff2');
@@ -306,6 +333,17 @@ function safeHtml(str) {
   if (!str) return '';
   return String(str).replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
+function safeRich(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/&lt;strong&gt;/g, '<strong>')
+    .replace(/&lt;\/strong&gt;/g, '</strong>')
+    .replace(/&lt;em&gt;/g, '<em>')
+    .replace(/&lt;\/em&gt;/g, '</em>')
+    .replace(/&lt;br&gt;/g, '<br>');
+}
 
 // Get slug from URL: page.html?slug=about-us  OR  index.html → "home"
 function getSlug() {
@@ -355,6 +393,7 @@ async function boot() {
 setTimeout(() => {
   initNav();
   initVideoModals();
+  initLottie();
   if (window.Webflow) {
     window.Webflow.destroy();
     window.Webflow.ready();
@@ -675,33 +714,61 @@ function getYoutubeEmbed(url) {
 // SECTION: FEATURES
 // ─────────────────────────────────────────
 function renderFeatures(d) {
-  const block = (heading, body, image, caption, blockNum) => `
-    <div class="features_layout">
-      <div class="features_header">
-        <div data-wf--typography-heading--font-style="h2" class="c-heading w-variant-433d40c6-c261-f13f-c899-61d2cadf150f w-richtext u-mb-3 u-max-width-16ch"><h2>${safeHtml(heading)}</h2></div>
-        <div data-wf--typography-paragraph--font-style="text-large" class="c-paragraph w-variant-fdb8e663-01e0-aae6-13eb-e6dfca16b689 w-richtext u-rich-text u-max-width-50ch u-mb-5"><p>${safeHtml(body)}</p></div>
-      </div>
-      <div class="features_content u-grid-custom">
-        <div class="features_side u-column-3 u-position-relative">
-          <div class="features_item_wrap u-theme-dark u-radius-main u-overflow-hidden u-position-sticky">
-            ${image ? `<img src="${safe(image)}" loading="lazy" alt="" class="u-background-skeleton u-cover-absolute">` : ''}
-            <div data-wf--typography-heading--font-style="h5" class="c-heading w-variant-326a9562-3263-06da-e8ef-16981fd70f1c w-richtext u-zindex-1 u-position-relative"><h3>${safeHtml(caption)}</h3></div>
-          </div>
+  const lottieItems = d.lottieItems || [];
+
+  const cardsHtml = lottieItems.map((card, idx) => `
+    <div class="features_item u-ratio-1-1 u-justify-content-start">
+      <div class="features_header_wrap">
+        <div data-wf--typography-heading--font-style="h5" class="c-heading w-variant-326a9562-3263-06da-e8ef-16981fd70f1c w-richtext u-mb-text u-zindex-1">
+          <h3>${safeRich(card.heading)}</h3>
+        </div>
+        <div data-wf--typography-paragraph--font-style="text-small" class="c-paragraph w-variant-4099173f-f581-635c-a5fe-cf4a89c62029 w-richtext">
+          <p>${safeHtml(card.body)}</p>
         </div>
       </div>
-    </div>`;
+      ${card.lottieUrl ? `
+      <div data-loading="lazy"
+        class="features_img u-position-absolute ${safeHtml(card.sizeClass || 'is-7')}"
+        data-animation-type="lottie"
+        data-src="${safe(card.lottieUrl)}"
+        data-loop="1"
+        data-direction="1"
+        data-autoplay="1"
+        data-is-ix2-target="0"
+        data-renderer="svg"
+        data-default-duration="0"
+        data-duration="0"
+        data-default-src="${safe(card.lottieUrl)}"
+        style="overflow: hidden;">
+      </div>` : ''}
+    </div>`).join('');
 
   return `
     <section class="features_wrap">
       <div data-wf--spacer--section-space="large" class="u-section-spacer w-variant-8cc18b30-4618-8767-0111-f6abfe45aaa3"></div>
       <div class="features_contain u-container">
-        ${block(d.block1Heading, d.block1Body, d.block1Image, d.block1Caption, 1)}
-        ${d.block2Heading ? block(d.block2Heading, d.block2Body, d.block2Image, d.block2Caption, 2) : ''}
+        <div class="features_layout">
+          <div class="features_header">
+            <div data-wf--typography-heading--font-style="h2" class="c-heading w-variant-433d40c6-c261-f13f-c899-61d2cadf150f w-richtext u-mb-3 u-max-width-16ch"><h2>${safeRich(d.block1Heading)}</h2></div>
+            <div data-wf--typography-paragraph--font-style="text-large" class="c-paragraph w-variant-fdb8e663-01e0-aae6-13eb-e6dfca16b689 w-richtext u-rich-text u-max-width-50ch u-mb-5"><p>${safeHtml(d.block1Body)}</p></div>
+          </div>
+          <div class="features_content u-grid-custom">
+            <div class="features_side u-column-3 u-position-relative">
+              <div class="features_item_wrap u-theme-dark u-radius-main u-overflow-hidden u-position-sticky">
+                ${d.block1Image ? `<img src="${safe(d.block1Image)}" loading="lazy" alt="" class="u-background-skeleton u-cover-absolute">` : ''}
+                <div data-wf--typography-heading--font-style="h5" class="c-heading w-variant-326a9562-3263-06da-e8ef-16981fd70f1c w-richtext u-zindex-1 u-position-relative"><h3>${safeHtml(d.block1Caption)}</h3></div>
+              </div>
+            </div>
+            ${cardsHtml ? `
+            <div class="features_grid u-column-9" style="display:grid; grid-template-columns: ${lottieItems.length > 1 ? 'repeat(2, 1fr)' : '1fr'}; gap: var(--spacing--4, 0.38rem);">
+              ${cardsHtml}
+            </div>` : ''}
+          </div>
+        </div>
       </div>
       <div data-wf--spacer--section-space="main" class="u-section-spacer w-variant-60a7ad7d-02b0-6682-95a5-2218e6fd1490"></div>
     </section>`;
 }
-
 // ─────────────────────────────────────────
 // SECTION: METRICS
 // ─────────────────────────────────────────
@@ -1190,7 +1257,7 @@ function renderTeam(d) {
         <div class="team_layout">
           <div class="team_header u-grid-custom">
             <div class="team_heading_wrap u-align-self-end u-column-4">
-              <div class="c-heading w-richtext"><h2>${safeHtml(d.heading)}</h2></div>
+              <div data-wf--typography-heading--font-style="h3" class="c-heading w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994 w-richtext"><h2>${safe(d.heading)}</h2></div>
             </div>
             <div class="team_text_wrap u-column-5">
               <div class="c-paragraph w-richtext u-rich-text"><p>${safeHtml(d.body)}</p></div>
@@ -1217,16 +1284,17 @@ function renderProblems(d) {
         ${item.image ? `<img src="${safe(item.image)}" loading="lazy" alt="" class="problems_img">` : ''}
       </div>
       <div class="problems_text_wrap u-flex-horizontal-wrap u-justify-content-between u-mt-text u-align-items-start u-gap-1">
-        <div class="c-heading w-richtext"><h3>${safeHtml(item.title)}</h3></div>
+        <div data-wf--typography-heading--font-style="text-large" class="c-heading w-variant-74a3180a-e505-b452-032f-599c8e557249 w-richtext"><h3>${safe(item.title)}</h3></div>
         <div class="problems_text u-max-width-30ch">
-          <div class="c-paragraph w-richtext u-rich-text"><p>${safeHtml(item.text)}</p></div>
+          <div data-wf--typography-paragraph--font-style="inherit" class="c-paragraph w-richtext u-rich-text"><p>${safeHtml(item.text)}</p></div>
         </div>
       </div>
       <div class="clickable_wrap">
-        <a href="${safe(item.href)}" class="clickable_link w-inline-block">
-          <span class="clickable_text u-sr-only">${safeHtml(item.title)}</span>
-        </a>
-      </div>
+  <a target="" href="${safe(item.href)}" class="clickable_link w-inline-block">
+    <span class="clickable_text u-sr-only">${safeHtml(item.title)}</span>
+  </a>
+  <button type="button" class="clickable_btn"><span class="clickable_text u-sr-only">${safeHtml(item.title)}</span></button>
+</div>
     </div>`).join('');
 
   return `
@@ -1234,7 +1302,7 @@ function renderProblems(d) {
       <div class="u-section-spacer w-variant-8cc18b30-4618-8767-0111-f6abfe45aaa3"></div>
       <div class="problems_contain u-container">
         <div class="problems_layout">
-          <div class="c-heading w-richtext"><h2>${safeHtml(d.heading)}</h2></div>
+          <div data-wf--typography-heading--font-style="h3" class="c-heading w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994 w-richtext"><h2>${safe(d.heading)}</h2></div>
           <div class="problems_grid u-grid-autofit u-mt-4">${itemsHtml}</div>
         </div>
       </div>
@@ -1286,8 +1354,8 @@ function renderSolutionFeatures(d) {
   const items = d.items || [];
   const itemsHtml = items.map(item => `
     <div class="solution-features_item u-flex-vertical-nowrap">
-      <div class="c-heading w-richtext"><h3>${safeHtml(item.title)}</h3></div>
-      <div class="c-paragraph w-richtext u-rich-text"><p>${safeHtml(item.text)}</p></div>
+      <div data-wf--typography-heading--font-style="text-large" class="c-heading w-variant-74a3180a-e505-b452-032f-599c8e557249 w-richtext"><h3>${safe(item.title)}</h3></div>
+      <div data-wf--typography-paragraph--font-style="inherit" class="c-paragraph w-richtext u-rich-text"><p>${safe(item.text)}</p></div>
     </div>`).join('');
 
   return `
@@ -1296,7 +1364,7 @@ function renderSolutionFeatures(d) {
       <div class="solution-features_contain u-container">
         <div class="solution-features_layout u-grid-custom u-gap-row-4">
           <div class="solution-features_header u-column-6 u-flex-vertical-nowrap u-gap-row-3">
-            <div class="c-heading w-richtext"><h2>${safeHtml(d.heading)}</h2></div>
+            <div data-wf--typography-heading--font-style="h3" class="c-heading w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994 w-richtext"><h2>${safe(d.heading)}</h2></div>
             <div class="c-paragraph w-richtext u-rich-text"><p>${safeHtml(d.body)}</p></div>
           </div>
           <div class="solution-features_content u-column-5">${itemsHtml}</div>
@@ -1658,6 +1726,23 @@ function initVideoModals() {
         closeModal(modal);
       });
     }
+  });
+}
+
+function initLottie() {
+  if (!window.lottie) return;
+  document.querySelectorAll('[data-animation-type="lottie"]').forEach(el => {
+    if (el.dataset.state === 'playing') return; // already initialized
+    const src = el.dataset.src || el.dataset.defaultSrc;
+    if (!src) return;
+    const anim = lottie.loadAnimation({
+      container: el,
+      renderer: el.dataset.renderer || 'svg',
+      loop: el.dataset.loop === '1',
+      autoplay: el.dataset.autoplay === '1',
+      path: src
+    });
+    el.dataset.state = 'playing';
   });
 }
 
