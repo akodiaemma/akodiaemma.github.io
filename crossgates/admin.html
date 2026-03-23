@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Holocene CMS — Admin</title>
+  <title>Crossgates CMS — Admin</title>
 
   <!-- Firebase Compat SDKs (no bundler needed) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -18,7 +18,7 @@
     /* ============================================
        DESIGN: Dark editorial — like a high-end
        design tool. Obsidian base, orange accent
-       matching Holocene brand (#EC682C).
+       matching Crossgates brand (#EC682C).
     ============================================ */
 
     @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&display=swap');
@@ -676,7 +676,7 @@
 <!-- ============ LOGIN SCREEN ============ -->
 <div id="login-screen">
   <div class="login-box">
-    <div class="login-logo">Holocene</div>
+    <div class="login-logo">Crossgates</div>
     <div class="login-sub">Content Management System</div>
     <div class="form-group">
       <label>Email</label>
@@ -697,7 +697,7 @@
   <!-- SIDEBAR -->
   <aside id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-text">Holocene</div>
+      <div class="sidebar-logo-text">Crossgates</div>
       <div class="sidebar-logo-sub">CMS Admin</div>
     </div>
 
@@ -758,11 +758,11 @@
           <div class="card-title">Logo & Brand</div>
           <div class="form-group">
             <label>Site Name</label>
-            <input type="text" id="hdr-site-name" placeholder="Holocene">
+            <input type="text" id="hdr-site-name" placeholder="Crossgates">
           </div>
           <hr>
           <div style="font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;">Desktop Logo (nav — full wordmark)</div>
-          <div style="font-size:11px; color:var(--text-3); margin-bottom:10px;">Upload an SVG or PNG. Leave blank to use the default Holocene SVG wordmark.</div>
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:10px;">Upload an SVG or PNG. Leave blank to use the default Crossgates SVG wordmark.</div>
           <div class="form-group">
             <label>Desktop Logo URL</label>
             <input type="text" id="hdr-logo-desktop" placeholder="Paste URL or upload below">
@@ -777,7 +777,7 @@
           <div id="hdr-logo-desktop-progress" style="font-size:11px; color:var(--text-3); margin-bottom:8px;"></div>
           <hr>
           <div style="font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;">Mobile Logo (nav — icon only)</div>
-          <div style="font-size:11px; color:var(--text-3); margin-bottom:10px;">Upload a compact version (icon/mark only). Leave blank to use the default Holocene icon SVG.</div>
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:10px;">Upload a compact version (icon/mark only). Leave blank to use the default Crossgates icon SVG.</div>
           <div class="form-group">
             <label>Mobile Logo URL</label>
             <input type="text" id="hdr-logo-mobile" placeholder="Paste URL or upload below">
@@ -817,7 +817,7 @@
             </div>
             <div class="form-group">
               <label>Login Button URL</label>
-              <input type="url" id="hdr-login-href" placeholder="https://app.holocene.eu/">
+              <input type="url" id="hdr-login-href" placeholder="https://app.Crossgates.eu/">
             </div>
           </div>
         </div>
@@ -836,7 +836,7 @@
             </div>
             <div class="form-group">
               <label>Copyright Text</label>
-              <input type="text" id="ftr-copyright" placeholder="© 2025 Holocene. All rights reserved.">
+              <input type="text" id="ftr-copyright" placeholder="© 2025 Crossgates. All rights reserved.">
             </div>
           </div>
         </div>
@@ -1475,8 +1475,8 @@ case 'solutions': return `
         <div class="form-group"><label>Product Name (large, e.g. EON)</label>
           <input type="text" value="${esc(d.productName)}" onchange="updateSectionData(${i},'productName',this.value)" placeholder="EON"></div>
       </div>
-      <div class="form-group"><label>Product Subtitle (grey, e.g. "by Holocene")</label>
-        <input type="text" value="${esc(d.productSub)}" onchange="updateSectionData(${i},'productSub',this.value)" placeholder="by Holocene"></div>
+      <div class="form-group"><label>Product Subtitle (grey, e.g. "by Crossgates")</label>
+        <input type="text" value="${esc(d.productSub)}" onchange="updateSectionData(${i},'productSub',this.value)" placeholder="by Crossgates"></div>
       <div class="form-group"><label>Body Text</label>
         <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
       <div class="form-row">
@@ -2036,7 +2036,7 @@ solutions: { heading: '', body: '', items: [] },
     history:      { quote: '', quoteSpan: '', body1: '', body2: '', stats: [] },
     team:         { heading: 'Leadership', body: '', members: [] },
     problems:     { heading: 'Problems we solve', items: [] },
-    'solution-hero': { badge: '', productName: '', productSub: 'by Holocene', body: '', btn1Label: 'Get a Demo', btn1Href: '/book-a-demo', videoLabel: 'See how it works', videoUrl: '', bgImage: '', heroImage: '' },
+    'solution-hero': { badge: '', productName: '', productSub: 'by Crossgates', body: '', btn1Label: 'Get a Demo', btn1Href: '/book-a-demo', videoLabel: 'See how it works', videoUrl: '', bgImage: '', heroImage: '' },
     'solution-features': { heading: '', body: '', items: [] },
     benefits:     { items: [] },
     compare:      { heading: '', body: '', col1Heading: 'Without', col1Points: '', col2Heading: 'Alternative solution', col2Points: '', col3Heading: 'With', col3Points: '' },
@@ -2123,7 +2123,7 @@ async function loadHeader() {
   document.getElementById('hdr-cta-label').value    = headerData.ctaLabel    || 'See 6-week pilot plan';
   document.getElementById('hdr-cta-href').value     = headerData.ctaHref     || '/book-a-demo';
   document.getElementById('hdr-login-label').value  = headerData.loginLabel  || 'Login';
-  document.getElementById('hdr-login-href').value   = headerData.loginHref   || 'https://app.holocene.eu/';
+  document.getElementById('hdr-login-href').value   = headerData.loginHref   || 'https://app.Crossgates.eu/';
 
   // Logo desktop
   const desktopUrl = headerData.logoDesktop || '';
@@ -2296,7 +2296,7 @@ async function loadFooter() {
   footerLegalData = footerData.legal    || [];
 
   document.getElementById('ftr-tagline').value       = footerData.tagline   || 'Embrace Evolution in Action.';
-  document.getElementById('ftr-copyright').value     = footerData.copyright || '© 2025 Holocene. All rights reserved.';
+  document.getElementById('ftr-copyright').value     = footerData.copyright || '© 2025 Crossgates. All rights reserved.';
   document.getElementById('ftr-linkedin').value      = footerData.linkedin  || '';
   document.getElementById('ftr-linkedin-label').value = footerData.linkedinLabel || 'LinkedIn';
 

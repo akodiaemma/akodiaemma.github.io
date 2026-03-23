@@ -34,6 +34,8 @@
   <link href="css/crossgates-min.css" rel="stylesheet" type="text/css">
   <link href="css/swiper-bundle.min.css" rel="stylesheet" type="text/css">
 
+
+<script></script>
   <!-- LOCAL FONTS -->
   <style>
 @media screen and (max-width: 991px) {
@@ -51,6 +53,22 @@
 [data-animation-type="lottie"] svg path[fill="rgb(236,103,43)"],
 [data-animation-type="lottie"] svg g[fill="rgb(236,103,43)"] {
     fill: #6DA770 !important; /* Your Brand Green */
+}
+
+
+@media screen and (min-width: 992px) {
+  /* This targets the image inside your benefits item */
+  .benefits_item .benefits_img {
+    height: 100% !important;   /* Force it to match the height of the text column */
+    width: 100% !important;    /* Fill the column width */
+    object-fit: cover;         /* Critical: Prevents the image from stretching/looking squashed */
+    align-self: stretch;       /* Tells the grid child to fill the vertical space */
+  }
+
+  /* Ensures the grid parent allows children to stretch */
+  .benefits_item.u-grid-custom {
+    align-items: stretch !important;
+  }
 }
 
 /* Also target strokes if the animation uses lines instead of fills */
@@ -119,6 +137,18 @@
   position: relative;
 }
 
+/* Standard syntax */
+::selection {
+  background-color: #d5cff3 !important;
+  color: #000000 !important; /* Keeps text readable on light purple */
+}
+
+/* Firefox specific syntax */
+::-moz-selection {
+  background-color: #d5cff3 !important;
+  color: #000000 !important;
+}
+
 .video_modal_content .video_player iframe,
 .video_modal_content .video_player video {
   position: absolute;
@@ -127,6 +157,24 @@
   height: 100% !important;
 }
 
+
+@media screen and (min-width: 992px) {
+  /* Ensure the grid container is full height */
+  .benefits_item.u-grid-custom {
+    display: grid !important;
+    align-items: stretch !important;
+    grid-template-columns: repeat(12, 1fr) !important;
+  }
+
+  /* Force the image to cover the entire right-side column area */
+  .benefits_item .benefits_img {
+    grid-column: span 7 !important; /* Spans the remaining 7 columns */
+    height: 100% !important;
+    min-height: 100% !important;
+    object-fit: cover !important;
+    width: 100% !important;
+  }
+}
 
 .video_modal_close {
   position: fixed !important;
@@ -151,7 +199,26 @@
   width: 70% !important;
   height: auto !important;
 }
+/* This targets absolutely everything on the site */
+html ::selection {
+  background-color: #d5cff3 !important;
+  color: #000000 !important;
+}
 
+html ::-moz-selection {
+  background-color: #d5cff3 !important;
+  color: #000000 !important;
+}
+
+body ::selection {
+  background-color: #d5cff3 !important;
+  color: #000000 !important;
+}
+
+body ::-moz-selection {
+  background-color: #d5cff3 !important;
+  color: #000000 !important;
+}
 
 @media screen and (max-width: 767px) {
   .features_grid {
@@ -753,7 +820,7 @@ const videoBlock = d.videoUrl ? `
 
           ${logos.length ? `
           <div class="hero_logos_wrap">
-            <p class="hero_logos_text u-text-style-h5">Trusted by teams turning complexity into clarity.</p>
+            <p class="hero_logos_text u-text-style-h5">Trusted by technologies turning complexity into simplicity.</p>
             <div class="hero_logos_marquee_wrap u-flex-horizontal-nowrap u-align-items-stretch u-position-relative u-mt-5">
               <div class="u-display-contents w-dyn-list">
                 <div role="list" class="hero_logos_grid u-flex-horizontal-nowrap scroll w-dyn-items">${logosHtml}</div>
@@ -1428,7 +1495,7 @@ function renderProblems(d) {
     <div class="problems_item u-position-relative">
       <div class="problems_img_wrap u-position-relative u-radius-main u-overflow-hidden">
         ${item.overlayImage ? `<img src="${safe(item.overlayImage)}" loading="lazy" alt="" class="problems_img u-radius-main u-position-absolute">` : ''}
-        ${item.image ? `<img src="${safe(item.image)}" loading="lazy" alt="" class="problems_img">` : ''}
+        ${item.image ? `<img src="${safe(item.image)}" loading="lazy" alt="" class="benefits_img u-column-7 u-radius-main u-background-skeleton">` : ''}
       </div>
       <div class="problems_text_wrap u-flex-horizontal-wrap u-justify-content-between u-mt-text u-align-items-start u-gap-1">
         <div data-wf--typography-heading--font-style="text-large" class="c-heading w-variant-74a3180a-e505-b452-032f-599c8e557249 w-richtext"><h3>${safe(item.title)}</h3></div>
