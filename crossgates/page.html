@@ -998,13 +998,13 @@ function renderBlog(d) {
   const items = d.items || [];
   const itemsHtml = items.map(item => `
     <div role="listitem" class="blog_item u-grid-custom u-align-items-center u-position-relative w-dyn-item">
-      <div class="blog_header u-flex-vertical-nowrap">
+      <div class="blog_header u-flex-vertical-nowrap" id="w-node-_7d01d709-7fce-70b2-e51a-666445c23121-45c23111">
         <p class="blog_text u-text-style-small u-mb-2">${safeHtml(item.category)}</p>
         <h3 class="blog_heading u-text-style-h6 u-weight-medium u-mb-2">${safeHtml(item.title)}</h3>
         <div class="blog_text u-text-style-small w-richtext"><p>${safeHtml(item.excerpt)}</p></div>
       </div>
       ${item.image ? `
-      <div class="blog_img_wrap u-radius-main u-overflow-hidden u-ratio-16-9">
+      <div class="blog_img_wrap u-radius-main u-overflow-hidden u-ratio-16-9" id="w-node-_7d01d709-7fce-70b2-e51a-666445c23125-45c23111">
         <img src="${safe(item.image)}" loading="lazy" alt="" class="u-background-skeleton u-height-full">
       </div>` : ''}
       <div class="clickable_wrap">
