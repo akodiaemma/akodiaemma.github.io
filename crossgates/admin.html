@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Holocene CMS — Admin</title>
+
+  <!-- Firebase Compat SDKs (no bundler needed) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
+  <!-- Sortable (drag to reorder sections) -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+
+  <style>
+    /* ============================================
+       DESIGN: Dark editorial — like a high-end
+       design tool. Obsidian base, orange accent
+       matching Holocene brand (#EC682C).
+    ============================================ */
+
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-0:       #0d0d0d;
+      --bg-1:       #141414;
+      --bg-2:       #1c1c1c;
+      --bg-3:       #242424;
+      --bg-4:       #2e2e2e;
+      --border:     #2a2a2a;
+      --border-lit: #3a3a3a;
+      --text-1:     #f0ede8;
+      --text-2:     #9a9690;
+      --text-3:     #5a5752;
+      --accent:     #EC682C;
+      --accent-dim: #7a3416;
+      --accent-glow:rgba(236,104,44,0.15);
+      --green:      #4ade80;
+      --red:        #f87171;
+      --radius:     8px;
+      --radius-lg:  14px;
+      --sidebar-w:  240px;
+      --font-body:  'DM Mono', monospace;
+      --font-display:'Fraunces', serif;
+      --transition: 180ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg-0);
+      color: var(--text-1);
+      font-family: var(--font-body);
+      font-size: 13px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- LAYOUT ---- */
+    #app { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ---- SIDEBAR ---- */
+    #sidebar {
+      width: var(--sidebar-w);
+      background: var(--bg-1);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-logo {
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-logo-text {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-1);
+      letter-spacing: -0.02em;
+    }
+    .sidebar-logo-sub {
+      font-size: 10px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-top: 2px;
+    }
+
+    .sidebar-section {
+      padding: 20px 12px 8px;
+    }
+    .sidebar-section-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-3);
+      padding: 0 8px;
+      margin-bottom: 6px;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: var(--radius);
+      border: none;
+      background: transparent;
+      color: var(--text-2);
+      font-family: var(--font-body);
+      font-size: 12px;
+      cursor: pointer;
+      text-align: left;
+      transition: background var(--transition), color var(--transition);
+    }
+    .nav-btn:hover { background: var(--bg-3); color: var(--text-1); }
+    .nav-btn.active { background: var(--accent-glow); color: var(--accent); }
+    .nav-btn .nav-icon { font-size: 14px; flex-shrink: 0; }
+
+    /* Pages list in sidebar */
+    #pages-list { padding: 4px 12px 12px; }
+    .page-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 10px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      color: var(--text-2);
+      font-size: 12px;
+      transition: background var(--transition), color var(--transition);
+    }
+    .page-nav-item:hover { background: var(--bg-3); color: var(--text-1); }
+    .page-nav-item.active { background: var(--accent-glow); color: var(--accent); }
+    .page-nav-item .page-slug { opacity: 0.5; font-size: 10px; }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 16px;
+      border-top: 1px solid var(--border);
+    }
+    #user-email { font-size: 11px; color: var(--text-3); margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .btn-signout {
+      width: 100%;
+      padding: 7px;
+      background: var(--bg-3);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--radius);
+      color: var(--text-2);
+      font-family: var(--font-body);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-signout:hover { border-color: var(--red); color: var(--red); }
+
+    /* ---- MAIN ---- */
+    #main {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--bg-0);
+    }
+
+    /* ---- TOP BAR ---- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg-0);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .topbar-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-1);
+    }
+    .topbar-actions { display: flex; gap: 10px; align-items: center; }
+
+    /* ---- CONTENT AREA ---- */
+    .content { padding: 32px; max-width: 900px; }
+
+    /* ---- PANELS ---- */
+    .panel {
+      display: none;
+    }
+    .panel.active { display: block; }
+
+    /* ---- CARDS ---- */
+    .card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-1);
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ---- FORM ELEMENTS ---- */
+    .form-group { margin-bottom: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
+      margin-bottom: 6px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      background: var(--bg-2);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--radius);
+      padding: 9px 12px;
+      color: var(--text-1);
+      font-family: var(--font-body);
+      font-size: 12px;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+    }
+    textarea { resize: vertical; min-height: 80px; }
+    select option { background: var(--bg-2); }
+
+    /* Toggle */
+    .toggle-group { display: flex; align-items: center; gap: 10px; }
+    .toggle-label { font-size: 12px; color: var(--text-2); }
+    .toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-4);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      left: 3px;
+      top: 3px;
+      background: var(--text-3);
+      border-radius: 50%;
+      transition: transform var(--transition), background var(--transition);
+    }
+    .toggle input:checked + .toggle-slider { background: var(--accent-dim); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(16px); background: var(--accent); }
+
+    /* ---- BUTTONS ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      font-family: var(--font-body);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover { background: #d45a22; }
+    .btn-secondary {
+      background: var(--bg-3);
+      color: var(--text-1);
+      border-color: var(--border-lit);
+    }
+    .btn-secondary:hover { border-color: var(--text-2); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-2);
+      border-color: transparent;
+    }
+    .btn-ghost:hover { background: var(--bg-3); color: var(--text-1); }
+    .btn-danger {
+      background: transparent;
+      color: var(--red);
+      border-color: transparent;
+    }
+    .btn-danger:hover { background: rgba(248,113,113,0.1); }
+    .btn-sm { padding: 5px 10px; font-size: 11px; }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ---- SECTION BLOCKS (Page Builder) ---- */
+    .sections-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .section-block {
+      background: var(--bg-2);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .section-block:hover { border-color: var(--text-3); }
+    .section-block.is-open { border-color: var(--accent); }
+
+    .section-block-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .section-drag-handle {
+      color: var(--text-3);
+      cursor: grab;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .section-drag-handle:active { cursor: grabbing; }
+    .section-type-badge {
+      background: var(--bg-4);
+      color: var(--text-2);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .section-block.is-open .section-type-badge {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+    .section-block-title {
+      flex: 1;
+      font-size: 12px;
+      color: var(--text-2);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .section-block-actions { display: flex; gap: 4px; }
+    .section-chevron {
+      color: var(--text-3);
+      font-size: 12px;
+      transition: transform var(--transition);
+      flex-shrink: 0;
+    }
+    .section-block.is-open .section-chevron { transform: rotate(180deg); }
+
+    .section-block-body {
+      display: none;
+      padding: 0 16px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .section-block.is-open .section-block-body { display: block; }
+    .section-block-body .form-group { margin-top: 16px; }
+
+    /* FAQ items inside section */
+    .faq-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .faq-item {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+    .faq-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 11px;
+      color: var(--text-3);
+    }
+
+    /* Nav items */
+    .nav-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .nav-item {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+    .nav-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 11px;
+      color: var(--text-3);
+    }
+    .dropdown-children { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+    .dropdown-child {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      background: var(--bg-4);
+      border-radius: var(--radius);
+      padding: 8px;
+      margin-bottom: 6px;
+    }
+
+    /* Logo items */
+    .logo-items { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+    .logo-item {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-2);
+    }
+
+    /* Metrics items */
+    .metric-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .metric-item {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    /* Footer column items */
+    .footer-col-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .footer-col {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+    .footer-col-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .footer-link-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 6px;
+      margin-bottom: 6px;
+      align-items: end;
+    }
+
+    /* ---- ADD SECTION PICKER ---- */
+    .section-picker {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .section-pick-btn {
+      background: var(--bg-2);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--radius);
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      color: var(--text-2);
+      font-family: var(--font-body);
+      font-size: 11px;
+    }
+    .section-pick-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+    .section-pick-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+
+    /* ---- PAGES GRID (dashboard) ---- */
+    .pages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .page-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .page-card:hover { border-color: var(--accent); background: var(--accent-glow); }
+    .page-card-title { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--text-1); margin-bottom: 4px; }
+    .page-card-slug { font-size: 11px; color: var(--text-3); }
+    .page-card-meta { margin-top: 12px; font-size: 11px; color: var(--text-3); display: flex; justify-content: space-between; }
+
+    /* ---- STATUS / TOAST ---- */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-3);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--radius-lg);
+      padding: 12px 20px;
+      font-size: 12px;
+      color: var(--text-1);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 300ms ease;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.success { border-color: var(--green); color: var(--green); }
+    #toast.error { border-color: var(--red); color: var(--red); }
+
+    /* ---- LOGIN SCREEN ---- */
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .login-box {
+      width: 360px;
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+    }
+    .login-logo {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text-1);
+      margin-bottom: 4px;
+    }
+    .login-sub {
+      font-size: 11px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 32px;
+    }
+    #login-error { color: var(--red); font-size: 12px; margin-top: 10px; min-height: 18px; }
+
+    /* ---- MODAL (new page) ---- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--bg-1);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      width: 440px;
+      transform: translateY(12px);
+      transition: transform 200ms;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-1);
+      margin-bottom: 20px;
+    }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+
+    /* ---- IMAGE UPLOAD ---- */
+    .img-upload-area {
+      border: 1px dashed var(--border-lit);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      color: var(--text-3);
+      font-size: 12px;
+    }
+    .img-upload-area:hover { border-color: var(--accent); color: var(--accent); }
+    .img-upload-area input { display: none; }
+    .img-preview { max-width: 100%; max-height: 120px; border-radius: var(--radius); margin-top: 8px; display: none; }
+
+    /* ---- LOADING ---- */
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid var(--border-lit);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-3);
+      font-size: 12px;
+    }
+    .empty-state-icon { font-size: 32px; margin-bottom: 12px; }
+
+    /* ---- IMAGE URL input with preview ---- */
+    .img-url-wrap { position: relative; }
+    .img-url-thumb {
+      width: 32px; height: 32px;
+      object-fit: cover;
+      border-radius: 4px;
+      position: absolute;
+      right: 8px; top: 50%;
+      transform: translateY(-50%);
+      display: none;
+      border: 1px solid var(--border-lit);
+    }
+
+    hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+    /* Sortable ghost */
+    .sortable-ghost { opacity: 0.3; }
+    .sortable-chosen { border-color: var(--accent) !important; }
+  </style>
+</head>
+<body>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Holocene</div>
+    <div class="login-sub">Content Management System</div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="login-email" placeholder="admin@example.com">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="••••••••">
+    </div>
+    <button class="btn btn-primary btn-full" onclick="doLogin()">Sign In</button>
+    <div id="login-error"></div>
+  </div>
+</div>
+
+<!-- ============ MAIN APP ============ -->
+<div id="app" style="display:none;">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-text">Holocene</div>
+      <div class="sidebar-logo-sub">CMS Admin</div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Site</div>
+      <button class="nav-btn active" onclick="showPanel('dashboard')">
+        <span class="nav-icon">⊞</span> Dashboard
+      </button>
+      <button class="nav-btn" onclick="showPanel('header-editor')">
+        <span class="nav-icon">☰</span> Header
+      </button>
+      <button class="nav-btn" onclick="showPanel('footer-editor')">
+        <span class="nav-icon">▬</span> Footer
+      </button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Pages</div>
+      <div id="pages-list">
+        <div style="padding: 8px 10px; font-size: 11px; color: var(--text-3);">Loading...</div>
+      </div>
+      <button class="nav-btn" onclick="openNewPageModal()" style="margin-top:4px;">
+        <span class="nav-icon">＋</span> New Page
+      </button>
+    </div>
+
+    <div class="sidebar-footer">
+      <div id="user-email"></div>
+      <button class="btn-signout" onclick="doSignOut()">Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main id="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-actions" id="topbar-actions"></div>
+    </div>
+
+    <div class="content">
+
+      <!-- ======== DASHBOARD ======== -->
+      <div id="panel-dashboard" class="panel active">
+        <div style="margin-bottom: 24px;">
+          <h2 style="font-family: var(--font-display); font-size: 22px; font-weight: 300; font-style: italic; color: var(--text-1); margin-bottom: 6px;">Welcome back.</h2>
+          <p style="color: var(--text-3); font-size: 12px;">Manage your site content, pages, and global settings.</p>
+        </div>
+        <div class="pages-grid" id="dashboard-pages-grid">
+          <div class="empty-state"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- ======== HEADER EDITOR ======== -->
+      <div id="panel-header-editor" class="panel">
+        <div class="card">
+          <div class="card-title">Logo & Brand</div>
+          <div class="form-group">
+            <label>Site Name</label>
+            <input type="text" id="hdr-site-name" placeholder="Holocene">
+          </div>
+          <hr>
+          <div style="font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;">Desktop Logo (nav — full wordmark)</div>
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:10px;">Upload an SVG or PNG. Leave blank to use the default Holocene SVG wordmark.</div>
+          <div class="form-group">
+            <label>Desktop Logo URL</label>
+            <input type="text" id="hdr-logo-desktop" placeholder="Paste URL or upload below">
+          </div>
+          <div style="margin-bottom:8px;" id="hdr-logo-desktop-preview-wrap">
+            <img id="hdr-logo-desktop-preview" style="display:none; max-height:40px; border-radius:4px; object-fit:contain; background:var(--bg-3); padding:6px; border:1px solid var(--border-lit);">
+          </div>
+          <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; background:var(--bg-3); border:1px solid var(--border-lit); border-radius:var(--radius); padding:7px 12px; font-size:11px; color:var(--text-2); width:fit-content; text-transform:none; letter-spacing:0; margin-bottom:16px;">
+            <span>📁 Upload Desktop Logo</span>
+            <input type="file" accept="image/*,.svg" style="display:none" onchange="uploadHeaderLogo(event,'desktop')">
+          </label>
+          <div id="hdr-logo-desktop-progress" style="font-size:11px; color:var(--text-3); margin-bottom:8px;"></div>
+          <hr>
+          <div style="font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;">Mobile Logo (nav — icon only)</div>
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:10px;">Upload a compact version (icon/mark only). Leave blank to use the default Holocene icon SVG.</div>
+          <div class="form-group">
+            <label>Mobile Logo URL</label>
+            <input type="text" id="hdr-logo-mobile" placeholder="Paste URL or upload below">
+          </div>
+          <div style="margin-bottom:8px;">
+            <img id="hdr-logo-mobile-preview" style="display:none; max-height:40px; border-radius:4px; object-fit:contain; background:var(--bg-3); padding:6px; border:1px solid var(--border-lit);">
+          </div>
+          <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; background:var(--bg-3); border:1px solid var(--border-lit); border-radius:var(--radius); padding:7px 12px; font-size:11px; color:var(--text-2); width:fit-content; text-transform:none; letter-spacing:0; margin-bottom:4px;">
+            <span>📁 Upload Mobile Logo</span>
+            <input type="file" accept="image/*,.svg" style="display:none" onchange="uploadHeaderLogo(event,'mobile')">
+          </label>
+          <div id="hdr-logo-mobile-progress" style="font-size:11px; color:var(--text-3);"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Navigation Items</div>
+          <div class="nav-items" id="nav-items-list"></div>
+          <button class="btn btn-secondary btn-sm" onclick="addNavItem()">＋ Add Nav Item</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">CTA Button (top right)</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Button Label</label>
+              <input type="text" id="hdr-cta-label" placeholder="See 6-week pilot plan">
+            </div>
+            <div class="form-group">
+              <label>Button Link</label>
+              <input type="text" id="hdr-cta-href" placeholder="/book-a-demo">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Login Button Label</label>
+              <input type="text" id="hdr-login-label" placeholder="Login">
+            </div>
+            <div class="form-group">
+              <label>Login Button URL</label>
+              <input type="url" id="hdr-login-href" placeholder="https://app.holocene.eu/">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="saveHeader()">Save Header</button>
+      </div>
+
+      <!-- ======== FOOTER EDITOR ======== -->
+      <div id="panel-footer-editor" class="panel">
+        <div class="card">
+          <div class="card-title">Footer Tagline</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Tagline Text</label>
+              <input type="text" id="ftr-tagline" placeholder="Embrace Evolution in Action.">
+            </div>
+            <div class="form-group">
+              <label>Copyright Text</label>
+              <input type="text" id="ftr-copyright" placeholder="© 2025 Holocene. All rights reserved.">
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Footer Columns</div>
+          <div class="footer-col-items" id="footer-cols-list"></div>
+          <button class="btn btn-secondary btn-sm" onclick="addFooterCol()">＋ Add Column</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Legal Links (bottom bar)</div>
+          <div id="footer-legal-list"></div>
+          <button class="btn btn-secondary btn-sm" onclick="addFooterLegal()">＋ Add Legal Link</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Social Links</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>LinkedIn URL</label>
+              <input type="url" id="ftr-linkedin" placeholder="https://www.linkedin.com/company/...">
+            </div>
+            <div class="form-group">
+              <label>LinkedIn Label</label>
+              <input type="text" id="ftr-linkedin-label" placeholder="LinkedIn">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="saveFooter()">Save Footer</button>
+      </div>
+
+      <!-- ======== PAGE EDITOR ======== -->
+      <div id="panel-page-editor" class="panel">
+        <div class="card">
+          <div class="card-title">Page Settings</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Page Title</label>
+              <input type="text" id="page-title-input">
+            </div>
+            <div class="form-group">
+              <label>SEO Meta Description</label>
+              <input type="text" id="page-meta-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="display:flex; justify-content:space-between; align-items:center;">
+            <span>Page Sections</span>
+            <span style="font-size:11px; color:var(--text-3);">Drag to reorder</span>
+          </div>
+          <div class="sections-list" id="sections-list"></div>
+          <div style="margin-top: 16px;">
+            <div style="font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">Add a Section</div>
+            <div style="font-size:10px; color:var(--accent); text-transform:uppercase; letter-spacing:0.12em; margin-bottom:6px;">Homepage</div>
+            <div class="section-picker">
+              <button class="section-pick-btn" onclick="addSection('hero')"><span class="section-pick-icon">🖼</span>Hero</button>
+              <button class="section-pick-btn" onclick="addSection('features')"><span class="section-pick-icon">⚡</span>Features</button>
+              <button class="section-pick-btn" onclick="addSection('metrics')"><span class="section-pick-icon">📊</span>Metrics</button>
+              <button class="section-pick-btn" onclick="addSection('solutions')"><span class="section-pick-icon">🧩</span>Solutions</button>
+              <button class="section-pick-btn" onclick="addSection('testimonials')"><span class="section-pick-icon">💬</span>Testimonials</button>
+              <button class="section-pick-btn" onclick="addSection('outcomes')"><span class="section-pick-icon">🚀</span>Outcomes</button>
+              <button class="section-pick-btn" onclick="addSection('blog')"><span class="section-pick-icon">📝</span>Blog</button>
+              <button class="section-pick-btn" onclick="addSection('faq')"><span class="section-pick-icon">❓</span>FAQ</button>
+              <button class="section-pick-btn" onclick="addSection('cta')"><span class="section-pick-icon">🎯</span>CTA</button>
+            </div>
+            <div style="font-size:10px; color:var(--accent); text-transform:uppercase; letter-spacing:0.12em; margin:14px 0 6px;">Inner Pages</div>
+            <div class="section-picker">
+              <button class="section-pick-btn" onclick="addSection('about')"><span class="section-pick-icon">🏢</span>About</button>
+              <button class="section-pick-btn" onclick="addSection('history')"><span class="section-pick-icon">📖</span>History</button>
+              <button class="section-pick-btn" onclick="addSection('team')"><span class="section-pick-icon">👥</span>Team</button>
+              <button class="section-pick-btn" onclick="addSection('problems')"><span class="section-pick-icon">🔍</span>Problems</button>
+              <button class="section-pick-btn" onclick="addSection('solution-hero')"><span class="section-pick-icon">⭐</span>Sol. Hero</button>
+              <button class="section-pick-btn" onclick="addSection('solution-features')"><span class="section-pick-icon">✨</span>Sol. Features</button>
+              <button class="section-pick-btn" onclick="addSection('benefits')"><span class="section-pick-icon">💡</span>Benefits</button>
+              <button class="section-pick-btn" onclick="addSection('compare')"><span class="section-pick-icon">⚖️</span>Compare</button>
+              <button class="section-pick-btn" onclick="addSection('request-demo')"><span class="section-pick-icon">📋</span>Demo Form</button>
+              <button class="section-pick-btn" onclick="addSection('metrics-v2')"><span class="section-pick-icon">📈</span>Metrics v2</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-primary" onclick="savePage()">Save Page</button>
+          <button class="btn btn-danger" onclick="deletePage()">Delete Page</button>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div>
+
+<!-- ======== NEW PAGE MODAL ======== -->
+<div class="modal-overlay" id="new-page-modal">
+  <div class="modal">
+    <div class="modal-title">Create New Page</div>
+    <div class="form-group">
+      <label>Page Title</label>
+      <input type="text" id="new-page-title" placeholder="About Us">
+    </div>
+    <div class="form-group">
+      <label>URL Slug</label>
+      <input type="text" id="new-page-slug" placeholder="about-us">
+    </div>
+    <div class="form-group">
+      <label>SEO Meta Description</label>
+      <input type="text" id="new-page-meta" placeholder="Optional">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeNewPageModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="createPage()">Create Page</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ============ FIREBASE CONFIG ============ -->
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBH3kMARXpkVr4f1BBnU13-CvNQa2oR2Fk",
+  authDomain: "crossgate-cms.firebaseapp.com",
+  projectId: "crossgate-cms",
+  storageBucket: "crossgate-cms.firebasestorage.app",
+  messagingSenderId: "298950831226",
+  appId: "1:298950831226:web:9aa74a77f60ed44faa1fc3",
+  measurementId: "G-9MV82QQFE3"
+};
+firebase.initializeApp(firebaseConfig);
+const db      = firebase.firestore();
+const auth    = firebase.auth();
+const storage = firebase.storage();
+</script>
+
+<!-- ============ APP LOGIC ============ -->
+<script>
+// ─────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────
+let currentPage   = null; // slug of page being edited
+let currentPageData = {};
+let allPages      = [];
+let headerData    = {};
+let footerData    = {};
+let navItemsData  = [];
+let footerColsData = [];
+let footerLegalData = [];
+let sectionsData  = []; // array of section objects for current page
+
+// ─────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────
+auth.onAuthStateChanged(user => {
+  if (user) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    document.getElementById('user-email').textContent = user.email;
+    initApp();
+  } else {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+  }
+});
+
+async function doLogin() {
+  const email = document.getElementById('login-email').value;
+  const pass  = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  errEl.textContent = '';
+  try {
+    await auth.signInWithEmailAndPassword(email, pass);
+  } catch(e) {
+    errEl.textContent = e.message;
+  }
+}
+// Allow Enter key on login
+document.getElementById('login-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+async function doSignOut() {
+  await auth.signOut();
+}
+
+// ─────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────
+async function initApp() {
+  await loadPages();
+  await loadHeader();
+  await loadFooter();
+}
+
+// ─────────────────────────────────────────
+// PANEL NAVIGATION
+// ─────────────────────────────────────────
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.page-nav-item').forEach(b => b.classList.remove('active'));
+
+  const panel = document.getElementById('panel-' + name);
+  if (panel) panel.classList.add('active');
+
+  const titles = {
+    'dashboard':     'Dashboard',
+    'header-editor': 'Header Settings',
+    'footer-editor': 'Footer Settings',
+    'page-editor':   currentPageData.title || 'Page Editor'
+  };
+  document.getElementById('topbar-title').textContent = titles[name] || name;
+
+  // highlight nav
+  const navMap = {
+    'dashboard':     0,
+    'header-editor': 1,
+    'footer-editor': 2
+  };
+  const btns = document.querySelectorAll('.nav-btn');
+  if (navMap[name] !== undefined) btns[navMap[name]]?.classList.add('active');
+
+  // topbar actions
+  const actions = document.getElementById('topbar-actions');
+  actions.innerHTML = '';
+  if (name === 'dashboard') {
+    actions.innerHTML = `<button class="btn btn-primary btn-sm" onclick="openNewPageModal()">＋ New Page</button>`;
+  }
+}
+
+// ─────────────────────────────────────────
+// TOAST
+// ─────────────────────────────────────────
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show ' + type;
+  setTimeout(() => { t.className = ''; }, 3000);
+}
+
+// ─────────────────────────────────────────
+// PAGES — LOAD
+// ─────────────────────────────────────────
+async function loadPages() {
+  const snap = await db.collection('pages').get();
+  allPages = [];
+  snap.forEach(doc => allPages.push({ id: doc.id, ...doc.data() }));
+  renderPagesSidebar();
+  renderDashboardGrid();
+}
+
+function renderPagesSidebar() {
+  const list = document.getElementById('pages-list');
+  if (!allPages.length) {
+    list.innerHTML = `<div style="padding:8px 10px; font-size:11px; color:var(--text-3);">No pages yet</div>`;
+    return;
+  }
+  list.innerHTML = allPages.map(p => `
+    <div class="page-nav-item ${currentPage === p.id ? 'active' : ''}" onclick="openPageEditor('${p.id}')">
+      <span>${p.title || p.id}</span>
+      <span class="page-slug">${p.slug}</span>
+    </div>
+  `).join('');
+}
+
+function renderDashboardGrid() {
+  const grid = document.getElementById('dashboard-pages-grid');
+  if (!allPages.length) {
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column: 1/-1;">
+        <div class="empty-state-icon">📄</div>
+        No pages yet. Create your first page.
+      </div>`;
+    return;
+  }
+  grid.innerHTML = allPages.map(p => `
+    <div class="page-card" onclick="openPageEditor('${p.id}')">
+      <div class="page-card-title">${p.title || p.id}</div>
+      <div class="page-card-slug">/${p.slug}</div>
+      <div class="page-card-meta">
+        <span>${(p.sections || []).length} sections</span>
+        <span>Edit →</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─────────────────────────────────────────
+// PAGES — CREATE
+// ─────────────────────────────────────────
+function openNewPageModal() {
+  document.getElementById('new-page-modal').classList.add('open');
+  document.getElementById('new-page-title').value = '';
+  document.getElementById('new-page-slug').value = '';
+  document.getElementById('new-page-meta').value = '';
+}
+function closeNewPageModal() {
+  document.getElementById('new-page-modal').classList.remove('open');
+}
+
+// Auto-slug from title
+document.getElementById('new-page-title').addEventListener('input', function() {
+  document.getElementById('new-page-slug').value =
+    this.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+});
+
+async function createPage() {
+  const title = document.getElementById('new-page-title').value.trim();
+  const slug  = document.getElementById('new-page-slug').value.trim();
+  const meta  = document.getElementById('new-page-meta').value.trim();
+  if (!title || !slug) return showToast('Title and slug are required', 'error');
+
+  const pageData = { title, slug, meta, sections: [], createdAt: new Date().toISOString() };
+  await db.collection('pages').doc(slug).set(pageData);
+  showToast('Page created!');
+  closeNewPageModal();
+  await loadPages();
+  openPageEditor(slug);
+}
+
+// ─────────────────────────────────────────
+// PAGE EDITOR — OPEN
+// ─────────────────────────────────────────
+async function openPageEditor(slug) {
+  currentPage = slug;
+  const doc = await db.collection('pages').doc(slug).get();
+  currentPageData = doc.data() || {};
+  sectionsData = currentPageData.sections || [];
+
+  document.getElementById('page-title-input').value = currentPageData.title || '';
+  document.getElementById('page-meta-input').value  = currentPageData.meta  || '';
+
+  renderSectionsList();
+  showPanel('page-editor');
+  renderPagesSidebar();
+
+  // Init sortable
+  const list = document.getElementById('sections-list');
+  if (window._sortable) window._sortable.destroy();
+  window._sortable = Sortable.create(list, {
+    handle: '.section-drag-handle',
+    animation: 150,
+    ghostClass: 'sortable-ghost',
+    chosenClass: 'sortable-chosen',
+    onEnd: () => { collectSectionsOrder(); }
+  });
+}
+
+function collectSectionsOrder() {
+  const list = document.getElementById('sections-list');
+  const blocks = list.querySelectorAll('.section-block');
+  const reordered = [];
+  blocks.forEach(block => {
+    const idx = parseInt(block.dataset.index);
+    if (!isNaN(idx)) reordered.push(sectionsData[idx]);
+  });
+  sectionsData = reordered;
+  // Re-index after sort
+  sectionsData.forEach((s, i) => s.order = i);
+}
+
+// ─────────────────────────────────────────
+// SECTIONS — RENDER LIST
+// ─────────────────────────────────────────
+function renderSectionsList() {
+  const list = document.getElementById('sections-list');
+  if (!sectionsData.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">＋</div>No sections yet. Pick one below.</div>`;
+    return;
+  }
+  list.innerHTML = sectionsData.map((s, i) => buildSectionBlock(s, i)).join('');
+}
+
+function buildSectionBlock(section, index) {
+  const typeLabels = {
+    hero: 'Hero', features: 'Features', metrics: 'Metrics',
+    solutions: 'Solutions', testimonials: 'Testimonials',
+    outcomes: 'Outcomes', blog: 'Blog', faq: 'FAQ', cta: 'CTA'
+  };
+  const label = typeLabels[section.type] || section.type;
+  const preview = getPreviewText(section);
+
+  return `
+    <div class="section-block" data-index="${index}" id="section-block-${index}">
+      <div class="section-block-header" onclick="toggleSectionBlock(${index})">
+        <span class="section-drag-handle">⠿</span>
+        <span class="section-type-badge">${label}</span>
+        <span class="section-block-title">${preview}</span>
+        <div class="section-block-actions">
+          <button class="btn btn-danger btn-sm" onclick="event.stopPropagation(); removeSection(${index})">✕</button>
+        </div>
+        <span class="section-chevron">▾</span>
+      </div>
+      <div class="section-block-body">
+        ${buildSectionForm(section, index)}
+      </div>
+    </div>
+  `;
+}
+
+function getPreviewText(section) {
+  const d = section.data || {};
+  return d.heading || d.headline || d.title || d.eyebrow || '—';
+}
+
+function toggleSectionBlock(index) {
+  const block = document.getElementById('section-block-' + index);
+  block.classList.toggle('is-open');
+}
+
+// ─────────────────────────────────────────
+// SECTION FORMS — per type
+// ─────────────────────────────────────────
+function buildSectionForm(section, index) {
+  const d = section.data || {};
+  const i = index;
+
+  switch(section.type) {
+
+    case 'hero': return `
+      <div class="form-group"><label>Headline</label>
+        <input type="text" value="${esc(d.headline)}" onchange="updateSectionData(${i},'headline',this.value)" placeholder="Embracing Evolution"></div>
+      <div class="form-group"><label>Subheadline</label>
+        <input type="text" value="${esc(d.subheadline)}" onchange="updateSectionData(${i},'subheadline',this.value)" placeholder="From signal to structure..."></div>
+      <div class="form-group"><label>Body Text</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <div class="form-group"><label>CTA Button Label</label>
+        <input type="text" value="${esc(d.ctaLabel)}" onchange="updateSectionData(${i},'ctaLabel',this.value)" placeholder="See 6-week pilot plan"></div>
+      <div class="form-group"><label>CTA Button Link</label>
+        <input type="text" value="${esc(d.ctaHref)}" onchange="updateSectionData(${i},'ctaHref',this.value)" placeholder="/book-a-demo"></div>
+      <div class="form-group"><label>Background Image URL</label>
+        <input type="text" value="${esc(d.bgImage)}" onchange="updateSectionData(${i},'bgImage',this.value)" placeholder="img/hero-bg.avif"></div>
+      <div class="form-group"><label>Hero Image URL</label>
+        <input type="text" value="${esc(d.heroImage)}" onchange="updateSectionData(${i},'heroImage',this.value)" placeholder="img/era.webp"></div>
+      <div class="form-group"><label>YouTube Video URL (optional)</label>
+        <input type="text" value="${esc(d.videoUrl)}" onchange="updateSectionData(${i},'videoUrl',this.value)" placeholder="https://www.youtube.com/watch?v=..."></div>
+      <div class="form-group"><label>Logos Marquee (comma-separated image paths)</label>
+        <textarea onchange="updateSectionData(${i},'logos',this.value)">${esc(d.logos)}</textarea></div>
+    `;
+
+    case 'features': return `
+      <div class="form-group"><label>Block 1 — Heading</label>
+        <input type="text" value="${esc(d.block1Heading)}" onchange="updateSectionData(${i},'block1Heading',this.value)"></div>
+      <div class="form-group"><label>Block 1 — Body</label>
+        <textarea onchange="updateSectionData(${i},'block1Body',this.value)">${esc(d.block1Body)}</textarea></div>
+      <div class="form-group"><label>Block 1 — Side Image URL</label>
+        <input type="text" value="${esc(d.block1Image)}" onchange="updateSectionData(${i},'block1Image',this.value)"></div>
+      <div class="form-group"><label>Block 1 — Side Image Caption</label>
+        <input type="text" value="${esc(d.block1Caption)}" onchange="updateSectionData(${i},'block1Caption',this.value)"></div>
+      <hr>
+      <div class="form-group"><label>Block 2 — Heading</label>
+        <input type="text" value="${esc(d.block2Heading)}" onchange="updateSectionData(${i},'block2Heading',this.value)"></div>
+      <div class="form-group"><label>Block 2 — Body</label>
+        <textarea onchange="updateSectionData(${i},'block2Body',this.value)">${esc(d.block2Body)}</textarea></div>
+      <div class="form-group"><label>Block 2 — Side Image URL</label>
+        <input type="text" value="${esc(d.block2Image)}" onchange="updateSectionData(${i},'block2Image',this.value)"></div>
+      <div class="form-group"><label>Block 2 — Side Image Caption</label>
+        <input type="text" value="${esc(d.block2Caption)}" onchange="updateSectionData(${i},'block2Caption',this.value)"></div>
+    `;
+
+    case 'metrics': return `
+      <div class="form-group"><label>Eyebrow</label>
+        <input type="text" value="${esc(d.eyebrow)}" onchange="updateSectionData(${i},'eyebrow',this.value)" placeholder="Our Impact"></div>
+      <div class="form-group"><label>Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)"></div>
+      <div class="form-group"><label>Body</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <div class="form-group"><label>Background Image URL</label>
+        <input type="text" value="${esc(d.bgImage)}" onchange="updateSectionData(${i},'bgImage',this.value)"></div>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin: 12px 0 8px;">Metric Items</div>
+      <div class="metric-items" id="metrics-items-${i}">
+        ${buildMetricItems(d.items || [], i)}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="addMetricItem(${i})">＋ Add Metric</button>
+    `;
+
+    case 'solutions': return `
+      <div class="form-group"><label>Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Three solutions. One way forward."></div>
+      <div class="form-group"><label>Body</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <hr>
+      <div style="font-size:11px; color:var(--accent); margin-bottom:8px;">EPOCH Card</div>
+      <div class="form-group"><label>EPOCH Heading</label>
+        <input type="text" value="${esc(d.epochHeading)}" onchange="updateSectionData(${i},'epochHeading',this.value)" placeholder="EPOCH"></div>
+      <div class="form-group"><label>EPOCH Body</label>
+        <textarea onchange="updateSectionData(${i},'epochBody',this.value)">${esc(d.epochBody)}</textarea></div>
+      <div class="form-group"><label>EPOCH Image URL</label>
+        <input type="text" value="${esc(d.epochImage)}" onchange="updateSectionData(${i},'epochImage',this.value)"></div>
+      <div class="form-group"><label>EPOCH Link</label>
+        <input type="text" value="${esc(d.epochLink)}" onchange="updateSectionData(${i},'epochLink',this.value)" placeholder="/epoch"></div>
+      <hr>
+      <div style="font-size:11px; color:var(--accent); margin-bottom:8px;">ERA Card</div>
+      <div class="form-group"><label>ERA Heading</label>
+        <input type="text" value="${esc(d.eraHeading)}" onchange="updateSectionData(${i},'eraHeading',this.value)" placeholder="ERA"></div>
+      <div class="form-group"><label>ERA Body</label>
+        <textarea onchange="updateSectionData(${i},'eraBody',this.value)">${esc(d.eraBody)}</textarea></div>
+      <div class="form-group"><label>ERA Image URL</label>
+        <input type="text" value="${esc(d.eraImage)}" onchange="updateSectionData(${i},'eraImage',this.value)"></div>
+      <hr>
+      <div style="font-size:11px; color:var(--accent); margin-bottom:8px;">EON Card</div>
+      <div class="form-group"><label>EON Heading</label>
+        <input type="text" value="${esc(d.eonHeading)}" onchange="updateSectionData(${i},'eonHeading',this.value)" placeholder="EON"></div>
+      <div class="form-group"><label>EON Body</label>
+        <textarea onchange="updateSectionData(${i},'eonBody',this.value)">${esc(d.eonBody)}</textarea></div>
+      <div class="form-group"><label>EON Image URL</label>
+        <input type="text" value="${esc(d.eonImage)}" onchange="updateSectionData(${i},'eonImage',this.value)"></div>
+    `;
+
+    case 'testimonials': return `
+      <div class="form-group"><label>Heading Line 1</label>
+        <input type="text" value="${esc(d.heading1)}" onchange="updateSectionData(${i},'heading1',this.value)" placeholder="Designed for Leaders"></div>
+      <div class="form-group"><label>Heading Line 2 (gold)</label>
+        <input type="text" value="${esc(d.heading2)}" onchange="updateSectionData(${i},'heading2',this.value)" placeholder="Who Can't Afford Surprises"></div>
+      <div class="form-group"><label>CTA Button Label</label>
+        <input type="text" value="${esc(d.ctaLabel)}" onchange="updateSectionData(${i},'ctaLabel',this.value)" placeholder="Read Customer Stories"></div>
+      <div class="form-group"><label>CTA Button Link</label>
+        <input type="text" value="${esc(d.ctaHref)}" onchange="updateSectionData(${i},'ctaHref',this.value)"></div>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin: 12px 0 8px;">Testimonial Slides</div>
+      <div id="testimonial-items-${i}">
+        ${buildTestimonialItems(d.items || [], i)}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="addTestimonialItem(${i})">＋ Add Testimonial</button>
+    `;
+
+    case 'outcomes': return `
+      <div class="form-group"><label>Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Impact in 2 weeks."></div>
+      <div class="form-group"><label>Body</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <hr>
+      <div class="form-row">
+        <div class="form-group"><label>Card 1 Title</label>
+          <input type="text" value="${esc(d.card1Title)}" onchange="updateSectionData(${i},'card1Title',this.value)"></div>
+        <div class="form-group"><label>Card 1 Text</label>
+          <input type="text" value="${esc(d.card1Text)}" onchange="updateSectionData(${i},'card1Text',this.value)"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Card 2 Title</label>
+          <input type="text" value="${esc(d.card2Title)}" onchange="updateSectionData(${i},'card2Title',this.value)"></div>
+        <div class="form-group"><label>Card 2 Text</label>
+          <input type="text" value="${esc(d.card2Text)}" onchange="updateSectionData(${i},'card2Text',this.value)"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Card 3 Title</label>
+          <input type="text" value="${esc(d.card3Title)}" onchange="updateSectionData(${i},'card3Title',this.value)"></div>
+        <div class="form-group"><label>Card 3 Text</label>
+          <input type="text" value="${esc(d.card3Text)}" onchange="updateSectionData(${i},'card3Text',this.value)"></div>
+      </div>
+    `;
+
+    case 'blog': return `
+      <div class="form-group"><label>Section Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Blog"></div>
+      <div class="form-group"><label>Section Subheading</label>
+        <input type="text" value="${esc(d.subheading)}" onchange="updateSectionData(${i},'subheading',this.value)" placeholder="Built for clarity &amp; simplicity"></div>
+      <div class="form-group"><label>CTA Label</label>
+        <input type="text" value="${esc(d.ctaLabel)}" onchange="updateSectionData(${i},'ctaLabel',this.value)" placeholder="Explore all resources"></div>
+      <div class="form-group"><label>CTA Link</label>
+        <input type="text" value="${esc(d.ctaHref)}" onchange="updateSectionData(${i},'ctaHref',this.value)" placeholder="/all-resources"></div>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin: 12px 0 8px;">Blog Posts</div>
+      <div id="blog-items-${i}">
+        ${buildBlogItems(d.items || [], i)}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="addBlogItem(${i})">＋ Add Blog Post</button>
+    `;
+
+    case 'faq': return `
+      <div class="form-group"><label>Section Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Answers with structure"></div>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin: 12px 0 8px;">FAQ Groups</div>
+      <div id="faq-groups-${i}">
+        ${buildFaqGroups(d.groups || [], i)}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="addFaqGroup(${i})">＋ Add FAQ Group</button>
+    `;
+
+    case 'cta': return `
+      <div class="form-group"><label>Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Book a demo"></div>
+      <div class="form-group"><label>Body Text</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <div class="form-group"><label>Button Label</label>
+        <input type="text" value="${esc(d.btnLabel)}" onchange="updateSectionData(${i},'btnLabel',this.value)" placeholder="Talk to our team"></div>
+      <div class="form-group"><label>Button Link</label>
+        <input type="text" value="${esc(d.btnHref)}" onchange="updateSectionData(${i},'btnHref',this.value)" placeholder="/book-a-demo"></div>
+    `;
+
+    case 'about': return `
+      <div class="form-group"><label>Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="We Provide What Supply Chains Need."></div>
+      <div class="form-group"><label>Body Text</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Primary Button Label</label>
+          <input type="text" value="${esc(d.btn1Label)}" onchange="updateSectionData(${i},'btn1Label',this.value)" placeholder="Get a Demo"></div>
+        <div class="form-group"><label>Primary Button Link</label>
+          <input type="text" value="${esc(d.btn1Href)}" onchange="updateSectionData(${i},'btn1Href',this.value)" placeholder="/book-a-demo"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Video Button Label</label>
+          <input type="text" value="${esc(d.videoLabel)}" onchange="updateSectionData(${i},'videoLabel',this.value)" placeholder="See how it works"></div>
+        <div class="form-group"><label>YouTube Video URL</label>
+          <input type="text" value="${esc(d.videoUrl)}" onchange="updateSectionData(${i},'videoUrl',this.value)" placeholder="https://youtube.com/watch?v=..."></div>
+      </div>
+      <div class="form-group"><label>Section Image</label>
+        ${imgUpload(i, 'sectionImage', d.sectionImage)}
+      </div>
+    `;
+
+    case 'history': return `
+      <div class="form-group"><label>Main Quote / Heading</label>
+        <textarea onchange="updateSectionData(${i},'quote',this.value)">${esc(d.quote)}</textarea></div>
+      <div class="form-group"><label>Quote Highlight (span, shown differently)</label>
+        <input type="text" value="${esc(d.quoteSpan)}" onchange="updateSectionData(${i},'quoteSpan',this.value)" placeholder="— and for the people doing their best to manage it."></div>
+      <div class="form-group"><label>Body Column 1</label>
+        <textarea onchange="updateSectionData(${i},'body1',this.value)">${esc(d.body1)}</textarea></div>
+      <div class="form-group"><label>Body Column 2</label>
+        <textarea onchange="updateSectionData(${i},'body2',this.value)">${esc(d.body2)}</textarea></div>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin:12px 0 8px;">Stat Cards (e.g. Founded in 2022)</div>
+      <div id="history-stats-${i}">
+        ${buildSimpleItems(d.stats || [], i, 'stats', 'Stat', ['text'])}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="addSimpleItem(${i},'stats',{text:''})">＋ Add Stat</button>
+    `;
+
+    case 'team': return `
+      <div class="form-group"><label>Section Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Leadership"></div>
+      <div class="form-group"><label>Section Body</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin:12px 0 8px;">Team Members</div>
+      <div id="team-items-${i}">
+        ${buildTeamItems(d.members || [], i)}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="addTeamMember(${i})">＋ Add Member</button>
+    `;
+
+    case 'problems': return `
+      <div class="form-group"><label>Section Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Problems we solve"></div>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin:12px 0 8px;">Problem Cards</div>
+      <div id="problems-items-${i}">
+        ${buildProblemItems(d.items || [], i)}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="addProblemItem(${i})">＋ Add Problem Card</button>
+    `;
+
+    case 'solution-hero': return `
+      <div class="form-row">
+        <div class="form-group"><label>Badge Text (e.g. "Currently in development")</label>
+          <input type="text" value="${esc(d.badge)}" onchange="updateSectionData(${i},'badge',this.value)"></div>
+        <div class="form-group"><label>Product Name (large, e.g. EON)</label>
+          <input type="text" value="${esc(d.productName)}" onchange="updateSectionData(${i},'productName',this.value)" placeholder="EON"></div>
+      </div>
+      <div class="form-group"><label>Product Subtitle (grey, e.g. "by Holocene")</label>
+        <input type="text" value="${esc(d.productSub)}" onchange="updateSectionData(${i},'productSub',this.value)" placeholder="by Holocene"></div>
+      <div class="form-group"><label>Body Text</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Primary Button Label</label>
+          <input type="text" value="${esc(d.btn1Label)}" onchange="updateSectionData(${i},'btn1Label',this.value)" placeholder="Get a Demo"></div>
+        <div class="form-group"><label>Primary Button Link</label>
+          <input type="text" value="${esc(d.btn1Href)}" onchange="updateSectionData(${i},'btn1Href',this.value)" placeholder="/book-a-demo"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Video Button Label</label>
+          <input type="text" value="${esc(d.videoLabel)}" onchange="updateSectionData(${i},'videoLabel',this.value)" placeholder="See how it works"></div>
+        <div class="form-group"><label>YouTube Video URL</label>
+          <input type="text" value="${esc(d.videoUrl)}" onchange="updateSectionData(${i},'videoUrl',this.value)"></div>
+      </div>
+      <div class="form-group"><label>Background Image</label>
+        ${imgUpload(i, 'bgImage', d.bgImage)}
+      </div>
+      <div class="form-group"><label>Dashboard / Hero Image</label>
+        ${imgUpload(i, 'heroImage', d.heroImage)}
+      </div>
+    `;
+
+    case 'solution-features': return `
+      <div class="form-group"><label>Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="See further. Decide sooner."></div>
+      <div class="form-group"><label>Body</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin:12px 0 8px;">Feature Items</div>
+      <div id="sol-features-${i}">
+        ${buildSimpleItems(d.items || [], i, 'items', 'Feature', ['title','text'])}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="addSimpleItem(${i},'items',{title:'',text:''})">＋ Add Feature</button>
+    `;
+
+    case 'benefits': return `
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Benefit Blocks</div>
+      <div id="benefits-items-${i}">
+        ${buildBenefitItems(d.items || [], i)}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="addBenefitItem(${i})">＋ Add Benefit Block</button>
+    `;
+
+    case 'compare': return `
+      <div class="form-group"><label>Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Flow mismatches stop production."></div>
+      <div class="form-group"><label>Intro Text</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <hr>
+      <div style="font-size:11px; color:var(--accent); margin-bottom:8px;">Column 1 — Without</div>
+      <div class="form-group"><label>Column 1 Heading</label>
+        <input type="text" value="${esc(d.col1Heading)}" onchange="updateSectionData(${i},'col1Heading',this.value)" placeholder="Without EPOCH"></div>
+      <div class="form-group"><label>Column 1 Points (one per line)</label>
+        <textarea onchange="updateSectionData(${i},'col1Points',this.value)">${esc(d.col1Points)}</textarea></div>
+      <div style="font-size:11px; color:var(--accent); margin-bottom:8px;">Column 2 — Alternative</div>
+      <div class="form-group"><label>Column 2 Heading</label>
+        <input type="text" value="${esc(d.col2Heading)}" onchange="updateSectionData(${i},'col2Heading',this.value)" placeholder="Alternative solution"></div>
+      <div class="form-group"><label>Column 2 Points (one per line)</label>
+        <textarea onchange="updateSectionData(${i},'col2Points',this.value)">${esc(d.col2Points)}</textarea></div>
+      <div style="font-size:11px; color:var(--accent); margin-bottom:8px;">Column 3 — With (highlighted)</div>
+      <div class="form-group"><label>Column 3 Heading</label>
+        <input type="text" value="${esc(d.col3Heading)}" onchange="updateSectionData(${i},'col3Heading',this.value)" placeholder="With EPOCH"></div>
+      <div class="form-group"><label>Column 3 Points (one per line)</label>
+        <textarea onchange="updateSectionData(${i},'col3Points',this.value)">${esc(d.col3Points)}</textarea></div>
+    `;
+
+    case 'request-demo': return `
+      <div class="form-group"><label>Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Start with a conversation."></div>
+      <div class="form-group"><label>Heading Strong (bold part)</label>
+        <input type="text" value="${esc(d.headingStrong)}" onchange="updateSectionData(${i},'headingStrong',this.value)" placeholder="End with a clearer supply chain."></div>
+      <div class="form-group"><label>Body Text</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <hr>
+      <div style="font-size:11px; color:var(--text-3); margin-bottom:8px;">Form Fields (shown in order)</div>
+      <div class="form-group"><label>Form Field Labels (one per line)</label>
+        <textarea onchange="updateSectionData(${i},'formFields',this.value)" placeholder="Full Name&#10;Email Address&#10;Company&#10;What brought you to us?">${esc(d.formFields)}</textarea></div>
+      <div class="form-group"><label>Submit Button Label</label>
+        <input type="text" value="${esc(d.submitLabel)}" onchange="updateSectionData(${i},'submitLabel',this.value)" placeholder="Send"></div>
+      <div class="form-group"><label>Form Action URL (where form posts to)</label>
+        <input type="text" value="${esc(d.formAction)}" onchange="updateSectionData(${i},'formAction',this.value)" placeholder="https://..."></div>
+    `;
+
+    case 'metrics-v2': return `
+      <div class="form-group"><label>Heading</label>
+        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Keep your floor moving."></div>
+      <div class="form-group"><label>Body Text</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin:12px 0 8px;">Metric Items</div>
+      <div class="metric-items" id="metrics-v2-items-${i}">
+        ${buildMetricV2Items(d.items || [], i)}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="addMetricV2Item(${i})">＋ Add Metric</button>
+    `;
+
+    default: return `<p style="color:var(--text-3); font-size:12px; margin-top:16px;">Unknown section type: ${section.type}</p>`;
+  }
+}
+
+// ─────────────────────────────────────────
+// IMAGE UPLOAD HELPER
+// ─────────────────────────────────────────
+function imgUpload(sectionIndex, field, currentVal) {
+  const id = `img-upload-${sectionIndex}-${field}`;
+  const previewId = `img-preview-${sectionIndex}-${field}`;
+  return `
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <input type="text" id="url-${id}" value="${esc(currentVal)}"
+        onchange="updateSectionData(${sectionIndex},'${field}',this.value); showUrlPreview('${previewId}',this.value)"
+        placeholder="Paste image URL or upload below">
+      ${currentVal ? `<img id="${previewId}" src="${esc(currentVal)}" style="max-height:80px; border-radius:6px; object-fit:cover; border:1px solid var(--border-lit);">` : `<img id="${previewId}" style="display:none; max-height:80px; border-radius:6px; object-fit:cover; border:1px solid var(--border-lit);">`}
+      <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; background:var(--bg-3); border:1px solid var(--border-lit); border-radius:var(--radius); padding:7px 12px; font-size:11px; color:var(--text-2); width:fit-content; text-transform:none; letter-spacing:0;">
+        <span>📁 Upload Image</span>
+        <input type="file" accept="image/*" style="display:none" onchange="uploadImage(event,${sectionIndex},'${field}','${previewId}','url-${id}')">
+      </label>
+      <div id="upload-progress-${sectionIndex}-${field}" style="font-size:11px; color:var(--text-3);"></div>
+    </div>`;
+}
+
+function showUrlPreview(previewId, url) {
+  const img = document.getElementById(previewId);
+  if (!img) return;
+  if (url) { img.src = url; img.style.display = 'block'; }
+  else { img.style.display = 'none'; }
+}
+
+async function uploadImage(event, sectionIndex, field, previewId, urlInputId) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const progressEl = document.getElementById(`upload-progress-${sectionIndex}-${field}`);
+  progressEl.textContent = 'Uploading...';
+  try {
+    const path = `site-images/${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
+    const ref = storage.ref(path);
+    const task = ref.put(file);
+    task.on('state_changed', snap => {
+      const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+      progressEl.textContent = `Uploading... ${pct}%`;
+    });
+    await task;
+    const url = await ref.getDownloadURL();
+    updateSectionData(sectionIndex, field, url);
+    document.getElementById(urlInputId).value = url;
+    showUrlPreview(previewId, url);
+    progressEl.textContent = '✓ Uploaded';
+    setTimeout(() => { progressEl.textContent = ''; }, 3000);
+  } catch(e) {
+    progressEl.textContent = 'Upload failed: ' + e.message;
+  }
+}
+
+// ─────────────────────────────────────────
+// DYNAMIC REPEATER BUILDERS (NEW)
+// ─────────────────────────────────────────
+
+// Generic simple repeater (for stats, solution-features)
+function buildSimpleItems(items, sectionIndex, arrayKey, label, fields) {
+  return items.map((item, j) => `
+    <div class="faq-item" style="margin-bottom:8px;">
+      <div class="faq-item-header">
+        <span>${label} ${j+1}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeRepeaterItem(${sectionIndex},'${arrayKey}',${j},'${arrayKey === 'items' ? 'sol-features' : 'history-stats'}-${sectionIndex}',function(arr,si){return buildSimpleItems(arr,si,'${arrayKey}','${label}',${JSON.stringify(fields)})})">✕</button>
+      </div>
+      ${fields.map(f => `
+        <div class="form-group"><label>${f.charAt(0).toUpperCase()+f.slice(1)}</label>
+          <input type="text" value="${esc(item[f])}" onchange="updateRepeaterItem(${sectionIndex},'${arrayKey}',${j},'${f}',this.value)">
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+function addSimpleItem(sectionIndex, arrayKey, template) {
+  const s = sectionsData[sectionIndex];
+  s.data[arrayKey] = s.data[arrayKey] || [];
+  s.data[arrayKey].push({...template});
+  const containerId = arrayKey === 'items' ? `sol-features-${sectionIndex}` : `history-stats-${sectionIndex}`;
+  const fields = Object.keys(template);
+  const label = arrayKey === 'stats' ? 'Stat' : 'Feature';
+  document.getElementById(containerId).innerHTML = buildSimpleItems(s.data[arrayKey], sectionIndex, arrayKey, label, fields);
+}
+
+// Team members
+function buildTeamItems(members, sectionIndex) {
+  return members.map((m, j) => `
+    <div class="faq-item" style="margin-bottom:8px;">
+      <div class="faq-item-header">
+        <span>${m.name || 'Member ' + (j+1)}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeRepeaterItem(${sectionIndex},'members',${j},'team-items-${sectionIndex}',buildTeamItems)">✕</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Name</label>
+          <input type="text" value="${esc(m.name)}" onchange="updateRepeaterItem(${sectionIndex},'members',${j},'name',this.value)"></div>
+        <div class="form-group"><label>Role / Title</label>
+          <input type="text" value="${esc(m.role)}" onchange="updateRepeaterItem(${sectionIndex},'members',${j},'role',this.value)"></div>
+      </div>
+      <div class="form-group"><label>Bio</label>
+        <textarea onchange="updateRepeaterItem(${sectionIndex},'members',${j},'bio',this.value)">${esc(m.bio)}</textarea></div>
+      <div class="form-group"><label>LinkedIn URL</label>
+        <input type="text" value="${esc(m.linkedin)}" onchange="updateRepeaterItem(${sectionIndex},'members',${j},'linkedin',this.value)"></div>
+      <div class="form-group"><label>Photo</label>
+        ${imgUploadRepeater(sectionIndex, 'members', j, 'photo', m.photo)}
+      </div>
+    </div>`).join('');
+}
+
+function addTeamMember(sectionIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.members = s.data.members || [];
+  s.data.members.push({ name:'', role:'', bio:'', linkedin:'', photo:'' });
+  document.getElementById('team-items-' + sectionIndex).innerHTML = buildTeamItems(s.data.members, sectionIndex);
+}
+
+// Problems
+function buildProblemItems(items, sectionIndex) {
+  return items.map((item, j) => `
+    <div class="faq-item" style="margin-bottom:8px;">
+      <div class="faq-item-header">
+        <span>${item.title || 'Problem ' + (j+1)}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeRepeaterItem(${sectionIndex},'items',${j},'problems-items-${sectionIndex}',buildProblemItems)">✕</button>
+      </div>
+      <div class="form-group"><label>Title</label>
+        <input type="text" value="${esc(item.title)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'title',this.value)"></div>
+      <div class="form-group"><label>Text</label>
+        <input type="text" value="${esc(item.text)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'text',this.value)"></div>
+      <div class="form-group"><label>Link</label>
+        <input type="text" value="${esc(item.href)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'href',this.value)"></div>
+      <div class="form-group"><label>Main Image</label>
+        ${imgUploadRepeater(sectionIndex, 'items', j, 'image', item.image)}
+      </div>
+      <div class="form-group"><label>Overlay Image (SVG dashboard)</label>
+        ${imgUploadRepeater(sectionIndex, 'items', j, 'overlayImage', item.overlayImage)}
+      </div>
+    </div>`).join('');
+}
+
+function addProblemItem(sectionIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.items = s.data.items || [];
+  s.data.items.push({ title:'', text:'', href:'', image:'', overlayImage:'' });
+  document.getElementById('problems-items-' + sectionIndex).innerHTML = buildProblemItems(s.data.items, sectionIndex);
+}
+
+// Benefits
+function buildBenefitItems(items, sectionIndex) {
+  return items.map((item, j) => `
+    <div class="faq-item" style="margin-bottom:8px;">
+      <div class="faq-item-header">
+        <span>${item.heading || 'Benefit ' + (j+1)}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeRepeaterItem(${sectionIndex},'items',${j},'benefits-items-${sectionIndex}',buildBenefitItems)">✕</button>
+      </div>
+      <div class="form-group"><label>Heading</label>
+        <input type="text" value="${esc(item.heading)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'heading',this.value)"></div>
+      <div class="form-group"><label>Body</label>
+        <textarea onchange="updateRepeaterItem(${sectionIndex},'items',${j},'body',this.value)">${esc(item.body)}</textarea></div>
+      <div class="form-group"><label>Bullet Points (one per line)</label>
+        <textarea onchange="updateRepeaterItem(${sectionIndex},'items',${j},'bullets',this.value)">${esc(item.bullets)}</textarea></div>
+      <div class="form-group"><label>Image</label>
+        ${imgUploadRepeater(sectionIndex, 'items', j, 'image', item.image)}
+      </div>
+    </div>`).join('');
+}
+
+function addBenefitItem(sectionIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.items = s.data.items || [];
+  s.data.items.push({ heading:'', body:'', bullets:'', image:'' });
+  document.getElementById('benefits-items-' + sectionIndex).innerHTML = buildBenefitItems(s.data.items, sectionIndex);
+}
+
+// Metrics v2
+function buildMetricV2Items(items, sectionIndex) {
+  return items.map((item, j) => `
+    <div class="metric-item">
+      <div class="form-group" style="margin:0"><label>Number</label>
+        <input type="text" value="${esc(item.number)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'number',this.value)"></div>
+      <div class="form-group" style="margin:0"><label>Suffix</label>
+        <input type="text" value="${esc(item.suffix)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'suffix',this.value)" placeholder="Percent"></div>
+      <div class="form-group" style="margin:0"><label>Label</label>
+        <input type="text" value="${esc(item.label)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'label',this.value)"></div>
+      <button class="btn btn-danger btn-sm" style="margin-bottom:0" onclick="removeRepeaterItem(${sectionIndex},'items',${j},'metrics-v2-items-${sectionIndex}',buildMetricV2Items)">✕</button>
+    </div>`).join('');
+}
+
+function addMetricV2Item(sectionIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.items = s.data.items || [];
+  s.data.items.push({ number:'', suffix:'', label:'' });
+  document.getElementById('metrics-v2-items-' + sectionIndex).innerHTML = buildMetricV2Items(s.data.items, sectionIndex);
+}
+
+// Image upload for repeater items
+function imgUploadRepeater(sectionIndex, arrayKey, itemIndex, field, currentVal) {
+  const id = `img-rep-${sectionIndex}-${arrayKey}-${itemIndex}-${field}`;
+  const previewId = `prev-${id}`;
+  return `
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <input type="text" id="url-${id}" value="${esc(currentVal)}"
+        onchange="updateRepeaterItem(${sectionIndex},'${arrayKey}',${itemIndex},'${field}',this.value); showUrlPreview('${previewId}',this.value)"
+        placeholder="Paste URL or upload">
+      ${currentVal ? `<img id="${previewId}" src="${esc(currentVal)}" style="max-height:60px; border-radius:4px; object-fit:cover; border:1px solid var(--border-lit);">` : `<img id="${previewId}" style="display:none; max-height:60px; border-radius:4px; object-fit:cover; border:1px solid var(--border-lit);">`}
+      <label style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; background:var(--bg-3); border:1px solid var(--border-lit); border-radius:var(--radius); padding:5px 10px; font-size:11px; color:var(--text-2); width:fit-content; text-transform:none; letter-spacing:0;">
+        <span>📁 Upload</span>
+        <input type="file" accept="image/*" style="display:none" onchange="uploadImageRepeater(event,${sectionIndex},'${arrayKey}',${itemIndex},'${field}','${previewId}','url-${id}')">
+      </label>
+      <div id="up-prog-${id}" style="font-size:11px; color:var(--text-3);"></div>
+    </div>`;
+}
+
+async function uploadImageRepeater(event, sectionIndex, arrayKey, itemIndex, field, previewId, urlInputId) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const progressEl = document.getElementById('up-prog-img-rep-' + sectionIndex + '-' + arrayKey + '-' + itemIndex + '-' + field);
+  if (progressEl) progressEl.textContent = 'Uploading...';
+  try {
+    const path = `site-images/${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
+    const ref = storage.ref(path);
+    const task = ref.put(file);
+    if (progressEl) {
+      task.on('state_changed', snap => {
+        const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+        progressEl.textContent = `Uploading... ${pct}%`;
+      });
+    }
+    await task;
+    const url = await ref.getDownloadURL();
+    updateRepeaterItem(sectionIndex, arrayKey, itemIndex, field, url);
+    const urlInput = document.getElementById(urlInputId);
+    if (urlInput) urlInput.value = url;
+    showUrlPreview(previewId, url);
+    if (progressEl) { progressEl.textContent = '✓ Done'; setTimeout(() => { progressEl.textContent = ''; }, 3000); }
+  } catch(e) {
+    if (progressEl) progressEl.textContent = 'Failed: ' + e.message;
+  }
+}
+
+// ─────────────────────────────────────────
+// DYNAMIC REPEATER BUILDERS
+// ─────────────────────────────────────────
+function buildMetricItems(items, sectionIndex) {
+  return items.map((item, j) => `
+    <div class="metric-item" id="metric-${sectionIndex}-${j}">
+      <div class="form-group" style="margin:0"><label>Number</label>
+        <input type="text" value="${esc(item.number)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'number',this.value)"></div>
+      <div class="form-group" style="margin:0"><label>Suffix</label>
+        <input type="text" value="${esc(item.suffix)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'suffix',this.value)" placeholder="Million"></div>
+      <div class="form-group" style="margin:0"><label>Label</label>
+        <input type="text" value="${esc(item.label)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'label',this.value)"></div>
+      <button class="btn btn-danger btn-sm" style="margin-bottom:0" onclick="removeRepeaterItem(${sectionIndex},'items',${j},'metrics-items-${sectionIndex}',buildMetricItems)">✕</button>
+    </div>
+  `).join('');
+}
+
+function addMetricItem(sectionIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.items = s.data.items || [];
+  s.data.items.push({ number: '', suffix: '', label: '' });
+  document.getElementById('metrics-items-' + sectionIndex).innerHTML = buildMetricItems(s.data.items, sectionIndex);
+}
+
+function buildTestimonialItems(items, sectionIndex) {
+  return items.map((item, j) => `
+    <div class="faq-item">
+      <div class="faq-item-header"><span>Testimonial ${j+1}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeRepeaterItem(${sectionIndex},'items',${j},'testimonial-items-${sectionIndex}',buildTestimonialItems)">✕</button>
+      </div>
+      <div class="form-group"><label>Quote</label>
+        <textarea onchange="updateRepeaterItem(${sectionIndex},'items',${j},'quote',this.value)">${esc(item.quote)}</textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Company / Name</label>
+          <input type="text" value="${esc(item.name)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'name',this.value)"></div>
+        <div class="form-group"><label>Role (gold)</label>
+          <input type="text" value="${esc(item.role)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'role',this.value)"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addTestimonialItem(sectionIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.items = s.data.items || [];
+  s.data.items.push({ quote: '', name: '', role: '' });
+  document.getElementById('testimonial-items-' + sectionIndex).innerHTML = buildTestimonialItems(s.data.items, sectionIndex);
+}
+
+function buildBlogItems(items, sectionIndex) {
+  return items.map((item, j) => `
+    <div class="faq-item">
+      <div class="faq-item-header"><span>Post ${j+1}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeRepeaterItem(${sectionIndex},'items',${j},'blog-items-${sectionIndex}',buildBlogItems)">✕</button>
+      </div>
+      <div class="form-group"><label>Category</label>
+        <input type="text" value="${esc(item.category)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'category',this.value)"></div>
+      <div class="form-group"><label>Title</label>
+        <input type="text" value="${esc(item.title)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'title',this.value)"></div>
+      <div class="form-group"><label>Excerpt</label>
+        <textarea onchange="updateRepeaterItem(${sectionIndex},'items',${j},'excerpt',this.value)">${esc(item.excerpt)}</textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Thumbnail URL</label>
+          <input type="text" value="${esc(item.image)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'image',this.value)"></div>
+        <div class="form-group"><label>Article Link</label>
+          <input type="text" value="${esc(item.href)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'href',this.value)"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addBlogItem(sectionIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.items = s.data.items || [];
+  s.data.items.push({ category: '', title: '', excerpt: '', image: '', href: '' });
+  document.getElementById('blog-items-' + sectionIndex).innerHTML = buildBlogItems(s.data.items, sectionIndex);
+}
+
+function buildFaqGroups(groups, sectionIndex) {
+  return groups.map((group, g) => `
+    <div class="faq-item" style="margin-bottom:8px;">
+      <div class="faq-item-header">
+        <span>Group ${g+1}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeFaqGroup(${sectionIndex},${g})">✕ Group</button>
+      </div>
+      <div class="form-group"><label>Group Label</label>
+        <input type="text" value="${esc(group.label)}" onchange="updateFaqGroupLabel(${sectionIndex},${g},this.value)" placeholder="Automation"></div>
+      <div id="faq-questions-${sectionIndex}-${g}">
+        ${buildFaqQuestions(group.questions || [], sectionIndex, g)}
+      </div>
+      <button class="btn btn-secondary btn-sm" style="margin-top:6px;" onclick="addFaqQuestion(${sectionIndex},${g})">＋ Add Q&amp;A</button>
+    </div>
+  `).join('');
+}
+
+function buildFaqQuestions(questions, sectionIndex, groupIndex) {
+  return questions.map((q, qi) => `
+    <div class="dropdown-child" style="margin-top:6px; grid-template-columns:1fr;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:11px; color:var(--text-3);">
+        <span>Q${qi+1}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeFaqQuestion(${sectionIndex},${groupIndex},${qi})">✕</button>
+      </div>
+      <div class="form-group"><label>Question</label>
+        <input type="text" value="${esc(q.question)}" onchange="updateFaqQuestion(${sectionIndex},${groupIndex},${qi},'question',this.value)"></div>
+      <div class="form-group"><label>Answer</label>
+        <textarea onchange="updateFaqQuestion(${sectionIndex},${groupIndex},${qi},'answer',this.value)">${esc(q.answer)}</textarea></div>
+    </div>
+  `).join('');
+}
+
+function addFaqGroup(sectionIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.groups = s.data.groups || [];
+  s.data.groups.push({ label: '', questions: [] });
+  document.getElementById('faq-groups-' + sectionIndex).innerHTML = buildFaqGroups(s.data.groups, sectionIndex);
+}
+
+function removeFaqGroup(sectionIndex, groupIndex) {
+  sectionsData[sectionIndex].data.groups.splice(groupIndex, 1);
+  document.getElementById('faq-groups-' + sectionIndex).innerHTML = buildFaqGroups(sectionsData[sectionIndex].data.groups, sectionIndex);
+}
+
+function addFaqQuestion(sectionIndex, groupIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.groups[groupIndex].questions = s.data.groups[groupIndex].questions || [];
+  s.data.groups[groupIndex].questions.push({ question: '', answer: '' });
+  document.getElementById(`faq-questions-${sectionIndex}-${groupIndex}`).innerHTML =
+    buildFaqQuestions(s.data.groups[groupIndex].questions, sectionIndex, groupIndex);
+}
+
+function removeFaqQuestion(sectionIndex, groupIndex, questionIndex) {
+  sectionsData[sectionIndex].data.groups[groupIndex].questions.splice(questionIndex, 1);
+  document.getElementById(`faq-questions-${sectionIndex}-${groupIndex}`).innerHTML =
+    buildFaqQuestions(sectionsData[sectionIndex].data.groups[groupIndex].questions, sectionIndex, groupIndex);
+}
+
+function updateFaqGroupLabel(sectionIndex, groupIndex, value) {
+  sectionsData[sectionIndex].data.groups[groupIndex].label = value;
+}
+
+function updateFaqQuestion(sectionIndex, groupIndex, questionIndex, field, value) {
+  sectionsData[sectionIndex].data.groups[groupIndex].questions[questionIndex][field] = value;
+}
+
+// ─────────────────────────────────────────
+// SECTION DATA UPDATES
+// ─────────────────────────────────────────
+function updateSectionData(index, field, value) {
+  sectionsData[index].data = sectionsData[index].data || {};
+  sectionsData[index].data[field] = value;
+}
+
+function updateRepeaterItem(sectionIndex, arrayKey, itemIndex, field, value) {
+  sectionsData[sectionIndex].data[arrayKey][itemIndex][field] = value;
+}
+
+function removeRepeaterItem(sectionIndex, arrayKey, itemIndex, containerId, builderFn) {
+  sectionsData[sectionIndex].data[arrayKey].splice(itemIndex, 1);
+  document.getElementById(containerId).innerHTML = builderFn(sectionsData[sectionIndex].data[arrayKey], sectionIndex);
+}
+
+// ─────────────────────────────────────────
+// ADD / REMOVE SECTIONS
+// ─────────────────────────────────────────
+function addSection(type) {
+  const defaultData = {
+    hero:         { headline: '', subheadline: '', body: '', ctaLabel: 'See 6-week pilot plan', ctaHref: '/book-a-demo', bgImage: '', heroImage: '', videoUrl: '', logos: '' },
+    features:     { block1Heading: '', block1Body: '', block1Image: '', block1Caption: '', block2Heading: '', block2Body: '', block2Image: '', block2Caption: '' },
+    metrics:      { eyebrow: 'Our Impact', heading: '', body: '', bgImage: '', items: [] },
+    solutions:    { heading: '', body: '', epochHeading: 'EPOCH', epochBody: '', epochImage: '', epochLink: '/epoch', eraHeading: 'ERA', eraBody: '', eraImage: '', eonHeading: 'EON', eonBody: '', eonImage: '' },
+    testimonials: { heading1: 'Designed for Leaders', heading2: "Who Can't Afford Surprises", ctaLabel: 'Read Customer Stories', ctaHref: '', items: [] },
+    outcomes:     { heading: 'Impact in 2 weeks.', body: '', card1Title: '', card1Text: '', card2Title: '', card2Text: '', card3Title: '', card3Text: '' },
+    blog:         { heading: 'Blog', subheading: 'Built for clarity & simplicity', ctaLabel: 'Explore all resources', ctaHref: '/all-resources', items: [] },
+    faq:          { heading: 'Answers with structure', groups: [] },
+    cta:          { heading: 'Book a demo', body: '', btnLabel: 'Talk to our team', btnHref: '/book-a-demo' },
+    about:        { heading: '', body: '', btn1Label: 'Get a Demo', btn1Href: '/book-a-demo', videoLabel: 'See how it works', videoUrl: '', sectionImage: '' },
+    history:      { quote: '', quoteSpan: '', body1: '', body2: '', stats: [] },
+    team:         { heading: 'Leadership', body: '', members: [] },
+    problems:     { heading: 'Problems we solve', items: [] },
+    'solution-hero': { badge: '', productName: '', productSub: 'by Holocene', body: '', btn1Label: 'Get a Demo', btn1Href: '/book-a-demo', videoLabel: 'See how it works', videoUrl: '', bgImage: '', heroImage: '' },
+    'solution-features': { heading: '', body: '', items: [] },
+    benefits:     { items: [] },
+    compare:      { heading: '', body: '', col1Heading: 'Without', col1Points: '', col2Heading: 'Alternative solution', col2Points: '', col3Heading: 'With', col3Points: '' },
+    'request-demo': { heading: 'Start with a conversation.', headingStrong: 'End with a clearer supply chain.', body: '', formFields: 'Full Name\nEmail Address\nCompany\nWhat brought you to us?', submitLabel: 'Send', formAction: '' },
+    'metrics-v2': { heading: '', body: '', items: [] }
+  };
+
+  sectionsData.push({
+    type,
+    order: sectionsData.length,
+    data: defaultData[type] || {}
+  });
+  renderSectionsList();
+
+  // Open the newly added block
+  const newIndex = sectionsData.length - 1;
+  setTimeout(() => {
+    const block = document.getElementById('section-block-' + newIndex);
+    if (block) block.classList.add('is-open');
+  }, 50);
+
+  // Re-init sortable
+  if (window._sortable) window._sortable.destroy();
+  window._sortable = Sortable.create(document.getElementById('sections-list'), {
+    handle: '.section-drag-handle',
+    animation: 150,
+    ghostClass: 'sortable-ghost',
+    chosenClass: 'sortable-chosen',
+    onEnd: () => { collectSectionsOrder(); }
+  });
+}
+
+function removeSection(index) {
+  if (!confirm('Remove this section?')) return;
+  sectionsData.splice(index, 1);
+  renderSectionsList();
+}
+
+// ─────────────────────────────────────────
+// SAVE PAGE
+// ─────────────────────────────────────────
+async function savePage() {
+  if (!currentPage) return;
+  const title = document.getElementById('page-title-input').value.trim();
+  const meta  = document.getElementById('page-meta-input').value.trim();
+
+  // collect any open form data before saving
+  const updatedData = {
+    title,
+    meta,
+    sections: sectionsData,
+    updatedAt: new Date().toISOString()
+  };
+
+  await db.collection('pages').doc(currentPage).update(updatedData);
+  currentPageData = { ...currentPageData, ...updatedData };
+  allPages = allPages.map(p => p.id === currentPage ? { ...p, ...updatedData } : p);
+  renderPagesSidebar();
+  renderDashboardGrid();
+  showToast('Page saved!');
+}
+
+async function deletePage() {
+  if (!currentPage) return;
+  if (!confirm(`Delete page "${currentPageData.title}"? This cannot be undone.`)) return;
+  await db.collection('pages').doc(currentPage).delete();
+  currentPage = null;
+  currentPageData = {};
+  sectionsData = [];
+  await loadPages();
+  showPanel('dashboard');
+  showToast('Page deleted.');
+}
+
+// ─────────────────────────────────────────
+// HEADER — LOAD & SAVE
+// ─────────────────────────────────────────
+async function loadHeader() {
+  const doc = await db.collection('site-settings').doc('header').get();
+  headerData = doc.exists ? doc.data() : {};
+  navItemsData = headerData.navItems || [];
+
+  document.getElementById('hdr-site-name').value    = headerData.siteName    || '';
+  document.getElementById('hdr-cta-label').value    = headerData.ctaLabel    || 'See 6-week pilot plan';
+  document.getElementById('hdr-cta-href').value     = headerData.ctaHref     || '/book-a-demo';
+  document.getElementById('hdr-login-label').value  = headerData.loginLabel  || 'Login';
+  document.getElementById('hdr-login-href').value   = headerData.loginHref   || 'https://app.holocene.eu/';
+
+  // Logo desktop
+  const desktopUrl = headerData.logoDesktop || '';
+  document.getElementById('hdr-logo-desktop').value = desktopUrl;
+  if (desktopUrl) {
+    const img = document.getElementById('hdr-logo-desktop-preview');
+    img.src = desktopUrl; img.style.display = 'block';
+  }
+
+  // Logo mobile
+  const mobileUrl = headerData.logoMobile || '';
+  document.getElementById('hdr-logo-mobile').value = mobileUrl;
+  if (mobileUrl) {
+    const img = document.getElementById('hdr-logo-mobile-preview');
+    img.src = mobileUrl; img.style.display = 'block';
+  }
+
+  // Live preview updates from URL field
+  document.getElementById('hdr-logo-desktop').addEventListener('input', function() {
+    showUrlPreview('hdr-logo-desktop-preview', this.value);
+  });
+  document.getElementById('hdr-logo-mobile').addEventListener('input', function() {
+    showUrlPreview('hdr-logo-mobile-preview', this.value);
+  });
+
+  renderNavItems();
+}
+
+function renderNavItems() {
+  const list = document.getElementById('nav-items-list');
+  if (!navItemsData.length) {
+    list.innerHTML = `<div style="color:var(--text-3); font-size:12px; padding:8px 0;">No nav items yet.</div>`;
+    return;
+  }
+  list.innerHTML = navItemsData.map((item, i) => `
+    <div class="nav-item">
+      <div class="nav-item-header">
+        <span>Item ${i+1}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeNavItem(${i})">✕</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Label</label>
+          <input type="text" value="${esc(item.label)}" onchange="navItemsData[${i}].label=this.value" placeholder="Solutions">
+        </div>
+        <div class="form-group">
+          <label>Type</label>
+          <select onchange="navItemsData[${i}].type=this.value; renderNavItems()">
+            <option value="link" ${item.type==='link'?'selected':''}>Simple Link</option>
+            <option value="dropdown" ${item.type==='dropdown'?'selected':''}>Dropdown</option>
+          </select>
+        </div>
+      </div>
+      ${item.type === 'link' ? `
+        <div class="form-group">
+          <label>URL</label>
+          <input type="text" value="${esc(item.href)}" onchange="navItemsData[${i}].href=this.value" placeholder="/page">
+        </div>
+      ` : `
+        <div class="dropdown-children">
+          <div style="font-size:11px; color:var(--text-3); margin-bottom:8px;">Dropdown Items</div>
+          <div id="nav-dropdown-${i}">
+            ${buildDropdownChildren(item.children || [], i)}
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="addDropdownChild(${i})">＋ Add Item</button>
+        </div>
+      `}
+    </div>
+  `).join('');
+}
+
+function buildDropdownChildren(children, navIndex) {
+  return children.map((child, ci) => `
+    <div class="dropdown-child">
+      <div class="form-group" style="margin:0">
+        <label>Label</label>
+        <input type="text" value="${esc(child.label)}" onchange="navItemsData[${navIndex}].children[${ci}].label=this.value" placeholder="EPOCH">
+      </div>
+      <div class="form-group" style="margin:0">
+        <label>Description</label>
+        <input type="text" value="${esc(child.description)}" onchange="navItemsData[${navIndex}].children[${ci}].description=this.value" placeholder="Short description...">
+      </div>
+      <div class="form-group" style="margin:0">
+        <label>URL</label>
+        <input type="text" value="${esc(child.href)}" onchange="navItemsData[${navIndex}].children[${ci}].href=this.value" placeholder="/epoch">
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="removeDropdownChild(${navIndex},${ci})">✕</button>
+    </div>
+  `).join('');
+}
+
+function addNavItem() {
+  navItemsData.push({ label: '', type: 'link', href: '', children: [] });
+  renderNavItems();
+}
+
+function removeNavItem(index) {
+  navItemsData.splice(index, 1);
+  renderNavItems();
+}
+
+function addDropdownChild(navIndex) {
+  navItemsData[navIndex].children = navItemsData[navIndex].children || [];
+  navItemsData[navIndex].children.push({ label: '', description: '', href: '' });
+  document.getElementById('nav-dropdown-' + navIndex).innerHTML =
+    buildDropdownChildren(navItemsData[navIndex].children, navIndex);
+}
+
+function removeDropdownChild(navIndex, childIndex) {
+  navItemsData[navIndex].children.splice(childIndex, 1);
+  document.getElementById('nav-dropdown-' + navIndex).innerHTML =
+    buildDropdownChildren(navItemsData[navIndex].children, navIndex);
+}
+
+async function saveHeader() {
+  const data = {
+    siteName:    document.getElementById('hdr-site-name').value,
+    logoDesktop: document.getElementById('hdr-logo-desktop').value,
+    logoMobile:  document.getElementById('hdr-logo-mobile').value,
+    ctaLabel:    document.getElementById('hdr-cta-label').value,
+    ctaHref:     document.getElementById('hdr-cta-href').value,
+    loginLabel:  document.getElementById('hdr-login-label').value,
+    loginHref:   document.getElementById('hdr-login-href').value,
+    navItems:    navItemsData,
+    updatedAt:   new Date().toISOString()
+  };
+  await db.collection('site-settings').doc('header').set(data);
+  headerData = data;
+  showToast('Header saved!');
+}
+
+// ─────────────────────────────────────────
+// HEADER LOGO UPLOAD
+// ─────────────────────────────────────────
+async function uploadHeaderLogo(event, variant) {
+  // variant = 'desktop' or 'mobile'
+  const file = event.target.files[0];
+  if (!file) return;
+  const progressEl = document.getElementById(`hdr-logo-${variant}-progress`);
+  const inputEl    = document.getElementById(`hdr-logo-${variant}`);
+  const previewEl  = document.getElementById(`hdr-logo-${variant}-preview`);
+  progressEl.textContent = 'Uploading...';
+  try {
+    const path = `site-logos/${variant}_${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
+    const ref = storage.ref(path);
+    const task = ref.put(file);
+    task.on('state_changed', snap => {
+      const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+      progressEl.textContent = `Uploading... ${pct}%`;
+    });
+    await task;
+    const url = await ref.getDownloadURL();
+    inputEl.value = url;
+    previewEl.src = url;
+    previewEl.style.display = 'block';
+    progressEl.textContent = '✓ Uploaded — click Save Header to apply.';
+    setTimeout(() => { progressEl.textContent = ''; }, 5000);
+  } catch(e) {
+    progressEl.textContent = 'Upload failed: ' + e.message;
+  }
+}
+
+// ─────────────────────────────────────────
+// FOOTER — LOAD & SAVE
+// ─────────────────────────────────────────
+async function loadFooter() {
+  const doc = await db.collection('site-settings').doc('footer').get();
+  footerData = doc.exists ? doc.data() : {};
+  footerColsData  = footerData.columns  || [];
+  footerLegalData = footerData.legal    || [];
+
+  document.getElementById('ftr-tagline').value       = footerData.tagline   || 'Embrace Evolution in Action.';
+  document.getElementById('ftr-copyright').value     = footerData.copyright || '© 2025 Holocene. All rights reserved.';
+  document.getElementById('ftr-linkedin').value      = footerData.linkedin  || '';
+  document.getElementById('ftr-linkedin-label').value = footerData.linkedinLabel || 'LinkedIn';
+
+  renderFooterCols();
+  renderFooterLegal();
+}
+
+function renderFooterCols() {
+  const list = document.getElementById('footer-cols-list');
+  list.innerHTML = footerColsData.map((col, ci) => `
+    <div class="footer-col">
+      <div class="footer-col-header">
+        <div class="form-group" style="margin:0; flex:1; margin-right:10px;">
+          <label>Column Heading</label>
+          <input type="text" value="${esc(col.heading)}" onchange="footerColsData[${ci}].heading=this.value" placeholder="Solutions">
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="removeFooterCol(${ci})">✕</button>
+      </div>
+      <div id="footer-links-${ci}">
+        ${buildFooterLinks(col.links || [], ci)}
+      </div>
+      <button class="btn btn-secondary btn-sm" style="margin-top:6px;" onclick="addFooterLink(${ci})">＋ Add Link</button>
+    </div>
+  `).join('');
+}
+
+function buildFooterLinks(links, colIndex) {
+  return links.map((link, li) => `
+    <div class="footer-link-item">
+      <div class="form-group" style="margin:0">
+        <label>Label</label>
+        <input type="text" value="${esc(link.label)}" onchange="footerColsData[${colIndex}].links[${li}].label=this.value">
+      </div>
+      <div class="form-group" style="margin:0">
+        <label>URL</label>
+        <input type="text" value="${esc(link.href)}" onchange="footerColsData[${colIndex}].links[${li}].href=this.value">
+      </div>
+      <button class="btn btn-danger btn-sm" style="margin-bottom:0" onclick="removeFooterLink(${colIndex},${li})">✕</button>
+    </div>
+  `).join('');
+}
+
+function addFooterCol() {
+  footerColsData.push({ heading: '', links: [] });
+  renderFooterCols();
+}
+function removeFooterCol(index) {
+  footerColsData.splice(index, 1);
+  renderFooterCols();
+}
+function addFooterLink(colIndex) {
+  footerColsData[colIndex].links = footerColsData[colIndex].links || [];
+  footerColsData[colIndex].links.push({ label: '', href: '' });
+  document.getElementById('footer-links-' + colIndex).innerHTML =
+    buildFooterLinks(footerColsData[colIndex].links, colIndex);
+}
+function removeFooterLink(colIndex, linkIndex) {
+  footerColsData[colIndex].links.splice(linkIndex, 1);
+  document.getElementById('footer-links-' + colIndex).innerHTML =
+    buildFooterLinks(footerColsData[colIndex].links, colIndex);
+}
+
+function renderFooterLegal() {
+  const list = document.getElementById('footer-legal-list');
+  list.innerHTML = footerLegalData.map((link, i) => `
+    <div class="footer-link-item">
+      <div class="form-group" style="margin:0 0 8px">
+        <label>Label</label>
+        <input type="text" value="${esc(link.label)}" onchange="footerLegalData[${i}].label=this.value">
+      </div>
+      <div class="form-group" style="margin:0 0 8px">
+        <label>URL</label>
+        <input type="text" value="${esc(link.href)}" onchange="footerLegalData[${i}].href=this.value">
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="removeFooterLegal(${i})">✕</button>
+    </div>
+  `).join('');
+}
+function addFooterLegal() {
+  footerLegalData.push({ label: '', href: '' });
+  renderFooterLegal();
+}
+function removeFooterLegal(index) {
+  footerLegalData.splice(index, 1);
+  renderFooterLegal();
+}
+
+async function saveFooter() {
+  const data = {
+    tagline:       document.getElementById('ftr-tagline').value,
+    copyright:     document.getElementById('ftr-copyright').value,
+    linkedin:      document.getElementById('ftr-linkedin').value,
+    linkedinLabel: document.getElementById('ftr-linkedin-label').value,
+    columns:       footerColsData,
+    legal:         footerLegalData,
+    updatedAt:     new Date().toISOString()
+  };
+  await db.collection('site-settings').doc('footer').set(data);
+  footerData = data;
+  showToast('Footer saved!');
+}
+
+// ─────────────────────────────────────────
+// UTILITY
+// ─────────────────────────────────────────
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+</script>
+
+</body>
+</html>
