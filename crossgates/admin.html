@@ -1315,38 +1315,19 @@ case 'features': return `
       <button class="btn btn-secondary btn-sm" onclick="addMetricItem(${i})">＋ Add Metric</button>
     `;
 
-    case 'solutions': return `
-      <div class="form-group"><label>Heading</label>
-        <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Three solutions. One way forward."></div>
-      <div class="form-group"><label>Body</label>
-        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
-      <hr>
-      <div style="font-size:11px; color:var(--accent); margin-bottom:8px;">EPOCH Card</div>
-      <div class="form-group"><label>EPOCH Heading</label>
-        <input type="text" value="${esc(d.epochHeading)}" onchange="updateSectionData(${i},'epochHeading',this.value)" placeholder="EPOCH"></div>
-      <div class="form-group"><label>EPOCH Body</label>
-        <textarea onchange="updateSectionData(${i},'epochBody',this.value)">${esc(d.epochBody)}</textarea></div>
-      <div class="form-group"><label>EPOCH Image URL</label>
-        <input type="text" value="${esc(d.epochImage)}" onchange="updateSectionData(${i},'epochImage',this.value)"></div>
-      <div class="form-group"><label>EPOCH Link</label>
-        <input type="text" value="${esc(d.epochLink)}" onchange="updateSectionData(${i},'epochLink',this.value)" placeholder="/epoch"></div>
-      <hr>
-      <div style="font-size:11px; color:var(--accent); margin-bottom:8px;">ERA Card</div>
-      <div class="form-group"><label>ERA Heading</label>
-        <input type="text" value="${esc(d.eraHeading)}" onchange="updateSectionData(${i},'eraHeading',this.value)" placeholder="ERA"></div>
-      <div class="form-group"><label>ERA Body</label>
-        <textarea onchange="updateSectionData(${i},'eraBody',this.value)">${esc(d.eraBody)}</textarea></div>
-      <div class="form-group"><label>ERA Image URL</label>
-        <input type="text" value="${esc(d.eraImage)}" onchange="updateSectionData(${i},'eraImage',this.value)"></div>
-      <hr>
-      <div style="font-size:11px; color:var(--accent); margin-bottom:8px;">EON Card</div>
-      <div class="form-group"><label>EON Heading</label>
-        <input type="text" value="${esc(d.eonHeading)}" onchange="updateSectionData(${i},'eonHeading',this.value)" placeholder="EON"></div>
-      <div class="form-group"><label>EON Body</label>
-        <textarea onchange="updateSectionData(${i},'eonBody',this.value)">${esc(d.eonBody)}</textarea></div>
-      <div class="form-group"><label>EON Image URL</label>
-        <input type="text" value="${esc(d.eonImage)}" onchange="updateSectionData(${i},'eonImage',this.value)"></div>
-    `;
+case 'solutions': return `
+  <div class="form-group"><label>Section Heading</label>
+    <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Three solutions. One way forward."></div>
+  <div class="form-group"><label>Section Body</label>
+    <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+  <hr>
+  <div style="font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Solution Cards</div>
+  <div style="font-size:11px; color:var(--text-3); margin-bottom:10px;">First card is always EPOCH (wide). Cards 2 and 3 are ERA and EON (narrow). Max 3 cards.</div>
+  <div id="solutions-items-${i}">
+    ${buildSolutionItems(d.items || [], i)}
+  </div>
+  <button class="btn btn-secondary btn-sm" onclick="addSolutionItem(${i})" ${(d.items||[]).length >= 3 ? 'disabled' : ''}>＋ Add Solution Card</button>
+`;
 
     case 'testimonials': return `
       <div class="form-group"><label>Heading Line 1</label>
@@ -1645,6 +1626,53 @@ async function uploadImage(event, sectionIndex, field, previewId, urlInputId) {
     progressEl.textContent = 'Upload failed: ' + e.message;
   }
 }
+
+
+
+
+function buildSolutionItems(items, sectionIndex) {
+  const labels = ['EPOCH (Card 1 — wide)', 'ERA (Card 2)', 'EON (Card 3)'];
+  return items.map((item, j) => `
+    <div class="faq-item" style="margin-bottom:8px;">
+      <div class="faq-item-header">
+        <span>${labels[j] || 'Card ' + (j+1)}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeSolutionItem(${sectionIndex},${j})">✕</button>
+      </div>
+      ${j > 0 ? `
+      <div class="form-group"><label>Tagline (e.g. Roadmap)</label>
+        <input type="text" value="${esc(item.tagline)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'tagline',this.value)" placeholder="Roadmap"></div>
+      ` : ''}
+      <div class="form-group"><label>Title</label>
+        <input type="text" value="${esc(item.title)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'title',this.value)" placeholder="${['EPOCH','ERA','EON'][j] || 'Title'}"></div>
+      <div class="form-group"><label>Body</label>
+        <textarea onchange="updateRepeaterItem(${sectionIndex},'items',${j},'body',this.value)">${esc(item.body)}</textarea></div>
+      <div class="form-group"><label>Bullet Points (max 4, one per line)</label>
+        <textarea onchange="updateRepeaterItem(${sectionIndex},'items',${j},'bullets',this.value)" placeholder="No supplier logins&#10;AI agents automate reminders&#10;Catch delays early&#10;Reduce admin load">${esc(item.bullets)}</textarea></div>
+      <div class="form-group"><label>Background Image (gradient/photo behind)</label>
+        ${imgUploadRepeater(sectionIndex, 'items', j, 'bgImage', item.bgImage)}
+      </div>
+      <div class="form-group"><label>Foreground Image (dashboard on top)</label>
+        ${imgUploadRepeater(sectionIndex, 'items', j, 'fgImage', item.fgImage)}
+      </div>
+      <div class="form-group"><label>Link</label>
+        <input type="text" value="${esc(item.link)}" onchange="updateRepeaterItem(${sectionIndex},'items',${j},'link',this.value)" placeholder="/epoch"></div>
+    </div>`).join('');
+}
+
+function addSolutionItem(sectionIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.items = s.data.items || [];
+  if (s.data.items.length >= 3) return;
+  s.data.items.push({ tagline: '', title: '', body: '', bullets: '', bgImage: '', fgImage: '', link: '' });
+  document.getElementById('solutions-items-' + sectionIndex).innerHTML = buildSolutionItems(s.data.items, sectionIndex);
+}
+
+function removeSolutionItem(sectionIndex, itemIndex) {
+  sectionsData[sectionIndex].data.items.splice(itemIndex, 1);
+  document.getElementById('solutions-items-' + sectionIndex).innerHTML = buildSolutionItems(sectionsData[sectionIndex].data.items, sectionIndex);
+}
+
+
 
 // ─────────────────────────────────────────
 // DYNAMIC REPEATER BUILDERS (NEW)
@@ -1998,7 +2026,7 @@ function addSection(type) {
     hero:         { headline: '', subheadline: '', body: '', ctaLabel: 'See 6-week pilot plan', ctaHref: '/book-a-demo', bgImage: '', heroImage: '', videoUrl: '', logos: '' },
     features:     { block1Heading: '', block1Body: '', block1Image: '', block1Caption: '', block2Heading: '', block2Body: '', block2Image: '', block2Caption: '' },
     metrics:      { eyebrow: 'Our Impact', heading: '', body: '', bgImage: '', items: [] },
-    solutions:    { heading: '', body: '', epochHeading: 'EPOCH', epochBody: '', epochImage: '', epochLink: '/epoch', eraHeading: 'ERA', eraBody: '', eraImage: '', eonHeading: 'EON', eonBody: '', eonImage: '' },
+solutions: { heading: '', body: '', items: [] },
     testimonials: { heading1: 'Designed for Leaders', heading2: "Who Can't Afford Surprises", ctaLabel: 'Read Customer Stories', ctaHref: '', items: [] },
     outcomes:     { heading: 'Impact in 2 weeks.', body: '', card1Title: '', card1Text: '', card2Title: '', card2Text: '', card3Title: '', card3Text: '' },
     blog:         { heading: 'Blog', subheading: 'Built for clarity & simplicity', ctaLabel: 'Explore all resources', ctaHref: '/all-resources', items: [] },

@@ -822,61 +822,138 @@ function renderMetrics(d) {
 // SECTION: SOLUTIONS
 // ─────────────────────────────────────────
 function renderSolutions(d) {
-  const card = (name, heading, body, image, link, cssClass, isRoadmap) => `
-    <div class="solutions_item u-radius-main u-background-2 u-flex-vertical-nowrap u-justify-content-between ${cssClass}">
-      <div class="solutions_item_header is-grid u-container">
-        <div class="solutions_item_header_content u-grid-subgrid u-max-width-50ch">
-          <div class="solutions_item_header_inline_wrap">
-            ${isRoadmap ? `<div class="solutions_item_header_span u-weight-medium">Roadmap</div>` : ''}
-            <div class="solutions_item_header_heading_wrap u-mb-3 u-flex-horizontal-nowrap">
-              <h3 class="solutions_item_header_heading u-text-style-display-2">${safeHtml(heading)}</h3>
-              <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 32 32" fill="none" vector-effect="non-scaling-stroke" class="solutions_item_header_heading_svg">
-                <rect width="32" height="32" rx="16" fill="black" fill-opacity="0.08"/>
-                <path d="M20.2438 15.9996L13.1707 23.0728L12.1804 22.0825L18.2633 15.9996L12.1804 9.91666L13.1707 8.92641L20.2438 15.9996Z" fill="currentColor"/>
-              </svg>
+  const items = d.items || [];
+
+  const cardHtml = items.map((item, idx) => {
+    const isEpoch = idx === 0;
+    const cssClass = isEpoch ? 'u-column-2 is-epoch' : (idx === 1 ? 'is-era' : 'is-eon');
+    const nodeId = `w-node-solutions-item-${idx}`;
+    const nodeContentId = `w-node-solutions-content-${idx}`;
+    const bullets = item.bullets ? item.bullets.split('\n').filter(b => b.trim()).slice(0, 4) : [];
+    const bulletsHtml = bullets.map(b => `<li>${safeHtml(b.trim())}</li>`).join('');
+
+    if (isEpoch) {
+      return `
+        <div id="${nodeId}" class="solutions_item u-radius-main u-background-2 ${cssClass}">
+          <div class="solutions_item_header u-grid-custom u-container">
+            <div id="${nodeContentId}" class="solutions_item_header_content u-column-5">
+              <div class="solutions_item_header_heading_wrap u-mb-3 u-flex-horizontal-nowrap">
+                <div data-wf--typography-heading--font-style="display-2" class="c-heading w-variant-41c609dc-9c80-9eef-75df-03bf0eea00b4 w-richtext">
+                  <h3>${safeHtml(item.title)}</h3>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 32 32" fill="none" vector-effect="non-scaling-stroke" class="solutions_item_header_heading_svg">
+                  <rect width="32" height="32" rx="16" fill="black" fill-opacity="0.08"/>
+                  <path d="M20.2438 15.9996L13.1707 23.0728L12.1804 22.0825L18.2633 15.9996L12.1804 9.91666L13.1707 8.92641L20.2438 15.9996Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div data-wf--typography-paragraph--font-style="inherit" class="c-paragraph w-richtext u-rich-text">
+                <p>${safe(item.body)}</p>
+              </div>
+            </div>
+            <div class="solutions_item_header_wrap u-column-5 u-align-self-end">
+              ${bulletsHtml ? `<div class="c-richtext u-rich-text w-richtext"><ul role="list">${bulletsHtml}</ul></div>` : ''}
             </div>
           </div>
-          <div data-wf--typography-paragraph--font-style="inherit" class="c-paragraph w-richtext u-mb-4 u-rich-text"><p>${safeHtml(body)}</p></div>
-        </div>
-      </div>
-      ${image ? `
-      <div class="solutions_img_content">
-        <div class="solutions_img_wrap u-position-relative u-overflow-hidden u-grid-custom">
-          <img src="${safe(image)}" loading="lazy" alt="" class="solutions_img u-radius-main u-ratio-16-9">
-        </div>
-      </div>` : ''}
-      ${link ? `
-      <div class="solutions_btn_wrap">
-        <div data-wf--button-main--style="secondary" class="button_main_wrap w-variant-e85564cd-af30-a478-692b-71732aefb3ab u-width-full">
-          <div class="clickable_wrap">
-            <a target="" href="${safe(link)}" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Learn More</span></a>
-            <button type="button" class="clickable_btn"><span class="clickable_text u-sr-only">Learn More</span></button>
+          ${item.bgImage || item.fgImage ? `
+          <div class="solutions_img_content">
+            <div class="solutions_img_wrap u-position-relative u-overflow-hidden u-grid-custom">
+              ${item.bgImage ? `<img src="${safe(item.bgImage)}" loading="lazy" alt="" class="solutions_img u-radius-main u-ratio-16-9">` : ''}
+              ${item.fgImage ? `<img src="${safe(item.fgImage)}" loading="lazy" alt="" class="solutions_img_center u-position-absolute u-radius-main">` : ''}
+            </div>
+          </div>` : ''}
+          <div class="solutions_btn_wrap">
+            <div data-wf--button-main--style="secondary" class="button_main_wrap w-variant-e85564cd-af30-a478-692b-71732aefb3ab u-width-full">
+              <div class="clickable_wrap">
+                <a target="" href="${safe(item.link)}" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Learn More</span></a>
+                <button type="button" class="clickable_btn"><span class="clickable_text u-sr-only">Learn More</span></button>
+              </div>
+              <div aria-hidden="true" class="button_main_text u-text-style-main">Learn More</div>
+            </div>
           </div>
-          <div aria-hidden="true" class="button_main_text u-text-style-main">Learn More</div>
-        </div>
-      </div>
-      <div class="solutions_hide-tablet">
-        <div class="clickable_wrap">
-          <a target="" href="${safe(link)}" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">${safeHtml(heading)}</span></a>
-          <button type="button" class="clickable_btn"><span class="clickable_text u-sr-only">${safeHtml(heading)}</span></button>
-        </div>
-      </div>` : ''}
-    </div>`;
+          <div class="solutions_hide-tablet">
+            <div class="clickable_wrap">
+              <a target="" href="${safe(item.link)}" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">${safeHtml(item.title)}</span></a>
+              <button type="button" class="clickable_btn"><span class="clickable_text u-sr-only">${safeHtml(item.title)}</span></button>
+            </div>
+          </div>
+        </div>`;
+    } else {
+      return `
+        <div class="solutions_item u-radius-main u-background-2 u-flex-vertical-nowrap u-justify-content-between ${cssClass}">
+          <div class="solutions_item_header is-grid u-container">
+            <div class="solutions_item_header_content u-grid-subgrid u-max-width-50ch">
+              <div class="solutions_item_header_inline_wrap">
+                ${item.tagline ? `<div class="solutions_item_header_span u-weight-medium">${safeHtml(item.tagline)}</div>` : ''}
+                <div class="solutions_item_header_heading_wrap u-mb-3 u-flex-horizontal-nowrap">
+                  <h3 class="solutions_item_header_heading u-text-style-display-2">${safeHtml(item.title)}</h3>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 32 32" fill="none" vector-effect="non-scaling-stroke" class="solutions_item_header_heading_svg">
+                    <rect width="32" height="32" rx="16" fill="black" fill-opacity="0.08"/>
+                    <path d="M20.2438 15.9996L13.1707 23.0728L12.1804 22.0825L18.2633 15.9996L12.1804 9.91666L13.1707 8.92641L20.2438 15.9996Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+              <div data-wf--typography-paragraph--font-style="inherit" class="c-paragraph w-richtext u-mb-4 u-rich-text">
+                <p>${safe(item.body)}</p>
+              </div>
+            </div>
+            ${bulletsHtml ? `<div class="c-richtext u-rich-text w-richtext"><ul role="list">${bulletsHtml}</ul></div>` : ''}
+          </div>
+          ${item.bgImage || item.fgImage ? `
+          <div class="solutions_img_content">
+            <div class="solutions_img_wrap u-position-relative u-overflow-hidden u-grid-custom">
+              ${item.bgImage ? `<img src="${safe(item.bgImage)}" loading="lazy" alt="" class="solutions_img u-radius-main u-ratio-16-9">` : ''}
+              ${item.fgImage ? `<img src="${safe(item.fgImage)}" loading="lazy" alt="" class="solutions_img_center u-position-absolute u-radius-main is-small">` : ''}
+            </div>
+          </div>` : ''}
+          <div class="solutions_btn_wrap">
+            <div data-wf--button-main--style="secondary" class="button_main_wrap w-variant-e85564cd-af30-a478-692b-71732aefb3ab u-width-full">
+              <div class="clickable_wrap">
+                <a target="" href="${safe(item.link)}" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Learn More</span></a>
+                <button type="button" class="clickable_btn"><span class="clickable_text u-sr-only">Learn More</span></button>
+              </div>
+              <div aria-hidden="true" class="button_main_text u-text-style-main">Learn More</div>
+            </div>
+          </div>
+          <div class="solutions_hide-tablet">
+            <div class="clickable_wrap">
+              <a target="" href="${safe(item.link)}" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">${safeHtml(item.title)}</span></a>
+              <button type="button" class="clickable_btn"><span class="clickable_text u-sr-only">${safeHtml(item.title)}</span></button>
+            </div>
+          </div>
+        </div>`;
+    }
+  }).join('');
 
   return `
     <section id="Solutions" class="solutions_wrap">
+      <div class="u-embed-css w-embed"><style>
+        @media screen and (min-width: 992px) {
+          .solutions_item_header_heading_svg { opacity: 0; transform: translateX(-50%); transition: opacity .25s ease, transform .25s ease; }
+          .solutions_item:hover .solutions_item_header_heading_svg { opacity: 1; transform: translateX(0); }
+          .solutions_item:hover .solutions_img_center { transform: translateY(-5%); }
+          .solutions_item:hover .c-richtext:first-child { border-color: var(--_theme---border-accent) !important; }
+          .solutions_item:is(.is-era,.is-eon):hover .c-paragraph,
+          .solutions_item:is(.is-era,.is-eon):hover .c-paragraph strong { color: var(--_theme---text-accent); }
+          .solutions_item:is(.is-era,.is-eon):hover .solutions_item_header_span { color: var(--_theme---text-accent); }
+          .solutions_item:is(.is-era,.is-eon):hover .c-richtext li { border-color: var(--_theme---text-accent); }
+          .solutions_item.is-epoch:hover .c-paragraph,
+          .solutions_item.is-epoch:hover .c-paragraph strong { color: var(--_theme---background); }
+          .solutions_item.is-epoch:hover .c-richtext li { border-top-color: var(--_theme---background); }
+        }
+        .c-richtext li:first-child { border-top-color: var(--_theme---text); }
+        .c-richtext li { list-style: none !important; position: relative; padding-left: 1rem; }
+        .c-richtext li::before { content: '•'; position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: inherit; line-height: 1; color: inherit; pointer-events: none; }
+      </style></div>
       <div data-wf--spacer--section-space="large" class="u-section-spacer w-variant-8cc18b30-4618-8767-0111-f6abfe45aaa3"></div>
       <div class="solutions_layout">
         <div class="solutions_contain u-container u-mb-5 u-flex-vertical-nowrap u-gap-row-3">
           <div class="solutions_heading_wrap u-max-width-50ch">
-            <div data-wf--typography-heading--font-style="h2" class="c-heading w-variant-433d40c6-c261-f13f-c899-61d2cadf150f w-richtext"><h2>${safeHtml(d.heading)}</h2></div>
+            <div data-wf--typography-heading--font-style="h2" class="c-heading w-variant-433d40c6-c261-f13f-c899-61d2cadf150f w-richtext"><h2>${safe(d.heading)}</h2></div>
           </div>
           <div data-wf--typography-paragraph--font-style="text-large" class="c-paragraph w-variant-fdb8e663-01e0-aae6-13eb-e6dfca16b689 w-richtext u-rich-text u-max-width-50ch"><p>${safeHtml(d.body)}</p></div>
         </div>
         <div class="solutions_grid u-grid-custom">
-          ${card('epoch', d.epochHeading||'EPOCH', d.epochBody, d.epochImage, d.epochLink||'/epoch', 'u-column-2 is-epoch', false)}
-          ${card('era',   d.eraHeading||'ERA',     d.eraBody,   d.eraImage,   '/era',               'is-era',           true)}
-          ${card('eon',   d.eonHeading||'EON',     d.eonBody,   d.eonImage,   '/eon',               'is-eon',           true)}
+          ${cardHtml}
         </div>
       </div>
     </section>`;
