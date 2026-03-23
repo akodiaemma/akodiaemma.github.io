@@ -130,6 +130,14 @@
     color: green !important;
 }
 
+
+/* If you specifically want it to be 8 columns on mobile: */
+@media screen and (max-width: 767px) {
+  #w-node-be3d1a67-a8d4-a117-f534-91243e83f885-3e83f884 {
+    grid-column: span 8 !important;
+  }
+}
+
 .video_modal_content .video_player {
   padding-top: 0 !important;
   width: 100%;
@@ -1277,8 +1285,7 @@ function renderFaq(d) {
 
     return `
       <div class="faqs_content_wrap u-grid-custom">
-        <div id="w-node-be3d1a67-a8d4-a117-f534-91243e83f885-3e83f884" class="faqs_content_header u-column-4" style="
-    grid-column: span 8 !important;">
+        <div id="w-node-be3d1a67-a8d4-a117-f534-91243e83f885-3e83f884" class="faqs_content_header u-column-4">
           <div class="faqs_content_rtb u-text-style-large w-richtext"><p>${safeHtml(group.label)}</p></div>
         </div>
         <div class="faqs_content_items_wrap u-column-8">${questionsHtml}</div>
