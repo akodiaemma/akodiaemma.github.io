@@ -406,6 +406,29 @@
     grid-column: auto / span 6;
 }
     
+    
+    .u-text-style-h1 {
+    font-family: var(--_text-style---font-family);
+    font-size: var(--_text-style---font-size);
+    line-height: var(--_text-style---line-height);
+    font-weight: var(--_text-style---font-weight);
+    letter-spacing: var(--_text-style---letter-spacing);
+    --_text-style---font-family: var(--_typography---font--primary-family);
+    --_text-style---font-size: var(--_typography---font-size--h1);
+    --_text-style---line-height: var(--_typography---line-height--1);
+    --_text-style---font-weight: var(--_typography---font--primary-regular);
+    --_text-style---letter-spacing: var(--_typography---letter-spacing--0-02em);
+    --_text-style---text-wrap: balance;
+    --_text-style---margin-top: var(--_spacing---space--2);
+    --_text-style---margin-bottom: var(--_spacing---space--1);
+    --_text-style---text-transform: var(--_typography---text-transform--none);
+    --_text-style---trim-top: var(--_typography---font--primary-trim-top);
+    --_text-style---trim-bottom: var(--_typography---font--primary-trim-bottom);
+    text-transform: var(--_text-style---text-transform, none);
+    display: flow-root;
+    text-wrap: var(--_text-style---text-wrap);
+}
+    
     .u-column-12 {
     grid-column: auto / span 12;
 }
@@ -445,6 +468,20 @@
     
     .team_text_wrap.u-column-5 {
     grid-column-start: 8;
+}
+    
+    .c-paragraph:where(.w-variant-5c484503-e2a0-ac99-680d-56013d859efa) {
+    --_text-style---font-family: var(--_typography---font--primary-family);
+    --_text-style---font-size: var(--_typography---font-size--h5);
+    --_text-style---line-height: var(--_typography---line-height--1-1);
+    --_text-style---font-weight: var(--_typography---font--primary-regular);
+    --_text-style---letter-spacing: var(--_typography---letter-spacing--0-02em);
+    --_text-style---text-wrap: balance;
+    --_text-style---margin-top: var(--_spacing---space--2);
+    --_text-style---margin-bottom: var(--_spacing---space--1);
+    --_text-style---text-transform: var(--_typography---text-transform--none);
+    --_text-style---trim-top: var(--_typography---font--primary-trim-top);
+    --_text-style---trim-bottom: var(--_typography---font--primary-trim-bottom);
 }
 
 /* Standard syntax */
@@ -2022,8 +2059,7 @@ function renderSolutionHero(d) {
                 <span class="hero_span u-color-grey">${safeHtml(d.productSub)}</span>
               </h1>
             </div>
-            <div class="hero_content u-column-5 u-align-self-end" style="opacity:1;">
-              <div class="c-paragraph w-richtext"><p>${safeHtml(d.body)}</p></div>
+            <div class="hero_content u-column-5 u-align-self-end u-justify-content-end" style="translate: none; rotate: none; scale: none; transform: translate3d(0px, 0%, 0px); opacity: 1;"><div data-wf--typography-paragraph--font-style="h5" class="c-paragraph w-variant-5c484503-e2a0-ac99-680d-56013d859efa w-richtext u-text-wrap-default"><p>${safeHtml(d.body)}</p></div>
             </div>
             <div class="hero_btn_wrap u-flex-horizontal-wrap u-align-self-start u-column-3" style="opacity:1;">
               <div class="button_main_wrap u-width-full">
