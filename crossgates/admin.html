@@ -1706,8 +1706,12 @@ function addSimpleItem(sectionIndex, arrayKey, template) {
 // Team members
 function buildTeamItems(members, sectionIndex) {
   return members.map((m, j) => `
-    <div class="faq-item" style="margin-bottom:8px;">
+    <div class="faq-item" style="margin-bottom:8px;" draggable="true"
+      ondragstart="dragStart(event,${sectionIndex},'members',${j},'team-items-${sectionIndex}',buildTeamItems)"
+      ondragover="event.preventDefault()"
+      ondrop="dragDrop(event,${sectionIndex},'members',${j},'team-items-${sectionIndex}',buildTeamItems)">
       <div class="faq-item-header">
+        <span style="cursor:grab; margin-right:8px; opacity:0.4;">☰</span>
         <span>${m.name || 'Member ' + (j+1)}</span>
         <button class="btn btn-danger btn-sm" onclick="removeRepeaterItem(${sectionIndex},'members',${j},'team-items-${sectionIndex}',buildTeamItems)">✕</button>
       </div>
@@ -2435,6 +2439,23 @@ function esc(str) {
     .replace(/"/g, '&quot;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
+}
+  
+  let dragSrcIndex = null;
+
+function dragStart(event, sectionIndex, arrayKey, fromIndex, containerId, buildFn) {
+  dragSrcIndex = fromIndex;
+  event.dataTransfer.effectAllowed = 'move';
+}
+
+function dragDrop(event, sectionIndex, arrayKey, toIndex, containerId, buildFn) {
+  event.preventDefault();
+  if (dragSrcIndex === null || dragSrcIndex === toIndex) return;
+  const arr = sectionsData[sectionIndex].data[arrayKey];
+  const moved = arr.splice(dragSrcIndex, 1)[0];
+  arr.splice(toIndex, 0, moved);
+  dragSrcIndex = null;
+  document.getElementById(containerId).innerHTML = buildFn(arr, sectionIndex);
 }
 </script>
 
