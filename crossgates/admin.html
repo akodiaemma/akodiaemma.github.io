@@ -905,6 +905,7 @@
               <button class="section-pick-btn" onclick="addSection('blog')"><span class="section-pick-icon">📝</span>Blog</button>
               <button class="section-pick-btn" onclick="addSection('faq')"><span class="section-pick-icon">❓</span>FAQ</button>
               <button class="section-pick-btn" onclick="addSection('cta')"><span class="section-pick-icon">🎯</span>CTA</button>
+              <button class="section-pick-btn" onclick="addSection('welcome')"><span class="section-pick-icon">👋</span>Welcome</button>
             </div>
             <div style="font-size:10px; color:var(--accent); text-transform:uppercase; letter-spacing:0.12em; margin:14px 0 6px;">Inner Pages</div>
             <div class="section-picker">
@@ -924,6 +925,7 @@
 
         <div style="display:flex; gap:10px;">
           <button class="btn btn-primary" onclick="savePage()">Save Page</button>
+          <button class="btn btn-secondary" onclick="openDuplicateModal()">Duplicate Page</button>
           <button class="btn btn-danger" onclick="deletePage()">Delete Page</button>
         </div>
       </div>
@@ -953,8 +955,23 @@
       <button class="btn btn-primary" onclick="createPage()">Create Page</button>
     </div>
   </div>
+</div> <div class="modal-overlay" id="duplicate-page-modal">
+  <div class="modal">
+    <div class="modal-title">Duplicate Page</div>
+    <div class="form-group">
+      <label>New Page Title</label>
+      <input type="text" id="dup-page-title">
+    </div>
+    <div class="form-group">
+      <label>New URL Slug</label>
+      <input type="text" id="dup-page-slug">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeDuplicateModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="executeDuplicatePage()">Duplicate Page</button>
+    </div>
+  </div>
 </div>
-
 <!-- TOAST -->
 <div id="toast"></div>
 
@@ -1160,6 +1177,63 @@ async function createPage() {
   openPageEditor(slug);
 }
 
+  
+  // ─────────────────────────────────────────
+// PAGES — DUPLICATE
+// ─────────────────────────────────────────
+
+// Auto-slug from title for the duplicate modal
+document.getElementById('dup-page-title').addEventListener('input', function() {
+  document.getElementById('dup-page-slug').value =
+    this.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+});
+
+function openDuplicateModal() {
+  if (!currentPage) return;
+  document.getElementById('duplicate-page-modal').classList.add('open');
+  
+  // Pre-fill with "Copy" appended
+  const newTitle = (currentPageData.title || currentPage) + ' Copy';
+  document.getElementById('dup-page-title').value = newTitle;
+  document.getElementById('dup-page-slug').value = newTitle.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+}
+
+function closeDuplicateModal() {
+  document.getElementById('duplicate-page-modal').classList.remove('open');
+}
+
+async function executeDuplicatePage() {
+  const title = document.getElementById('dup-page-title').value.trim();
+  const slug  = document.getElementById('dup-page-slug').value.trim();
+
+  if (!title || !slug) return showToast('Title and slug are required', 'error');
+
+  // Check if the target slug already exists to prevent accidental overwrites
+  const existingDoc = await db.collection('pages').doc(slug).get();
+  if (existingDoc.exists) return showToast('A page with this slug already exists!', 'error');
+
+  // Deep clone the sections array so references aren't shared between pages
+  const clonedSections = JSON.parse(JSON.stringify(sectionsData));
+
+  const newPageData = {
+    title: title,
+    slug: slug,
+    meta: currentPageData.meta || '',
+    sections: clonedSections,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+
+  try {
+    await db.collection('pages').doc(slug).set(newPageData);
+    showToast('Page duplicated successfully!');
+    closeDuplicateModal();
+    await loadPages();
+    openPageEditor(slug); // Switch the editor to the new duplicate
+  } catch (err) {
+    showToast('Error duplicating page: ' + err.message, 'error');
+  }
+}
 // ─────────────────────────────────────────
 // PAGE EDITOR — OPEN
 // ─────────────────────────────────────────
@@ -1397,6 +1471,14 @@ case 'solutions': return `
       <button class="btn btn-secondary btn-sm" onclick="addFaqGroup(${i})">＋ Add FAQ Group</button>
     `;
 
+      
+      case 'welcome': return `
+      <div class="form-group"><label>Eyebrow Text</label>
+        <input type="text" value="${esc(d.eyebrow)}" onchange="updateSectionData(${i},'eyebrow',this.value)" placeholder="Welcome to EPOCH"></div>
+      <div class="form-group"><label>Body Text (will be animated by GSAP)</label>
+        <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
+    `;
+      
     case 'cta': return `
       <div class="form-group"><label>Heading</label>
         <input type="text" value="${esc(d.heading)}" onchange="updateSectionData(${i},'heading',this.value)" placeholder="Book a demo"></div>
@@ -1506,9 +1588,9 @@ case 'solutions': return `
         <textarea onchange="updateSectionData(${i},'body',this.value)">${esc(d.body)}</textarea></div>
       <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin:12px 0 8px;">Feature Items</div>
       <div id="sol-features-${i}">
-        ${buildSimpleItems(d.items || [], i, 'items', 'Feature', ['title','text'])}
+        ${buildSolFeatureItems(d.items || [], i)}
       </div>
-      <button class="btn btn-secondary btn-sm" onclick="addSimpleItem(${i},'items',{title:'',text:''})">＋ Add Feature</button>
+      <button class="btn btn-secondary btn-sm" onclick="addSolFeatureItem(${i})">＋ Add Feature</button>
     `;
 
     case 'benefits': return `
@@ -1701,6 +1783,70 @@ function addSimpleItem(sectionIndex, arrayKey, template) {
   const fields = Object.keys(template);
   const label = arrayKey === 'stats' ? 'Stat' : 'Feature';
   document.getElementById(containerId).innerHTML = buildSimpleItems(s.data[arrayKey], sectionIndex, arrayKey, label, fields);
+}
+
+// ─────────────────────────────────────────
+// SOLUTION-FEATURES ITEMS (with media support)
+// ─────────────────────────────────────────
+function buildSolFeatureItems(items, sectionIndex) {
+  return items.map((item, j) => {
+    const mediaType = item.mediaType || 'none';
+    const imgSection = mediaType === 'image' ? `
+      <div class="form-group"><label>Image URL / Upload</label>
+        ${imgUploadRepeater(sectionIndex, 'items', j, 'mediaUrl', item.mediaUrl || '')}
+      </div>` : '';
+    const lottieSection = mediaType === 'lottie' ? `
+      <div class="form-group"><label>Lottie JSON URL</label>
+        <input type="text" value="${esc(item.mediaUrl || '')}"
+          onchange="updateRepeaterItem(${sectionIndex},'items',${j},'mediaUrl',this.value)"
+          placeholder="https://cdn.prod.website-files.com/…/animation.json">
+      </div>` : '';
+
+    return `
+    <div class="faq-item" style="margin-bottom:8px;">
+      <div class="faq-item-header">
+        <span>Feature ${j+1}${item.title ? ' — ' + item.title : ''}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeSolFeatureItem(${sectionIndex},${j})">✕</button>
+      </div>
+      <div class="form-group"><label>Title</label>
+        <input type="text" value="${esc(item.title || '')}"
+          onchange="updateRepeaterItem(${sectionIndex},'items',${j},'title',this.value)">
+      </div>
+      <div class="form-group"><label>Text</label>
+        <input type="text" value="${esc(item.text || '')}"
+          onchange="updateRepeaterItem(${sectionIndex},'items',${j},'text',this.value)">
+      </div>
+      <div class="form-group">
+        <label>Media Type</label>
+        <select onchange="updateSolFeatureMedia(${sectionIndex},${j},this.value)" style="width:100%; padding:6px 8px; background:var(--bg-3); border:1px solid var(--border-lit); border-radius:var(--radius); color:var(--text-1); font-size:12px;">
+          <option value="none" ${mediaType === 'none' ? 'selected' : ''}>None</option>
+          <option value="image" ${mediaType === 'image' ? 'selected' : ''}>Image</option>
+          <option value="lottie" ${mediaType === 'lottie' ? 'selected' : ''}>Lottie Animation</option>
+        </select>
+      </div>
+      ${imgSection}${lottieSection}
+    </div>`;
+  }).join('');
+}
+
+function addSolFeatureItem(sectionIndex) {
+  const s = sectionsData[sectionIndex];
+  s.data.items = s.data.items || [];
+  s.data.items.push({ title: '', text: '', mediaType: 'none', mediaUrl: '' });
+  document.getElementById('sol-features-' + sectionIndex).innerHTML = buildSolFeatureItems(s.data.items, sectionIndex);
+}
+
+function removeSolFeatureItem(sectionIndex, itemIndex) {
+  sectionsData[sectionIndex].data.items.splice(itemIndex, 1);
+  document.getElementById('sol-features-' + sectionIndex).innerHTML = buildSolFeatureItems(sectionsData[sectionIndex].data.items, sectionIndex);
+}
+
+function updateSolFeatureMedia(sectionIndex, itemIndex, mediaType) {
+  updateRepeaterItem(sectionIndex, 'items', itemIndex, 'mediaType', mediaType);
+  if (mediaType === 'none') {
+    updateRepeaterItem(sectionIndex, 'items', itemIndex, 'mediaUrl', '');
+  }
+  document.getElementById('sol-features-' + sectionIndex).innerHTML = buildSolFeatureItems(sectionsData[sectionIndex].data.items, sectionIndex);
 }
 
 // Team members
@@ -2031,6 +2177,7 @@ function addSection(type) {
     features:     { block1Heading: '', block1Body: '', block1Image: '', block1Caption: '', block2Heading: '', block2Body: '', block2Image: '', block2Caption: '' },
     metrics:      { eyebrow: 'Our Impact', heading: '', body: '', bgImage: '', items: [] },
 solutions: { heading: '', body: '', items: [] },
+    welcome:      { eyebrow: 'Welcome to EPOCH', body: '' },
     testimonials: { heading1: 'Designed for Leaders', heading2: "Who Can't Afford Surprises", ctaLabel: 'Read Customer Stories', ctaHref: '', items: [] },
     outcomes:     { heading: 'Impact in 2 weeks.', body: '', card1Title: '', card1Text: '', card2Title: '', card2Text: '', card3Title: '', card3Text: '' },
     blog:         { heading: 'Blog', subheading: 'Built for clarity & simplicity', ctaLabel: 'Explore all resources', ctaHref: '/all-resources', items: [] },

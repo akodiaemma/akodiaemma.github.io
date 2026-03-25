@@ -49,6 +49,22 @@
     margin-top: var(--_spacing---space--4)
 }
     
+    
+    .how_grid.u-column-12.u-grid-autofit {
+    --_column-count---value: 2;
+}
+    
+    .how_img.u-ratio-3-2.u-radius-main.u-background-skeleton {
+    background-color: var(--swatch--brand-sand);
+    background-color: var(--swatch--brand-sand);
+    background-color: var(--swatch--brand-sand);
+    background-color: var(--swatch--brand-sand)
+}
+
+.how_item_header {
+    margin-top: .75rem
+}
+
 
 
 /* Target the exact RGB of the orange paths inside Lotties */
@@ -149,6 +165,12 @@
     margin-bottom: var(--_spacing---space--5)
 }
 
+    @media screen and (max-width: 479px) {
+    .how_grid.u-column-12.u-grid-autofit {
+        --_column-count---value: 1;
+    }
+}
+    
 .about_content_wrap.u-column-5.u-flex-vertical-nowrap.u-align-items-stretch {
     grid-column-gap: 2.5rem;
     grid-row-gap: 2.5rem;
@@ -314,6 +336,12 @@
 }
     
     
+    .welcome_wrap {
+    padding-top: 10rem;
+    padding-bottom: 10rem
+}
+
+    
     .history_content_item.u-radius-main.is-brand {
     background-color: var(--swatch--brand-orange);
     background-color: var(--swatch--brand-orange);
@@ -459,6 +487,22 @@
     transition-timing-function: ease;
 }
     
+    how_grid.u-column-12.u-grid-autofit {
+    --_column-count---value: 2
+}
+
+.how_img.u-ratio-3-2.u-radius-main.u-background-skeleton {
+    background-color: var(--swatch--brand-sand);
+    background-color: var(--swatch--brand-sand);
+    background-color: var(--swatch--brand-sand);
+    background-color: var(--swatch--brand-sand)
+}
+
+.how_item_header {
+    margin-top: .75rem
+}
+
+    
 .video_modal_content .video_player {
   padding-top: 0 !important;
   width: 100%;
@@ -495,6 +539,8 @@
   background-color: #d5cff3 !important;
   color: #000000 !important;
 }
+    
+    
 
 .video_modal_content .video_player iframe,
 .video_modal_content .video_player video {
@@ -924,7 +970,7 @@ const db = firebase.firestore();
 </script>
 
 <!-- ========== CMS RENDERER ========== -->
-<script>
+<<script>
   
   function initTeamModals() {
   document.querySelectorAll('.team_item').forEach(item => {
@@ -1197,6 +1243,7 @@ function renderSection(section) {
   switch(section.type) {
     case 'hero':             return renderHero(d);
     case 'features':         return renderFeatures(d);
+    case 'welcome':          return renderWelcome(d);
     case 'metrics':          return renderMetrics(d);
     case 'solutions':        return renderSolutions(d);
     case 'testimonials':     return renderTestimonials(d);
@@ -1332,6 +1379,36 @@ function getYoutubeEmbed(url) {
   // Local or direct video file — not a YouTube URL
   return null;
 }
+
+
+
+// ─────────────────────────────────────────
+// SECTION: WELCOME
+// ─────────────────────────────────────────
+function renderWelcome(d) {
+  return `
+    <section class="welcome_wrap">
+      <div class="welcome_contain u-container">
+        <div class="welcome_layout u-grid-custom">
+          
+          <div class="welcome_text_wrap u-column-3">
+            <div data-wf--typography-paragraph--font-style="inherit" class="c-paragraph w-richtext u-rich-text u-color-grey">
+              <p>${safeHtml(d.eyebrow)}</p>
+            </div>
+          </div>
+          
+          <div class="welcome_text_wrap u-column-7">
+            <p stlye="color:black;" class="welcome_text u-text-style-h4 js-split-text" aria-label="${safeHtml(d.body)}">
+              ${safeHtml(d.body)}
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </section>`;
+}
+
+
 
 // ─────────────────────────────────────────
 // SECTION: FEATURES
@@ -2082,22 +2159,49 @@ function renderSolutionHero(d) {
 // ─────────────────────────────────────────
 function renderSolutionFeatures(d) {
   const items = d.items || [];
-  const itemsHtml = items.map(item => `
-    <div class="solution-features_item u-flex-vertical-nowrap">
-      <div data-wf--typography-heading--font-style="text-large" class="c-heading w-variant-74a3180a-e505-b452-032f-599c8e557249 w-richtext"><h3>${safe(item.title)}</h3></div>
-      <div data-wf--typography-paragraph--font-style="inherit" class="c-paragraph w-richtext u-rich-text"><p>${safe(item.text)}</p></div>
-    </div>`).join('');
+  const itemsHtml = items.map(item => {
+    const mediaType = item.mediaType || 'none';
+    let mediaHtml = '';
+    if (mediaType === 'image' && item.mediaUrl) {
+      mediaHtml = `<div class="how_img u-ratio-3-2 u-radius-main u-background-skeleton">
+        <img src="${safe(item.mediaUrl)}" loading="lazy" alt="${safe(item.title)}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+      </div>`;
+    } else if (mediaType === 'lottie' && item.mediaUrl) {
+      mediaHtml = `<div class="how_img u-ratio-3-2 u-radius-main u-background-skeleton"
+        data-animation-type="lottie"
+        data-src="${safe(item.mediaUrl)}"
+        data-loop="1"
+        data-direction="1"
+        data-autoplay="1"
+        data-is-ix2-target="0"
+        data-renderer="svg"
+        data-default-duration="0"
+        data-duration="0"
+        data-default-src="${safe(item.mediaUrl)}"
+        style="width:100%; overflow: hidden;"></div>`;
+    }
+    return `
+    <div class="how_item">
+     ${mediaHtml}
+     <div class="how_item_header u-flex-horizontal-nowrap u-justify-content-between u-gap-2">
+       <div data-wf--typography-heading--font-style="text-xlarge" class="c-heading w-variant-0521440c-af9d-f396-0ec9-f953d60095e2 w-richtext u-align-self-start">
+         <h3>${safe(item.title)}</h3>
+       </div>
+     <div class="how_item_text_wrap u-max-width-40ch"> <div data-wf--typography-paragraph--font-style="inherit" class="c-paragraph w-richtext u-rich-text"><p>${safe(item.text)}</p></div></div>
+  </div>   
+ </div>`;
+  }).join('');
 
   return `
-    <section class="solution-features_wrap">
-      <div class="u-section-spacer w-variant-8cc18b30-4618-8767-0111-f6abfe45aaa3"></div>
-      <div class="solution-features_contain u-container">
-        <div class="solution-features_layout u-grid-custom u-gap-row-4">
-          <div class="solution-features_header u-column-6 u-flex-vertical-nowrap u-gap-row-3">
-            <div data-wf--typography-heading--font-style="h3" class="c-heading w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994 w-richtext"><h2>${safe(d.heading)}</h2></div>
-            <div class="c-paragraph w-richtext u-rich-text"><p>${safeHtml(d.body)}</p></div>
-          </div>
-          <div class="solution-features_content u-column-5">${itemsHtml}</div>
+    <section class="how_wrap_wrap">
+      <div data-wf--spacer--section-space="large" class="u-section-spacer w-variant-8cc18b30-4618-8767-0111-f6abfe45aaa3"></div>
+      <div class="how_contain u-container">
+        <div class="how_layout u-grid-custom u-gap-row-5">
+          <div class="how_text_wrap u-column-7">
+            <div data-wf--typography-heading--font-style="h2" class="c-heading w-variant-433d40c6-c261-f13f-c899-61d2cadf150f w-richtext"><h2>${safe(d.heading)}</h2></div>
+            </div><div class="how_text_wrap u-column-5 u-align-self-end"><div data-wf--typography-paragraph--font-style="text-large" class="c-paragraph w-variant-fdb8e663-01e0-aae6-13eb-e6dfca16b689 w-richtext u-rich-text"><p>${safeHtml(d.body)}</p></div>
+            </div>
+          <div class="how_grid u-column-12 u-grid-autofit">${itemsHtml}</div>
         </div>
       </div>
       <div class="u-section-spacer w-variant-8cc18b30-4618-8767-0111-f6abfe45aaa3"></div>
@@ -2514,10 +2618,19 @@ trigger.addEventListener('click', function() {
 
 function initLottie() {
   if (!window.lottie) return;
+  
   document.querySelectorAll('[data-animation-type="lottie"]').forEach(el => {
     if (el.dataset.state === 'playing') return; // already initialized
+    
+    // THE FIX: Check if Webflow already injected an SVG. If so, skip it!
+    if (el.querySelector('svg')) {
+      el.dataset.state = 'playing';
+      return;
+    }
+
     const src = el.dataset.src || el.dataset.defaultSrc;
     if (!src) return;
+    
     const anim = lottie.loadAnimation({
       container: el,
       renderer: el.dataset.renderer || 'svg',
@@ -2525,6 +2638,7 @@ function initLottie() {
       autoplay: el.dataset.autoplay === '1',
       path: src
     });
+    
     el.dataset.state = 'playing';
   });
 }
