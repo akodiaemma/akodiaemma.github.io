@@ -37,12 +37,28 @@
 
 <script></script>
   <!-- LOCAL FONTS -->
+
+
   <style>
 @media screen and (max-width: 991px) {
   .nav_menu_list_text.u-text-style-h5 {
     padding: 0 !important;
     margin-bottom: 1.5rem;
   }
+}
+
+._404_wrap.u-position-relative.u-radius-main.in-404 {
+    text-align: center;
+    text-align: center;
+    text-align: center;
+    text-align: center;
+    flex-flow: column;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-columns: 1fr;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
 }
 
 .u-mt-4 {
@@ -447,6 +463,14 @@
     display: flex;
     position: relative;
 }
+    
+    .form_main_checkbox_box {
+  position: relative; /* ensure stacking context */
+}
+
+.form_main_checkbox_input:checked ~ .form_main_checkbox_icon {
+  opacity: 1;
+}
     .form_main_checkbox_box {
     aspect-ratio: 1 / 1;
     justify-content: center;
@@ -603,6 +627,23 @@ color-mix(in srgb, black 8%, var(--swatch--brand-orange));
     display: block;
     margin-top: 0em;
     unicode-bidi: isolate;
+}
+    
+    .form_main_success_wrap.w-form-done {
+    text-align: center;
+    padding: 3rem;
+    background: var(--swatch--brand-gold-o90); /* Matches Crossgates theme */
+    border-radius: var(--radius--main);
+}
+.success-tick {
+    width: 60px;
+    height: 60px;
+    background: #6DA770; /* Your Brand Green */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
 }
     
     .form_main_success_text {
@@ -1236,7 +1277,7 @@ async function boot() {
 
     if (!pageData) {
       document.getElementById('sections-root').innerHTML =
-        `<div style="padding:100px 40px; text-align:center; color:#999;">Page not found: <strong>${slug}</strong></div>`;
+        `<main id="main" class="page_main"><section class="section-404 u-theme-dark u-position-relative"><img id="w-node-_99e7f5c4-ee04-32b7-4478-e8da1fada1ce-3e737856" src="img/404.avif" alt="" loading="eager" class="_404_img"><div class="_404_wrap u-position-relative u-radius-main in-404"><div data-wf--typography-paragraph--font-style="text-large" class="c-paragraph w-variant-fdb8e663-01e0-aae6-13eb-e6dfca16b689 w-richtext u-rich-text u-zindex-2 u-max-width-30ch u-mb-4"><p>It seems like the page you are looking for doesn't exist or has been moved!</p></div><div data-wf--button-main--style="primary" class="button_main_wrap u-zindex-2"><div class="clickable_wrap"><a target="" href="/" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Go Back to Homepage</span></a><button type="button" class="clickable_btn"><span class="clickable_text u-sr-only">Go Back to Homepage</span></button></div><div aria-hidden="true" class="button_main_text u-text-style-main">Go Back to Homepage</div></div></div></section></main>`;
     } else {
       // Set page meta
       document.title = pageData.title ? `${pageData.title} | Crossgates` : 'Crossgates';
@@ -2520,7 +2561,7 @@ function renderRequestDemo(d) {
   const fields = d.formFields ? d.formFields.split('\n').filter(f => f.trim()) : ['Full Name','Email Address','Company','Message'];
   const fieldsHtml = fields.map((label, idx) => {
     const isLast = idx === fields.length - 1;
-    const id = label.replace(/\s+/g, '-');
+   const id = label.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-_]/g, '');
     const type = label.toLowerCase().includes('email') ? 'email' : 'text';
     return isLast
       ? `<label class="form_main_label_wrap"><label for="${id}" class="form_main_label_text u-color-grey">${safeHtml(label)}</label><textarea id="${id}" name="${id}" maxlength="5000" required class="form_main_field is-textarea w-input"></textarea></label>`
@@ -2574,12 +2615,18 @@ function renderRequestDemo(d) {
               </div>
             </div>
           </form>
+          
           <div class="form_main_success_wrap w-form-done" tabindex="-1" role="region" aria-label="Book a Demo Form success">
-            <div class="form_main_success_text">Thank you! Your submission has been received!</div>
+            <div class="form_main_success_text">
+        <h3 class="u-text-style-h5">Request Sent</h3>
+        <h6>We'll be in touch shortly.</h6>
+    </div>
           </div>
           <div class="form_main_error_wrap w-form-fail" tabindex="-1" role="region" aria-label="Book a Demo Form failure">
             <div class="text-block">Oops! Something went wrong while submitting the form.</div>
           </div>
+          
+          
         </div>
       </div>
     </div>
@@ -2870,7 +2917,45 @@ function closeModal(modal) {
 boot();
 </script>
 
+<script>
+// Use Delegation: Listen for any submit on the document
+document.addEventListener('submit', function(e) {
+  if (e.target && e.target.id === 'wf-form-Book-a-Demo-Form') {
+    e.preventDefault();
+    e.stopPropagation(); // add this
 
+    const form = e.target;
+    const data = new FormData(form);
+    
+    // Build a plain object to POST as JSON instead
+    const payload = {};
+    data.forEach((value, key) => { payload[key] = value; });
+    
+    const successMessage = form.closest('.w-form').querySelector('.w-form-done');
+    const errorMessage = form.closest('.w-form').querySelector('.w-form-fail');
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    if (submitButton) submitButton.disabled = true;
+
+    fetch(form.action, {
+      method: 'POST',
+      // Don't set Content-Type — let FormData set it with the boundary
+      body: data,
+      mode: 'no-cors'
+    })
+    .then(() => {
+      form.style.display = 'none';
+      if (successMessage) {
+        successMessage.style.display = 'block';
+      }
+    })
+    .catch(() => {
+      if (errorMessage) errorMessage.style.display = 'block';
+      if (submitButton) submitButton.disabled = false;
+    });
+  }
+});
+</script>
 
 </body>
 </html>
