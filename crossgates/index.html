@@ -23,7 +23,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Loading... | Crossgates Connect</title>
 
-
+<script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
   <!-- Firebase Compat SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -1322,7 +1322,7 @@ setTimeout(() => {
       `<div style="color:#f87171; font-family:monospace; padding:40px;">Error loading page: ${err.message}</div>`;
   }
 }
-
+twemoji.parse(document.body, { folder: 'svg', ext: '.svg' });
 // ─────────────────────────────────────────
 // RENDER NAV
 // ─────────────────────────────────────────
