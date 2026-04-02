@@ -157,6 +157,9 @@ section.outcomes_wrap.u-background-2 {
     --_gap---size: var(--_spacing---space--4)
 }
 
+#page-loader { display: none !important; }
+#page-wrap { opacity: 1 !important; }
+
 .u-gap-row-6 {
     grid-row-gap: var(--_spacing---space--6)
 }
@@ -1314,11 +1317,10 @@ setTimeout(() => {
 }, 150);
 
     // Fade in
-    const loader = document.getElementById('page-loader');
-    const wrap   = document.getElementById('page-wrap');
-    loader.classList.add('fade-out');
-    wrap.style.opacity = '1';
-    setTimeout(() => loader.remove(), 500);
+ const loader = document.getElementById('page-loader');
+const wrap   = document.getElementById('page-wrap');
+loader.style.display = 'none';
+wrap.style.opacity = '1';
 
     // Init swiper for testimonials if present
     setTimeout(() => initTestimonialsSwiper(), 200);
