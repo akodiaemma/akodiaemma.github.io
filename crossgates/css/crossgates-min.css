@@ -152,6 +152,11 @@ body{
     letter-spacing:var(--_text-style---letter-spacing);
     text-transform:var(--_text-style---text-transform,none)
 }
+
+
+.c-heading.w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994.w-richtext.u-mb-3 strong {
+    color: #ffffff !important;
+}
 h1,h2,h3,h4,h5,h6{
     display:flow-root
 }

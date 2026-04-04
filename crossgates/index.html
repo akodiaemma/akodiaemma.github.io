@@ -2334,9 +2334,9 @@ function renderProblems(d) {
         ${item.image ? `<img src="${safe(item.image)}" loading="lazy" alt="" class="benefits_img u-column-7 u-radius-main u-background-skeleton">` : ''}
       </div>
       <div class="problems_text_wrap u-flex-horizontal-wrap u-justify-content-between u-mt-text u-align-items-start u-gap-1">
-        <div data-wf--typography-heading--font-style="text-large" class="c-heading w-variant-74a3180a-e505-b452-032f-599c8e557249 w-richtext"><h3>${safe(item.title)}</h3></div>
+        <div data-wf--typography-heading--font-style="text-large" class="c-heading w-variant-74a3180a-e505-b452-032f-599c8e557249 w-richtext"><h3 style="color:whi">${safe(item.title)}</h3></div>
         <div class="problems_text u-max-width-30ch">
-          <div data-wf--typography-paragraph--font-style="inherit" class="c-paragraph w-richtext u-rich-text"><p>${safeHtml(item.text)}</p></div>
+          <div data-wf--typography-paragraph--font-style="inherit" class="c-paragraph w-richtext u-rich-text"><p style="color:white;">${safeHtml(item.text)}</p></div>
         </div>
       </div>
       <div class="clickable_wrap">
@@ -2348,10 +2348,10 @@ function renderProblems(d) {
     </div>`).join('');
 
   return `
-    <section class="problems_wrap u-background-2" style="filter: invert(1);">
+    <section class="problems_wrap u-background-2" style="/* filter: invert(1); */background-color: #6da770;color: white;">
     <div class="u-embed-css w-embed"><style>
 .problems_item:hover .c-heading {
-	color: var(--swatch--grey-400);
+	color: white;
 }
 .problems_item:hover .problems_img_wrap {
 	border-color: var(--swatch--brand-orange);
@@ -2361,7 +2361,7 @@ function renderProblems(d) {
       <div class="problems_contain u-container">
         <div class="problems_layout">
           <div data-wf--typography-heading--font-style="h3" class="c-heading w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994 w-richtext u-mb-3"><h2>${safe(d.heading)}</h2></div>
-<div data-wf--typography-paragraph--font-style="text-large" class="c-paragraph w-variant-fdb8e663-01e0-aae6-13eb-e6dfca16b689 w-richtext u-rich-text u-max-width-50ch u-mb-5"><p>Many SMEs are prepared through different programmes, institutions, associations, and support systems.<br><br>Yet supplier readiness often remains fragmented across paper files, emails, PDFs, spreadsheets, and isolated records.<br><br>Crossgates Connect helps solve this gap by structuring supplier identity, compliance records, operational evidence, and supporting sector information into a clearer, buyer-ready view.
+<div data-wf--typography-paragraph--font-style="text-large" class="c-paragraph w-variant-fdb8e663-01e0-aae6-13eb-e6dfca16b689 w-richtext u-rich-text u-max-width-50ch u-mb-5" style="color:white;"><p>Many SMEs are prepared through different programmes, institutions, associations, and support systems.<br><br>Yet supplier readiness often remains fragmented across paper files, emails, PDFs, spreadsheets, and isolated records.<br><br>Crossgates Connect helps solve this gap by structuring supplier identity, compliance records, operational evidence, and supporting sector information into a clearer, buyer-ready view.
 
 This helps turn fragmented readiness into stronger commercial trust.</p></div>
           <div class="problems_grid u-grid-autofit u-mt-4">${itemsHtml}</div>
@@ -2591,7 +2591,7 @@ function renderRequestDemo(d) {
     <div class="request-demo_layout u-grid-custom">
       <div class="request-demo_header u-column-7">
         <div data-wf--typography-heading--font-style="h3" class="c-heading w-variant-701c4b6c-37cf-de59-d80d-80a1822c4994 w-richtext u-mb-3">
-          <h1>${safeHtml(d.heading)}<br><strong>${safeHtml(d.headingStrong)}</strong></h1>
+          <h1>${safeHtml(d.heading)}<br><strong style="color:white;">${safeHtml(d.headingStrong)}</strong></h1>
         </div>
         <div data-wf--typography-paragraph--font-style="inherit" class="c-paragraph w-richtext u-mb-text u-rich-text u-max-width-50ch">
           <p>${safeHtml(d.body)}</p>
