@@ -509,6 +509,23 @@
       background: var(--accent-glow);
     }
     .section-pick-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+    
+    /* ---- FLAG PICKER ---- */
+.flag-picker { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.flag-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-lit);
+  background: var(--bg-3);
+  color: var(--text-2);
+  font-family: var(--font-body);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.flag-btn img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
+.flag-btn.selected { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
 
     /* ---- PAGES GRID (dashboard) ---- */
     .pages-grid {
@@ -1851,7 +1868,20 @@ function updateSolFeatureMedia(sectionIndex, itemIndex, mediaType) {
 
 // Team members
 function buildTeamItems(members, sectionIndex) {
-  return members.map((m, j) => `
+  const FLAGS = [
+    { code: 'ug', label: 'Uganda' },
+    { code: 'dk', label: 'Denmark' },
+    { code: 'gb', label: 'UK' },
+  ];
+  return members.map((m, j) => {
+    const selected = m.flags || [];
+    const flagButtons = FLAGS.map(f => `
+      <button type="button"
+        class="flag-btn ${selected.includes(f.code) ? 'selected' : ''}"
+        onclick="toggleMemberFlag(${sectionIndex},${j},'${f.code}',this)">
+        <img src="img/${f.code}.svg" alt="${f.label}"> ${f.label}
+      </button>`).join('');
+    return `
     <div class="faq-item" style="margin-bottom:8px;" draggable="true"
       ondragstart="dragStart(event,${sectionIndex},'members',${j},'team-items-${sectionIndex}',buildTeamItems)"
       ondragover="event.preventDefault()"
@@ -1867,6 +1897,9 @@ function buildTeamItems(members, sectionIndex) {
         <div class="form-group"><label>Role / Title</label>
           <input type="text" value="${esc(m.role)}" onchange="updateRepeaterItem(${sectionIndex},'members',${j},'role',this.value)"></div>
       </div>
+      <div class="form-group"><label>Nationality Flags</label>
+        <div class="flag-picker">${flagButtons}</div>
+      </div>
       <div class="form-group"><label>Bio</label>
         <textarea onchange="updateRepeaterItem(${sectionIndex},'members',${j},'bio',this.value)">${esc(m.bio)}</textarea></div>
       <div class="form-group"><label>LinkedIn URL</label>
@@ -1874,14 +1907,28 @@ function buildTeamItems(members, sectionIndex) {
       <div class="form-group"><label>Photo</label>
         ${imgUploadRepeater(sectionIndex, 'members', j, 'photo', m.photo)}
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function addTeamMember(sectionIndex) {
   const s = sectionsData[sectionIndex];
   s.data.members = s.data.members || [];
-  s.data.members.push({ name:'', role:'', bio:'', linkedin:'', photo:'' });
+s.data.members.push({ name:'', role:'', bio:'', linkedin:'', photo:'', flags:[] });
   document.getElementById('team-items-' + sectionIndex).innerHTML = buildTeamItems(s.data.members, sectionIndex);
+}
+  
+  function toggleMemberFlag(sectionIndex, memberIndex, code, btn) {
+  const m = sectionsData[sectionIndex].data.members[memberIndex];
+  m.flags = m.flags || [];
+  const idx = m.flags.indexOf(code);
+  if (idx === -1) {
+    m.flags.push(code);
+    btn.classList.add('selected');
+  } else {
+    m.flags.splice(idx, 1);
+    btn.classList.remove('selected');
+  }
 }
 
 // Problems

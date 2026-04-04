@@ -2261,7 +2261,10 @@ function renderTeam(d) {
     <div role="listitem" class="team_item w-dyn-item">
       <div fs-smartlightbox-element="trigger-open" class="team_item_wrap u-position-relative">
         ${m.photo ? `<img src="${safe(m.photo)}" loading="lazy" alt="${safeHtml(m.name)}" class="team_img u-ratio-1-1 u-radius-main">` : ''}
-        <h3 class="team_item_heading u-text-style-xlarge">${safe(m.name)}</h3>
+        <h3 class="team_item_heading u-text-style-xlarge">
+  ${safe(m.name)}
+  ${(m.flags||[]).map(f=>`<img src="img/${f}.svg" style="width:18px;height:13px;object-fit:cover;border-radius:2px;margin-left:5px;vertical-align:middle;" alt="${f}">`).join('')}
+</h3>
         <p class="team_item_text u-text-style-large">${safeHtml(m.role)}</p>
         <div class="clickable_wrap">
           <a target="" href="#" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only"></span></a>
@@ -2274,7 +2277,10 @@ function renderTeam(d) {
           <div fs-scrolldisable-element="preserve" class="team_content_member u-radius-main u-flex-vertical-nowrap u-justify-content-between">
             <div class="team_content_member_wrap">
               ${m.photo ? `<img src="${safe(m.photo)}" loading="lazy" alt="" class="team_content_img u-radius-main u-ratio-1-1 u-mb-3">` : ''}
-              <div class="team_content_member_heading u-text-style-h4 u-mb-1">${safe(m.name)}</div>
+             <div class="team_content_member_heading u-text-style-h4 u-mb-1">
+  ${safe(m.name)}
+  ${(m.flags||[]).map(f=>`<img src="img/${f}.svg" style="width:22px;height:16px;object-fit:cover;border-radius:3px;margin-left:6px;vertical-align:middle;" alt="${f}">`).join('')}
+</div>
               <p class="team_content_member_text u-text-style-h5 u-mb-3">${safeHtml(m.role)}</p>
               <p class="team_content_member_text u-text-style-large u-mb-3">${safeHtml(m.bio)}</p>
             </div>
