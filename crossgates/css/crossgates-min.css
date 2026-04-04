@@ -113,8 +113,8 @@
     --_theme---button-tertiary--border-hover:var(--_theme---heading);
     --_theme---button-tertiary--text-hover:var(--_theme---background);
     --_theme---text-link--border:var(--_theme---border);
-    --_typography---font--primary-family: 'Neue Montreal', sans-serif;
-  --_typography---font--secondary-family: 'Neue Montreal', sans-serif;
+--_typography---font--primary-family: 'Neue Montreal', 'Beausiteclassicweb', 'Helvetica Neue', Arial, sans-serif;
+  --_typography---font--secondary-family: 'Neue Montreal', 'Aeonik', 'Helvetica Neue', Arial, sans-serif;
     --_typography---font--primary-trim-top:.44em;
     --_typography---font--primary-trim-bottom:.31em;
     --_typography---font--primary-regular:400;
