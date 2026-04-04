@@ -1703,7 +1703,7 @@ function renderFeatures(d) {
           <div class="features_content u-grid-custom">
             <div class="features_side u-column-3 u-position-relative">
               <div class="features_item_wrap u-theme-dark u-radius-main u-overflow-hidden u-position-sticky">
-                ${d.block1Image ? `<img src="${safe(d.block1Image)}" loading="lazy" alt="" class="u-background-skeleton u-cover-absolute">` : ''}
+                ${d.block1Image ? `<img style="opacity: 0.6;" src="${safe(d.block1Image)}" loading="lazy" alt="" class="u-background-skeleton u-cover-absolute">` : ''}
                 <div data-wf--typography-heading--font-style="h5" class="c-heading w-variant-326a9562-3263-06da-e8ef-16981fd70f1c w-richtext u-zindex-1 u-position-relative"><h3>${safeHtml(d.block1Caption)}</h3></div>
               </div>
             </div>
