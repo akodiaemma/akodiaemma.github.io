@@ -113,8 +113,8 @@
     --_theme---button-tertiary--border-hover:var(--_theme---heading);
     --_theme---button-tertiary--text-hover:var(--_theme---background);
     --_theme---text-link--border:var(--_theme---border);
---_typography---font--primary-family: 'Neue Montreal', 'Beausiteclassicweb', 'Helvetica Neue', Arial, sans-serif;
-  --_typography---font--secondary-family: 'Neue Montreal', 'Aeonik', 'Helvetica Neue', Arial, sans-serif;
+--_typography---font--primary-family: 'Beausiteclassicweb', 'Helvetica Neue', Arial, sans-serif;
+  --_typography---font--secondary-family: 'Aeonik', 'Helvetica Neue', Arial, sans-serif;
     --_typography---font--primary-trim-top:.44em;
     --_typography---font--primary-trim-bottom:.31em;
     --_typography---font--primary-regular:400;
@@ -1112,8 +1112,7 @@ figcaption{
     background-color:var(--_theme---background)
 }
 .u-background-2{
-    background-color: #132A13;
-    color: #ffffff;
+    background-color:var(--_theme---background-2)
 }
 .u-background-skeleton{
     background-color:color-mix(in lab,currentcolor 10%,transparent)
