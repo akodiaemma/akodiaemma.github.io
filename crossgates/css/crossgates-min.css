@@ -1112,7 +1112,8 @@ figcaption{
     background-color:var(--_theme---background)
 }
 .u-background-2{
-    background-color:var(--_theme---background-2)
+    background-color: #132A13;
+    color: #ffffff;
 }
 .u-background-skeleton{
     background-color:color-mix(in lab,currentcolor 10%,transparent)
