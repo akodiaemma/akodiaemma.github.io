@@ -45,9 +45,9 @@
     --radius--round:100vw;
     --_typography---line-height--1:1;
     --swatch--transparent:transparent;
-    --swatch--light:white;
+    --swatch--light:#f5f4ee;
     --swatch--dark:black;
-    --swatch--brand-sand:#f5f4ee;
+    --swatch--brand-sand:#efefef;
     --_button-style---border:var(--_theme---button-primary--border);
     --_button-style---background:var(--_theme---button-primary--background);
     --_button-style---text:var(--_theme---button-primary--text);
