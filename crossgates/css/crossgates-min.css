@@ -2198,9 +2198,10 @@ figcaption{
     background-image:linear-gradient(39deg,var(--swatch--dark)31.1%,var(--swatch--brand-gold)98.14%);
     background-image:linear-gradient(39deg,var(--swatch--dark)31.1%,var(--swatch--brand-gold)98.14%);
     background-image:linear-gradient(39deg,var(--swatch--dark)31.1%,var(--swatch--brand-gold)98.14%);
-    background-image:linear-gradient(39deg, var(--swatch--dark) 31.1%, #6da770 98.14%)
-    overflow:clip
+    background-image:linear-gradient(39deg, var(--swatch--dark) 31.1%, #6da770 98.14%);
+    overflow:clip;
 }
+
 .how_img.u-ratio-3-2.u-radius-main.u-background-skeleton{
     background-color:var(--swatch--brand-sand)
 }
