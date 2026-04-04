@@ -1,4 +1,6 @@
 :root{
+    --_typography---font--secondary-regular: 400;
+  --_typography---font--secondary-medium: 500;
     --_theme---background:var(--swatch--light);
     --_text-style---font-family:var(--_typography---font--secondary-family);
     --_theme---heading:var(--swatch--dark);
@@ -111,11 +113,11 @@
     --_theme---button-tertiary--border-hover:var(--_theme---heading);
     --_theme---button-tertiary--text-hover:var(--_theme---background);
     --_theme---text-link--border:var(--_theme---border);
-    --_typography---font--primary-family:Beausiteclassicweb,Arial,sans-serif;
+    --_typography---font--primary-family: 'Neue Montreal', sans-serif;
+  --_typography---font--secondary-family: 'Neue Montreal', sans-serif;
     --_typography---font--primary-trim-top:.44em;
     --_typography---font--primary-trim-bottom:.31em;
     --_typography---font--primary-regular:400;
-    --_typography---font--secondary-family:Aeonik,Arial,sans-serif;
     --_typography---font--secondary-trim-top:.35em;
     --_typography---font--secondary-trim-bottom:.35em;
     --_typography---letter-spacing--0-04em:-.04em;

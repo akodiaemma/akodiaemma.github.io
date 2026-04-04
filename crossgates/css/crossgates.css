@@ -1693,24 +1693,38 @@ textarea.w-input,textarea.w-select{
 .wf-layout-layout{
     display:grid
 }
-@font-face{
-    font-family:Aeonik;
-    src:url(https://cdn.prod.website-files.com/686e647e87b303313e7377e1/6889f8a57de48ad4dab5b670_aeonik-regular.woff2)format("woff2");
-    font-weight:400;
-    font-style:normal;
-    font-display:swap
+/* Neue Montreal Light */
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('fonts/NeueMontreal-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
-@font-face{
-    font-family:Aeonik;
-    src:url(https://cdn.prod.website-files.com/686e647e87b303313e7377e1/6889f8a5b8a9a46efae86bce_aeonik-medium.woff2)format("woff2");
-    font-weight:500;
-    font-style:normal;
-    font-display:swap
+
+/* Neue Montreal Regular */
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('fonts/NeueMontreal-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
-@font-face{
-    font-family:Beausiteclassicweb;
-    src:url(https://cdn.prod.website-files.com/686e647e87b303313e7377e1/6889f8dfd8fd126f7b8c8fe5_BeausiteClassicWeb-Regular.woff2)format("woff2");
-    font-weight:400;
-    font-style:normal;
-    font-display:swap
+
+/* Neue Montreal Medium */
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('fonts/NeueMontreal-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Neue Montreal Bold */
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('fonts/NeueMontreal-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
