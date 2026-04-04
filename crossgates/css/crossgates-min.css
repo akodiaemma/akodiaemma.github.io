@@ -3194,6 +3194,14 @@ figcaption{
         padding-top:3rem;
         padding-bottom:3rem
     }
+    
+    /* Mobile styles (Screens smaller than 767px) */
+@media screen and (max-width: 767px) {
+    .benefits_item.u-grid-custom {
+        padding-top: 0;
+    }
+}
+    
     .solutions_img_content{
         margin-top:1rem
     }
