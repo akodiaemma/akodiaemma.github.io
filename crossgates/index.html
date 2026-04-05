@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Crossgates Connect — Verification Infrastructure for Export Readiness and Market Access</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&amp;display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: 'NeueMontreal'; src: url('fonts/NeueMontreal-Light.woff2') format('woff2'), url('fonts/NeueMontreal-Light.woff') format('woff'); font-weight: 300; font-style: normal; }
+  @font-face { font-family: 'NeueMontreal'; src: url('fonts/NeueMontreal-Regular.woff2') format('woff2'), url('fonts/NeueMontreal-Regular.woff') format('woff'); font-weight: 500; font-style: normal; }
+  @font-face { font-family: 'NeueMontreal'; src: url('fonts/NeueMontreal-Medium.woff2') format('woff2'), url('fonts/NeueMontreal-Medium.woff') format('woff'); font-weight: 500; font-style: normal; }
+  @font-face { font-family: 'NeueMontreal'; src: url('fonts/NeueMontreal-Bold.woff2') format('woff2'), url('fonts/NeueMontreal-Bold.woff') format('woff'); font-weight: 700; font-style: normal; }
+  @font-face { font-family: 'NeueMontreal'; src: url('fonts/NeueMontreal-Italic.woff2') format('woff2'), url('fonts/NeueMontreal-Italic.woff') format('woff'); font-weight: 400; font-style: italic; }
+</style>
 <style>
   .nav-mobile-drawer ul {
   display: none;
@@ -38,7 +44,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
     font-weight: 400;
     color: var(--text-body);
     background: var(--white);
@@ -47,8 +53,8 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 400;
+   font-family: 'NeueMontreal', 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
+    font-weight: 500;
     line-height: 1.2;
   }
 
@@ -88,7 +94,7 @@
   }
 
   .nav-logo-text {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
     font-weight: 500;
     font-size: 14px;
     color: var(--white);
@@ -142,7 +148,7 @@
     color: var(--white);
     border: none;
     border-radius: 6px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
@@ -285,7 +291,7 @@
     font-size: clamp(36px, 4vw, 52px);
     color: var(--white);
     margin-bottom: 24px;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
   }
@@ -300,7 +306,7 @@
     color: rgba(255,255,255,0.65);
     line-height: 1.7;
     margin-bottom: 20px;
-    font-weight: 300;
+    font-weight: 500;
   }
 
   .hero-intro {
@@ -310,7 +316,7 @@
     margin-bottom: 40px;
     padding-left: 16px;
     border-left: 1px solid rgba(74,158,101,0.3);
-    font-weight: 300;
+    font-weight: 500;
   }
 
   .hero-buttons {
@@ -325,7 +331,7 @@
     color: var(--white);
     border: none;
     border-radius: 6px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -345,7 +351,7 @@
     color: rgba(255,255,255,0.7);
     border: 0.5px solid rgba(255,255,255,0.2);
     border-radius: 6px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
@@ -584,7 +590,7 @@
     color: rgba(255,255,255,0.5);
     max-width: 560px;
     line-height: 1.7;
-    font-weight: 300;
+    font-weight: 500;
   }
 
   .cards-grid {
@@ -626,18 +632,25 @@
     width: 40px;
     height: 40px;
     border-radius: 8px;
-    background: rgba(74,158,101,0.15);
-    border: 0.5px solid rgba(74,158,101,0.3);
+    background: rgba(74,158,101,0.25);
+    border: 0.5px solid rgba(74,158,101,0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
   }
 
+.footer-address {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
   .v-card-icon svg {
     width: 18px;
     height: 18px;
-    stroke: var(--green-accent);
+    stroke: #7dd4a0;
     fill: none;
     stroke-width: 1.5;
     stroke-linecap: round;
@@ -649,7 +662,7 @@
     color: var(--white);
     margin-bottom: 12px;
     font-weight: 500;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
     letter-spacing: -0.01em;
   }
 
@@ -657,16 +670,31 @@
     font-size: 13px;
     color: rgba(255,255,255,0.5);
     line-height: 1.65;
-    font-weight: 300;
+    font-weight: 500;
   }
 
   /* ─── SECTION 4 — ECOSYSTEM ─────────────────────────── */
   .ecosystem {
     padding: 100px 0;
-    background: var(--off-white);
+    background: var(--green-dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ecosystem::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74,158,101,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,158,101,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
   }
 
   .ecosystem .container {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 80px;
@@ -675,7 +703,7 @@
 
   .ecosystem-left h2 {
     font-size: clamp(28px, 3vw, 40px);
-    color: var(--text-dark);
+    color: var(--white);
     margin-bottom: 28px;
     letter-spacing: -0.02em;
     line-height: 1.2;
@@ -683,25 +711,26 @@
 
   .ecosystem-left h2 em {
     font-style: italic;
-    color: var(--green-mid);
+    color: rgba(255,255,255,0.5);
   }
 
   .ecosystem-left p {
     font-size: 15px;
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.55);
     line-height: 1.75;
     margin-bottom: 18px;
+    font-weight: 500;
   }
 
   .ecosystem-left p strong {
-    color: var(--text-dark);
+    color: rgba(255,255,255,0.85);
     font-weight: 500;
   }
 
   .ecosystem-left p:last-of-type {
     margin-bottom: 0;
     font-style: italic;
-    color: var(--green-mid);
+    color: var(--green-accent);
     font-size: 14px;
     padding-left: 16px;
     border-left: 2px solid var(--green-btn);
@@ -719,14 +748,15 @@
     align-items: flex-start;
     gap: 14px;
     padding: 18px 20px;
-    border: 0.5px solid var(--border);
+    border: 0.5px solid rgba(74,158,101,0.25);
     border-radius: 10px;
-    background: var(--white);
-    transition: border-color 0.2s, transform 0.15s;
+    background: rgba(255,255,255,0.04);
+    transition: border-color 0.2s, transform 0.15s, background 0.2s;
   }
 
   .eco-actor:hover {
-    border-color: var(--green-btn);
+    border-color: rgba(74,158,101,0.5);
+    background: rgba(255,255,255,0.07);
     transform: translateX(3px);
   }
 
@@ -734,15 +764,22 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--green-btn);
+    background: var(--green-accent);
     flex-shrink: 0;
     margin-top: 6px;
   }
 
   .eco-actor-text {
     font-size: 14px;
-    color: var(--text-body);
+    color: rgba(255,255,255,0.65);
     line-height: 1.5;
+  }
+
+  /* section-label on dark bg */
+  .ecosystem .section-label {
+    background: rgba(74,158,101,0.12);
+    border-color: rgba(74,158,101,0.25);
+    color: var(--green-accent);
   }
 
   /* ─── SECTION 5 — HOW IT WORKS ──────────────────────── */
@@ -800,7 +837,7 @@
     border-radius: 50%;
     background: var(--green-btn);
     color: var(--white);
-    font-family: 'Fraunces', serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;;
     font-size: 18px;
     font-weight: 400;
     display: flex;
@@ -814,7 +851,7 @@
   }
 
   .step h3 {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
     font-size: 17px;
     font-weight: 500;
     color: var(--text-dark);
@@ -909,8 +946,8 @@
     color: rgba(255,255,255,0.75);
     line-height: 1.65;
     font-style: italic;
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;;
+    font-weight: 500;
   }
 
   .about-callout p strong {
@@ -1039,7 +1076,7 @@
     color: var(--text-dark);
     line-height: 1.4;
     margin-bottom: 6px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
   }
 
   .video-desc {
@@ -1094,7 +1131,7 @@
     color: rgba(255,255,255,0.55);
     line-height: 1.75;
     margin-bottom: 28px;
-    font-weight: 300;
+    font-weight: 500;
   }
 
   .btn-cta {
@@ -1106,7 +1143,7 @@
     color: var(--green-dark);
     border: none;
     border-radius: 6px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -1154,7 +1191,7 @@
   }
 
   .footer-logo-text {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
     font-weight: 500;
     font-size: 13px;
     color: var(--white);
@@ -1163,7 +1200,7 @@
 
   .footer-logo-text span {
     display: block;
-    font-weight: 300;
+    font-weight: 500;
     opacity: 0.5;
     font-size: 11px;
   }
@@ -1202,7 +1239,7 @@
   }
 
   .footer-col h4 {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
     font-size: 11px;
     font-weight: 500;
     text-transform: uppercase;
@@ -1256,7 +1293,23 @@
 
   .footer-legal a:hover { color: rgba(255,255,255,0.55); }
 
-  /* ─── SCROLL ANIMATIONS ──────────────────────────────── */
+  /* ─── COMING SOON LINKS ──────────────────────────────── */
+  a.coming-soon {
+    pointer-events: none;
+    opacity: 0.35;
+    cursor: default;
+    text-decoration: none !important;
+  }
+
+  /* ─── NEUE MONTREAL font family override ────────────── */
+  .nav-logo-text, .nav-links a, .nav-actions a, .btn-nav,
+  .btn-primary, .btn-secondary, .btn-cta,
+  .v-card h3, .step h3, .video-title, .footer-logo-text,
+  .footer-col h4, .footer-col ul li a, .footer-legal a,
+  .footer-copy, .footer-tagline, .footer-tagline-2,
+  .stat-card-label, .stat-card-text, .eco-actor-text,
+  .video-tag, .video-desc, .section-label, .hero-sub,
+  .hero-intro, p { font-family: 'NeueMontreal', 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif; }
   .fade-up {
     opacity: 0;
     transform: translateY(24px);
@@ -1331,6 +1384,12 @@
       padding: 0 20px;
       height: 60px;
     }
+
+.footer-address a {
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    transition: color 0.2s;
+}
 
     .nav-links,
     .nav-actions {
@@ -1466,28 +1525,27 @@
   <a href="/" class="nav-logo">
     <div class="nav-logo-mark">
       <svg width="160" height="47" viewBox="0 0 496 146" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M105.206 4.58627C105.206 2.05334 107.26 0 109.793 0H143.425C145.958 0 148.011 2.05334 148.011 4.58627V38.2189C148.011 40.7518 145.958 42.8052 143.425 42.8052C143.425 42.8052 133.459 42.2161 127.118 42.8052C93.3127 45.9456 56.6113 93.3612 55.7765 92.4897C51.6999 90.4514 102.768 52.373 105.206 17.3259C105.552 12.3628 105.206 4.58627 105.206 4.58627Z" fill="#6DA770"/>
-        <path d="M42.8052 141.422C42.8052 143.955 40.7519 146.008 38.2189 146.008H4.58627C2.05335 146.008 3.16169e-06 143.955 2.94026e-06 141.422L0 107.789C-2.21435e-07 105.256 2.05334 103.203 4.58627 103.203C4.58627 103.203 14.5521 103.792 20.893 103.203C54.699 100.063 91.4004 52.6462 92.2352 53.5177C96.3118 55.5561 45.2437 93.6345 42.8052 128.682C42.4599 133.645 42.8052 141.422 42.8052 141.422Z" fill="#6DA770"/>
-        <path d="M75.1103 27.2656C50.4862 27.2656 30.5236 47.2275 30.5234 71.8516H9.17285V34.6826C9.17285 20.8755 20.3657 9.68262 34.1728 9.68262H75.1103V27.2656Z" fill="white"/>
-        <path d="M74.9087 116.438C99.5328 116.438 119.494 96.4766 119.495 71.8525H140.846V109.021C140.846 122.828 129.653 134.021 115.846 134.021H74.9087V116.438Z" fill="white"/>
-        <path d="M202.582 36.6428C201.685 31.6748 198.442 25.6718 189.334 25.6718C178.708 25.6718 174.499 34.5728 174.499 44.3018C174.499 54.0998 178.708 63.0008 189.334 63.0008C198.511 63.0008 202.03 56.9978 202.582 50.9948H210.793C209.689 62.1038 202.099 70.0388 189.541 70.0388C175.327 70.0388 166.357 59.2058 166.357 44.3018C166.357 29.4668 175.327 18.6338 189.541 18.6338C202.03 18.6338 209.62 26.5688 210.793 36.6428H202.582ZM231.499 32.9168C232.741 32.9168 233.638 32.9858 234.673 33.1238V39.9548H234.535C227.566 38.7818 221.977 43.4738 221.977 50.9948V69.0038H214.732V33.7448H221.977V40.3688H222.115C223.978 35.9528 226.876 32.9168 231.499 32.9168ZM252.671 70.0388C241.631 70.0388 234.938 62.3798 234.938 51.4088C234.938 40.4378 241.631 32.7788 252.671 32.7788C263.711 32.7788 270.404 40.4378 270.404 51.4088C270.404 62.3798 263.711 70.0388 252.671 70.0388ZM252.671 64.1048C259.571 64.1048 263.159 58.6538 263.159 51.4088C263.159 44.0948 259.571 38.7128 252.671 38.7128C245.771 38.7128 242.183 44.0948 242.183 51.4088C242.183 58.6538 245.771 64.1048 252.671 64.1048ZM289.28 47.6828C295.766 49.2008 302.804 50.6498 302.804 59.0678C302.804 65.8298 297.008 70.0388 288.452 70.0388C277.067 70.0388 272.168 64.7258 271.823 57.2738H278.861C279.206 61.0688 280.862 64.3118 288.314 64.3118C293.351 64.3118 295.49 61.8278 295.49 59.6198C295.49 55.2038 291.281 54.8588 286.106 53.6168C280.517 52.3058 272.927 51.2018 272.927 43.1978C272.927 37.4018 278.033 32.7788 286.865 32.7788C296.456 32.7788 301.01 37.9538 301.493 44.0948H294.455C293.972 41.3348 292.592 38.5058 286.934 38.5058C282.587 38.5058 280.241 40.1618 280.241 42.6458C280.241 46.2338 284.174 46.5098 289.28 47.6828ZM321.659 47.6828C328.145 49.2008 335.183 50.6498 335.183 59.0678C335.183 65.8298 329.387 70.0388 320.831 70.0388C309.446 70.0388 304.547 64.7258 304.202 57.2738H311.24C311.585 61.0688 313.241 64.3118 320.693 64.3118C325.73 64.3118 327.869 61.8278 327.869 59.6198C327.869 55.2038 323.66 54.8588 318.485 53.6168C312.896 52.3058 305.306 51.2018 305.306 43.1978C305.306 37.4018 310.412 32.7788 319.244 32.7788C328.835 32.7788 333.389 37.9538 333.872 44.0948H326.834C326.351 41.3348 324.971 38.5058 319.313 38.5058C314.966 38.5058 312.62 40.1618 312.62 42.6458C312.62 46.2338 316.553 46.5098 321.659 47.6828ZM363.619 33.7448H370.864V66.5888C370.864 76.7318 364.723 81.2168 354.718 81.2168C344.575 81.2168 338.986 75.9038 338.227 69.9698H345.541C346.231 73.0748 348.715 75.4208 354.442 75.4208C360.514 75.4208 363.619 72.6608 363.619 66.3128V62.0348H363.481C361.618 64.6568 358.375 67.2788 352.786 67.2788C343.954 67.2788 337.33 61.1378 337.33 50.0288C337.33 38.8508 343.954 32.7788 352.786 32.7788C358.375 32.7788 361.618 35.4008 363.481 37.8848H363.619V33.7448ZM354.166 61.3448C360.031 61.3448 363.55 57.4808 363.55 50.0288C363.55 42.5768 360.031 38.7128 354.166 38.7128C347.818 38.7128 344.575 43.4738 344.575 50.0288C344.575 56.5148 347.818 61.3448 354.166 61.3448ZM397.677 42.9908C397.677 40.4378 396.159 38.5058 391.329 38.5058C385.533 38.5058 383.394 40.2998 383.049 44.8538H376.011C376.356 38.0918 380.703 32.7788 391.329 32.7788C399.126 32.7788 404.922 35.7458 404.922 45.1298V61.8968C404.922 64.3808 405.474 65.6918 408.303 65.4158V68.8658C406.647 69.4868 405.474 69.6248 404.094 69.6248C400.23 69.6248 398.436 68.2448 397.746 64.7948H397.608C395.4 67.8998 391.398 70.0388 385.947 70.0388C378.771 70.0388 374.355 65.8988 374.355 59.9648C374.355 52.2368 380.082 49.8218 388.914 48.0968C394.365 47.0618 397.677 46.3718 397.677 42.9908ZM387.534 64.3118C393.537 64.3118 397.677 61.3448 397.677 55.6178V50.3048C396.504 51.1328 393.675 51.9608 390.294 52.6508C384.291 53.9618 381.669 55.6868 381.669 59.2748C381.669 62.5178 383.601 64.3118 387.534 64.3118ZM427.323 39.6788H420.699V58.7918C420.699 62.7938 422.631 63.2768 427.323 63.0008V68.9348C425.874 69.2798 424.287 69.4868 422.355 69.4868C416.559 69.4868 413.385 66.8648 413.385 59.4128V39.6788H408.279V33.7448H413.385V22.6358H420.699V33.7448H427.323V39.6788ZM446.466 64.1048C452.469 64.1048 454.884 60.3788 455.505 58.2398H462.75C460.956 64.9328 455.712 70.0388 446.673 70.0388C435.702 70.0388 429.009 62.4488 429.009 51.4088C429.009 39.9548 435.702 32.7788 446.328 32.7788C457.713 32.7788 463.302 40.7138 463.302 53.2718H436.254C436.254 59.2058 440.049 64.1048 446.466 64.1048ZM446.328 38.5058C440.463 38.5058 436.254 42.4388 436.254 47.8898H456.057C456.057 42.4388 452.193 38.5058 446.328 38.5058ZM482.138 47.6828C488.624 49.2008 495.662 50.6498 495.662 59.0678C495.662 65.8298 489.866 70.0388 481.31 70.0388C469.925 70.0388 465.026 64.7258 464.681 57.2738H471.719C472.064 61.0688 473.72 64.3118 481.172 64.3118C486.209 64.3118 488.348 61.8278 488.348 59.6198C488.348 55.2038 484.139 54.8588 478.964 53.6168C473.375 52.3058 465.785 51.2018 465.785 43.1978C465.785 37.4018 470.891 32.7788 479.723 32.7788C489.314 32.7788 493.868 37.9538 494.351 44.0948H487.313C486.83 41.3348 485.45 38.5058 479.792 38.5058C475.445 38.5058 473.099 40.1618 473.099 42.6458C473.099 46.2338 477.032 46.5098 482.138 47.6828Z" fill="white"/>
-        <path d="M204.376 94.9531C203.479 90.2611 199.891 83.2231 189.61 83.2231C177.88 83.2231 172.981 93.3661 172.981 103.302C172.981 113.307 177.88 123.45 189.61 123.45C199.96 123.45 203.962 116.412 204.376 110.202H210.586C209.482 121.104 201.754 128.97 189.61 128.97C176.086 128.97 166.771 118.206 166.771 103.302C166.771 88.4671 176.086 77.7031 189.61 77.7031C201.685 77.7031 209.413 85.5691 210.586 94.9531H204.376ZM229.215 128.97C218.451 128.97 211.965 121.38 211.965 110.409C211.965 99.4381 218.451 91.8481 229.215 91.8481C239.91 91.8481 246.396 99.4381 246.396 110.409C246.396 121.38 239.91 128.97 229.215 128.97ZM229.215 124.14C237.081 124.14 240.876 117.93 240.876 110.409C240.876 102.888 237.081 96.6781 229.215 96.6781C221.28 96.6781 217.485 102.888 217.485 110.409C217.485 117.93 221.28 124.14 229.215 124.14ZM266.46 91.8481C272.877 91.8481 278.259 95.3671 278.259 103.44V128.004H272.739V104.82C272.739 100.266 270.6 96.6781 265.08 96.6781C258.87 96.6781 254.73 100.611 254.73 106.062V128.004H249.21V92.8141H254.73V97.0231H254.868C256.731 94.5391 260.457 91.8481 266.46 91.8481ZM300.154 91.8481C306.571 91.8481 311.953 95.3671 311.953 103.44V128.004H306.433V104.82C306.433 100.266 304.294 96.6781 298.774 96.6781C292.564 96.6781 288.424 100.611 288.424 106.062V128.004H282.904V92.8141H288.424V97.0231H288.562C290.425 94.5391 294.151 91.8481 300.154 91.8481ZM331.572 124.14C338.61 124.14 341.232 119.586 341.853 117.171H347.373C345.579 123.726 340.542 128.97 331.779 128.97C321.084 128.97 314.598 121.449 314.598 110.409C314.598 98.6791 321.222 91.8481 331.503 91.8481C342.543 91.8481 347.925 99.3691 347.925 111.858H320.118C320.118 118.206 323.913 124.14 331.572 124.14ZM331.503 96.6781C324.879 96.6781 320.118 101.37 320.118 107.028H342.405C342.405 101.37 338.127 96.6781 331.503 96.6781ZM375.608 105.51C375.332 101.646 372.71 96.6781 365.672 96.6781C357.323 96.6781 354.149 103.785 354.149 110.409C354.149 117.033 357.323 124.14 365.672 124.14C372.779 124.14 375.332 119.241 375.608 115.032H381.128C380.645 123.036 374.366 128.97 365.672 128.97C355.391 128.97 348.629 121.449 348.629 110.409C348.629 99.3691 355.391 91.8481 365.672 91.8481C374.366 91.8481 380.3 97.6441 381.128 105.51H375.608ZM398.968 97.6441H392.068V118.827C392.068 122.829 394.276 123.519 398.968 123.174V128.004C397.726 128.28 396.277 128.418 394.828 128.418C390.136 128.418 386.548 126.555 386.548 119.379V97.6441H381.373V92.8141H386.548V81.0841H392.068V92.8141H398.968V97.6441Z" fill="white"/>
+        <path d="M105.206 4.58627C105.206 2.05334 107.26 0 109.793 0H143.425C145.958 0 148.011 2.05334 148.011 4.58627V38.2189C148.011 40.7518 145.958 42.8052 143.425 42.8052C143.425 42.8052 133.459 42.2161 127.118 42.8052C93.3127 45.9456 56.6113 93.3612 55.7765 92.4897C51.6999 90.4514 102.768 52.373 105.206 17.3259C105.552 12.3628 105.206 4.58627 105.206 4.58627Z" fill="#6DA770"></path>
+        <path d="M42.8052 141.422C42.8052 143.955 40.7519 146.008 38.2189 146.008H4.58627C2.05335 146.008 3.16169e-06 143.955 2.94026e-06 141.422L0 107.789C-2.21435e-07 105.256 2.05334 103.203 4.58627 103.203C4.58627 103.203 14.5521 103.792 20.893 103.203C54.699 100.063 91.4004 52.6462 92.2352 53.5177C96.3118 55.5561 45.2437 93.6345 42.8052 128.682C42.4599 133.645 42.8052 141.422 42.8052 141.422Z" fill="#6DA770"></path>
+        <path d="M75.1103 27.2656C50.4862 27.2656 30.5236 47.2275 30.5234 71.8516H9.17285V34.6826C9.17285 20.8755 20.3657 9.68262 34.1728 9.68262H75.1103V27.2656Z" fill="white"></path>
+        <path d="M74.9087 116.438C99.5328 116.438 119.494 96.4766 119.495 71.8525H140.846V109.021C140.846 122.828 129.653 134.021 115.846 134.021H74.9087V116.438Z" fill="white"></path>
+        <path d="M202.582 36.6428C201.685 31.6748 198.442 25.6718 189.334 25.6718C178.708 25.6718 174.499 34.5728 174.499 44.3018C174.499 54.0998 178.708 63.0008 189.334 63.0008C198.511 63.0008 202.03 56.9978 202.582 50.9948H210.793C209.689 62.1038 202.099 70.0388 189.541 70.0388C175.327 70.0388 166.357 59.2058 166.357 44.3018C166.357 29.4668 175.327 18.6338 189.541 18.6338C202.03 18.6338 209.62 26.5688 210.793 36.6428H202.582ZM231.499 32.9168C232.741 32.9168 233.638 32.9858 234.673 33.1238V39.9548H234.535C227.566 38.7818 221.977 43.4738 221.977 50.9948V69.0038H214.732V33.7448H221.977V40.3688H222.115C223.978 35.9528 226.876 32.9168 231.499 32.9168ZM252.671 70.0388C241.631 70.0388 234.938 62.3798 234.938 51.4088C234.938 40.4378 241.631 32.7788 252.671 32.7788C263.711 32.7788 270.404 40.4378 270.404 51.4088C270.404 62.3798 263.711 70.0388 252.671 70.0388ZM252.671 64.1048C259.571 64.1048 263.159 58.6538 263.159 51.4088C263.159 44.0948 259.571 38.7128 252.671 38.7128C245.771 38.7128 242.183 44.0948 242.183 51.4088C242.183 58.6538 245.771 64.1048 252.671 64.1048ZM289.28 47.6828C295.766 49.2008 302.804 50.6498 302.804 59.0678C302.804 65.8298 297.008 70.0388 288.452 70.0388C277.067 70.0388 272.168 64.7258 271.823 57.2738H278.861C279.206 61.0688 280.862 64.3118 288.314 64.3118C293.351 64.3118 295.49 61.8278 295.49 59.6198C295.49 55.2038 291.281 54.8588 286.106 53.6168C280.517 52.3058 272.927 51.2018 272.927 43.1978C272.927 37.4018 278.033 32.7788 286.865 32.7788C296.456 32.7788 301.01 37.9538 301.493 44.0948H294.455C293.972 41.3348 292.592 38.5058 286.934 38.5058C282.587 38.5058 280.241 40.1618 280.241 42.6458C280.241 46.2338 284.174 46.5098 289.28 47.6828ZM321.659 47.6828C328.145 49.2008 335.183 50.6498 335.183 59.0678C335.183 65.8298 329.387 70.0388 320.831 70.0388C309.446 70.0388 304.547 64.7258 304.202 57.2738H311.24C311.585 61.0688 313.241 64.3118 320.693 64.3118C325.73 64.3118 327.869 61.8278 327.869 59.6198C327.869 55.2038 323.66 54.8588 318.485 53.6168C312.896 52.3058 305.306 51.2018 305.306 43.1978C305.306 37.4018 310.412 32.7788 319.244 32.7788C328.835 32.7788 333.389 37.9538 333.872 44.0948H326.834C326.351 41.3348 324.971 38.5058 319.313 38.5058C314.966 38.5058 312.62 40.1618 312.62 42.6458C312.62 46.2338 316.553 46.5098 321.659 47.6828ZM363.619 33.7448H370.864V66.5888C370.864 76.7318 364.723 81.2168 354.718 81.2168C344.575 81.2168 338.986 75.9038 338.227 69.9698H345.541C346.231 73.0748 348.715 75.4208 354.442 75.4208C360.514 75.4208 363.619 72.6608 363.619 66.3128V62.0348H363.481C361.618 64.6568 358.375 67.2788 352.786 67.2788C343.954 67.2788 337.33 61.1378 337.33 50.0288C337.33 38.8508 343.954 32.7788 352.786 32.7788C358.375 32.7788 361.618 35.4008 363.481 37.8848H363.619V33.7448ZM354.166 61.3448C360.031 61.3448 363.55 57.4808 363.55 50.0288C363.55 42.5768 360.031 38.7128 354.166 38.7128C347.818 38.7128 344.575 43.4738 344.575 50.0288C344.575 56.5148 347.818 61.3448 354.166 61.3448ZM397.677 42.9908C397.677 40.4378 396.159 38.5058 391.329 38.5058C385.533 38.5058 383.394 40.2998 383.049 44.8538H376.011C376.356 38.0918 380.703 32.7788 391.329 32.7788C399.126 32.7788 404.922 35.7458 404.922 45.1298V61.8968C404.922 64.3808 405.474 65.6918 408.303 65.4158V68.8658C406.647 69.4868 405.474 69.6248 404.094 69.6248C400.23 69.6248 398.436 68.2448 397.746 64.7948H397.608C395.4 67.8998 391.398 70.0388 385.947 70.0388C378.771 70.0388 374.355 65.8988 374.355 59.9648C374.355 52.2368 380.082 49.8218 388.914 48.0968C394.365 47.0618 397.677 46.3718 397.677 42.9908ZM387.534 64.3118C393.537 64.3118 397.677 61.3448 397.677 55.6178V50.3048C396.504 51.1328 393.675 51.9608 390.294 52.6508C384.291 53.9618 381.669 55.6868 381.669 59.2748C381.669 62.5178 383.601 64.3118 387.534 64.3118ZM427.323 39.6788H420.699V58.7918C420.699 62.7938 422.631 63.2768 427.323 63.0008V68.9348C425.874 69.2798 424.287 69.4868 422.355 69.4868C416.559 69.4868 413.385 66.8648 413.385 59.4128V39.6788H408.279V33.7448H413.385V22.6358H420.699V33.7448H427.323V39.6788ZM446.466 64.1048C452.469 64.1048 454.884 60.3788 455.505 58.2398H462.75C460.956 64.9328 455.712 70.0388 446.673 70.0388C435.702 70.0388 429.009 62.4488 429.009 51.4088C429.009 39.9548 435.702 32.7788 446.328 32.7788C457.713 32.7788 463.302 40.7138 463.302 53.2718H436.254C436.254 59.2058 440.049 64.1048 446.466 64.1048ZM446.328 38.5058C440.463 38.5058 436.254 42.4388 436.254 47.8898H456.057C456.057 42.4388 452.193 38.5058 446.328 38.5058ZM482.138 47.6828C488.624 49.2008 495.662 50.6498 495.662 59.0678C495.662 65.8298 489.866 70.0388 481.31 70.0388C469.925 70.0388 465.026 64.7258 464.681 57.2738H471.719C472.064 61.0688 473.72 64.3118 481.172 64.3118C486.209 64.3118 488.348 61.8278 488.348 59.6198C488.348 55.2038 484.139 54.8588 478.964 53.6168C473.375 52.3058 465.785 51.2018 465.785 43.1978C465.785 37.4018 470.891 32.7788 479.723 32.7788C489.314 32.7788 493.868 37.9538 494.351 44.0948H487.313C486.83 41.3348 485.45 38.5058 479.792 38.5058C475.445 38.5058 473.099 40.1618 473.099 42.6458C473.099 46.2338 477.032 46.5098 482.138 47.6828Z" fill="white"></path>
+        <path d="M204.376 94.9531C203.479 90.2611 199.891 83.2231 189.61 83.2231C177.88 83.2231 172.981 93.3661 172.981 103.302C172.981 113.307 177.88 123.45 189.61 123.45C199.96 123.45 203.962 116.412 204.376 110.202H210.586C209.482 121.104 201.754 128.97 189.61 128.97C176.086 128.97 166.771 118.206 166.771 103.302C166.771 88.4671 176.086 77.7031 189.61 77.7031C201.685 77.7031 209.413 85.5691 210.586 94.9531H204.376ZM229.215 128.97C218.451 128.97 211.965 121.38 211.965 110.409C211.965 99.4381 218.451 91.8481 229.215 91.8481C239.91 91.8481 246.396 99.4381 246.396 110.409C246.396 121.38 239.91 128.97 229.215 128.97ZM229.215 124.14C237.081 124.14 240.876 117.93 240.876 110.409C240.876 102.888 237.081 96.6781 229.215 96.6781C221.28 96.6781 217.485 102.888 217.485 110.409C217.485 117.93 221.28 124.14 229.215 124.14ZM266.46 91.8481C272.877 91.8481 278.259 95.3671 278.259 103.44V128.004H272.739V104.82C272.739 100.266 270.6 96.6781 265.08 96.6781C258.87 96.6781 254.73 100.611 254.73 106.062V128.004H249.21V92.8141H254.73V97.0231H254.868C256.731 94.5391 260.457 91.8481 266.46 91.8481ZM300.154 91.8481C306.571 91.8481 311.953 95.3671 311.953 103.44V128.004H306.433V104.82C306.433 100.266 304.294 96.6781 298.774 96.6781C292.564 96.6781 288.424 100.611 288.424 106.062V128.004H282.904V92.8141H288.424V97.0231H288.562C290.425 94.5391 294.151 91.8481 300.154 91.8481ZM331.572 124.14C338.61 124.14 341.232 119.586 341.853 117.171H347.373C345.579 123.726 340.542 128.97 331.779 128.97C321.084 128.97 314.598 121.449 314.598 110.409C314.598 98.6791 321.222 91.8481 331.503 91.8481C342.543 91.8481 347.925 99.3691 347.925 111.858H320.118C320.118 118.206 323.913 124.14 331.572 124.14ZM331.503 96.6781C324.879 96.6781 320.118 101.37 320.118 107.028H342.405C342.405 101.37 338.127 96.6781 331.503 96.6781ZM375.608 105.51C375.332 101.646 372.71 96.6781 365.672 96.6781C357.323 96.6781 354.149 103.785 354.149 110.409C354.149 117.033 357.323 124.14 365.672 124.14C372.779 124.14 375.332 119.241 375.608 115.032H381.128C380.645 123.036 374.366 128.97 365.672 128.97C355.391 128.97 348.629 121.449 348.629 110.409C348.629 99.3691 355.391 91.8481 365.672 91.8481C374.366 91.8481 380.3 97.6441 381.128 105.51H375.608ZM398.968 97.6441H392.068V118.827C392.068 122.829 394.276 123.519 398.968 123.174V128.004C397.726 128.28 396.277 128.418 394.828 128.418C390.136 128.418 386.548 126.555 386.548 119.379V97.6441H381.373V92.8141H386.548V81.0841H392.068V92.8141H398.968V97.6441Z" fill="white"></path>
       </svg>
     </div>
   </a>
 
-  <ul class="nav-links" id="navLinks">
+  <ul class="nav-links" id="navLinks" style="display:none">
     <li><a href="/about">About Us</a></li>
     <li><a href="/what-we-do">What We Do</a></li>
-    <li><a href="/ai-verification">AI & Verification</a></li>
+    <li><a href="/ai-verification">AI &amp; Verification</a></li>
     <li><a href="/trade-passport">Trade Passport</a></li>
-    <li><a href="/pilot-sectors">Pilot & Priority Sectors</a></li>
+    <li><a href="/pilot-sectors">Pilot &amp; Priority Sectors</a></li>
     <li><a href="/who-we-work-with">Who We Work With</a></li>
     <li><a href="/contact">Contact Us</a></li>
   </ul>
 
   <div class="nav-actions" id="navActions">
-    <a href="/login" class="nav-login">Login</a>
     <a href="/contact" class="btn-nav">Contact us</a>
   </div>
 
@@ -1500,21 +1558,10 @@
 
 <!-- Mobile nav drawer -->
 <div class="nav-mobile-drawer" id="mobileDrawer">
-  <ul style="list-style:none;padding:0;margin:0;">
-    <li style="border-bottom:0.5px solid rgba(255,255,255,0.06)"><a href="/about" style="display:block;padding:14px 0;font-size:15px;color:rgba(255,255,255,0.8);text-decoration:none;">About Us</a></li>
-    <li style="border-bottom:0.5px solid rgba(255,255,255,0.06)"><a href="/what-we-do" style="display:block;padding:14px 0;font-size:15px;color:rgba(255,255,255,0.8);text-decoration:none;">What We Do</a></li>
-    <li style="border-bottom:0.5px solid rgba(255,255,255,0.06)"><a href="/ai-verification" style="display:block;padding:14px 0;font-size:15px;color:rgba(255,255,255,0.8);text-decoration:none;">AI & Verification</a></li>
-    <li style="border-bottom:0.5px solid rgba(255,255,255,0.06)"><a href="/trade-passport" style="display:block;padding:14px 0;font-size:15px;color:rgba(255,255,255,0.8);text-decoration:none;">Trade Passport</a></li>
-    <li style="border-bottom:0.5px solid rgba(255,255,255,0.06)"><a href="/pilot-sectors" style="display:block;padding:14px 0;font-size:15px;color:rgba(255,255,255,0.8);text-decoration:none;">Pilot & Priority Sectors</a></li>
-    <li style="border-bottom:0.5px solid rgba(255,255,255,0.06)"><a href="/who-we-work-with" style="display:block;padding:14px 0;font-size:15px;color:rgba(255,255,255,0.8);text-decoration:none;">Who We Work With</a></li>
-    <li style="border-bottom:0.5px solid rgba(255,255,255,0.06)"><a href="/contact" style="display:block;padding:14px 0;font-size:15px;color:rgba(255,255,255,0.8);text-decoration:none;">Contact Us</a></li>
-  </ul>
   <div style="display:flex;gap:12px;padding-top:20px;align-items:center;">
-    <a href="/login" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;">Login</a>
     <a href="/contact" class="btn-nav">Contact us</a>
   </div>
-
-  </div>
+</div>
 <!-- ═══════════════════════════════════════════════════════
      SECTION 1 — HERO
 ════════════════════════════════════════════════════════ -->
@@ -1540,9 +1587,9 @@
       </p>
 
       <div class="hero-buttons">
-        <a href="/trade-passport" class="btn-primary">
+        <a href="#" class="btn-primary coming-soon">
           Explore the Trade Passport
-          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
         </a>
         <a href="/contact" class="btn-secondary">
           Request Pilot Engagement
@@ -1562,11 +1609,11 @@
           <div class="globe-node"></div>
           <div class="globe-node"></div>
           <svg class="globe-connector" viewBox="0 0 480 480" fill="none">
-            <line x1="182" y1="144" x2="326" y2="264" stroke="rgba(74,158,101,0.25)" stroke-width="0.8" stroke-dasharray="4 6"/>
-            <line x1="326" y1="264" x2="182" y2="336" stroke="rgba(74,158,101,0.2)" stroke-width="0.8" stroke-dasharray="4 6"/>
-            <line x1="106" y1="182" x2="326" y2="264" stroke="rgba(74,158,101,0.18)" stroke-width="0.8" stroke-dasharray="4 6"/>
-            <line x1="298" y1="106" x2="182" y2="144" stroke="rgba(74,158,101,0.15)" stroke-width="0.8" stroke-dasharray="4 6"/>
-            <line x1="298" y1="106" x2="326" y2="264" stroke="rgba(74,158,101,0.12)" stroke-width="0.8" stroke-dasharray="4 6"/>
+            <line x1="182" y1="144" x2="326" y2="264" stroke="rgba(74,158,101,0.25)" stroke-width="0.8" stroke-dasharray="4 6"></line>
+            <line x1="326" y1="264" x2="182" y2="336" stroke="rgba(74,158,101,0.2)" stroke-width="0.8" stroke-dasharray="4 6"></line>
+            <line x1="106" y1="182" x2="326" y2="264" stroke="rgba(74,158,101,0.18)" stroke-width="0.8" stroke-dasharray="4 6"></line>
+            <line x1="298" y1="106" x2="182" y2="144" stroke="rgba(74,158,101,0.15)" stroke-width="0.8" stroke-dasharray="4 6"></line>
+            <line x1="298" y1="106" x2="326" y2="264" stroke="rgba(74,158,101,0.12)" stroke-width="0.8" stroke-dasharray="4 6"></line>
           </svg>
         </div>
       </div>
@@ -1580,7 +1627,7 @@
 ════════════════════════════════════════════════════════ -->
 <section class="positioning">
   <div class="container">
-    <div class="positioning-left fade-up">
+    <div class="positioning-left fade-up visible">
       <div class="section-label">Our Purpose</div>
       <h2>Making Readiness <em>Commercially Usable</em></h2>
 
@@ -1592,15 +1639,15 @@
     </div>
 
     <div class="positioning-right">
-      <div class="stat-card fade-up fade-up-delay-1">
+      <div class="stat-card fade-up fade-up-delay-1 visible">
         <div class="stat-card-label">The problem</div>
         <div class="stat-card-text">Supplier readiness remains fragmented across paper files, emails, PDFs, spreadsheets, and isolated records — even after training and support.</div>
       </div>
-      <div class="stat-card fade-up fade-up-delay-2">
+      <div class="stat-card fade-up fade-up-delay-2 visible">
         <div class="stat-card-label">The gap</div>
         <div class="stat-card-text">Existing programmes prepare suppliers — but the resulting readiness is difficult to present in one trusted, commercially usable view.</div>
       </div>
-      <div class="stat-card fade-up fade-up-delay-3">
+      <div class="stat-card fade-up fade-up-delay-3 visible">
         <div class="stat-card-label">The Crossgates role</div>
         <div class="stat-card-text">A verification infrastructure layer that structures fragmented readiness into a buyer-ready, verification-ready Trade Passport.</div>
       </div>
@@ -1614,40 +1661,40 @@
 ════════════════════════════════════════════════════════ -->
 <section class="value-cards">
   <div class="container">
-    <div class="value-cards-header fade-up">
+    <div class="value-cards-header fade-up visible">
       <div class="section-label" style="background:rgba(74,158,101,0.12);border-color:rgba(74,158,101,0.25);color:#4a9e65">What Crossgates Does</div>
       <h2>Four Ways Crossgates <em>Creates Value</em></h2>
       <p>Crossgates Connect uses AI as a practical system to provide guided onboarding, readiness logic, and smarter supplier visibility while maintaining strict verification discipline.</p>
     </div>
 
     <div class="cards-grid">
-      <div class="v-card fade-up fade-up-delay-1">
+      <div class="v-card fade-up fade-up-delay-1 visible">
         <div class="v-card-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"></path></svg>
         </div>
         <h3>Supplier Verification</h3>
         <p>Crossgates helps structure supplier identity and supporting records into a clearer readiness view.</p>
       </div>
 
-      <div class="v-card fade-up fade-up-delay-2">
+      <div class="v-card fade-up fade-up-delay-2 visible">
         <div class="v-card-icon">
-          <svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>
         </div>
         <h3>Readiness Visibility</h3>
         <p>Crossgates helps reveal what is missing, incomplete, expiring, or ready for market use.</p>
       </div>
 
-      <div class="v-card fade-up fade-up-delay-3">
+      <div class="v-card fade-up fade-up-delay-3 visible">
         <div class="v-card-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M16 4v16M3 10h18M3 16h18"/></svg>
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M8 4v16M16 4v16M3 10h18M3 16h18"></path></svg>
         </div>
         <h3>Trade Passport</h3>
         <p>Crossgates converts assessed supplier information into a buyer-ready, verification-ready Trade Passport.</p>
       </div>
 
-      <div class="v-card fade-up fade-up-delay-4">
+      <div class="v-card fade-up fade-up-delay-4 visible">
         <div class="v-card-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5L22 9.5l-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4 2 9.5l7-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5L22 9.5l-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4 2 9.5l7-1z"></path></svg>
         </div>
         <h3>Market Trust</h3>
         <p>Crossgates helps make existing readiness efforts easier to assess, easier to trust, and easier to use for serious market engagement.</p>
@@ -1662,7 +1709,7 @@
 ════════════════════════════════════════════════════════ -->
 <section class="ecosystem">
   <div class="container">
-    <div class="ecosystem-left fade-up">
+    <div class="ecosystem-left fade-up visible">
       <div class="section-label">Ecosystem Position</div>
       <h2>A Complement to the <em>Existing Ecosystem</em></h2>
 
@@ -1673,7 +1720,7 @@
       <p>This makes Crossgates a practical complement to agricultural commercialisation, trade facilitation, value addition, export readiness, and market access.</p>
     </div>
 
-    <div class="ecosystem-right fade-up fade-up-delay-2">
+    <div class="ecosystem-right fade-up fade-up-delay-2 visible">
       <div class="eco-actor">
         <div class="eco-actor-dot"></div>
         <div class="eco-actor-text">Ministries and government bodies working on trade and export policy</div>
@@ -1708,35 +1755,35 @@
 ════════════════════════════════════════════════════════ -->
 <section class="how-it-works">
   <div class="container">
-    <div class="hiw-header fade-up">
+    <div class="hiw-header fade-up visible">
       <div class="section-label">How It Works</div>
       <h2>Three Steps to a Trade Passport</h2>
       <p>Crossgates Connect works as a verification infrastructure layer that helps turn fragmented supplier readiness into a clearer, more commercially usable supplier identity. It does this by bringing together supplier business, compliance, operational, and supporting records, assessing their readiness status, and structuring them into a buyer-ready, verification-ready Trade Passport.</p>
     </div>
 
     <div class="steps-grid">
-      <div class="step fade-up fade-up-delay-1">
+      <div class="step fade-up fade-up-delay-1 visible">
         <div class="step-num">01</div>
         <h3>Supplier Onboarding</h3>
         <p>Crossgates begins by onboarding the supplier and capturing core business, operational, product, and contact information. This creates the foundation for a structured supplier identity.</p>
       </div>
 
-      <div class="step fade-up fade-up-delay-2">
+      <div class="step fade-up fade-up-delay-2 visible">
         <div class="step-num">02</div>
-        <h3>Verification & Readiness Review</h3>
+        <h3>Verification &amp; Readiness Review</h3>
         <p>Crossgates reviews the supplier information and supporting records to identify what is present, what is missing, what is incomplete, and what may be expiring or require follow-up. This helps create a clearer view of supplier readiness.</p>
       </div>
 
-      <div class="step fade-up fade-up-delay-3">
+      <div class="step fade-up fade-up-delay-3 visible">
         <div class="step-num">03</div>
         <h3>Trade Passport Creation</h3>
         <p>Once the information has been structured and assessed, Crossgates converts it into a Trade Passport — a buyer-ready, verification-ready supplier identity. The Trade Passport helps present supplier readiness in a clearer and more trusted format.</p>
       </div>
     </div>
 
-    <a href="/how-it-works" class="hiw-link">
+    <a href="#" class="hiw-link coming-soon">
       See the full process
-      <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
     </a>
   </div>
 </section>
@@ -1747,7 +1794,7 @@
 ════════════════════════════════════════════════════════ -->
 <section class="about-short">
   <div class="container">
-    <div class="about-short-left fade-up">
+    <div class="about-short-left fade-up visible">
       <div class="section-label">About Crossgates Connect</div>
       <h2>Crossgates Connect</h2>
 
@@ -1758,12 +1805,12 @@
       <p>This is how Crossgates helps bridge the gap between readiness preparation and actual market trust.</p>
     </div>
 
-    <div class="about-short-right fade-up fade-up-delay-2">
+    <div class="about-short-right fade-up fade-up-delay-2 visible">
       <div class="about-callout">
         <p><strong>Crossgates Connect</strong> is a verification infrastructure layer that turns fragmented supplier records into buyer-ready, verification-ready Trade Passports.</p>
       </div>
       <div class="about-callout" style="background:rgba(45,90,61,0.12);border:0.5px solid var(--border);">
-        <p style="color:var(--text-muted);font-style:normal;font-size:14px;font-family:'DM Sans',sans-serif;">Not a regulator. Not a certifier. Not a replacement for existing support systems. A verification infrastructure layer that makes supplier readiness commercially usable.</p>
+        <p style="color:var(--text-muted);font-style:normal;font-size:14px;">Not a regulator. Not a certifier. Not a replacement for existing support systems. A verification infrastructure layer that makes supplier readiness commercially usable.</p>
       </div>
     </div>
   </div>
@@ -1775,45 +1822,45 @@
 ════════════════════════════════════════════════════════ -->
 <section class="video-section">
   <div class="container">
-    <div class="video-header fade-up">
+    <div class="video-header fade-up visible">
       <div class="section-label">About Us</div>
       <h2>Hear from the Crossgates Team</h2>
       <p>Learn more about our mission, our team, and how Crossgates is building verification infrastructure for export readiness and market access across Africa and Europe.</p>
     </div>
 
     <div class="video-grid">
-<div class="video-card fade-up fade-up-delay-1" onclick="document.getElementById('modal-about').style.display='flex'">
+<div class="video-card fade-up fade-up-delay-1 visible" onclick="event.stopPropagation(); openModal('modal-about')">
   <div class="video-thumb" style="background-image:url('img/heros.jpg'); background-size:cover; background-position:center;">
     <div class="video-grid-lines"></div>
     <div class="video-thumb-inner">
       <div class="video-play">
-        <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"/></svg>
+        <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"></path></svg>
       </div>
     </div>
   </div>
   <div class="video-info">
     <div class="video-tag">Our Mission</div>
     <div class="video-title">Why We Built Crossgates Connect</div>
-    <div class="video-desc">Founder & CEO Doris Beth Atigo explains the gap Crossgates was built to solve and what verification infrastructure means for African SMEs.</div>
+    <div class="video-desc">Founder &amp; CEO Doris Beth Atigo explains the gap Crossgates was built to solve and what verification infrastructure means for African SMEs.</div>
   </div>
 </div>
 
 <!-- Modal -->
-<div id="modal-about" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; padding:20px;" onclick="this.style.display='none'; this.querySelector('video').pause();">
+<div id="modal-about" style="display: none; position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.85); z-index: 999; align-items: center; justify-content: center; padding: 20px;" onclick="closeModal('modal-about')">
   <div style="position:relative; width:100%; max-width:900px;" onclick="event.stopPropagation()">
-    <button onclick="document.getElementById('modal-about').style.display='none'; document.querySelector('#modal-about video').pause();" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
-    <video controls  poster="img/hero.jpg"  style="width:100%; border-radius:8px; display:block;">
+    <button onclick="closeModal('modal-about')" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
+    <video controls="" poster="img/hero.jpg" style="width:100%; border-radius:8px; display:block;">
       <source src="video/about.mp4" type="video/mp4">
     </video>
   </div>
 </div>
 
-<div class="video-card fade-up fade-up-delay-2" onclick="document.getElementById('modal-trade-passport').style.display='flex'">
+<div class="video-card fade-up fade-up-delay-2 visible" onclick="event.stopPropagation(); openModal('modal-trade-passport')">
   <div class="video-thumb" style="background-image:url('img/tp.jpg'); background-size:cover; background-position:center;">
     <div class="video-grid-lines"></div>
     <div class="video-thumb-inner">
       <div class="video-play">
-        <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"/></svg>
+        <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"></path></svg>
       </div>
     </div>
   </div>
@@ -1824,21 +1871,21 @@
   </div>
 </div>
 
-<div id="modal-trade-passport" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; padding:20px;" onclick="this.style.display='none'; this.querySelector('video').pause();">
+<div id="modal-trade-passport" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; padding:20px;" onclick="closeModal('modal-trade-passport')">
   <div style="position:relative; width:100%; max-width:900px;" onclick="event.stopPropagation()">
-    <button onclick="document.getElementById('modal-trade-passport').style.display='none'; document.querySelector('#modal-trade-passport video').pause();" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
-    <video   poster="img/tp.jpg"  controls style="width:100%; border-radius:8px; display:block;">
+    <button onclick="closeModal('modal-trade-passport')" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
+    <video poster="img/tp.jpg" controls="" style="width:100%; border-radius:8px; display:block;">
       <source src="video/trade-passport.mp4" type="video/mp4">
     </video>
   </div>
 </div>
 
-<div class="video-card fade-up fade-up-delay-3" onclick="document.getElementById('modal-stiv').style.display='flex'">
+<div class="video-card fade-up fade-up-delay-3 visible" onclick="event.stopPropagation(); openModal('modal-stiv')">
   <div class="video-thumb" style="background-image:url('img/stiv.jpg'); background-size:cover; background-position:center;">
     <div class="video-grid-lines"></div>
     <div class="video-thumb-inner">
       <div class="video-play">
-        <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"/></svg>
+        <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"></path></svg>
       </div>
     </div>
   </div>
@@ -1849,10 +1896,10 @@
   </div>
 </div>
 
-<div id="modal-stiv" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; padding:20px;" onclick="this.style.display='none'; this.querySelector('video').pause();">
+<div id="modal-stiv" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; padding:20px;" onclick="closeModal('modal-stiv')">
   <div style="position:relative; width:100%; max-width:900px;" onclick="event.stopPropagation()">
-    <button onclick="document.getElementById('modal-stiv').style.display='none'; document.querySelector('#modal-stiv video').pause();" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
-    <video controls   poster="img/stiv.jpg"  style="width:100%; border-radius:8px; display:block;">
+    <button onclick="closeModal('modal-stiv')" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
+    <video controls="" poster="img/stiv.jpg" style="width:100%; border-radius:8px; display:block;">
       <source src="video/stiv.mp4" type="video/mp4">
     </video>
   </div>
@@ -1867,15 +1914,15 @@
 ════════════════════════════════════════════════════════ -->
 <section class="cta-strip">
   <div class="container">
-    <div class="cta-left fade-up">
+    <div class="cta-left fade-up visible">
       <h2>Interested in working <em>with Crossgates?</em></h2>
     </div>
-    <div class="cta-right fade-up fade-up-delay-2">
+    <div class="cta-right fade-up fade-up-delay-2 visible">
       <p>Crossgates Connect works above and alongside existing readiness, standards, traceability, trade, and market-support efforts by helping structure supplier identity into buyer-ready, verification-ready Trade Passports.</p>
       <p>We welcome engagement from institutions, sector actors, SME groups, exporters, buyers, and ecosystem partners interested in supplier verification, pilot collaboration, and market access.</p>
       <a href="/contact" class="btn-cta">
         Get in Touch
-        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
       </a>
     </div>
   </div>
@@ -1891,19 +1938,24 @@
       <div class="footer-brand">
         <a href="/" class="footer-logo">
           <svg width="140" height="41" viewBox="0 0 496 146" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M105.206 4.58627C105.206 2.05334 107.26 0 109.793 0H143.425C145.958 0 148.011 2.05334 148.011 4.58627V38.2189C148.011 40.7518 145.958 42.8052 143.425 42.8052C143.425 42.8052 133.459 42.2161 127.118 42.8052C93.3127 45.9456 56.6113 93.3612 55.7765 92.4897C51.6999 90.4514 102.768 52.373 105.206 17.3259C105.552 12.3628 105.206 4.58627 105.206 4.58627Z" fill="#6DA770"/>
-            <path d="M42.8052 141.422C42.8052 143.955 40.7519 146.008 38.2189 146.008H4.58627C2.05335 146.008 3.16169e-06 143.955 2.94026e-06 141.422L0 107.789C-2.21435e-07 105.256 2.05334 103.203 4.58627 103.203C4.58627 103.203 14.5521 103.792 20.893 103.203C54.699 100.063 91.4004 52.6462 92.2352 53.5177C96.3118 55.5561 45.2437 93.6345 42.8052 128.682C42.4599 133.645 42.8052 141.422 42.8052 141.422Z" fill="#6DA770"/>
-            <path d="M75.1103 27.2656C50.4862 27.2656 30.5236 47.2275 30.5234 71.8516H9.17285V34.6826C9.17285 20.8755 20.3657 9.68262 34.1728 9.68262H75.1103V27.2656Z" fill="white"/>
-            <path d="M74.9087 116.438C99.5328 116.438 119.494 96.4766 119.495 71.8525H140.846V109.021C140.846 122.828 129.653 134.021 115.846 134.021H74.9087V116.438Z" fill="white"/>
-            <path d="M202.582 36.6428C201.685 31.6748 198.442 25.6718 189.334 25.6718C178.708 25.6718 174.499 34.5728 174.499 44.3018C174.499 54.0998 178.708 63.0008 189.334 63.0008C198.511 63.0008 202.03 56.9978 202.582 50.9948H210.793C209.689 62.1038 202.099 70.0388 189.541 70.0388C175.327 70.0388 166.357 59.2058 166.357 44.3018C166.357 29.4668 175.327 18.6338 189.541 18.6338C202.03 18.6338 209.62 26.5688 210.793 36.6428H202.582ZM231.499 32.9168C232.741 32.9168 233.638 32.9858 234.673 33.1238V39.9548H234.535C227.566 38.7818 221.977 43.4738 221.977 50.9948V69.0038H214.732V33.7448H221.977V40.3688H222.115C223.978 35.9528 226.876 32.9168 231.499 32.9168ZM252.671 70.0388C241.631 70.0388 234.938 62.3798 234.938 51.4088C234.938 40.4378 241.631 32.7788 252.671 32.7788C263.711 32.7788 270.404 40.4378 270.404 51.4088C270.404 62.3798 263.711 70.0388 252.671 70.0388ZM252.671 64.1048C259.571 64.1048 263.159 58.6538 263.159 51.4088C263.159 44.0948 259.571 38.7128 252.671 38.7128C245.771 38.7128 242.183 44.0948 242.183 51.4088C242.183 58.6538 245.771 64.1048 252.671 64.1048ZM289.28 47.6828C295.766 49.2008 302.804 50.6498 302.804 59.0678C302.804 65.8298 297.008 70.0388 288.452 70.0388C277.067 70.0388 272.168 64.7258 271.823 57.2738H278.861C279.206 61.0688 280.862 64.3118 288.314 64.3118C293.351 64.3118 295.49 61.8278 295.49 59.6198C295.49 55.2038 291.281 54.8588 286.106 53.6168C280.517 52.3058 272.927 51.2018 272.927 43.1978C272.927 37.4018 278.033 32.7788 286.865 32.7788C296.456 32.7788 301.01 37.9538 301.493 44.0948H294.455C293.972 41.3348 292.592 38.5058 286.934 38.5058C282.587 38.5058 280.241 40.1618 280.241 42.6458C280.241 46.2338 284.174 46.5098 289.28 47.6828ZM321.659 47.6828C328.145 49.2008 335.183 50.6498 335.183 59.0678C335.183 65.8298 329.387 70.0388 320.831 70.0388C309.446 70.0388 304.547 64.7258 304.202 57.2738H311.24C311.585 61.0688 313.241 64.3118 320.693 64.3118C325.73 64.3118 327.869 61.8278 327.869 59.6198C327.869 55.2038 323.66 54.8588 318.485 53.6168C312.896 52.3058 305.306 51.2018 305.306 43.1978C305.306 37.4018 310.412 32.7788 319.244 32.7788C328.835 32.7788 333.389 37.9538 333.872 44.0948H326.834C326.351 41.3348 324.971 38.5058 319.313 38.5058C314.966 38.5058 312.62 40.1618 312.62 42.6458C312.62 46.2338 316.553 46.5098 321.659 47.6828ZM363.619 33.7448H370.864V66.5888C370.864 76.7318 364.723 81.2168 354.718 81.2168C344.575 81.2168 338.986 75.9038 338.227 69.9698H345.541C346.231 73.0748 348.715 75.4208 354.442 75.4208C360.514 75.4208 363.619 72.6608 363.619 66.3128V62.0348H363.481C361.618 64.6568 358.375 67.2788 352.786 67.2788C343.954 67.2788 337.33 61.1378 337.33 50.0288C337.33 38.8508 343.954 32.7788 352.786 32.7788C358.375 32.7788 361.618 35.4008 363.481 37.8848H363.619V33.7448ZM354.166 61.3448C360.031 61.3448 363.55 57.4808 363.55 50.0288C363.55 42.5768 360.031 38.7128 354.166 38.7128C347.818 38.7128 344.575 43.4738 344.575 50.0288C344.575 56.5148 347.818 61.3448 354.166 61.3448ZM397.677 42.9908C397.677 40.4378 396.159 38.5058 391.329 38.5058C385.533 38.5058 383.394 40.2998 383.049 44.8538H376.011C376.356 38.0918 380.703 32.7788 391.329 32.7788C399.126 32.7788 404.922 35.7458 404.922 45.1298V61.8968C404.922 64.3808 405.474 65.6918 408.303 65.4158V68.8658C406.647 69.4868 405.474 69.6248 404.094 69.6248C400.23 69.6248 398.436 68.2448 397.746 64.7948H397.608C395.4 67.8998 391.398 70.0388 385.947 70.0388C378.771 70.0388 374.355 65.8988 374.355 59.9648C374.355 52.2368 380.082 49.8218 388.914 48.0968C394.365 47.0618 397.677 46.3718 397.677 42.9908ZM387.534 64.3118C393.537 64.3118 397.677 61.3448 397.677 55.6178V50.3048C396.504 51.1328 393.675 51.9608 390.294 52.6508C384.291 53.9618 381.669 55.6868 381.669 59.2748C381.669 62.5178 383.601 64.3118 387.534 64.3118ZM427.323 39.6788H420.699V58.7918C420.699 62.7938 422.631 63.2768 427.323 63.0008V68.9348C425.874 69.2798 424.287 69.4868 422.355 69.4868C416.559 69.4868 413.385 66.8648 413.385 59.4128V39.6788H408.279V33.7448H413.385V22.6358H420.699V33.7448H427.323V39.6788ZM446.466 64.1048C452.469 64.1048 454.884 60.3788 455.505 58.2398H462.75C460.956 64.9328 455.712 70.0388 446.673 70.0388C435.702 70.0388 429.009 62.4488 429.009 51.4088C429.009 39.9548 435.702 32.7788 446.328 32.7788C457.713 32.7788 463.302 40.7138 463.302 53.2718H436.254C436.254 59.2058 440.049 64.1048 446.466 64.1048ZM446.328 38.5058C440.463 38.5058 436.254 42.4388 436.254 47.8898H456.057C456.057 42.4388 452.193 38.5058 446.328 38.5058ZM482.138 47.6828C488.624 49.2008 495.662 50.6498 495.662 59.0678C495.662 65.8298 489.866 70.0388 481.31 70.0388C469.925 70.0388 465.026 64.7258 464.681 57.2738H471.719C472.064 61.0688 473.72 64.3118 481.172 64.3118C486.209 64.3118 488.348 61.8278 488.348 59.6198C488.348 55.2038 484.139 54.8588 478.964 53.6168C473.375 52.3058 465.785 51.2018 465.785 43.1978C465.785 37.4018 470.891 32.7788 479.723 32.7788C489.314 32.7788 493.868 37.9538 494.351 44.0948H487.313C486.83 41.3348 485.45 38.5058 479.792 38.5058C475.445 38.5058 473.099 40.1618 473.099 42.6458C473.099 46.2338 477.032 46.5098 482.138 47.6828Z" fill="white"/>
-            <path d="M204.376 94.9531C203.479 90.2611 199.891 83.2231 189.61 83.2231C177.88 83.2231 172.981 93.3661 172.981 103.302C172.981 113.307 177.88 123.45 189.61 123.45C199.96 123.45 203.962 116.412 204.376 110.202H210.586C209.482 121.104 201.754 128.97 189.61 128.97C176.086 128.97 166.771 118.206 166.771 103.302C166.771 88.4671 176.086 77.7031 189.61 77.7031C201.685 77.7031 209.413 85.5691 210.586 94.9531H204.376ZM229.215 128.97C218.451 128.97 211.965 121.38 211.965 110.409C211.965 99.4381 218.451 91.8481 229.215 91.8481C239.91 91.8481 246.396 99.4381 246.396 110.409C246.396 121.38 239.91 128.97 229.215 128.97ZM229.215 124.14C237.081 124.14 240.876 117.93 240.876 110.409C240.876 102.888 237.081 96.6781 229.215 96.6781C221.28 96.6781 217.485 102.888 217.485 110.409C217.485 117.93 221.28 124.14 229.215 124.14ZM266.46 91.8481C272.877 91.8481 278.259 95.3671 278.259 103.44V128.004H272.739V104.82C272.739 100.266 270.6 96.6781 265.08 96.6781C258.87 96.6781 254.73 100.611 254.73 106.062V128.004H249.21V92.8141H254.73V97.0231H254.868C256.731 94.5391 260.457 91.8481 266.46 91.8481ZM300.154 91.8481C306.571 91.8481 311.953 95.3671 311.953 103.44V128.004H306.433V104.82C306.433 100.266 304.294 96.6781 298.774 96.6781C292.564 96.6781 288.424 100.611 288.424 106.062V128.004H282.904V92.8141H288.424V97.0231H288.562C290.425 94.5391 294.151 91.8481 300.154 91.8481ZM331.572 124.14C338.61 124.14 341.232 119.586 341.853 117.171H347.373C345.579 123.726 340.542 128.97 331.779 128.97C321.084 128.97 314.598 121.449 314.598 110.409C314.598 98.6791 321.222 91.8481 331.503 91.8481C342.543 91.8481 347.925 99.3691 347.925 111.858H320.118C320.118 118.206 323.913 124.14 331.572 124.14ZM331.503 96.6781C324.879 96.6781 320.118 101.37 320.118 107.028H342.405C342.405 101.37 338.127 96.6781 331.503 96.6781ZM375.608 105.51C375.332 101.646 372.71 96.6781 365.672 96.6781C357.323 96.6781 354.149 103.785 354.149 110.409C354.149 117.033 357.323 124.14 365.672 124.14C372.779 124.14 375.332 119.241 375.608 115.032H381.128C380.645 123.036 374.366 128.97 365.672 128.97C355.391 128.97 348.629 121.449 348.629 110.409C348.629 99.3691 355.391 91.8481 365.672 91.8481C374.366 91.8481 380.3 97.6441 381.128 105.51H375.608ZM398.968 97.6441H392.068V118.827C392.068 122.829 394.276 123.519 398.968 123.174V128.004C397.726 128.28 396.277 128.418 394.828 128.418C390.136 128.418 386.548 126.555 386.548 119.379V97.6441H381.373V92.8141H386.548V81.0841H392.068V92.8141H398.968V97.6441Z" fill="white"/>
+            <path d="M105.206 4.58627C105.206 2.05334 107.26 0 109.793 0H143.425C145.958 0 148.011 2.05334 148.011 4.58627V38.2189C148.011 40.7518 145.958 42.8052 143.425 42.8052C143.425 42.8052 133.459 42.2161 127.118 42.8052C93.3127 45.9456 56.6113 93.3612 55.7765 92.4897C51.6999 90.4514 102.768 52.373 105.206 17.3259C105.552 12.3628 105.206 4.58627 105.206 4.58627Z" fill="#6DA770"></path>
+            <path d="M42.8052 141.422C42.8052 143.955 40.7519 146.008 38.2189 146.008H4.58627C2.05335 146.008 3.16169e-06 143.955 2.94026e-06 141.422L0 107.789C-2.21435e-07 105.256 2.05334 103.203 4.58627 103.203C4.58627 103.203 14.5521 103.792 20.893 103.203C54.699 100.063 91.4004 52.6462 92.2352 53.5177C96.3118 55.5561 45.2437 93.6345 42.8052 128.682C42.4599 133.645 42.8052 141.422 42.8052 141.422Z" fill="#6DA770"></path>
+            <path d="M75.1103 27.2656C50.4862 27.2656 30.5236 47.2275 30.5234 71.8516H9.17285V34.6826C9.17285 20.8755 20.3657 9.68262 34.1728 9.68262H75.1103V27.2656Z" fill="white"></path>
+            <path d="M74.9087 116.438C99.5328 116.438 119.494 96.4766 119.495 71.8525H140.846V109.021C140.846 122.828 129.653 134.021 115.846 134.021H74.9087V116.438Z" fill="white"></path>
+            <path d="M202.582 36.6428C201.685 31.6748 198.442 25.6718 189.334 25.6718C178.708 25.6718 174.499 34.5728 174.499 44.3018C174.499 54.0998 178.708 63.0008 189.334 63.0008C198.511 63.0008 202.03 56.9978 202.582 50.9948H210.793C209.689 62.1038 202.099 70.0388 189.541 70.0388C175.327 70.0388 166.357 59.2058 166.357 44.3018C166.357 29.4668 175.327 18.6338 189.541 18.6338C202.03 18.6338 209.62 26.5688 210.793 36.6428H202.582ZM231.499 32.9168C232.741 32.9168 233.638 32.9858 234.673 33.1238V39.9548H234.535C227.566 38.7818 221.977 43.4738 221.977 50.9948V69.0038H214.732V33.7448H221.977V40.3688H222.115C223.978 35.9528 226.876 32.9168 231.499 32.9168ZM252.671 70.0388C241.631 70.0388 234.938 62.3798 234.938 51.4088C234.938 40.4378 241.631 32.7788 252.671 32.7788C263.711 32.7788 270.404 40.4378 270.404 51.4088C270.404 62.3798 263.711 70.0388 252.671 70.0388ZM252.671 64.1048C259.571 64.1048 263.159 58.6538 263.159 51.4088C263.159 44.0948 259.571 38.7128 252.671 38.7128C245.771 38.7128 242.183 44.0948 242.183 51.4088C242.183 58.6538 245.771 64.1048 252.671 64.1048ZM289.28 47.6828C295.766 49.2008 302.804 50.6498 302.804 59.0678C302.804 65.8298 297.008 70.0388 288.452 70.0388C277.067 70.0388 272.168 64.7258 271.823 57.2738H278.861C279.206 61.0688 280.862 64.3118 288.314 64.3118C293.351 64.3118 295.49 61.8278 295.49 59.6198C295.49 55.2038 291.281 54.8588 286.106 53.6168C280.517 52.3058 272.927 51.2018 272.927 43.1978C272.927 37.4018 278.033 32.7788 286.865 32.7788C296.456 32.7788 301.01 37.9538 301.493 44.0948H294.455C293.972 41.3348 292.592 38.5058 286.934 38.5058C282.587 38.5058 280.241 40.1618 280.241 42.6458C280.241 46.2338 284.174 46.5098 289.28 47.6828ZM321.659 47.6828C328.145 49.2008 335.183 50.6498 335.183 59.0678C335.183 65.8298 329.387 70.0388 320.831 70.0388C309.446 70.0388 304.547 64.7258 304.202 57.2738H311.24C311.585 61.0688 313.241 64.3118 320.693 64.3118C325.73 64.3118 327.869 61.8278 327.869 59.6198C327.869 55.2038 323.66 54.8588 318.485 53.6168C312.896 52.3058 305.306 51.2018 305.306 43.1978C305.306 37.4018 310.412 32.7788 319.244 32.7788C328.835 32.7788 333.389 37.9538 333.872 44.0948H326.834C326.351 41.3348 324.971 38.5058 319.313 38.5058C314.966 38.5058 312.62 40.1618 312.62 42.6458C312.62 46.2338 316.553 46.5098 321.659 47.6828ZM363.619 33.7448H370.864V66.5888C370.864 76.7318 364.723 81.2168 354.718 81.2168C344.575 81.2168 338.986 75.9038 338.227 69.9698H345.541C346.231 73.0748 348.715 75.4208 354.442 75.4208C360.514 75.4208 363.619 72.6608 363.619 66.3128V62.0348H363.481C361.618 64.6568 358.375 67.2788 352.786 67.2788C343.954 67.2788 337.33 61.1378 337.33 50.0288C337.33 38.8508 343.954 32.7788 352.786 32.7788C358.375 32.7788 361.618 35.4008 363.481 37.8848H363.619V33.7448ZM354.166 61.3448C360.031 61.3448 363.55 57.4808 363.55 50.0288C363.55 42.5768 360.031 38.7128 354.166 38.7128C347.818 38.7128 344.575 43.4738 344.575 50.0288C344.575 56.5148 347.818 61.3448 354.166 61.3448ZM397.677 42.9908C397.677 40.4378 396.159 38.5058 391.329 38.5058C385.533 38.5058 383.394 40.2998 383.049 44.8538H376.011C376.356 38.0918 380.703 32.7788 391.329 32.7788C399.126 32.7788 404.922 35.7458 404.922 45.1298V61.8968C404.922 64.3808 405.474 65.6918 408.303 65.4158V68.8658C406.647 69.4868 405.474 69.6248 404.094 69.6248C400.23 69.6248 398.436 68.2448 397.746 64.7948H397.608C395.4 67.8998 391.398 70.0388 385.947 70.0388C378.771 70.0388 374.355 65.8988 374.355 59.9648C374.355 52.2368 380.082 49.8218 388.914 48.0968C394.365 47.0618 397.677 46.3718 397.677 42.9908ZM387.534 64.3118C393.537 64.3118 397.677 61.3448 397.677 55.6178V50.3048C396.504 51.1328 393.675 51.9608 390.294 52.6508C384.291 53.9618 381.669 55.6868 381.669 59.2748C381.669 62.5178 383.601 64.3118 387.534 64.3118ZM427.323 39.6788H420.699V58.7918C420.699 62.7938 422.631 63.2768 427.323 63.0008V68.9348C425.874 69.2798 424.287 69.4868 422.355 69.4868C416.559 69.4868 413.385 66.8648 413.385 59.4128V39.6788H408.279V33.7448H413.385V22.6358H420.699V33.7448H427.323V39.6788ZM446.466 64.1048C452.469 64.1048 454.884 60.3788 455.505 58.2398H462.75C460.956 64.9328 455.712 70.0388 446.673 70.0388C435.702 70.0388 429.009 62.4488 429.009 51.4088C429.009 39.9548 435.702 32.7788 446.328 32.7788C457.713 32.7788 463.302 40.7138 463.302 53.2718H436.254C436.254 59.2058 440.049 64.1048 446.466 64.1048ZM446.328 38.5058C440.463 38.5058 436.254 42.4388 436.254 47.8898H456.057C456.057 42.4388 452.193 38.5058 446.328 38.5058ZM482.138 47.6828C488.624 49.2008 495.662 50.6498 495.662 59.0678C495.662 65.8298 489.866 70.0388 481.31 70.0388C469.925 70.0388 465.026 64.7258 464.681 57.2738H471.719C472.064 61.0688 473.72 64.3118 481.172 64.3118C486.209 64.3118 488.348 61.8278 488.348 59.6198C488.348 55.2038 484.139 54.8588 478.964 53.6168C473.375 52.3058 465.785 51.2018 465.785 43.1978C465.785 37.4018 470.891 32.7788 479.723 32.7788C489.314 32.7788 493.868 37.9538 494.351 44.0948H487.313C486.83 41.3348 485.45 38.5058 479.792 38.5058C475.445 38.5058 473.099 40.1618 473.099 42.6458C473.099 46.2338 477.032 46.5098 482.138 47.6828Z" fill="white"></path>
+            <path d="M204.376 94.9531C203.479 90.2611 199.891 83.2231 189.61 83.2231C177.88 83.2231 172.981 93.3661 172.981 103.302C172.981 113.307 177.88 123.45 189.61 123.45C199.96 123.45 203.962 116.412 204.376 110.202H210.586C209.482 121.104 201.754 128.97 189.61 128.97C176.086 128.97 166.771 118.206 166.771 103.302C166.771 88.4671 176.086 77.7031 189.61 77.7031C201.685 77.7031 209.413 85.5691 210.586 94.9531H204.376ZM229.215 128.97C218.451 128.97 211.965 121.38 211.965 110.409C211.965 99.4381 218.451 91.8481 229.215 91.8481C239.91 91.8481 246.396 99.4381 246.396 110.409C246.396 121.38 239.91 128.97 229.215 128.97ZM229.215 124.14C237.081 124.14 240.876 117.93 240.876 110.409C240.876 102.888 237.081 96.6781 229.215 96.6781C221.28 96.6781 217.485 102.888 217.485 110.409C217.485 117.93 221.28 124.14 229.215 124.14ZM266.46 91.8481C272.877 91.8481 278.259 95.3671 278.259 103.44V128.004H272.739V104.82C272.739 100.266 270.6 96.6781 265.08 96.6781C258.87 96.6781 254.73 100.611 254.73 106.062V128.004H249.21V92.8141H254.73V97.0231H254.868C256.731 94.5391 260.457 91.8481 266.46 91.8481ZM300.154 91.8481C306.571 91.8481 311.953 95.3671 311.953 103.44V128.004H306.433V104.82C306.433 100.266 304.294 96.6781 298.774 96.6781C292.564 96.6781 288.424 100.611 288.424 106.062V128.004H282.904V92.8141H288.424V97.0231H288.562C290.425 94.5391 294.151 91.8481 300.154 91.8481ZM331.572 124.14C338.61 124.14 341.232 119.586 341.853 117.171H347.373C345.579 123.726 340.542 128.97 331.779 128.97C321.084 128.97 314.598 121.449 314.598 110.409C314.598 98.6791 321.222 91.8481 331.503 91.8481C342.543 91.8481 347.925 99.3691 347.925 111.858H320.118C320.118 118.206 323.913 124.14 331.572 124.14ZM331.503 96.6781C324.879 96.6781 320.118 101.37 320.118 107.028H342.405C342.405 101.37 338.127 96.6781 331.503 96.6781ZM375.608 105.51C375.332 101.646 372.71 96.6781 365.672 96.6781C357.323 96.6781 354.149 103.785 354.149 110.409C354.149 117.033 357.323 124.14 365.672 124.14C372.779 124.14 375.332 119.241 375.608 115.032H381.128C380.645 123.036 374.366 128.97 365.672 128.97C355.391 128.97 348.629 121.449 348.629 110.409C348.629 99.3691 355.391 91.8481 365.672 91.8481C374.366 91.8481 380.3 97.6441 381.128 105.51H375.608ZM398.968 97.6441H392.068V118.827C392.068 122.829 394.276 123.519 398.968 123.174V128.004C397.726 128.28 396.277 128.418 394.828 128.418C390.136 128.418 386.548 126.555 386.548 119.379V97.6441H381.373V92.8141H386.548V81.0841H392.068V92.8141H398.968V97.6441Z" fill="white"></path>
           </svg>
         </a>
         <p class="footer-tagline">Verification Infrastructure for Export Readiness and Market Access</p>
-        <p class="footer-tagline-2">Turning fragmented readiness into buyer-ready trust</p>
+       <div class="footer-address">
+          <p>Crossgates Connect Limited</p>
+          <p>75B Marlow Road, London, England, SE20 7YG</p>
+          <p>DBA Manoir, Plot 4, Bukaya, Garuga, Entebbe, Uganda</p>
+          <p><a href="https://www.crossgatesconnect.com" target="_blank" rel="noopener">www.crossgatesconnect.com</a></p>
+        </div>
         <div class="footer-social">
           <a href="https://linkedin.com" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
             LinkedIn
           </a>
         </div>
@@ -1912,8 +1964,8 @@
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="/about">About Crossgates Connect</a></li>
-          <li><a href="/about#vision">Vision & Mission</a></li>
+          <li><a href="#" class="coming-soon">About Crossgates Connect</a></li>
+          <li><a href="#" class="coming-soon">Vision &amp; Mission</a></li>
           <li><a href="/contact">Contact / Apply</a></li>
         </ul>
       </div>
@@ -1921,30 +1973,30 @@
       <div class="footer-col">
         <h4>Resources</h4>
         <ul>
-          <li><a href="/how-it-works">How It Works</a></li>
-          <li><a href="/pilot-sectors">Pilot Sectors</a></li>
-          <li><a href="/ai-verification">AI & Verification</a></li>
-          <li><a href="/ai-verification#stiv">STIV Framework</a></li>
+          <li><a href="#" class="coming-soon">How It Works</a></li>
+          <li><a href="#" class="coming-soon">Pilot Sectors</a></li>
+          <li><a href="#" class="coming-soon">AI &amp; Verification</a></li>
+          <li><a href="#" class="coming-soon">STIV Framework</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>Solutions</h4>
         <ul>
-          <li><a href="/trade-passport">Trade Passport</a></li>
-          <li><a href="/pilot-sectors#grading">Readiness Grading</a></li>
-          <li><a href="/pilot-sectors#field">Field Verification</a></li>
-          <li><a href="/ai-verification">AI Verification</a></li>
+          <li><a href="#" class="coming-soon">Trade Passport</a></li>
+          <li><a href="#" class="coming-soon">Readiness Grading</a></li>
+          <li><a href="#" class="coming-soon">Field Verification</a></li>
+          <li><a href="#" class="coming-soon">AI Verification</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>Challenges</h4>
         <ul>
-          <li><a href="/what-we-do#trust">Trust</a></li>
-          <li><a href="/what-we-do#readiness">Readiness</a></li>
-          <li><a href="/what-we-do#sourcing">Sourcing Uncertainty</a></li>
-          <li><a href="/what-we-do#exclusion">Commercial Exclusion</a></li>
+          <li><a href="#" class="coming-soon">Trust</a></li>
+          <li><a href="#" class="coming-soon">Readiness</a></li>
+          <li><a href="#" class="coming-soon">Sourcing Uncertainty</a></li>
+          <li><a href="#" class="coming-soon">Commercial Exclusion</a></li>
         </ul>
       </div>
     </div>
@@ -1952,10 +2004,10 @@
     <div class="footer-bottom">
       <p class="footer-copy">© 2026 Crossgates. All rights reserved.</p>
       <div class="footer-legal">
-        <a href="/legal">Legal stuff</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms & Conditions</a>
-        <a href="/legal-notice">Legal Notice</a>
+        <a href="#" class="coming-soon">Legal stuff</a>
+        <a href="#" class="coming-soon">Privacy Policy</a>
+        <a href="#" class="coming-soon">Terms &amp; Conditions</a>
+        <a href="#" class="coming-soon">Legal Notice</a>
       </div>
     </div>
   </div>
@@ -1965,31 +2017,46 @@
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.12 });
-
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
   // Hamburger menu
   const hamburger = document.getElementById('navHamburger');
   const mobileDrawer = document.getElementById('mobileDrawer');
-
   hamburger.addEventListener('click', () => {
     const isOpen = mobileDrawer.classList.toggle('mobile-open');
     hamburger.classList.toggle('open', isOpen);
   });
-
-  // Close on link click
   mobileDrawer.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       mobileDrawer.classList.remove('mobile-open');
       hamburger.classList.remove('open');
     });
   });
+
+  // Video modals — open/close helpers fix double-click bug
+  function openModal(id) {
+    const modal = document.getElementById(id);
+    modal.style.display = 'flex';
+    // Stop event from immediately bubbling to the overlay's own onclick
+    modal.addEventListener('click', overlayClose);
+  }
+
+  function closeModal(id) {
+    const modal = document.getElementById(id);
+    modal.style.display = 'none';
+    const video = modal.querySelector('video');
+    if (video) video.pause();
+    modal.removeEventListener('click', overlayClose);
+  }
+
+  function overlayClose(e) {
+    if (e.target === this) closeModal(this.id);
+  }
 </script>
 
-</body>
-</html>
+
+
+</body></html>
