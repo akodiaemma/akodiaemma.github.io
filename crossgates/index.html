@@ -462,6 +462,25 @@
     padding: 0 48px;
   }
 
+
+.positioning-mobile-img {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .positioning-mobile-img {
+    display: block;
+    width: 100%;
+    height: 540px;
+    background: url('img/ship.jpg') center/cover no-repeat;
+    margin-bottom: 32px;
+    border-radius: 8px;
+  }
+
+.positioning {
+    background-image: none !important;}
+}
+
   .section-label {
     display: inline-block;
     font-size: 10px;
@@ -480,10 +499,10 @@
   .positioning {
     padding: 100px 0;
     background: var(--white);
-          background-image: url(img/ship.png);
+          background-image: url(img/ship.jpg);
     background-repeat: no-repeat;
     background-position: bottom right;
-    background-size: 723px;
+    background-size: 40vh;
   }
 
   .positioning .container {
@@ -1627,6 +1646,7 @@
 ════════════════════════════════════════════════════════ -->
 <section class="positioning">
   <div class="container">
+    <div class="positioning-mobile-img"></div> 
     <div class="positioning-left fade-up visible">
       <div class="section-label">Our Purpose</div>
       <h2>Making Readiness <em>Commercially Usable</em></h2>
