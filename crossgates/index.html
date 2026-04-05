@@ -156,7 +156,7 @@
   /* ─── HERO ───────────────────────────────────────────── */
   .hero {
     min-height: 100vh;
-    background: url('https://d11avd6t8zdcx0.cloudfront.net/uploads/2023/04/Connected-Earth_Header_Mask.jpg') center/cover no-repeat var(--hero-bg);
+    background: url('img/heros.jpg') center/cover no-repeat var(--hero-bg);
     position: relative;
     display: flex;
     align-items: center;
@@ -181,7 +181,10 @@
     pointer-events: none;
   }
 
+    
+    
   .hero-orb {
+      visibility: hidden;
     position: absolute;
     right: -80px;
     top: 50%;
@@ -225,7 +228,7 @@
   }
 
   .hero {
-  background-image: url('https://d11avd6t8zdcx0.cloudfront.net/uploads/2023/04/Connected-Earth_Header_Mask.jpg');
+  background-image: url('img/heros.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -363,6 +366,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+          visibility: hidden;
   }
 
   .hero-visual {
@@ -1794,37 +1798,55 @@
   </div>
 </div>
 
-      <div class="video-card fade-up fade-up-delay-2">
-        <div class="video-thumb">
-          <div class="video-grid-lines"></div>
-          <div class="video-thumb-inner">
-            <div class="video-play">
-              <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"/></svg>
-            </div>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-tag">The Platform</div>
-          <div class="video-title">How the Trade Passport Works</div>
-          <div class="video-desc">A walkthrough of the Crossgates verification layer — from supplier onboarding through readiness review to Trade Passport creation.</div>
-        </div>
+<div class="video-card fade-up fade-up-delay-2" onclick="document.getElementById('modal-trade-passport').style.display='flex'">
+  <div class="video-thumb">
+    <div class="video-grid-lines"></div>
+    <div class="video-thumb-inner">
+      <div class="video-play">
+        <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"/></svg>
       </div>
+    </div>
+  </div>
+  <div class="video-info">
+    <div class="video-tag">The Platform</div>
+    <div class="video-title">How the Trade Passport Works</div>
+    <div class="video-desc">A walkthrough of the Crossgates verification layer — from supplier onboarding through readiness review to Trade Passport creation.</div>
+  </div>
+</div>
 
-      <div class="video-card fade-up fade-up-delay-3">
-        <div class="video-thumb">
-          <div class="video-grid-lines"></div>
-          <div class="video-thumb-inner">
-            <div class="video-play">
-              <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"/></svg>
-            </div>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-tag">Our Approach</div>
-          <div class="video-title">Africa–Europe Trade Infrastructure</div>
-          <div class="video-desc">Co-Founder & International Director Reidar Robdrup Rasmussen on building a verified trade corridor between African suppliers and European markets.</div>
-        </div>
+<div id="modal-trade-passport" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; padding:20px;" onclick="this.style.display='none'; this.querySelector('video').pause();">
+  <div style="position:relative; width:100%; max-width:900px;" onclick="event.stopPropagation()">
+    <button onclick="document.getElementById('modal-trade-passport').style.display='none'; document.querySelector('#modal-trade-passport video').pause();" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
+    <video controls style="width:100%; border-radius:8px; display:block;">
+      <source src="video/trade-passport.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<div class="video-card fade-up fade-up-delay-3" onclick="document.getElementById('modal-stiv').style.display='flex'">
+  <div class="video-thumb">
+    <div class="video-grid-lines"></div>
+    <div class="video-thumb-inner">
+      <div class="video-play">
+        <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"/></svg>
       </div>
+    </div>
+  </div>
+  <div class="video-info">
+    <div class="video-tag">Our Approach</div>
+    <div class="video-title">Africa–Europe Trade Infrastructure</div>
+    <div class="video-desc">Co-Founder & International Director Reidar Robdrup Rasmussen on building a verified trade corridor between African suppliers and European markets.</div>
+  </div>
+</div>
+
+<div id="modal-stiv" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; padding:20px;" onclick="this.style.display='none'; this.querySelector('video').pause();">
+  <div style="position:relative; width:100%; max-width:900px;" onclick="event.stopPropagation()">
+    <button onclick="document.getElementById('modal-stiv').style.display='none'; document.querySelector('#modal-stiv video').pause();" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
+    <video controls style="width:100%; border-radius:8px; display:block;">
+      <source src="video/stiv.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
     </div>
   </div>
 </section>
