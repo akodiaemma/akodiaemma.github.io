@@ -973,9 +973,6 @@
   .video-thumb-inner {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg,
-      rgba(31,61,42,0.9) 0%,
-      rgba(8,20,16,0.95) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1777,7 +1774,7 @@
 
     <div class="video-grid">
 <div class="video-card fade-up fade-up-delay-1" onclick="document.getElementById('modal-about').style.display='flex'">
-  <div class="video-thumb">
+  <div class="video-thumb" style="background-image:url('img/heros.jpg'); background-size:cover; background-position:center;">
     <div class="video-grid-lines"></div>
     <div class="video-thumb-inner">
       <div class="video-play">
@@ -1796,14 +1793,14 @@
 <div id="modal-about" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; padding:20px;" onclick="this.style.display='none'; this.querySelector('video').pause();">
   <div style="position:relative; width:100%; max-width:900px;" onclick="event.stopPropagation()">
     <button onclick="document.getElementById('modal-about').style.display='none'; document.querySelector('#modal-about video').pause();" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
-    <video controls style="width:100%; border-radius:8px; display:block;">
+    <video controls  poster="img/hero.jpg"  style="width:100%; border-radius:8px; display:block;">
       <source src="video/about.mp4" type="video/mp4">
     </video>
   </div>
 </div>
 
 <div class="video-card fade-up fade-up-delay-2" onclick="document.getElementById('modal-trade-passport').style.display='flex'">
-  <div class="video-thumb">
+  <div class="video-thumb" style="background-image:url('img/tp.jpg'); background-size:cover; background-position:center;">
     <div class="video-grid-lines"></div>
     <div class="video-thumb-inner">
       <div class="video-play">
@@ -1821,14 +1818,14 @@
 <div id="modal-trade-passport" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; padding:20px;" onclick="this.style.display='none'; this.querySelector('video').pause();">
   <div style="position:relative; width:100%; max-width:900px;" onclick="event.stopPropagation()">
     <button onclick="document.getElementById('modal-trade-passport').style.display='none'; document.querySelector('#modal-trade-passport video').pause();" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
-    <video controls style="width:100%; border-radius:8px; display:block;">
+    <video   poster="img/tp.jpg"  controls style="width:100%; border-radius:8px; display:block;">
       <source src="video/trade-passport.mp4" type="video/mp4">
     </video>
   </div>
 </div>
 
 <div class="video-card fade-up fade-up-delay-3" onclick="document.getElementById('modal-stiv').style.display='flex'">
-  <div class="video-thumb">
+  <div class="video-thumb" style="background-image:url('img/stiv.jpg'); background-size:cover; background-position:center;">
     <div class="video-grid-lines"></div>
     <div class="video-thumb-inner">
       <div class="video-play">
@@ -1846,7 +1843,7 @@
 <div id="modal-stiv" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; padding:20px;" onclick="this.style.display='none'; this.querySelector('video').pause();">
   <div style="position:relative; width:100%; max-width:900px;" onclick="event.stopPropagation()">
     <button onclick="document.getElementById('modal-stiv').style.display='none'; document.querySelector('#modal-stiv video').pause();" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
-    <video controls style="width:100%; border-radius:8px; display:block;">
+    <video controls   poster="img/stiv.jpg"  style="width:100%; border-radius:8px; display:block;">
       <source src="video/stiv.mp4" type="video/mp4">
     </video>
   </div>
