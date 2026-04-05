@@ -1768,21 +1768,31 @@
     </div>
 
     <div class="video-grid">
-      <div class="video-card fade-up fade-up-delay-1">
-        <div class="video-thumb">
-          <div class="video-grid-lines"></div>
-          <div class="video-thumb-inner">
-            <div class="video-play">
-              <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"/></svg>
-            </div>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-tag">Our Mission</div>
-          <div class="video-title">Why We Built Crossgates Connect</div>
-          <div class="video-desc">Founder & CEO Doris Beth Atigo explains the gap Crossgates was built to solve and what verification infrastructure means for African SMEs.</div>
-        </div>
+<div class="video-card fade-up fade-up-delay-1" onclick="document.getElementById('modal-about').style.display='flex'">
+  <div class="video-thumb">
+    <div class="video-grid-lines"></div>
+    <div class="video-thumb-inner">
+      <div class="video-play">
+        <svg viewBox="0 0 20 20"><path d="M5 3.5l12 6.5-12 6.5V3.5z"/></svg>
       </div>
+    </div>
+  </div>
+  <div class="video-info">
+    <div class="video-tag">Our Mission</div>
+    <div class="video-title">Why We Built Crossgates Connect</div>
+    <div class="video-desc">Founder & CEO Doris Beth Atigo explains the gap Crossgates was built to solve and what verification infrastructure means for African SMEs.</div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modal-about" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; padding:20px;" onclick="this.style.display='none'; this.querySelector('video').pause();">
+  <div style="position:relative; width:100%; max-width:900px;" onclick="event.stopPropagation()">
+    <button onclick="document.getElementById('modal-about').style.display='none'; document.querySelector('#modal-about video').pause();" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; line-height:1;">×</button>
+    <video controls style="width:100%; border-radius:8px; display:block;">
+      <source src="video/about.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
 
       <div class="video-card fade-up fade-up-delay-2">
         <div class="video-thumb">
