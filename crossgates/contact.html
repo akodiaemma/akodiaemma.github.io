@@ -69,20 +69,23 @@
 
   .nav-actions { display: flex; align-items: center; gap: 16px; }
 
+
   .btn-nav {
     padding: 9px 20px;
     background: var(--green-btn);
-    color: var(--white);
+    color: var(--text-dark);
     border: none;
     border-radius: 6px;
-    font-family: 'NeueMontreal', sans-serif;
+    font-family: 'NeueMontreal', 'NeueMontreal', 'DM Sans', sans-serif;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     text-decoration: none;
     transition: background 0.2s, transform 0.1s;
   }
-  .btn-nav:hover { background: var(--green-accent); }
+
+  .btn-nav:hover { background: var(--green-accent);    color: black; }
+  .btn-nav:active { transform: scale(0.98); }
 
   .nav-hamburger {
     display: none;
@@ -242,7 +245,7 @@
 
   .contact-detail-icon svg {
     width: 16px; height: 16px;
-    stroke: var(--green-accent);
+    stroke: var(--text-dark);
     fill: none;
     stroke-width: 1.8;
     stroke-linecap: round;
@@ -449,7 +452,7 @@
     width: 100%;
     padding: 15px 28px;
     background: var(--green-btn);
-    color: var(--white);
+    color: var(--text-dark);
     border: none;
     border-radius: 8px;
     font-family: 'NeueMontreal', sans-serif;
@@ -501,7 +504,7 @@
 
   .form-success-icon svg {
     width: 24px; height: 24px;
-    stroke: var(--green-accent); fill: none;
+    stroke: var(--green-mid); fill: none;
     stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
   }
 
