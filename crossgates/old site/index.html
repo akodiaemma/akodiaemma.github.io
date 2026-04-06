@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crossgates Connect | Sovereign Verification for Global Trade</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#b4cdb8",
+                        "on-tertiary-fixed": "#3c041c",
+                        "primary-fixed-dim": "#99d59a",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#d4819a",
+                        "surface-container-low": "#f3f3f3",
+                        "on-primary-fixed-variant": "#185124",
+                        "on-background": "#1a1c1c",
+                        "on-surface": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "on-secondary-fixed": "#0b2013",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb1c7",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#003b12",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c1c9bd",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f9f9f9",
+                        "surface-container": "#eeeeee",
+                        "primary": "#326a39",
+                        "primary-container": "#6da770",
+                        "surface-dim": "#dadada",
+                        "tertiary": "#8f485f",
+                        "surface-tint": "#326a39",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffd9e2",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-secondary-container": "#516857",
+                        "on-tertiary-container": "#581b32",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e8e8e8",
+                        "inverse-on-surface": "#f1f1f1",
+                        "secondary-fixed": "#d0e9d4",
+                        "surface-bright": "#f9f9f9",
+                        "secondary-container": "#cde6d1",
+                        "outline": "#71796f",
+                        "primary-fixed": "#b4f2b4",
+                        "on-tertiary-fixed-variant": "#733147",
+                        "secondary": "#4d6453",
+                        "inverse-primary": "#99d59a",
+                        "on-surface-variant": "#414940",
+                        "on-secondary-fixed-variant": "#364c3c",
+                        "surface": "#f9f9f9",
+                        "on-primary-fixed": "#002107"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    
+    .items-center .object-cover {
+    opacity: 0.36;
+}
+    
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+        }
+        .architectural-gradient {
+            background: linear-gradient(135deg, #326a39 0%, #6da770 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 dark:bg-stone-900/85 backdrop-blur-md shadow-sm dark:shadow-none">
+<nav class="flex items-center justify-between px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter dark:text-white font-headline text-white">Crossgates Connect</div>
+<div class="hidden lg:flex items-center space-x-8">
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors text-white" href="#">About Us</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors text-white" href="#">What We Do</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors text-white" href="#">AI &amp; Verification</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors text-white" href="#">Trade Passport</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors text-white" href="#">Pilot &amp; Priority Sectors</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors text-white" href="#">Who We Work With</a>
+</div>
+<div class="flex items-center space-x-6">
+<button class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white">Login</button>
+<button class="architectural-gradient text-white px-6 py-2.5 rounded-lg font-headline font-bold text-sm tracking-wide uppercase transition-transform active:scale-95">Contact Us</button>
+</div>
+</nav>
+</header>
+<main class="">
+<!-- Section 1: Hero -->
+<section class="relative min-h-[921px] flex items-center overflow-hidden bg-stone-950">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="modern architectural skyscraper with glass facade reflecting a clear sky and soft greenery in the foreground" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7-Fz2gAHYE9lgbHQb08yVhDkJ-okgwiopy0sSyADKG8dLjxeazvZ9_5X9wRk4WNaZKHranzbVfcK1YFHpdQ_5Pk-_FVW9YOZpK6YRGDOgYjHLOK2wM7uR0sZ513MXWFQfvgs5m5ft4sVGLij95C_V6fZDzTO_x7e_fRH6O77fLENM2On0VgYwZuzMqI4s2rlEtOW5f46aqh8cnT3Gr7dE_o6Psd8scJl67Kn3LBuzlvPzCasIZiKMuwqzjvTIKlouT18krFlegU9L"/>
+<div class="absolute inset-0 bg-gradient-to-r via-background/80 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-screen-2xl mx-auto px-8 py-20">
+<div class="max-w-3xl">
+<span class="inline-block py-1 px-3 mb-6 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold tracking-widest uppercase">Crossgates Connect</span>
+<h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 leading-[1.1] text-white">
+                        Verification Infrastructure for Export Readiness and Market Access
+                    </h1>
+<p class="font-headline text-xl font-medium mb-4 leading-relaxed text-white">
+                        Crossgates Connect turns fragmented SME business, compliance, operational, and supporting sector records into buyer-ready, verification-ready Trade Passports.
+                    </p>
+<p class="mb-12 leading-relaxed text-lg text-white">
+                        Our platform acts as a critical complement to existing export readiness frameworks, providing the digital infrastructure needed to translate preparation into commercial trust.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="architectural-gradient text-on-primary px-8 py-4 rounded-xl font-headline font-bold text-sm tracking-wider uppercase shadow-xl shadow-primary/20">Explore the Trade Passport</button>
+<button class="bg-surface-container-highest text-on-surface px-8 py-4 rounded-xl font-headline font-bold text-sm tracking-wider uppercase hover:bg-surface-dim transition-colors">Request Pilot Engagement</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Making Readiness Commercially Usable -->
+<section class="bg-[#f5f5f5] py-24">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<div class="lg:col-span-5">
+<h2 class="font-headline text-4xl font-bold tracking-tight text-primary leading-tight">Making Readiness Commercially Usable</h2>
+</div>
+<div class="lg:col-span-7 space-y-6 text-on-surface-variant text-lg leading-relaxed">
+<p>Global trade requirements are becoming increasingly complex, often creating barriers for small and medium enterprises. While readiness programs exist, there remains a gap between having the internal capacity to export and being able to prove that capacity to international buyers and financial institutions.</p>
+<p>Crossgates Connect bridges this gap by creating a standardized digital ledger of operational excellence. We don't just assess readiness; we formalize it into a verifiable asset that can be shared across the global trade ecosystem with absolute confidence.</p>
+<p>By transforming disparate data points into a unified Trade Passport, we enable SMEs to compete on a level playing field, backed by the authority of verified documentation and AI-driven validation processes.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: What Crossgates Does (Bento Grid) -->
+<section class="py-32 bg-white">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="mb-16">
+<h2 class="font-headline text-4xl font-extrabold tracking-tighter text-on-surface mb-4">What Crossgates Does</h2>
+<p class="text-xl text-on-surface-variant max-w-2xl">Building the digital backbone for secure, transparent, and efficient global commerce.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="group p-8 rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 border-b-4 border-transparent hover:border-primary shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">verified_user</span>
+<h3 class="font-headline text-xl font-bold mb-4">Supplier Verification</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Rigorous multi-layer validation of business identities, licenses, and operational capacities to ensure total compliance.</p>
+</div>
+<!-- Card 2 -->
+<div class="group p-8 rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 border-b-4 border-transparent hover:border-primary shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">visibility</span>
+<h3 class="font-headline text-xl font-bold mb-4">Readiness Visibility</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Providing a clear, real-time dashboard of export preparedness for SMEs and their supporting institutional partners.</p>
+</div>
+<!-- Card 3 -->
+<div class="group p-8 rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 border-b-4 border-transparent hover:border-primary shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">badge</span>
+<h3 class="font-headline text-xl font-bold mb-4">Trade Passport</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">A digital identity for global trade that aggregates all verification milestones into a single, portable, and secure asset.</p>
+</div>
+<!-- Card 4 -->
+<div class="group p-8 rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 border-b-4 border-transparent hover:border-primary shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">handshake</span>
+<h3 class="font-headline text-xl font-bold mb-4">Market Trust</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Reducing transactional friction by establishing pre-verified trust between buyers and sellers across borders.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: A Complement to the Existing Ecosystem -->
+<section class="bg-surface py-24 overflow-hidden">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+<div class="relative rounded-3xl overflow-hidden aspect-video lg:aspect-square">
+<img class="w-full h-full object-cover" data-alt="professional business environment with diverse team collaborating around a digital display and architectural plans in a brightly lit office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALgEfMgSh9UNzOU30mYxEi5eLANcHkiyTxAJGUYW4WrcSG2pG5APFz_B8OikGPmy0_-MLD7Ajv37PV-_HLVyGttkNl_CCX0dTHeI0R2uOr51z7S8-dfWSRk91D-1S__jjozEdGXTmNeMOqJCqbwMF_EdLXJEmvFXY2-IDPBuckqVp4pxz3-ji5iO7E60NFc5rqNOEPqJdrfyDAeDmcB5yUblqbNG0Qz5Ig0zXke42m8dURi8wS84LIIh-3N752SluUwCE5uId7SVIx"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+</div>
+<div>
+<h2 class="font-headline text-4xl font-bold tracking-tight text-on-surface mb-8">A Complement to the Existing Ecosystem</h2>
+<div class="space-y-6 text-on-surface-variant text-lg leading-relaxed">
+<p>We do not seek to replace the vital work of trade promotion agencies or international development organizations. Instead, we provide the technical infrastructure that makes their training and capacity-building efforts measurable and verifiable.</p>
+<p>Our platform integrates with existing standards and regulatory frameworks, acting as a translator between the qualitative improvements made by SMEs and the quantitative requirements of global markets.</p>
+<p>Through this synergy, we enhance the overall efficiency of the trade ecosystem, ensuring that investment in export readiness yields tangible results in the form of increased market access and successful transactions.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: Three Steps to a Trade Passport -->
+<section class="py-32 bg-white">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="text-center mb-24">
+<h2 class="font-headline text-4xl font-extrabold tracking-tighter text-on-surface mb-6">Three Steps to a Trade Passport</h2>
+<p class="text-xl text-on-surface-variant max-w-2xl mx-auto">Our streamlined process ensures your business is verified and ready for global opportunities with minimal friction.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+<!-- Progress Line (Desktop) -->
+<div class="hidden md:block absolute top-1/4 left-0 w-full h-0.5 bg-secondary-container z-0"></div>
+<!-- Step 01 -->
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full architectural-gradient flex items-center justify-center text-white text-3xl font-black mb-8 shadow-xl shadow-primary/20">01</div>
+<h3 class="font-headline text-2xl font-bold mb-4">Digital Enrollment</h3>
+<p class="text-on-surface-variant leading-relaxed">Onboard your business entity and core operational data into our secure, sovereign cloud infrastructure.</p>
+</div>
+<!-- Step 02 -->
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full architectural-gradient flex items-center justify-center text-white text-3xl font-black mb-8 shadow-xl shadow-primary/20">02</div>
+<h3 class="font-headline text-2xl font-bold mb-4">Verification Audit</h3>
+<p class="text-on-surface-variant leading-relaxed">Our AI-assisted systems and expert auditors validate your credentials against international trade standards.</p>
+</div>
+<!-- Step 03 -->
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full architectural-gradient flex items-center justify-center text-white text-3xl font-black mb-8 shadow-xl shadow-primary/20">03</div>
+<h3 class="font-headline text-2xl font-bold mb-4">Passport Issuance</h3>
+<p class="text-on-surface-variant leading-relaxed">Receive your digital Trade Passport, ready to be shared with buyers, banks, and border authorities globally.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 6: About Crossgates Connect -->
+<section class="bg-surface-container-low py-32">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div>
+<h2 class="font-headline text-4xl font-bold tracking-tight text-on-surface mb-10">About Crossgates Connect</h2>
+<div class="space-y-6 text-on-surface-variant text-lg leading-relaxed">
+<p>Crossgates Connect is a mission-driven organization dedicated to unlocking the potential of global trade through technological innovation. We believe that trust should not be a barrier to entry, but a bridge to opportunity.</p>
+<p>Our team brings together decades of experience in trade policy, software engineering, and international logistics. This unique blend of expertise allows us to solve the complex data challenges inherent in cross-border commerce.</p>
+<p>We are committed to building infrastructure that is not only robust and secure but also accessible to the businesses that form the backbone of the global economy. By empowering SMEs, we contribute to more resilient and inclusive trade networks.</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-4">
+<div class="h-64 rounded-2xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up of digital data streams and glowing global network connections on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7-Fz2gAHYE9lgbHQb08yVhDkJ-okgwiopy0sSyADKG8dLjxeazvZ9_5X9wRk4WNaZKHranzbVfcK1YFHpdQ_5Pk-_FVW9YOZpK6YRGDOgYjHLOK2wM7uR0sZ513MXWFQfvgs5m5ft4sVGLij95C_V6fZDzTO_x7e_fRH6O77fLENM2On0VgYwZuzMqI4s2rlEtOW5f46aqh8cnT3Gr7dE_o6Psd8scJl67Kn3LBuzlvPzCasIZiKMuwqzjvTIKlouT18krFlegU9L"/>
+</div>
+<div class="bg-primary h-32 rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-5xl">language</span>
+</div>
+</div>
+<div class="pt-12 space-y-4">
+<div class="bg-secondary-container h-32 rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-5xl">security</span>
+</div>
+<div class="h-64 rounded-2xl bg-white p-8 flex flex-col justify-end shadow-sm">
+<p class="font-headline font-bold text-3xl text-primary">100%</p>
+<p class="text-sm font-medium uppercase tracking-widest text-on-surface-variant">Data Integrity</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 7: Final CTA -->
+<section class="bg-primary py-24 text-white overflow-hidden relative">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl -mr-48 -mt-48"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-container rounded-full blur-3xl -ml-32 -mb-32"></div>
+</div>
+<div class="relative z-10 max-w-screen-2xl mx-auto px-8">
+<div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+<div class="max-w-xl">
+<h2 class="font-headline text-4xl lg:text-5xl font-black tracking-tighter mb-4">Interested in working with Crossgates?</h2>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-8 lg:max-w-xl">
+<p class="text-primary-fixed leading-relaxed font-medium">Join us in redefining the standards of global verification and trade readiness. Our team is ready to assist your organization's digital transformation.</p>
+<button class="bg-white text-primary px-10 py-5 rounded-xl font-headline font-black text-sm tracking-widest uppercase shadow-2xl hover:bg-surface-bright transition-all whitespace-nowrap">Get in Touch</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-stone-50 dark:bg-stone-950 w-full border-t border-stone-200 dark:border-stone-800">
+<div class="max-w-screen-2xl mx-auto px-12 py-20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<div class="text-xl font-black text-emerald-950 dark:text-stone-100 font-headline mb-6">Crossgates Connect</div>
+<p class="text-stone-500 dark:text-stone-400 text-sm mb-6 leading-relaxed">Sovereign Verification for Global Trade.<br/>Building trust through digital infrastructure.</p>
+<a class="flex items-center text-primary font-bold hover:underline" href="#">
+<span class="mr-2">LinkedIn</span>
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface mb-6">Company</h4>
+<ul class="space-y-4">
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">About Us</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">Careers</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">Newsroom</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface mb-6">Resources</h4>
+<ul class="space-y-4">
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">Verification Guide</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">SME Toolkit</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">Case Studies</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">Whitepapers</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface mb-6">Solutions</h4>
+<ul class="space-y-4">
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">Trade Passport</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">Market Access</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">Pilot Programs</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="#">AI Verification</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-20 pt-8 border-t border-stone-200 dark:border-stone-800 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-stone-500 dark:text-stone-400 text-xs">© 2024 Crossgates Connect. Sovereign Verification for Global Trade.</p>
+<div class="flex gap-8">
+<a class="text-stone-500 dark:text-stone-400 text-xs hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-stone-500 dark:text-stone-400 text-xs hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
