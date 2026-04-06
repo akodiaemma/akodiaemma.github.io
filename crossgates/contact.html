@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact Us | Crossgates Connect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {"secondary-fixed-dim":"#b4cdb8","on-tertiary-fixed":"#3c041c","primary-fixed-dim":"#99d59a","on-secondary":"#ffffff","tertiary-container":"#d4819a","surface-container-low":"#f3f3f3","on-primary-fixed-variant":"#185124","on-background":"#1a1c1c","on-surface":"#1a1c1c","inverse-surface":"#2f3131","on-secondary-fixed":"#0b2013","on-tertiary":"#ffffff","tertiary-fixed-dim":"#ffb1c7","error":"#ba1a1a","on-primary-container":"#003b12","error-container":"#ffdad6","outline-variant":"#c1c9bd","surface-container-lowest":"#ffffff","background":"#f9f9f9","surface-container":"#eeeeee","primary":"#326a39","primary-container":"#6da770","surface-dim":"#dadada","tertiary":"#8f485f","surface-tint":"#326a39","on-error":"#ffffff","tertiary-fixed":"#ffd9e2","surface-variant":"#e2e2e2","surface-container-highest":"#e2e2e2","on-secondary-container":"#516857","on-tertiary-container":"#581b32","on-primary":"#ffffff","on-error-container":"#93000a","surface-container-high":"#e8e8e8","inverse-on-surface":"#f1f1f1","secondary-fixed":"#d0e9d4","surface-bright":"#f9f9f9","secondary-container":"#cde6d1","outline":"#71796f","primary-fixed":"#b4f2b4","on-tertiary-fixed-variant":"#733147","secondary":"#4d6453","inverse-primary":"#99d59a","on-surface-variant":"#414940","on-secondary-fixed-variant":"#364c3c","surface":"#f9f9f9","on-primary-fixed":"#002107"},
+                "borderRadius": {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},
+                "fontFamily": {"headline":["Manrope"],"body":["Inter"],"label":["Inter"]}
+            }
+        }
+    }
+</script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .architectural-gradient { background: linear-gradient(135deg, #326a39 0%, #6da770 100%); }
+    .contact-hero { background: linear-gradient(135deg, #0f2414 0%, #1a3d1f 40%, #326a39 100%); }
+    input, select, textarea { outline: none; }
+    input:focus, select:focus, textarea:focus { box-shadow: 0 0 0 2px #326a39; }
+</style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<!-- Navigation -->
+<header class="fixed top-0 w-full z-50 backdrop-blur-md shadow-sm">
+<nav class="flex items-center justify-between px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter font-headline text-white"><a href="index.html">Crossgates Connect</a></div>
+<div class="hidden lg:flex items-center space-x-8">
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="about.html">About Us</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="what-we-do.html">What We Do</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="ai-verification.html">AI &amp; Verification</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="trade-passport.html">Trade Passport</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="pilot-sectors.html">Pilot &amp; Priority Sectors</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="partners.html">Who We Work With</a>
+</div>
+<div class="flex items-center space-x-6">
+<button class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white">Login</button>
+<a href="contact.html"><button class="architectural-gradient text-white px-6 py-2.5 rounded-lg font-headline font-bold text-sm tracking-wide uppercase transition-transform active:scale-95">Contact Us</button></a>
+</div>
+</nav>
+</header>
+
+<main>
+<!-- Hero -->
+<section class="contact-hero min-h-screen flex items-center text-white relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl -mr-48 -mt-48"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-container rounded-full blur-3xl -ml-32 -mb-32"></div>
+</div>
+<div class="relative z-10 max-w-screen-2xl mx-auto px-8 w-full py-32">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+<!-- Left: Copy -->
+<div>
+<span class="inline-block py-1 px-3 mb-6 rounded-full bg-white/10 text-white text-xs font-bold tracking-widest uppercase">Get in Touch</span>
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter mb-6 leading-[1.1]">Start with a conversation.<br/><span class="text-primary-fixed-dim">Conclude with a trusted supply chain.</span></h1>
+<p class="text-xl font-medium text-white/70 leading-relaxed mb-10">Crossgates Connect welcomes engagement from institutions, sector actors, SME groups, exporters, buyers, and ecosystem partners interested in supplier verification, pilot collaboration, export readiness, and market access.</p>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-fixed-dim mt-0.5">location_on</span>
+<div>
+<p class="font-headline font-semibold text-white text-sm">London, United Kingdom</p>
+<p class="text-white/60 text-sm">75B Marlow Road, London, England, SE20 7YG</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-fixed-dim mt-0.5">location_on</span>
+<div>
+<p class="font-headline font-semibold text-white text-sm">Entebbe, Uganda</p>
+<p class="text-white/60 text-sm">DBA Manoir, Plot 4, Bukaya, Garuga, Entebbe</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Right: Form -->
+<div class="bg-white rounded-3xl p-10 shadow-2xl">
+<h2 class="font-headline text-2xl font-bold text-on-surface mb-8">Send us a message</h2>
+<div class="space-y-6">
+<div>
+<label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="full-name">Full Name</label>
+<input
+  id="full-name"
+  type="text"
+  placeholder="Your full name"
+  class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-body text-sm transition-all"
+/>
+</div>
+<div>
+<label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="email">Email Address</label>
+<input
+  id="email"
+  type="email"
+  placeholder="you@company.com"
+  class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-body text-sm transition-all"
+/>
+</div>
+<div>
+<label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="company">Company</label>
+<input
+  id="company"
+  type="text"
+  placeholder="Your organisation or company"
+  class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-body text-sm transition-all"
+/>
+</div>
+<div>
+<label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="message">What brought you to us?</label>
+<textarea
+  id="message"
+  rows="4"
+  placeholder="Tell us about your interest in Crossgates Connect — supplier verification, pilot engagement, market access, or something else."
+  class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-body text-sm transition-all resize-none"
+></textarea>
+</div>
+<div class="flex items-start gap-3">
+<input type="checkbox" id="terms" class="mt-1 rounded border-outline-variant text-primary accent-primary"/>
+<label class="text-on-surface-variant text-sm" for="terms">I agree to the <a href="#" class="text-primary underline underline-offset-2">Terms &amp; Conditions</a></label>
+</div>
+<button onclick="handleSubmit()" class="w-full architectural-gradient text-white py-4 rounded-xl font-headline font-bold text-sm tracking-wider uppercase shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95">
+Send Message
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-50 w-full border-t border-stone-200">
+<div class="max-w-screen-2xl mx-auto px-12 py-20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1">
+<div class="text-xl font-black text-emerald-950 font-headline mb-6">Crossgates Connect</div>
+<p class="text-stone-500 text-sm mb-6 leading-relaxed">Verification Infrastructure for Export Readiness and Market Access.</p>
+<a class="flex items-center text-primary font-bold hover:underline" href="#"><span class="mr-2">LinkedIn</span><span class="material-symbols-outlined text-sm">open_in_new</span></a>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface mb-6">Company</h4>
+<ul class="space-y-4">
+<li><a class="text-stone-500 text-sm hover:underline" href="about.html">About Crossgates</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="about.html">Vision &amp; Mission</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="contact.html">Contact / Apply</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface mb-6">Resources</h4>
+<ul class="space-y-4">
+<li><a class="text-stone-500 text-sm hover:underline" href="what-we-do.html">How It Works</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="pilot-sectors.html">Pilot Sectors</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="ai-verification.html">AI &amp; Verification</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="ai-verification.html">STIV Framework</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface mb-6">Solutions</h4>
+<ul class="space-y-4">
+<li><a class="text-stone-500 text-sm hover:underline" href="trade-passport.html">Trade Passport</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="what-we-do.html">Readiness Grading</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="pilot-sectors.html">Field Verification</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="ai-verification.html">AI Verification</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-20 pt-8 border-t border-stone-200 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-stone-500 text-xs">© 2026 Crossgates Connect. Verification Infrastructure for Export Readiness and Market Access.</p>
+<div class="flex gap-8">
+<a class="text-stone-500 text-xs hover:text-primary" href="#">Privacy Policy</a>
+<a class="text-stone-500 text-xs hover:text-primary" href="#">Terms &amp; Conditions</a>
+<a class="text-stone-500 text-xs hover:text-primary" href="#">Legal Notice</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+function handleSubmit() {
+  const name = document.getElementById('full-name').value;
+  const email = document.getElementById('email').value;
+  const company = document.getElementById('company').value;
+  const message = document.getElementById('message').value;
+  const terms = document.getElementById('terms').checked;
+
+  if (!name || !email || !company || !message) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+  if (!terms) {
+    alert('Please agree to the Terms & Conditions.');
+    return;
+  }
+  alert('Thank you for your message. The Crossgates team will be in touch shortly.');
+}
+</script>
+</body>
+</html>

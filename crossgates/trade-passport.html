@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trade Passport | Crossgates Connect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {"secondary-fixed-dim":"#b4cdb8","on-tertiary-fixed":"#3c041c","primary-fixed-dim":"#99d59a","on-secondary":"#ffffff","tertiary-container":"#d4819a","surface-container-low":"#f3f3f3","on-primary-fixed-variant":"#185124","on-background":"#1a1c1c","on-surface":"#1a1c1c","inverse-surface":"#2f3131","on-secondary-fixed":"#0b2013","on-tertiary":"#ffffff","tertiary-fixed-dim":"#ffb1c7","error":"#ba1a1a","on-primary-container":"#003b12","error-container":"#ffdad6","outline-variant":"#c1c9bd","surface-container-lowest":"#ffffff","background":"#f9f9f9","surface-container":"#eeeeee","primary":"#326a39","primary-container":"#6da770","surface-dim":"#dadada","tertiary":"#8f485f","surface-tint":"#326a39","on-error":"#ffffff","tertiary-fixed":"#ffd9e2","surface-variant":"#e2e2e2","surface-container-highest":"#e2e2e2","on-secondary-container":"#516857","on-tertiary-container":"#581b32","on-primary":"#ffffff","on-error-container":"#93000a","surface-container-high":"#e8e8e8","inverse-on-surface":"#f1f1f1","secondary-fixed":"#d0e9d4","surface-bright":"#f9f9f9","secondary-container":"#cde6d1","outline":"#71796f","primary-fixed":"#b4f2b4","on-tertiary-fixed-variant":"#733147","secondary":"#4d6453","inverse-primary":"#99d59a","on-surface-variant":"#414940","on-secondary-fixed-variant":"#364c3c","surface":"#f9f9f9","on-primary-fixed":"#002107"},
+                "borderRadius": {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},
+                "fontFamily": {"headline":["Manrope"],"body":["Inter"],"label":["Inter"]}
+            }
+        }
+    }
+</script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .architectural-gradient { background: linear-gradient(135deg, #326a39 0%, #6da770 100%); }
+    .page-hero-gradient { background: linear-gradient(135deg, #1a3d1f 0%, #326a39 60%, #4d8a56 100%); }
+    .passport-card { background: linear-gradient(135deg, #ffffff 0%, #f3f3f3 100%); border: 1px solid #c1c9bd; }
+</style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<!-- Navigation -->
+<header class="fixed top-0 w-full z-50 backdrop-blur-md shadow-sm">
+<nav class="flex items-center justify-between px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter font-headline text-white"><a href="index.html">Crossgates Connect</a></div>
+<div class="hidden lg:flex items-center space-x-8">
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="about.html">About Us</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="what-we-do.html">What We Do</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="ai-verification.html">AI &amp; Verification</a>
+<a class="font-headline font-semibold tracking-tight text-sm text-emerald-300" href="trade-passport.html">Trade Passport</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="pilot-sectors.html">Pilot &amp; Priority Sectors</a>
+<a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="partners.html">Who We Work With</a>
+</div>
+<div class="flex items-center space-x-6">
+<button class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white">Login</button>
+<a href="contact.html"><button class="architectural-gradient text-white px-6 py-2.5 rounded-lg font-headline font-bold text-sm tracking-wide uppercase transition-transform active:scale-95">Contact Us</button></a>
+</div>
+</nav>
+</header>
+
+<main>
+<!-- Hero -->
+<section class="page-hero-gradient pt-40 pb-24 text-white relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl -mr-48 -mt-48"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-container rounded-full blur-3xl -ml-32 -mb-32"></div>
+</div>
+<div class="relative z-10 max-w-screen-2xl mx-auto px-8">
+<span class="inline-block py-1 px-3 mb-6 rounded-full bg-white/10 text-white text-xs font-bold tracking-widest uppercase">Trade Passport</span>
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter mb-6 leading-[1.1] max-w-3xl">The CrossGates Trade Passport.</h1>
+<p class="text-xl font-medium text-white/80 max-w-2xl leading-relaxed mb-8">A buyer-ready, verification-ready supplier identity that brings together business, compliance, operational, and supporting sector information into one structured view.</p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-white text-primary px-8 py-4 rounded-xl font-headline font-bold text-sm tracking-wider uppercase shadow-xl hover:bg-surface-bright transition-all">View Sample Passport</button>
+</div>
+</div>
+</section>
+
+<!-- How it Simply Works -->
+<section class="bg-[#f5f5f5] py-24">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<div class="lg:col-span-5">
+<span class="inline-block py-1 px-3 mb-4 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold tracking-widest uppercase">Simply</span>
+<h2 class="font-headline text-4xl font-bold tracking-tight text-primary leading-tight">How it Works</h2>
+</div>
+<div class="lg:col-span-7 space-y-6 text-on-surface-variant text-lg leading-relaxed">
+<p>It helps show who the supplier is, what has been provided, what is missing, what may be expiring, and what may still need attention.</p>
+<p>By turning fragmented records into a clearer supplier profile, the Trade Passport helps make readiness more visible, more credible, and more commercially usable.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Four pillars -->
+<section class="py-32 bg-white">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="mb-16">
+<h2 class="font-headline text-4xl font-extrabold tracking-tighter text-on-surface mb-4">A Structured Supplier Identity</h2>
+<p class="text-xl text-on-surface-variant max-w-2xl">Built for export readiness and market access.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="group p-8 rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 border-b-4 border-transparent hover:border-primary shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">person_pin</span>
+<h3 class="font-headline text-xl font-bold mb-4">Structured Supplier Identity</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">A clearer supplier profile built from fragmented records and supporting information.</p>
+</div>
+<div class="group p-8 rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 border-b-4 border-transparent hover:border-primary shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">fact_check</span>
+<h3 class="font-headline text-xl font-bold mb-4">Verification-Ready View</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">A more organized presentation of supplier readiness and supporting evidence.</p>
+</div>
+<div class="group p-8 rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 border-b-4 border-transparent hover:border-primary shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">visibility</span>
+<h3 class="font-headline text-xl font-bold mb-4">Readiness Visibility</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Clearer understanding of what is present, what is missing, and what may still need attention.</p>
+</div>
+<div class="group p-8 rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 border-b-4 border-transparent hover:border-primary shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">storefront</span>
+<h3 class="font-headline text-xl font-bold mb-4">Commercial Usability</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">A format that helps make supplier readiness easier to assess and easier to trust.</p>
+</div>
+</div>
+
+<!-- Closing Statement -->
+<div class="mt-16 bg-primary rounded-2xl p-10 text-white text-center">
+<p class="font-headline text-2xl font-bold mb-2">The Trade Passport is where fragmented supplier readiness becomes a clearer path to commercial trust.</p>
+</div>
+</div>
+</section>
+
+<!-- What it Contains + Makes Possible -->
+<section class="bg-surface-container-low py-24">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+<div>
+<h2 class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-8">What the Trade Passport Contains</h2>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">person</span><span class="text-on-surface">Supplier identity</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">contacts</span><span class="text-on-surface">Business and contact details</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">category</span><span class="text-on-surface">Product and sector profile</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">gavel</span><span class="text-on-surface">Compliance and supporting records</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">work</span><span class="text-on-surface">Operational evidence</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">schedule</span><span class="text-on-surface">Document validity visibility</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">analytics</span><span class="text-on-surface">Readiness observations</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">report_problem</span><span class="text-on-surface">Key gaps that still need attention</span></div>
+</div>
+</div>
+<div>
+<h2 class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-8">What the Trade Passport Makes Possible</h2>
+<p class="text-on-surface-variant mb-6 leading-relaxed">The Trade Passport helps make it easier to understand:</p>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">check_circle</span><span class="text-on-surface">Who the supplier is</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">check_circle</span><span class="text-on-surface">What the supplier produces</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">check_circle</span><span class="text-on-surface">What has been verified</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">check_circle</span><span class="text-on-surface">What is missing or incomplete</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">check_circle</span><span class="text-on-surface">What is expiring</span></div>
+<div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"><span class="material-symbols-outlined text-primary text-xl">check_circle</span><span class="text-on-surface">What may need to be addressed next</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Who it's for -->
+<section class="py-32 bg-white">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="text-center mb-16">
+<h2 class="font-headline text-4xl font-extrabold tracking-tighter text-on-surface mb-4">What the Trade Passport Is Not</h2>
+<p class="text-xl text-on-surface-variant max-w-2xl mx-auto">The Trade Passport is not a certificate and not a replacement for regulatory or standards approval. It is a structured supplier identity created through the Crossgates verification layer to help organise readiness information in a commercially usable way.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="relative p-10 rounded-2xl bg-surface-container-low border-b-4 border-primary shadow-sm">
+<span class="inline-block py-1 px-3 mb-6 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold tracking-widest uppercase">For SMEs ¹</span>
+<p class="text-on-surface-variant leading-relaxed">Moving from informal operations to a portable digital identity that creates a stronger path to global readiness.</p>
+</div>
+<div class="relative p-10 rounded-2xl bg-surface-container-low border-b-4 border-primary shadow-sm">
+<span class="inline-block py-1 px-3 mb-6 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold tracking-widest uppercase">For Buyers ²</span>
+<p class="text-on-surface-variant leading-relaxed">Reducing uncertainty in supplier selection by providing a single source of verified, audit-ready truths.</p>
+</div>
+<div class="relative p-10 rounded-2xl bg-surface-container-low border-b-4 border-primary shadow-sm">
+<span class="inline-block py-1 px-3 mb-6 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold tracking-widest uppercase">For Institutions ³</span>
+<p class="text-on-surface-variant leading-relaxed">Turning scattered readiness work into structured data that supports broader trade programs.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="bg-primary py-24 text-white overflow-hidden relative">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl -mr-48 -mt-48"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-container rounded-full blur-3xl -ml-32 -mb-32"></div>
+</div>
+<div class="relative z-10 max-w-screen-2xl mx-auto px-8">
+<div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+<div class="max-w-xl">
+<h2 class="font-headline text-4xl lg:text-5xl font-black tracking-tighter mb-4">Interested in working with Crossgates?</h2>
+<p class="text-primary-fixed leading-relaxed font-medium">We welcome engagement from institutions, sector actors, SME groups, exporters, buyers, and ecosystem partners interested in supplier verification, pilot collaboration, and market access.</p>
+</div>
+<a href="contact.html"><button class="bg-white text-primary px-10 py-5 rounded-xl font-headline font-black text-sm tracking-widest uppercase shadow-2xl hover:bg-surface-bright transition-all whitespace-nowrap">Get in Touch</button></a>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-50 w-full border-t border-stone-200">
+<div class="max-w-screen-2xl mx-auto px-12 py-20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1">
+<div class="text-xl font-black text-emerald-950 font-headline mb-6">Crossgates Connect</div>
+<p class="text-stone-500 text-sm mb-6 leading-relaxed">Verification Infrastructure for Export Readiness and Market Access.</p>
+<a class="flex items-center text-primary font-bold hover:underline" href="#"><span class="mr-2">LinkedIn</span><span class="material-symbols-outlined text-sm">open_in_new</span></a>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface mb-6">Company</h4>
+<ul class="space-y-4">
+<li><a class="text-stone-500 text-sm hover:underline" href="about.html">About Crossgates</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="about.html">Vision &amp; Mission</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="contact.html">Contact / Apply</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface mb-6">Resources</h4>
+<ul class="space-y-4">
+<li><a class="text-stone-500 text-sm hover:underline" href="what-we-do.html">How It Works</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="pilot-sectors.html">Pilot Sectors</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="ai-verification.html">AI &amp; Verification</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="ai-verification.html">STIV Framework</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface mb-6">Solutions</h4>
+<ul class="space-y-4">
+<li><a class="text-stone-500 text-sm hover:underline" href="trade-passport.html">Trade Passport</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="what-we-do.html">Readiness Grading</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="pilot-sectors.html">Field Verification</a></li>
+<li><a class="text-stone-500 text-sm hover:underline" href="ai-verification.html">AI Verification</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-20 pt-8 border-t border-stone-200 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-stone-500 text-xs">© 2026 Crossgates Connect. Verification Infrastructure for Export Readiness and Market Access.</p>
+<div class="flex gap-8">
+<a class="text-stone-500 text-xs hover:text-primary" href="#">Privacy Policy</a>
+<a class="text-stone-500 text-xs hover:text-primary" href="#">Terms &amp; Conditions</a>
+<a class="text-stone-500 text-xs hover:text-primary" href="#">Legal Notice</a>
+</div>
+</div>
+</div>
+</footer>
+</body>
+</html>
