@@ -1,8 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://www.crossgatesconnect.com/</loc>
-    <lastmod>2026-04-02</lastmod>
-    <priority>1.0</priority>
-  </url>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://crossgatesconnect.com/</loc>
+  <lastmod>2026-04-07T08:23:53+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://crossgatesconnect.com/about</loc>
+  <lastmod>2026-04-07T08:23:53+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://crossgatesconnect.com/what-we-do</loc>
+  <lastmod>2026-04-07T08:23:53+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://crossgatesconnect.com/ai-verification</loc>
+  <lastmod>2026-04-07T08:23:53+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://crossgatesconnect.com/trade-passport</loc>
+  <lastmod>2026-04-07T08:23:53+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://crossgatesconnect.com/pilot-sectors</loc>
+  <lastmod>2026-04-07T08:23:53+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://crossgatesconnect.com/partners</loc>
+  <lastmod>2026-04-07T08:23:53+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://crossgatesconnect.com/contact</loc>
+  <lastmod>2026-04-07T08:23:53+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
 </urlset>
