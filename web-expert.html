@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Webflow Expert Wanted — Akodia Emmanuel</title>
+  <meta name="description" content="Looking for a Webflow developer who can leverage Claude MCP, convert Figma to Webflow pixel-perfect, and deliver fast in the AI age."/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="css/akodia-emmanuel.webflow.85b4be26f.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.prod.website-files.com/61ffb7e3a4bdb5613297a19f/625721851fd04d35a0cd3305_Ellipse%201.png" rel="shortcut icon" type="image/x-icon"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0e0e0e;
+      --surface: #161616;
+      --border: #2a2a2a;
+      --text: #f0f0f0;
+      --muted: #888;
+      --accent: #f0f0f0;
+      --tag-bg: #1e1e1e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ::selection { color: #f8f8f8; background: #1d1d1d; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(14,14,14,0.92);
+      backdrop-filter: blur(12px);
+      border-color: var(--border);
+    }
+    .nav__logo { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .nav__logo span { color: var(--text); }
+    .nav__back {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex; align-items: center; gap: 8px;
+      transition: color 0.2s;
+    }
+    .nav__back:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero__eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    }
+
+    .hero__title {
+      font-size: clamp(42px, 7vw, 100px);
+      font-weight: 600;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      max-width: 900px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .hero__meta {
+      margin-top: 48px;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+    }
+
+    .meta__item { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .meta__item span { color: var(--text); display: block; margin-top: 6px; font-size: 14px; letter-spacing: 0; text-transform: none; }
+
+    .hero__line {
+      position: absolute;
+      top: 0; left: 48px; right: 48px;
+      height: 1px;
+      background: var(--border);
+      transform-origin: left;
+      transform: scaleX(0);
+      animation: lineIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 80px 48px;
+      border-top: 1px solid var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section__label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 48px;
+    }
+
+    .section__heading {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .section__body {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #b0b0b0;
+      max-width: 680px;
+    }
+
+    .section__body p + p { margin-top: 16px; }
+
+    /* TAGS */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 32px;
+    }
+
+    .tag {
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      background: var(--tag-bg);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .tag.highlight {
+      border-color: #f0f0f0;
+      color: #f0f0f0;
+    }
+
+    /* REQUIREMENTS LIST */
+    .req__list {
+      list-style: none;
+      margin-top: 32px;
+    }
+
+    .req__list li {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #b0b0b0;
+    }
+
+    .req__list li:first-child { border-top: 1px solid var(--border); }
+
+    .req__num {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      min-width: 28px;
+      margin-top: 3px;
+    }
+
+    /* BONUS BLOCK */
+    .bonus__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 32px;
+    }
+
+    .bonus__card {
+      background: var(--surface);
+      padding: 32px;
+      border: 1px solid var(--border);
+    }
+
+    .bonus__card:first-child { border-radius: 12px 0 0 0; }
+    .bonus__card:last-child { border-radius: 0 0 12px 0; }
+    .bonus__card:nth-child(2) { border-radius: 0 12px 0 0; }
+    .bonus__card:nth-child(3) { border-radius: 0 0 0 12px; }
+
+    .bonus__icon {
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: var(--muted);
+    }
+
+    .bonus__title {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .bonus__desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* TASK BLOCK */
+    .task__block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+      margin-top: 32px;
+    }
+
+    .task__label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .task__heading {
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .task__body {
+      font-size: 14px;
+      color: #b0b0b0;
+      line-height: 1.7;
+    }
+
+    .task__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .task__link:hover {
+      border-color: #f0f0f0;
+      background: #1a1a1a;
+    }
+
+    /* FORM */
+    .form__wrapper {
+      margin-top: 40px;
+      max-width: 600px;
+    }
+
+    .form__group {
+      margin-bottom: 20px;
+    }
+
+    .form__label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .form__input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    .form__input:focus { border-color: #555; }
+    .form__input::placeholder { color: #444; }
+
+    .form__submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      padding: 16px 32px;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      font-family: inherit;
+    }
+
+    .form__submit:hover { opacity: 0.85; transform: translateY(-1px); }
+    .form__submit:active { transform: translateY(0); }
+
+    /* AI AGE BANNER */
+    .ai__banner {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      overflow: hidden;
+    }
+
+    .ai__banner__text {
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      animation: marquee 18s linear infinite;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes lineIn {
+      to { transform: scaleX(1); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* WHATSAPP FLOAT */
+    .wa__float {
+      position: fixed;
+      bottom: 20px; right: 20px;
+      background: #f1f1f1;
+      color: #333;
+      padding: 14px 16px;
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      z-index: 9000;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav, .hero, .section, .ai__banner, footer { padding-left: 24px; padding-right: 24px; }
+      .hero { padding-bottom: 60px; }
+      .bonus__grid { grid-template-columns: 1fr; }
+      .hero__meta { flex-direction: column; gap: 20px; }
+      .hero__line { left: 24px; right: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav__logo"><span>Akodia Emmanuel</span> / Hiring</div>
+    <a href="/" class="nav__back"><i class="fas fa-arrow-left" style="font-size:11px;"></i> Back to Portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__line"></div>
+    <div class="hero__eyebrow">Open Role &nbsp;·&nbsp; Remote &nbsp;·&nbsp; Immediate Start</div>
+    <h1 class="hero__title">
+      Looking for a<br/>
+      <em>Webflow</em> Expert<br/>
+      Who Builds Fast.
+    </h1>
+    <div class="hero__meta">
+      <div class="meta__item">Role <span>Webflow Developer</span></div>
+      <div class="meta__item">Type <span>Freelance / Contract</span></div>
+      <div class="meta__item">Pay <span>Hourly or Fixed</span></div>
+      <div class="meta__item">Delivery <span>Hours — 2 Days Max</span></div>
+    </div>
+  </section>
+
+  <!-- AI AGE BANNER -->
+  <div class="ai__banner" aria-hidden="true">
+    <div class="ai__banner__text">
+      &nbsp; The AI Age is Here &nbsp;·&nbsp; Build Faster &nbsp;·&nbsp; Deliver in Hours &nbsp;·&nbsp; Not Days &nbsp;·&nbsp; The AI Age is Here &nbsp;·&nbsp; Build Faster &nbsp;·&nbsp; Deliver in Hours &nbsp;·&nbsp; Not Days &nbsp;·&nbsp; The AI Age is Here &nbsp;·&nbsp; Build Faster &nbsp;·&nbsp; Deliver in Hours &nbsp;·&nbsp; Not Days &nbsp;·&nbsp;
+    </div>
+  </div>
+
+  <!-- ABOUT THE ROLE -->
+  <div style="border-top: 1px solid var(--border);">
+    <div class="section reveal">
+      <div class="section__label">About the Role</div>
+      <h2 class="section__heading">Strictly Webflow.<br/>No exceptions.</h2>
+      <div class="section__body">
+        <p>We are in the AI age — websites that used to take weeks now take hours. I'm looking for a Webflow developer who has fully embraced this shift. Someone who uses Claude MCP to accelerate their workflow, converts Figma designs to Webflow with pixel-perfect precision, and ships production-ready sites fast.</p>
+        <p>If you still take 2 weeks to build a landing page, this isn't for you. If you can deliver a polished, animated, responsive site in a day or two — let's talk.</p>
+      </div>
+      <div class="tags">
+        <span class="tag highlight">Webflow</span>
+        <span class="tag highlight">Claude MCP</span>
+        <span class="tag highlight">Figma to Webflow</span>
+        <span class="tag">Pixel Perfect</span>
+        <span class="tag">GSAP</span>
+        <span class="tag">Animations</span>
+        <span class="tag">Remote</span>
+        <span class="tag">Fast Delivery</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- REQUIREMENTS -->
+  <div style="border-top: 1px solid var(--border);">
+    <div class="section reveal">
+      <div class="section__label">Requirements</div>
+      <ul class="req__list">
+        <li>
+          <span class="req__num">01</span>
+          <span>Expert-level Webflow development — classes, interactions, CMS, responsive layouts. You know the tool inside out.</span>
+        </li>
+        <li>
+          <span class="req__num">02</span>
+          <span>Proven ability to convert Figma designs to Webflow with pixel-perfect accuracy. Every spacing, every font, every radius — exact.</span>
+        </li>
+        <li>
+          <span class="req__num">03</span>
+          <span>Active use of Claude MCP in your workflow. AI isn't a gimmick — it's your co-pilot. You must be able to leverage it to build faster and smarter.</span>
+        </li>
+        <li>
+          <span class="req__num">04</span>
+          <span>Speed. Deliver polished, functional websites in hours or within a day or two. The AI age demands it.</span>
+        </li>
+        <li>
+          <span class="req__num">05</span>
+          <span>Strong eye for design — you don't just build what you see, you understand why it was designed that way.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BONUS SKILLS -->
+  <div style="border-top: 1px solid var(--border);">
+    <div class="section reveal">
+      <div class="section__label">Bonus Points</div>
+      <h2 class="section__heading">Not required.<br/>But impressive.</h2>
+      <div class="bonus__grid">
+        <div class="bonus__card">
+          <div class="bonus__icon"><i class="fas fa-bezier-curve"></i></div>
+          <div class="bonus__title">Cubic Bezier Animations</div>
+          <div class="bonus__desc">You craft easing curves by hand. Your transitions feel alive — not canned. Every micro-interaction is intentional.</div>
+        </div>
+        <div class="bonus__card">
+          <div class="bonus__icon"><i class="fas fa-bolt"></i></div>
+          <div class="bonus__title">GSAP Mastery</div>
+          <div class="bonus__desc">You use GreenSock to build scroll-triggered sequences, timeline animations, and effects that make designers jealous.</div>
+        </div>
+        <div class="bonus__card">
+          <div class="bonus__icon"><i class="fab fa-figma"></i></div>
+          <div class="bonus__title">Deep Figma Knowledge</div>
+          <div class="bonus__desc">You read Figma files like code — auto-layout, variables, components. Nothing gets lost in translation.</div>
+        </div>
+        <div class="bonus__card">
+          <div class="bonus__icon"><i class="fas fa-robot"></i></div>
+          <div class="bonus__title">AI-Native Workflow</div>
+          <div class="bonus__desc">Claude MCP isn't new to you. You've built systems around AI that cut your build time dramatically. Show it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION TASK -->
+  <div style="border-top: 1px solid var(--border);">
+    <div class="section reveal">
+      <div class="section__label">To Apply</div>
+      <h2 class="section__heading">First, prove it.</h2>
+      <div class="section__body">
+        <p>Before you fill in the form below, complete this task. It's the only filter that matters.</p>
+      </div>
+      <div class="task__block">
+        <div class="task__label">Required Task</div>
+        <div class="task__heading">Convert this Figma file to Webflow</div>
+        <div class="task__body">
+          Take the Figma community file linked below and recreate it in Webflow — pixel perfect. Responsive. Production ready. Bonus points for adding animations with cubic beziers or GSAP. When you're done, publish it and have the link ready to share in the form below.
+        </div>
+        <a href="https://www.figma.com/community/file/1318227406178520862" target="_blank" class="task__link">
+          <i class="fab fa-figma"></i>
+          Open Figma File &nbsp;→
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLY FORM -->
+  <div style="border-top: 1px solid var(--border);">
+    <div class="section reveal">
+      <div class="section__label">Apply</div>
+      <h2 class="section__heading">Ready? Let's go.</h2>
+      <div class="section__body">
+        <p>Fill in your name and your Webflow portfolio link. This will open a WhatsApp chat directly — no forms lost in inboxes.</p>
+      </div>
+
+      <div class="form__wrapper">
+        <div class="form__group">
+          <label class="form__label" for="name">Your Name</label>
+          <input class="form__input" type="text" id="name" placeholder="e.g. Alex Ochieng" autocomplete="off"/>
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="portfolio">Portfolio Link</label>
+          <input class="form__input" type="url" id="portfolio" placeholder="https://yourportfolio.com"/>
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="webflow">Webflow Task Link</label>
+          <input class="form__input" type="url" id="webflow" placeholder="https://yoursite.webflow.io"/>
+        </div>
+        <button class="form__submit" onclick="applyNow()">
+          <i class="fab fa-whatsapp"></i> Apply via WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Akodia Emmanuel</span>
+    <a href="/" style="color: var(--muted); transition: color 0.2s;" onmouseover="this.style.color='#f0f0f0'" onmouseout="this.style.color='var(--muted)'">akodiaemma.github.io</a>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/256776179275" target="_blank" class="wa__float">
+    <i class="fab fa-whatsapp" style="font-size:24px;color:#333;"></i>
+  </a>
+
+  <script>
+    // Nav scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // WhatsApp apply
+    function applyNow() {
+      const name = document.getElementById('name').value.trim();
+      const portfolio = document.getElementById('portfolio').value.trim();
+      const webflow = document.getElementById('webflow').value.trim();
+
+      if (!name || !portfolio || !webflow) {
+        alert('Please fill in all three fields before applying.');
+        return;
+      }
+
+      const message = encodeURIComponent(
+        `Hi Emmanuel 👋\n\nI'm applying for the Webflow Expert role.\n\n` +
+        `*Name:* ${name}\n` +
+        `*Portfolio:* ${portfolio}\n` +
+        `*Webflow Task:* ${webflow}`
+      );
+
+      window.open(`https://wa.me/256776179275?text=${message}`, '_blank');
+    }
+  </script>
+
+</body>
+</html>
