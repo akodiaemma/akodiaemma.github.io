@@ -541,27 +541,6 @@
     </div>
   </div>
 
-  <!-- APPLICATION TASK -->
-  <div style="border-top: 1px solid var(--border);">
-    <div class="section reveal">
-      <div class="section__label">To Apply</div>
-      <h2 class="section__heading">First, prove it.</h2>
-      <div class="section__body">
-        <p>Before you fill in the form below, complete this task. It's the only filter that matters.</p>
-      </div>
-      <div class="task__block">
-        <div class="task__label">Required Task</div>
-        <div class="task__heading">Convert this Figma file to Webflow</div>
-        <div class="task__body">
-          Take the Figma community file linked below and recreate it in Webflow — pixel perfect. Responsive. Production ready. Bonus points for adding animations with cubic beziers or GSAP. When you're done, publish it and have the link ready to share in the form below.
-        </div>
-        <a href="https://www.figma.com/community/file/1318227406178520862" target="_blank" class="task__link">
-          <i class="fab fa-figma"></i>
-          Open Figma File &nbsp;→
-        </a>
-      </div>
-    </div>
-  </div>
 
   <!-- APPLY FORM -->
   <div style="border-top: 1px solid var(--border);">
@@ -581,10 +560,7 @@
           <label class="form__label" for="portfolio">Portfolio Link</label>
           <input class="form__input" type="url" id="portfolio" placeholder="https://yourportfolio.com"/>
         </div>
-        <div class="form__group">
-          <label class="form__label" for="webflow">Webflow Task Link</label>
-          <input class="form__input" type="url" id="webflow" placeholder="https://yoursite.webflow.io"/>
-        </div>
+
         <button class="form__submit" onclick="applyNow()">
           <i class="fab fa-whatsapp"></i> Apply via WhatsApp
         </button>
@@ -636,8 +612,7 @@
       const message = encodeURIComponent(
         `Hi Emmanuel 👋\n\nI'm applying for the Webflow Expert role.\n\n` +
         `*Name:* ${name}\n` +
-        `*Portfolio:* ${portfolio}\n` +
-        `*Webflow Task:* ${webflow}`
+        `*Portfolio:* ${portfolio}`
       );
 
       window.open(`https://wa.me/256776179275?text=${message}`, '_blank');
