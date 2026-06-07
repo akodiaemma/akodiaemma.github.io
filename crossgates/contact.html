@@ -110,7 +110,8 @@
 <a class="font-headline font-semibold tracking-tight text-sm hover:text-emerald-600 transition-colors text-white" href="partners.html">Who We Work With</a>
 </div>
 <div class="flex items-center space-x-6">
-<a href="contact.html"><a href="contact.html"><button class="architectural-gradient text-white px-6 py-2.5 rounded-lg font-headline font-bold text-sm tracking-wide uppercase transition-transform active:scale-95">Contact Us</button></a></a>
+<a href="https://app.crossgatesconnect.com"><button class="border border-white/40 text-white px-6 py-2.5 rounded-lg font-headline font-bold text-sm tracking-wide uppercase hover:bg-white/10 transition-colors">Log In</button></a>
+<a href="contact.html"><button class="architectural-gradient text-white px-6 py-2.5 rounded-lg font-headline font-bold text-sm tracking-wide uppercase transition-transform active:scale-95">Contact Us</button></a>
 </div>
 <button id="mobile-menu-btn" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none" aria-label="Toggle menu" onclick="toggleMobileMenu()"><span class="block w-6 h-0.5 bg-white transition-all duration-300" id="ham-1"></span><span class="block w-6 h-0.5 bg-white transition-all duration-300" id="ham-2"></span><span class="block w-6 h-0.5 bg-white transition-all duration-300" id="ham-3"></span></button>
 </nav>
@@ -150,7 +151,7 @@
 
 <!-- Right: Form -->
 <div class="bg-white rounded-3xl p-10 shadow-2xl">
-<h2 class="font-headline text-2xl font-bold text-on-surface mb-8">Send us a message</h2>
+<h2 class="font-headline text-2xl font-bold text-on-surface mb-8">Send us an enquiry</h2>
 <div class="space-y-6">
 <div>
 <label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="full-name">Full Name</label>
@@ -171,16 +172,68 @@
 />
 </div>
 <div>
-<label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="company">Company</label>
-<input
-  id="company"
-  type="text"
-  placeholder="Your organisation or company"
-  class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-body text-sm transition-all"
-/>
+<label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="company">Company / Organisation</label>
+<input id="company" type="text" placeholder="Your organisation or company" class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-body text-sm transition-all"/>
 </div>
 <div>
-<label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="message">What brought you to us?</label>
+<label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="country">Country / Region</label>
+<input id="country" type="text" placeholder="e.g. Uganda, Kenya, United Kingdom" class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-body text-sm transition-all"/>
+</div>
+<div>
+<label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="role">I am contacting Crossgates as</label>
+<select id="role" class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-body text-sm transition-all">
+<option value="" selected disabled>Select one&hellip;</option>
+<option>Agro Producer</option>
+<option>Processor</option>
+<option>Cooperative / Aggregator</option>
+<option>Exporter</option>
+<option>Importer / Buyer</option>
+<option>QA / Compliance Team</option>
+<option>Institution / Government Body</option>
+<option>Sector Association</option>
+<option>Finance / Trade Partner</option>
+<option>Technology / Traceability Partner</option>
+<option>Investor / Development Partner</option>
+<option>Other</option>
+</select>
+</div>
+<div>
+<label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="product">Product Category</label>
+<select id="product" class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low text-on-surface font-body text-sm transition-all">
+<option value="" selected disabled>Select one&hellip;</option>
+<option>Coffee</option>
+<option>Cocoa</option>
+<option>Grains</option>
+<option>Pulses</option>
+<option>Oilseeds</option>
+<option>Fresh Produce</option>
+<option>Dried Fruits</option>
+<option>Honey</option>
+<option>Spices</option>
+<option>Processed Agro-Products</option>
+<option>Other</option>
+</select>
+</div>
+<div>
+<span class="block font-headline font-semibold text-sm text-on-surface mb-3">What do you need?</span>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Verify supplier documentation" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Verify supplier documentation</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Verify agro-product documentation" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Verify agro-product documentation</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Prepare export-readiness profile" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Prepare export-readiness profile</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Review compliance and quality evidence" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Review compliance and quality evidence</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Create / review a Trade Passport" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Create / review a Trade Passport</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Join the pilot programme" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Join the pilot programme</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Request supplier verification" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Request supplier verification</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Request buyer/institutional review" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Request buyer/institutional review</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Discuss institutional partnership" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Discuss institutional partnership</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Request a demo" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Request a demo</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Request sample Trade Passport" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Request sample Trade Passport</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Request investor/development partner information" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Request investor / development partner information</label>
+<label class="flex items-start gap-2 text-on-surface-variant text-sm"><input type="checkbox" name="needs" value="Other" class="mt-1 rounded border-outline-variant text-primary accent-primary"/> Other</label>
+</div>
+</div>
+<div>
+<label class="block font-headline font-semibold text-sm text-on-surface mb-2" for="message">Message</label>
 <textarea
   id="message"
   rows="4"
@@ -190,10 +243,10 @@
 </div>
 <div class="flex items-start gap-3">
 <input type="checkbox" id="terms" class="mt-1 rounded border-outline-variant text-primary accent-primary"/>
-<label class="text-on-surface-variant text-sm" for="terms">I agree to the <a href="#" class="text-primary underline underline-offset-2">Terms &amp; Conditions</a></label>
+<label class="text-on-surface-variant text-sm" for="terms">I agree to be contacted by Crossgates Connect regarding my enquiry and confirm that I have read the <a href="#" class="text-primary underline underline-offset-2">Terms &amp; Conditions</a> and <a href="#" class="text-primary underline underline-offset-2">Privacy Policy</a>.</label>
 </div>
 <button onclick="handleSubmit()" class="w-full architectural-gradient text-white py-4 rounded-xl font-headline font-bold text-sm tracking-wider uppercase shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95">
-Send Message
+Submit Verification Enquiry
 </button>
 </div>
 </div>
@@ -242,6 +295,7 @@ DBA Manoir, Plot 4, Bukaya, Garuga, Entebbe, Uganda
 <li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="pilot-sectors.html">Pilot &amp; Priority Sectors</a></li>
 <li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="partners.html">Who We Work With</a></li>
 <li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="contact.html">Contact Us</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:underline decoration-emerald-500/30 transition-all" href="https://app.crossgatesconnect.com">Log In</a></li>
 </ul>
 </div>
 </div>
@@ -260,18 +314,23 @@ function handleSubmit() {
   const name = document.getElementById('full-name').value;
   const email = document.getElementById('email').value;
   const company = document.getElementById('company').value;
+  const country = document.getElementById('country').value;
+  const role = document.getElementById('role').value;
   const message = document.getElementById('message').value;
   const terms = document.getElementById('terms').checked;
 
-  if (!name || !email || !company || !message) {
+  if (!name || !email || !company || !country || !role || !message) {
     alert('Please fill in all required fields.');
     return;
   }
   if (!terms) {
-    alert('Please agree to the Terms & Conditions.');
+    alert('Please agree to the Terms & Conditions and Privacy Policy.');
     return;
   }
-  alert('Thank you for your message. The Crossgates team will be in touch shortly.');
+  // NOTE: CRM / submission integration to be added at a later stage — no backend wired yet.
+  // Field ids ready for CRM mapping: full-name, email, company, country, role, product,
+  // message, terms; plus checkbox group name="needs".
+  alert('Thank you for your enquiry. The Crossgates team will be in touch shortly.');
 }
 </script>
 
@@ -295,6 +354,7 @@ function handleSubmit() {
   <a class="font-headline font-semibold text-xl text-white hover:text-emerald-400 transition-colors" href="trade-passport.html">Trade Passport</a>
   <a class="font-headline font-semibold text-xl text-white hover:text-emerald-400 transition-colors" href="pilot-sectors.html">Pilot &amp; Priority Sectors</a>
   <a class="font-headline font-semibold text-xl text-white hover:text-emerald-400 transition-colors" href="partners.html">Who We Work With</a>
+  <a href="https://app.crossgatesconnect.com" style="margin-top:1rem;"><button class="border border-white/40 text-white px-8 py-3 rounded-lg font-headline font-bold text-sm tracking-wide uppercase">Log In</button></a>
   <a href="contact.html" style="margin-top:1rem;"><button class="architectural-gradient text-white px-8 py-3 rounded-lg font-headline font-bold text-sm tracking-wide uppercase">Contact Us</button></a>
 </div>
 <script>
