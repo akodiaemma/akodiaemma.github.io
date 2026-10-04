@@ -1,0 +1,4 @@
+# Crossgates public website. Netlify Base directory is crossgates.
+[build]
+  command = "python3 -m zipfile -e crossgates-website.zip website"
+  publish = "website"
