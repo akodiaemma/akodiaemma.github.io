@@ -64,3 +64,22 @@ video{max-width:100%;height:auto}
  input,select,textarea,fieldset{min-width:0;max-width:100%;box-sizing:border-box}
  .stiv-mentor-copy h1{overflow-wrap:break-word}
 }
+
+/* Shared approved map canvas on every website page and language. */
+body, body[class] {
+ background-color:#0b3026;
+ background-image:linear-gradient(90deg,rgba(5,27,20,.48),rgba(5,27,20,.19) 55%,rgba(5,27,20,.12)),url('img/global-trade-map.webp');
+ background-position:center center;
+ background-size:cover;
+ background-repeat:no-repeat;
+ background-attachment:fixed;
+ min-height:100vh;
+}
+/* Remove the older background layers that hid the map on inner pages. */
+body::before,body::after {content:none!important;display:none!important;}
+body > .language-bar {background:transparent;}
+.page-stiv .stiv-mentor-hero {background:transparent;}
+.page-stiv .stiv-mentor-hero::before,
+.page-stiv .stiv-mentor-hero::after {content:none;display:none;}
+@media(max-width:680px){body,body[class]{background-position:49% center;}}
+@media print{body,body[class]{background:#fff!important;}}
