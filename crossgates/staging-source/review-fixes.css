@@ -1,0 +1,66 @@
+/* Review fixes CG02, CG04, CG05, CG07 and homepage desktop alignment.
+   The approved world-map image, brand palette and its overlay rules are unchanged. */
+.review-demo-disclosure{position:relative;z-index:2;margin:0;padding:11px 16px;background:#eaf1df;color:#153f31;border-bottom:1px solid #c8d7bd;font-size:.77rem;font-weight:750;line-height:1.4;letter-spacing:.015em}
+.review-next-step-note{font-size:.75rem!important;line-height:1.4!important;color:#e2ecd8!important;margin:12px 0 0!important;max-width:56ch!important}
+.stiv-language-note{font-size:.79rem;color:#d8e8d3;margin:-8px 0 20px;max-width:54ch}
+#passport-documents{scroll-margin-top:110px}
+/* Wider desktop: align opening text and the complete illustrative Passport. */
+@media (min-width:1100px){
+ .page-home .home-hero{padding-top:calc(36px + var(--home-language-height,0px))}
+ .page-home .home-hero-grid{grid-template-columns:minmax(0,1.13fr) minmax(0,.87fr);gap:clamp(22px,3vw,52px);align-items:start}
+ .page-home .home-intro{margin-top:0;min-width:0}
+ .page-home .home-intro>.hero-title{transform:none;font-size:clamp(2.2rem,3.3vw,3.25rem)}
+ .page-home .home-intro>.hero-promise{font-size:clamp(1.65rem,2.3vw,2.1rem)}
+ .page-home .home-passport.approved-passport-shell{width:100%;max-width:385px;justify-self:center;align-self:start}
+ .page-home .hero-stiv-spotlight{margin-top:14px}
+ .page-home .home-intro>.actions{margin-top:13px}
+ .page-home .home-intro>.programme-link{margin-top:10px}
+}
+@media (max-width:1099px){.page-home .home-intro>.hero-title .hero-line{white-space:normal;overflow-wrap:normal}}
+@media (max-width:680px){
+ .page-home .home-hero-grid,.page-home .home-intro,.page-home .home-passport{min-width:0;max-width:100%}
+ .page-home .home-intro>.hero-title{max-width:100%;overflow-wrap:break-word;word-break:normal}
+ .page-home .home-intro>.hero-title .hero-line{white-space:normal}
+ .page-home .home-intro>.hero-promise{overflow-wrap:break-word}
+ .page-home .home-intro>.actions{width:100%;flex-wrap:wrap}
+ .page-home .home-intro>.actions a{min-width:0;flex:1 1 145px;white-space:normal;text-align:center}
+ .page-home .hero-stiv-spotlight{width:100%;max-width:100%}
+ .page-home .stiv-home-mini{min-width:0}
+ .page-home .stiv-home-copy{min-width:0}
+ .page-home .stiv-home-copy .hero-stiv-actions a{min-width:0;white-space:normal}
+ .page-home .approved-passport{min-width:0}
+}
+@media(max-width:360px){
+ .page-home .home-intro>.hero-title{font-size:clamp(1.45rem,7.5vw,1.85rem)}
+ .page-home .stiv-home-mini{grid-template-columns:65px minmax(0,1fr);gap:8px}
+ .page-home .stiv-home-copy .hero-stiv-actions{display:grid;grid-template-columns:1fr}
+ .page-home .stiv-home-copy .hero-stiv-actions a{min-height:40px}
+ .page-home .hero-passport-intro{padding:10px 12px}
+}
+
+/* 14 October 2026: approved homepage wording colours.
+   Preserve original lime/cream heading and pure-white promise exactly; no change
+   to map imagery, background, brand palette, STIV, or Passport artwork. */
+.page-home .home-intro > .hero-title,
+.page-home .home-intro > .hero-title .hero-line {color:var(--lime) !important;}
+.page-home .home-intro > p.hero-promise,
+.page-home .home-intro > p.hero-promise span {color:#ffffff !important;}
+
+/* CG05: keep narrow content inside its own grid; never mask overflow as a fix. */
+.home-hero-grid > *, .stiv-mentor-grid > *, .passport-reader-layout > * {min-width:0}
+.review-service-scope{max-width:68ch;margin:22px auto 0;line-height:1.65}
+.sector-scope,.review-scope-note,.draft-fallback{margin-top:14px;line-height:1.6}
+#document{display:block;scroll-margin-top:110px}
+video{max-width:100%;height:auto}
+@media(max-width:680px){
+ .page-home .home-intro>.hero-title,
+ .page-home .home-intro>.hero-promise+p{transform:none!important}
+ .page-home .home-hero-grid{grid-template-columns:minmax(0,1fr)}
+ .document-row{gap:8px;flex-wrap:wrap}
+ .document-state{white-space:normal}
+ .home-intro .hero-stiv-actions a{min-height:44px}
+ .contact-email,.draft-fallback a{overflow-wrap:anywhere}
+ .local-form-grid{grid-template-columns:minmax(0,1fr)}
+ input,select,textarea,fieldset{min-width:0;max-width:100%;box-sizing:border-box}
+ .stiv-mentor-copy h1{overflow-wrap:break-word}
+}

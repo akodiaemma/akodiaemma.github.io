@@ -2,3 +2,12 @@
 [build]
   command = "python3 -m zipfile -e crossgates-website.zip website"
   publish = "website"
+
+# Staging review only. Production continues to use the existing ZIP.
+[context.deploy-preview]
+  command = "python3 build_website.py"
+  publish = "website-staging"
+
+[context."staging/reidar-review-2026-10-13"]
+  command = "python3 build_website.py"
+  publish = "website-staging"
