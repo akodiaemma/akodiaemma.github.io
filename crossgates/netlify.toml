@@ -1,4 +1,12 @@
 # Crossgates public website. Netlify Base directory is crossgates.
 [build]
-  command = "python3 -m zipfile -e crossgates-website.zip website"
-  publish = "website"
+  command = "python3 build_website.py"
+  publish = "website-staging"
+
+[context.deploy-preview]
+  command = "python3 build_website.py"
+  publish = "website-staging"
+
+[context."staging/reidar-review-2026-10-13"]
+  command = "python3 build_website.py"
+  publish = "website-staging"
