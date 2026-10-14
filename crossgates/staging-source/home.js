@@ -26,16 +26,36 @@
 {"src": "img/coffee-exhibition.webp", "width": 1086, "height": 1448, "alt": "Doris Beth Atigo seated with two exhibitors at an Africa Coffee Park exhibition stand.", "title": "Coffee exhibition conversations", caption:"Discussing onboarding, verification and preparation for international markets with coffee buyers and exhibitors at ExCeL London.", "credit": ""},
 {"src": "img/spitalfields-produce.webp", "width": 1152, "height": 1536, "alt": "Doris Beth Atigo looking at fresh produce during her Spitalfields Market visit.", "title": "Fresh produce · Spitalfields Market", caption:"Exploring the fresh produce on offer at Spitalfields and gathering first-hand insight into the products and requirements of the UK wholesale market.", "credit": ""}
  ];
- let activeEvent=0;
+ let activeEvent=0, displayedEvent=0, photoRequest=0;
  const eventButtons=[...document.querySelectorAll('[data-event]')];
  function selectEvent(index,reveal=false){
   activeEvent=(index+events.length)%events.length;
-  const item=events[activeEvent];
-  eventButtons.forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.event)===activeEvent)));
-  const photo=get('event-image');photo.src=item.src;photo.alt=item.alt;photo.width=item.width;photo.height=item.height;
-  write('event-title',item.title);write('event-caption',item.caption);write('event-credit',item.credit);get('event-credit').hidden=!item.credit;
-  write('event-count',`${activeEvent+1} / ${events.length}`);
-  if(reveal){const figure=get('event-view'),rect=figure.getBoundingClientRect();if(rect.bottom<100||rect.top>innerHeight-100)figure.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});}
+  const selected=activeEvent, item=events[selected], request=++photoRequest;
+  const figure=get('event-view');
+  figure.setAttribute('aria-busy','true');
+  write('event-count','Loading photograph…');
+  // Load separately: keep the visible photograph and its caption paired.
+  const photo=get('event-image').cloneNode(false);
+  photo.removeAttribute('srcset');photo.removeAttribute('sizes');
+  photo.loading='eager';photo.alt=item.alt;photo.width=item.width;photo.height=item.height;
+  photo.onload=()=>{
+   if(request!==photoRequest)return;
+   photo.onload=null;photo.onerror=null;
+   get('event-image').replaceWith(photo);
+   displayedEvent=selected;
+   eventButtons.forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.event)===selected)));
+   write('event-title',item.title);write('event-caption',item.caption);write('event-credit',item.credit);get('event-credit').hidden=!item.credit;
+   write('event-count',`${selected+1} / ${events.length}`);
+   figure.setAttribute('aria-busy','false');
+   if(reveal){const rect=figure.getBoundingClientRect();if(rect.bottom<100||rect.top>innerHeight-100)figure.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});}
+  };
+  photo.onerror=()=>{
+   if(request!==photoRequest)return;
+   activeEvent=displayedEvent;
+   figure.setAttribute('aria-busy','false');
+   write('event-count',`${displayedEvent+1} / ${events.length} · Photo could not load. Please try again.`);
+  };
+  photo.src=item.src;
  }
  eventButtons.forEach(button=>button.addEventListener('click',()=>selectEvent(Number(button.dataset.event),true)));
  if(get('event-previous'))get('event-previous').addEventListener('click',()=>selectEvent(activeEvent-1));
