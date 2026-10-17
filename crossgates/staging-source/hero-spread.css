@@ -144,3 +144,11 @@
 /* Align standards with the progress cards at every viewport width. */
 :is(.page-home,.localized-page) .standards-reference>.wrap{width:auto;max-width:none;margin-inline:32px;padding-inline:0}
 :is(.page-home,.localized-page) .standards-links{gap:24px}
+
+/* Move only the centred enquiry group to the Passport's Contact supplier row. */
+@media(min-width:761px){
+  :is(.page-home,.localized-page) .home-hero-spread .home-intro>.hero-start-links{
+    margin-top:var(--passport-enquiry-gap,28px);
+    flex-shrink:0;
+  }
+}

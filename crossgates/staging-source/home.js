@@ -71,3 +71,39 @@
  const readRole=()=>{const role=roleHashes[location.hash]||new URLSearchParams(location.search).get('audience');if(role)selectRole(role);};
  window.addEventListener('hashchange',readRole);readRole();
 })();
+
+/* Align the desktop enquiry group with the Contact supplier row in the Passport artwork. */
+(() => {
+  const group = document.querySelector('.home-intro > .hero-start-links');
+  const description = document.querySelector('.home-intro > .hero-promise + p');
+  const artwork = document.querySelector('.home-hero-spread .passport-artwork img');
+  if (!group || !description || !artwork) return;
+  let scheduled = false;
+  function align() {
+    scheduled = false;
+    if (!window.matchMedia('(min-width: 761px)').matches) {
+      group.style.removeProperty('--passport-enquiry-gap');
+      return;
+    }
+    const image = artwork.getBoundingClientRect();
+    if (!image.height) return;
+    // The Contact supplier button starts at 90.5% of this approved artwork's height.
+    const gap = Math.max(28, image.top + image.height * 0.905 - description.getBoundingClientRect().bottom);
+    const previous = parseFloat(group.style.getPropertyValue('--passport-enquiry-gap'));
+    if (!Number.isFinite(previous) || Math.abs(previous - gap) > 0.5) {
+      group.style.setProperty('--passport-enquiry-gap', gap.toFixed(2) + 'px');
+    }
+  }
+  function schedule() {
+    if (!scheduled) { scheduled = true; requestAnimationFrame(align); }
+  }
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(schedule);
+    observer.observe(artwork);
+    observer.observe(description);
+  }
+  artwork.addEventListener('load', schedule);
+  window.addEventListener('resize', schedule, { passive: true });
+  if (document.fonts) document.fonts.ready.then(schedule);
+  schedule();
+})();
