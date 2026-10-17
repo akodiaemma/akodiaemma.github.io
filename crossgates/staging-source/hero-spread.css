@@ -173,3 +173,65 @@
 :is(.page-home,.localized-page) .home-hero-spread .home-hero-grid>.hero-title{
   color:#c6e879!important;
 }
+
+/* Staging: aligned hero footer rows and connected-world section panels. */
+:is(.page-home,.localized-page) .home-hero-spread .home-intro>.hero-promise+p{
+  font-size:clamp(1.125rem,1.5vw,1.3rem)!important;
+  max-width:46ch;
+}
+@media(min-width:761px){
+  :is(.page-home,.localized-page) .home-hero-spread .home-intro>.hero-promise+p{
+    margin-top:calc(clamp(72px,8vw,120px) + 30px)!important;
+  }
+  :is(.page-home,.localized-page) .home-hero-spread .home-hero-grid{
+    grid-template-rows:auto auto auto auto auto;
+  }
+  :is(.page-home,.localized-page) .home-hero-spread .home-hero-grid>.hero-start-links,
+  :is(.page-home,.localized-page) .home-hero-spread .hero-passport-links{
+    display:grid;
+    grid-template-rows:subgrid;
+    grid-row:3 / span 3;
+    row-gap:14px;
+    align-self:stretch;
+  }
+  :is(.page-home,.localized-page) .home-hero-spread .home-hero-grid>.hero-start-links{
+    grid-column:2;
+    width:100%;
+    max-width:480px;
+    justify-self:center;
+    margin:0;
+    position:relative;
+    left:-12px;
+  }
+  :is(.page-home,.localized-page) .home-hero-spread .hero-start-links>.review-next-step-note,
+  :is(.page-home,.localized-page) .home-hero-spread .hero-start-links>.actions,
+  :is(.page-home,.localized-page) .home-hero-spread .hero-start-links>.programme-link,
+  :is(.page-home,.localized-page) .home-hero-spread .hero-passport-links>p,
+  :is(.page-home,.localized-page) .home-hero-spread .hero-passport-links>.passport-real-actions{
+    margin:0!important;
+    align-self:start;
+  }
+}
+@media(max-width:760px){
+  :is(.page-home,.localized-page) .home-hero-spread .home-hero-grid>.hero-start-links{
+    order:1;
+    width:100%;
+    max-width:480px;
+    margin:0 auto;
+  }
+  :is(.page-home,.localized-page) .home-hero-spread .hero-stiv-spotlight{order:2}
+}
+:is(.page-home,.localized-page) :is(#how-it-works,#product-start),
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-panel{
+  background:linear-gradient(90deg,rgba(5,27,20,.84),rgba(5,27,20,.66)),url('img/global-trade-map.webp') center/cover no-repeat!important;
+  color:#f6f8ef;
+  border:1px solid rgba(217,231,168,.3);
+}
+:is(.page-home,.localized-page) :is(#how-it-works,#product-start)>.wrap{background:transparent!important}
+:is(.page-home,.localized-page) #how-it-works .section-heading h2,
+:is(.page-home,.localized-page) #product-start>.wrap>h2,
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-heading h2{color:#c6e879!important}
+:is(.page-home,.localized-page) #how-it-works .section-heading p,
+:is(.page-home,.localized-page) #product-start>.wrap>p,
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-heading p,
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-more{color:#eef3e9!important}
