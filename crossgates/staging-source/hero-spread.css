@@ -174,7 +174,7 @@
   color:#c6e879!important;
 }
 
-/* Staging: aligned hero footer rows and connected-world section panels. */
+/* Staging: shared hero footer rows and cream section panels. */
 :is(.page-home,.localized-page) .home-hero-spread .home-intro>.hero-promise+p{
   font-size:clamp(1.125rem,1.5vw,1.3rem)!important;
   max-width:46ch;
@@ -221,17 +221,23 @@
   }
   :is(.page-home,.localized-page) .home-hero-spread .hero-stiv-spotlight{order:2}
 }
+/* Cream surroundings retain the connected-world artwork inside evidence cards. */
 :is(.page-home,.localized-page) :is(#how-it-works,#product-start),
-:is(.page-home,.localized-page) #crossgates-videos .cg-video-panel{
-  background:linear-gradient(90deg,rgba(5,27,20,.84),rgba(5,27,20,.66)),url('img/global-trade-map.webp') center/cover no-repeat!important;
-  color:#f6f8ef;
-  border:1px solid rgba(217,231,168,.3);
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-panel,
+:is(.page-home,.localized-page) :is(.reported-progress,.standards-reference){
+  background:#f8f5e9!important;
+  color:#153f31;
+  border-color:#d8dfc6;
 }
 :is(.page-home,.localized-page) :is(#how-it-works,#product-start)>.wrap{background:transparent!important}
 :is(.page-home,.localized-page) #how-it-works .section-heading h2,
 :is(.page-home,.localized-page) #product-start>.wrap>h2,
-:is(.page-home,.localized-page) #crossgates-videos .cg-video-heading h2{color:#c6e879!important}
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-heading h2,
+:is(.page-home,.localized-page) .reported-progress>h2{color:#153f31!important}
 :is(.page-home,.localized-page) #how-it-works .section-heading p,
 :is(.page-home,.localized-page) #product-start>.wrap>p,
 :is(.page-home,.localized-page) #crossgates-videos .cg-video-heading p,
-:is(.page-home,.localized-page) #crossgates-videos .cg-video-more{color:#eef3e9!important}
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-more,
+:is(.page-home,.localized-page) .reported-progress>p,
+:is(.page-home,.localized-page) .reported-progress>a,
+:is(.page-home,.localized-page) .standards-reference :is(.standards-heading h2,.standards-heading p,.standards-note){color:#254b3c!important}
