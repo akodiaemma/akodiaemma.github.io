@@ -168,3 +168,8 @@
     left:-12px;
   }
 }
+
+/* Restore a distinct lime-green accent to the main homepage headline. */
+:is(.page-home,.localized-page) .home-hero-spread .home-hero-grid>.hero-title{
+  color:#c6e879!important;
+}
