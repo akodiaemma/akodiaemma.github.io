@@ -241,3 +241,39 @@
 :is(.page-home,.localized-page) .reported-progress>p,
 :is(.page-home,.localized-page) .reported-progress>a,
 :is(.page-home,.localized-page) .standards-reference :is(.standards-heading h2,.standards-heading p,.standards-note){color:#254b3c!important}
+
+/* Staging: consistent full-width panels with a visible map between them. */
+:is(.page-home,.localized-page) :is(#market-brief,#your-next-step,#crossgates-videos){
+  margin:24px 0!important;
+  padding:0!important;
+}
+:is(.page-home,.localized-page) :is(#market-brief,#your-next-step,#crossgates-videos)>.wrap{
+  box-sizing:border-box;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:32px!important;
+  border-radius:0!important;
+}
+:is(.page-home,.localized-page) :is(.cg-home-invest,.cg-home-product){
+  margin:24px 0!important;
+  padding:40px 32px;
+  border-radius:0;
+}
+:is(.page-home,.localized-page) .cg-home-invest{
+  background:linear-gradient(90deg,rgba(5,27,20,.72),rgba(5,27,20,.5)),url('img/global-trade-map.webp') center/cover no-repeat;
+}
+:is(.page-home,.localized-page) .cg-home-invest .cg-action{
+  background:#1b5039;
+  border-color:#aac58b;
+  color:#f8f5e9!important;
+}
+:is(.page-home,.localized-page) .cg-home-invest .cg-action:hover{background:#245d43}
+:is(.page-home,.localized-page) .cg-mini-record{
+  background:linear-gradient(140deg,rgba(8,40,27,.65),rgba(8,40,27,.45)),url('img/global-trade-map.webp') center/cover no-repeat;
+}
+:is(.page-home,.localized-page) .home-hero-spread .home-hero-grid>.hero-title{color:#eeeac0!important}
+@media(max-width:760px){
+  :is(.page-home,.localized-page) :is(#market-brief,#your-next-step,#crossgates-videos)>.wrap{padding:28px 20px!important}
+  :is(.page-home,.localized-page) :is(.cg-home-invest,.cg-home-product){padding:32px 20px}
+}
