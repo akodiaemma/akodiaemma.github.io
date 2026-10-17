@@ -310,3 +310,6 @@
 :is(.page-home,.localized-page) :is(#team,#crossgates-in-action) .section-heading p{color:#f8f5e9!important}
 :is(.page-home,.localized-page) :is(#team,#crossgates-in-action) .section-stiv-link,
 :is(.page-home,.localized-page) #crossgates-videos .cg-video-more a{color:#eeeac0!important}
+:is(.page-home,.localized-page) #team .people-card :is(h3,p,a){color:#153f31!important}
+:is(.page-home,.localized-page) #crossgates-in-action .watch{background:transparent!important;box-shadow:none!important;border-color:#7c9878}
+:is(.page-home,.localized-page) #crossgates-in-action .watch :is(summary,h3,p,a){color:#f8f5e9!important}
