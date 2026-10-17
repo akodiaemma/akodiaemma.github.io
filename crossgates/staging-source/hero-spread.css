@@ -130,6 +130,13 @@
 
 /* Dated company-reported progress, distinct from external market data. */
 .reported-progress .progress-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin:20px 0}.progress-metrics article{border-left:3px solid #b9ce77;padding:8px 20px}.progress-metrics strong{display:block;font-size:clamp(2rem,4vw,3.5rem);line-height:1.1;color:inherit}.progress-metrics h3{font-size:1.05rem;line-height:1.5;margin:12px 0}.reported-progress>p{font-size:.9rem;line-height:1.6;max-width:75ch}@media(max-width:650px){.reported-progress .progress-metrics{grid-template-columns:1fr}}
-/* Keep reported figures readable against the connected-world map. */
-:is(.page-home,.localized-page) .reported-progress{background:#f6f4e9;color:#193d31;border-radius:16px;padding:32px;margin:24px 16px;scroll-margin-top:100px}
-:is(.page-home,.localized-page) .reported-progress :is(h2,h3,p,strong,a){color:#193d31}
+/* Match progress to the standards section, with connected-world cards. */
+:is(.page-home,.localized-page) .reported-progress{background:rgba(15,45,35,.94);color:#f6f8ef;border-block:1px solid rgba(217,231,168,.3);border-radius:0;padding:32px;margin:24px 0;scroll-margin-top:100px}
+:is(.page-home,.localized-page) .reported-progress :is(h2,strong){color:#e4ecad}
+:is(.page-home,.localized-page) .reported-progress :is(h3,a){color:#f6f8ef}
+:is(.page-home,.localized-page) .reported-progress>p{color:#d8e3d4}
+:is(.page-home,.localized-page) .reported-progress .progress-metrics article,
+.standards-reference .standards-links a{background:linear-gradient(90deg,rgba(5,27,20,.78),rgba(5,27,20,.58)),url('img/global-trade-map.webp') center/cover no-repeat;border:1px solid #7b977c;border-radius:10px}
+:is(.page-home,.localized-page) .reported-progress .progress-metrics article{padding:24px}
+.standards-reference .standards-links a:hover{border-color:#e4ecad;background-image:linear-gradient(90deg,rgba(5,27,20,.64),rgba(5,27,20,.44)),url('img/global-trade-map.webp')}
+
