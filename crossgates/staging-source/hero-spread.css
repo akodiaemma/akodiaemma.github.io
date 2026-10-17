@@ -277,3 +277,28 @@
   :is(.page-home,.localized-page) :is(#market-brief,#your-next-step,#crossgates-videos)>.wrap{padding:28px 20px!important}
   :is(.page-home,.localized-page) :is(.cg-home-invest,.cg-home-product){padding:32px 20px}
 }
+
+/* Staging experiment: write directly over the continuous connected-world canvas. */
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action),
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(div,article,details,figure),
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) .cg-mini-record{
+  background:transparent!important;
+  box-shadow:none!important;
+  border-color:rgba(214,231,187,.32)!important;
+}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(p,a,span,li,dt,dd,label,legend,summary,small),
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action){color:#f5f7ed!important}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(h2,h3,strong,.eyebrow,.feature-step){color:#eeeac0!important}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(h2,h3,p,li,dt,dd,label,legend,summary){text-shadow:0 2px 8px rgba(0,18,10,.68)}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(.btn,.cg-action,button){
+  background:#174a35!important;
+  color:#f8f5e9!important;
+  border:1px solid #b9cf9a!important;
+  text-shadow:none;
+}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) button[aria-pressed=true]{background:#dcebb5!important;color:#153f31!important}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(input,select,textarea,option){background:#f8f5e9!important;color:#153f31!important;text-shadow:none}
+:is(.page-home,.localized-page) .principles,
+:is(.page-home,.localized-page) .principles>.wrap,
+:is(.page-home,.localized-page) .cg-subnav{background:transparent!important;box-shadow:none!important;color:#f5f7ed!important}
+:is(.page-home,.localized-page) .principles strong{color:#eeeac0!important}
