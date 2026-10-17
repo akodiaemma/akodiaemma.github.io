@@ -107,7 +107,7 @@
 :is(.page-home,.localized-page) .home-hero-spread .home-intro>.hero-start-links{align-self:center;max-width:480px;margin:28px auto 0;text-align:center}
 :is(.page-home,.localized-page) .home-hero-spread .hero-start-links>.review-next-step-note{font-size:.82rem;line-height:1.55}
 :is(.page-home,.localized-page) .home-hero-spread .hero-start-links>.programme-link{color:#eef3e9;font-size:.85rem}
-.localized-page .home-hero-spread .hero-promise{overflow-wrap:anywhere}
+.localized-page .home-hero-spread .hero-promise{overflow-wrap:normal;hyphens:none}
 .trade-opportunity .content-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .trade-opportunity .market-card{display:flex;flex-direction:column;gap:14px;padding:28px;border-radius:16px;background:#f8f5e9;color:#153f31;border:1px solid #d8dfc6;min-width:0}
 .trade-opportunity .market-card h3{font-size:1.35rem;line-height:1.25;margin:0;color:#153f31}
