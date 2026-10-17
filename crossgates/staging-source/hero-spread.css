@@ -173,3 +173,127 @@
 :is(.page-home,.localized-page) .home-hero-spread .home-hero-grid>.hero-title{
   color:#c6e879!important;
 }
+
+/* Staging: shared hero footer rows and cream section panels. */
+:is(.page-home,.localized-page) .home-hero-spread .home-intro>.hero-promise+p{
+  font-size:clamp(1.125rem,1.5vw,1.3rem)!important;
+  max-width:46ch;
+}
+@media(min-width:761px){
+  :is(.page-home,.localized-page) .home-hero-spread .home-intro>.hero-promise+p{
+    margin-top:calc(clamp(72px,8vw,120px) + 30px)!important;
+  }
+  :is(.page-home,.localized-page) .home-hero-spread .home-hero-grid{
+    grid-template-rows:auto auto auto auto auto;
+  }
+  :is(.page-home,.localized-page) .home-hero-spread .home-hero-grid>.hero-start-links,
+  :is(.page-home,.localized-page) .home-hero-spread .hero-passport-links{
+    display:grid;
+    grid-template-rows:subgrid;
+    grid-row:3 / span 3;
+    row-gap:14px;
+    align-self:stretch;
+  }
+  :is(.page-home,.localized-page) .home-hero-spread .home-hero-grid>.hero-start-links{
+    grid-column:2;
+    width:100%;
+    max-width:480px;
+    justify-self:center;
+    margin:0;
+    position:relative;
+    left:-12px;
+  }
+  :is(.page-home,.localized-page) .home-hero-spread .hero-start-links>.review-next-step-note,
+  :is(.page-home,.localized-page) .home-hero-spread .hero-start-links>.actions,
+  :is(.page-home,.localized-page) .home-hero-spread .hero-start-links>.programme-link,
+  :is(.page-home,.localized-page) .home-hero-spread .hero-passport-links>p,
+  :is(.page-home,.localized-page) .home-hero-spread .hero-passport-links>.passport-real-actions{
+    margin:0!important;
+    align-self:start;
+  }
+}
+@media(max-width:760px){
+  :is(.page-home,.localized-page) .home-hero-spread .home-hero-grid>.hero-start-links{
+    order:1;
+    width:100%;
+    max-width:480px;
+    margin:0 auto;
+  }
+  :is(.page-home,.localized-page) .home-hero-spread .hero-stiv-spotlight{order:2}
+}
+/* Cream surroundings retain the connected-world artwork inside evidence cards. */
+:is(.page-home,.localized-page) :is(#how-it-works,#product-start),
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-panel,
+:is(.page-home,.localized-page) :is(.reported-progress,.standards-reference){
+  background:#f8f5e9!important;
+  color:#153f31;
+  border-color:#d8dfc6;
+}
+:is(.page-home,.localized-page) :is(#how-it-works,#product-start)>.wrap{background:transparent!important}
+:is(.page-home,.localized-page) #how-it-works .section-heading h2,
+:is(.page-home,.localized-page) #product-start>.wrap>h2,
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-heading h2,
+:is(.page-home,.localized-page) .reported-progress>h2{color:#153f31!important}
+:is(.page-home,.localized-page) #how-it-works .section-heading p,
+:is(.page-home,.localized-page) #product-start>.wrap>p,
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-heading p,
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-more,
+:is(.page-home,.localized-page) .reported-progress>p,
+:is(.page-home,.localized-page) .reported-progress>a,
+:is(.page-home,.localized-page) .standards-reference :is(.standards-heading h2,.standards-heading p,.standards-note){color:#254b3c!important}
+
+/* Staging: consistent full-width panels with a visible map between them. */
+:is(.page-home,.localized-page) :is(#market-brief,#your-next-step,#crossgates-videos){
+  margin:24px 0!important;
+  padding:0!important;
+}
+:is(.page-home,.localized-page) :is(#market-brief,#your-next-step,#crossgates-videos)>.wrap{
+  box-sizing:border-box;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:32px!important;
+  border-radius:0!important;
+}
+:is(.page-home,.localized-page) :is(.cg-home-invest,.cg-home-product){
+  margin:24px 0!important;
+  padding:40px 32px;
+  border-radius:0;
+}
+:is(.page-home,.localized-page) .cg-home-invest{
+  background:linear-gradient(90deg,rgba(5,27,20,.72),rgba(5,27,20,.5)),url('img/global-trade-map.webp') center/cover no-repeat;
+}
+:is(.page-home,.localized-page) .cg-home-invest .cg-action{
+  background:#1b5039;
+  border-color:#aac58b;
+  color:#f8f5e9!important;
+}
+:is(.page-home,.localized-page) .cg-home-invest .cg-action:hover{background:#245d43}
+:is(.page-home,.localized-page) .cg-mini-record{
+  background:linear-gradient(140deg,rgba(8,40,27,.65),rgba(8,40,27,.45)),url('img/global-trade-map.webp') center/cover no-repeat;
+}
+:is(.page-home,.localized-page) .home-hero-spread .home-hero-grid>.hero-title{color:#eeeac0!important}
+@media(max-width:760px){
+  :is(.page-home,.localized-page) :is(#market-brief,#your-next-step,#crossgates-videos)>.wrap{padding:28px 20px!important}
+  :is(.page-home,.localized-page) :is(.cg-home-invest,.cg-home-product){padding:32px 20px}
+}
+
+/* Launch palette: connected-world signature, calm cream evidence, forest calls to action. */
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(.cg-home-invest):not(#continue-with-stiv):not(#enquiry){background:#f8f5e9!important;color:#153f31!important;border-color:#d8dfc6}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(.cg-home-invest):not(#continue-with-stiv):not(#enquiry) :is(.wrap,.cg-video-panel){background:transparent!important;color:#153f31}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(.cg-home-invest):not(#continue-with-stiv):not(#enquiry) :is(h2,h3,p,a,span,strong,li,summary,.eyebrow,.feature-step){color:#153f31!important;text-shadow:none}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(.cg-home-invest):not(#continue-with-stiv):not(#enquiry) :is(article,.content-card,.people-card,.stiv-topics,.faq,.cg-mini-record,.market-card){background:#fffdf5!important;background-image:none!important;color:#153f31;border-color:#cbd7c4}
+:is(.page-home,.localized-page) .standards-links a{background:#edf0df!important;background-image:none!important;border-color:#b9c8ab}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(.cg-home-invest):not(#continue-with-stiv):not(#enquiry) :is(.btn,.cg-action,button){background:#174a35!important;color:#f8f5e9!important;border:1px solid #174a35}
+:is(.page-home,.localized-page) main>section:not(.home-hero) button[aria-pressed=true]{background:#dcebb5!important;color:#153f31!important}
+:is(.page-home,.localized-page) :is(.cg-home-invest,#enquiry){background:#123e30!important;background-image:none!important;color:#f8f5e9!important}
+:is(.page-home,.localized-page) :is(.cg-home-invest,#enquiry) :is(h2,h3,p,a,span,strong,li,label,legend,summary,.eyebrow){color:#f8f5e9!important;text-shadow:none}
+:is(.page-home,.localized-page) #enquiry :is(.wrap,.contact-form){background:transparent!important;color:#f8f5e9!important}
+:is(.page-home,.localized-page) #enquiry :is(input,select,textarea,option){background:#fffdf5!important;color:#153f31!important}
+:is(.page-home,.localized-page) :is(.cg-home-invest,#enquiry) :is(.btn,.cg-action,button){background:#e5edac!important;color:#153f31!important;border:1px solid #c5d494;text-shadow:none}
+:is(.page-home,.localized-page) #continue-with-stiv{background:transparent!important;color:#f8f5e9!important}
+:is(.page-home,.localized-page) #continue-with-stiv>.wrap{background:rgba(8,37,26,.78)!important;color:#f8f5e9!important;border:1px solid #7c9878}
+:is(.page-home,.localized-page) #continue-with-stiv :is(h2,h3,p,a,span,strong){color:#f8f5e9!important}
+:is(.page-home,.localized-page) #continue-with-stiv .btn{background:#e5edac!important;color:#153f31!important}
+:is(.page-home,.localized-page) .principles{background:#123e30!important;color:#eeeac0!important}
+:is(.page-home,.localized-page) .principles strong{color:#eeeac0!important}
