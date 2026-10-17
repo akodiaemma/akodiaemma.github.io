@@ -314,3 +314,7 @@
 :is(.page-home,.localized-page) #crossgates-in-action .watch{background:transparent!important;box-shadow:none!important;border-color:#7c9878}
 :is(.page-home,.localized-page) #crossgates-in-action .watch :is(summary,h3,p,a){color:#f8f5e9!important}
 :is(.page-home,.localized-page) #crossgates-videos .cg-video-card :is(h3,p,a){color:#153f31!important}
+/* Restore green progress surroundings and connected-world metric cards. */
+:is(.page-home,.localized-page) main>section#reported-progress:not(#enquiry):not(#continue-with-stiv){background:#123e30!important;color:#f8f5e9!important;border-color:#7c9878}
+:is(.page-home,.localized-page) main>section#reported-progress:not(#enquiry):not(#continue-with-stiv) :is(h2,h3,p,a,span,strong){color:#f8f5e9!important}
+:is(.page-home,.localized-page) main>section#reported-progress:not(#enquiry):not(#continue-with-stiv) .progress-metrics article{background:linear-gradient(90deg,rgba(5,27,20,.78),rgba(5,27,20,.58)),url('img/global-trade-map.webp') center/cover no-repeat!important;color:#f8f5e9!important;border:1px solid #7b977c}
