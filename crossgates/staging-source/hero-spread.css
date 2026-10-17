@@ -145,10 +145,26 @@
 :is(.page-home,.localized-page) .standards-reference>.wrap{width:auto;max-width:none;margin-inline:32px;padding-inline:0}
 :is(.page-home,.localized-page) .standards-links{gap:24px}
 
-/* Move only the centred enquiry group to the Passport's Contact supplier row. */
+/* Align the enquiry group with the Passport exploration label. */
 @media(min-width:761px){
   :is(.page-home,.localized-page) .home-hero-spread .home-intro>.hero-start-links{
     margin-top:var(--passport-enquiry-gap,28px);
     flex-shrink:0;
+  }
+}
+
+/* Give the business-information paragraph more presence and gently offset the enquiry group. */
+:is(.page-home,.localized-page) .home-hero-spread .home-intro>.hero-promise+p{
+  font-size:clamp(1.05rem,1.35vw,1.2rem)!important;
+  line-height:1.65;
+  max-width:46ch;
+}
+@media(min-width:761px){
+  :is(.page-home,.localized-page) .home-hero-spread .home-intro>.hero-promise+p{
+    margin-top:calc(clamp(72px,8vw,120px) + 12px)!important;
+  }
+  :is(.page-home,.localized-page) .home-hero-spread .home-intro>.hero-start-links{
+    position:relative;
+    left:-12px;
   }
 }

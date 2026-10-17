@@ -72,12 +72,13 @@
  window.addEventListener('hashchange',readRole);readRole();
 })();
 
-/* Align the desktop enquiry group with the Contact supplier row in the Passport artwork. */
+/* Align the desktop enquiry group with the Explore the sample Passport label. */
 (() => {
   const group = document.querySelector('.home-intro > .hero-start-links');
   const description = document.querySelector('.home-intro > .hero-promise + p');
   const artwork = document.querySelector('.home-hero-spread .passport-artwork img');
-  if (!group || !description || !artwork) return;
+  const explore = document.querySelector('.home-hero-spread .passport-expand');
+  if (!group || !description || !artwork || !explore) return;
   let scheduled = false;
   function align() {
     scheduled = false;
@@ -85,10 +86,9 @@
       group.style.removeProperty('--passport-enquiry-gap');
       return;
     }
-    const image = artwork.getBoundingClientRect();
-    if (!image.height) return;
-    // The Contact supplier button starts at 90.5% of this approved artwork's height.
-    const gap = Math.max(28, image.top + image.height * 0.905 - description.getBoundingClientRect().bottom);
+    const label = explore.getBoundingClientRect();
+    if (!label.height) return;
+    const gap = Math.max(28, label.top + 12 - description.getBoundingClientRect().bottom);
     const previous = parseFloat(group.style.getPropertyValue('--passport-enquiry-gap'));
     if (!Number.isFinite(previous) || Math.abs(previous - gap) > 0.5) {
       group.style.setProperty('--passport-enquiry-gap', gap.toFixed(2) + 'px');
@@ -100,6 +100,7 @@
   if ('ResizeObserver' in window) {
     const observer = new ResizeObserver(schedule);
     observer.observe(artwork);
+    observer.observe(explore);
     observer.observe(description);
   }
   artwork.addEventListener('load', schedule);
