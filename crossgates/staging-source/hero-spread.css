@@ -278,18 +278,35 @@
   :is(.page-home,.localized-page) :is(.cg-home-invest,.cg-home-product){padding:32px 20px}
 }
 
-/* Preview experiment: map canvas with words, no panel outlines or divider rules. */
-:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action),
-:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(div,article,details,figure,a){background:transparent!important;background-image:none!important;box-shadow:none!important;border:0!important;border-radius:0!important}
-:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action),
-:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(p,a,span,li,dt,dd,label,legend,summary,small){color:#f5f7ed!important}
-:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(h2,h3,strong,.eyebrow,.feature-step){color:#eeeac0!important}
-:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(h2,h3,p,li,dt,dd,label,legend,summary){text-shadow:0 2px 8px rgba(0,18,10,.7)}
-:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(.btn,.cg-action,button){background:#174a35!important;color:#f8f5e9!important;border:0!important;border-radius:8px!important;text-shadow:none}
+/* Launch palette: connected-world signature, calm cream evidence, forest calls to action. */
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(.cg-home-invest):not(#continue-with-stiv):not(#enquiry):not(#team):not(#crossgates-videos):not(#crossgates-in-action){background:#f8f5e9!important;color:#153f31!important;border-color:#d8dfc6}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(.cg-home-invest):not(#continue-with-stiv):not(#enquiry):not(#team):not(#crossgates-videos):not(#crossgates-in-action) :is(.wrap,.cg-video-panel){background:transparent!important;color:#153f31}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(.cg-home-invest):not(#continue-with-stiv):not(#enquiry):not(#team):not(#crossgates-videos):not(#crossgates-in-action) :is(h2,h3,p,a,span,strong,li,summary,.eyebrow,.feature-step){color:#153f31!important;text-shadow:none}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(.cg-home-invest):not(#continue-with-stiv):not(#enquiry):not(#team):not(#crossgates-videos):not(#crossgates-in-action) :is(article,.content-card,.people-card,.stiv-topics,.faq,.cg-mini-record,.market-card){background:#fffdf5!important;background-image:none!important;color:#153f31;border-color:#cbd7c4}
+:is(.page-home,.localized-page) .standards-links a{background:#edf0df!important;background-image:none!important;border-color:#b9c8ab}
+:is(.page-home,.localized-page) main>section:not(.home-hero):not(.cg-home-invest):not(#continue-with-stiv):not(#enquiry):not(#team):not(#crossgates-videos):not(#crossgates-in-action) :is(.btn,.cg-action,button){background:#174a35!important;color:#f8f5e9!important;border:1px solid #174a35}
 :is(.page-home,.localized-page) main>section:not(.home-hero) button[aria-pressed=true]{background:#dcebb5!important;color:#153f31!important}
-:is(.page-home,.localized-page) main>section:not(.home-hero) :is(input,select,textarea,option){background:#f8f5e9!important;color:#153f31!important;text-shadow:none}
-:is(.page-home,.localized-page) :is(.principles,.principles>.wrap,.cg-subnav){background:transparent!important;box-shadow:none!important;border:0!important;color:#f5f7ed!important}
+:is(.page-home,.localized-page) :is(.cg-home-invest,#enquiry){background:#123e30!important;background-image:none!important;color:#f8f5e9!important}
+:is(.page-home,.localized-page) :is(.cg-home-invest,#enquiry) :is(h2,h3,p,a,span,strong,li,label,legend,summary,.eyebrow){color:#f8f5e9!important;text-shadow:none}
+:is(.page-home,.localized-page) #enquiry :is(.wrap,.contact-form){background:transparent!important;color:#f8f5e9!important}
+:is(.page-home,.localized-page) #enquiry :is(input,select,textarea,option){background:#fffdf5!important;color:#153f31!important}
+:is(.page-home,.localized-page) :is(.cg-home-invest,#enquiry) :is(.btn,.cg-action,button){background:#e5edac!important;color:#153f31!important;border:1px solid #c5d494;text-shadow:none}
+:is(.page-home,.localized-page) #continue-with-stiv{background:transparent!important;color:#f8f5e9!important}
+:is(.page-home,.localized-page) #continue-with-stiv>.wrap{background:rgba(8,37,26,.78)!important;color:#f8f5e9!important;border:1px solid #7c9878}
+:is(.page-home,.localized-page) #continue-with-stiv :is(h2,h3,p,a,span,strong){color:#f8f5e9!important}
+:is(.page-home,.localized-page) #continue-with-stiv .btn{background:#e5edac!important;color:#153f31!important}
+:is(.page-home,.localized-page) .principles{background:#123e30!important;color:#eeeac0!important}
 :is(.page-home,.localized-page) .principles strong{color:#eeeac0!important}
-:is(.page-home,.localized-page) .principles :is(li,span,strong){border:0!important}
-:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(article,details,figure)::before,
-:is(.page-home,.localized-page) main>section:not(.home-hero):not(#crossgates-in-action) :is(article,details,figure)::after{border:0!important;box-shadow:none!important}
+
+/* Media-only world-map treatment; preserve the live cream evidence design. */
+:is(.page-home,.localized-page) main>section:is(#team,#crossgates-videos,#crossgates-in-action),
+:is(.page-home,.localized-page) main>section:is(#team,#crossgates-videos,#crossgates-in-action)>.wrap,
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-panel{background:transparent!important;background-image:none!important;box-shadow:none!important;color:#f8f5e9}
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-heading h2,
+:is(.page-home,.localized-page) :is(#team,#crossgates-in-action) h2{color:#eeeac0!important}
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-heading p,
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-more,
+:is(.page-home,.localized-page) :is(#team,#crossgates-in-action)>.wrap>p,
+:is(.page-home,.localized-page) :is(#team,#crossgates-in-action) .section-heading p{color:#f8f5e9!important}
+:is(.page-home,.localized-page) :is(#team,#crossgates-in-action) .section-stiv-link,
+:is(.page-home,.localized-page) #crossgates-videos .cg-video-more a{color:#eeeac0!important}
