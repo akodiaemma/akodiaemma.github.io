@@ -56,7 +56,7 @@ def optimise(out):
   lang=rel.parts[0] if len(rel.parts)==2 and rel.parts[0] in LANGS else 'en';prefix='../' if lang!='en' else ''
   s=f.read_text();
   if re.search(r'http-equiv=["\']refresh',s,re.I):continue
-  h=header(s,lang,prefix)
+  h=header((out/'index.html').read_text(),lang,prefix)
   if not h:continue
   s=re.sub(r'<header\b.*?</header>',h,s,count=1,flags=re.S)
   s=re.sub(r'<div class="language-bar">.*?</details></div></div>','',s,count=1,flags=re.S)
