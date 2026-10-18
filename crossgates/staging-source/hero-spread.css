@@ -318,3 +318,19 @@
 :is(.page-home,.localized-page) main>section#reported-progress:not(#enquiry):not(#continue-with-stiv):not(#team):not(#crossgates-videos):not(#crossgates-in-action){background:#123e30!important;color:#f8f5e9!important;border-color:#7c9878}
 :is(.page-home,.localized-page) main>section#reported-progress:not(#enquiry):not(#continue-with-stiv):not(#team):not(#crossgates-videos):not(#crossgates-in-action) :is(h2,h3,p,a,span,strong){color:#f8f5e9!important}
 :is(.page-home,.localized-page) main>section#reported-progress:not(#enquiry):not(#continue-with-stiv):not(#team):not(#crossgates-videos):not(#crossgates-in-action) .progress-metrics article{background:linear-gradient(90deg,rgba(5,27,20,.78),rgba(5,27,20,.58)),url('img/global-trade-map.webp') center/cover no-repeat!important;color:#f8f5e9!important;border:1px solid #7b977c}
+/* Preview: a steady traffic-green pulse for the five issued Passports. */
+:is(.page-home,.localized-page) main>section#reported-progress:not(#enquiry):not(#continue-with-stiv):not(#team):not(#crossgates-videos):not(#crossgates-in-action) .progress-metrics article:first-child strong{
+  color:#54ee89!important;
+  display:block;
+  width:fit-content;
+  transform-origin:center;
+  text-shadow:0 0 12px rgba(51,230,115,.35);
+  animation:passport-five-pulse 2.4s ease-in-out infinite;
+}
+@keyframes passport-five-pulse{
+  0%,100%{transform:scale(1);text-shadow:0 0 8px rgba(51,230,115,.25)}
+  50%{transform:scale(1.035);text-shadow:0 0 20px rgba(51,230,115,.75)}
+}
+@media(prefers-reduced-motion:reduce){
+  :is(.page-home,.localized-page) #reported-progress .progress-metrics article:first-child strong{animation:none!important;transform:none}
+}
