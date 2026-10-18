@@ -53,3 +53,6 @@ body.cg-unified-brand::before{content:''!important;display:block!important;posit
 .cg-unified-brand .cg-header,.cg-unified-brand .cg-global-footer{background:rgba(14,54,41,.9)!important}
 body.cg-unified-brand{background:linear-gradient(rgba(4,29,21,.42),rgba(4,29,21,.58)),url('img/global-trade-map.webp') center/cover fixed no-repeat!important}
 body.cg-unified-brand::before{display:none!important}
+/* One short enquiry form; no document upload or sensitive-data collection. */
+#secure-enquiry{max-width:850px;margin:24px 0}#secure-enquiry label{display:block;font-weight:700;line-height:1.5;margin:0 0 20px;color:#203c30}#secure-enquiry input:not([type=hidden]),#secure-enquiry select,#secure-enquiry textarea{display:block;width:100%;box-sizing:border-box;margin-top:8px;padding:13px;border:1px solid #899d88;border-radius:8px;background:#fffef7;color:#203c30;font:inherit}#secure-enquiry input,#secure-enquiry select{min-height:48px}.cg-enquiry-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 22px}#enquiry-status{min-height:1.5em}#secure-enquiry button:disabled{opacity:.6;cursor:wait}.service-definition .evidence-grid{gap:20px}.service-definition article{padding:24px}
+@media(max-width:650px){.cg-enquiry-grid{grid-template-columns:1fr}}
