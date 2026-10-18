@@ -12,3 +12,28 @@ html{scroll-padding-top:110px}body{overflow-wrap:break-word}img,video{max-width:
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 @media(min-width:761px) and (max-width:1100px){.gateway-home .hero-stiv-spotlight{transform:none!important}}
 .cg-hero>.cg-wrap{grid-column:1/-1;width:100%;max-width:1100px}.cg-cream>.cg-wrap{padding:var(--cg-space) 5%;max-width:1400px;margin:auto}.cg-main .cg-primary-message{margin:22px 0;font-size:clamp(1rem,1.3vw,1.15rem)}.cg-main .cg-wrap>h2:not(:first-child){margin-top:42px}.cg-main .cg-wrap>.cg-actions{margin-top:26px}.cg-main .cg-cream .cg-primary-message,.cg-main .cg-cream h2,.cg-main .cg-cream h3{color:var(--cg-ink)}
+
+/* One interior-page identity, matched to Evidence & impact. Homepage remains approved. */
+body.cg-unified-brand{--cg-cream:#f6f7ec;--cg-ink:#203c30;--cg-lime:#e2edac;background:#0c3026!important;color:var(--cg-ink);font-family:Arial,Helvetica,sans-serif}
+body.cg-unified-brand::before,body.cg-unified-brand::after{display:none!important}
+.cg-unified-brand main{max-width:1230px!important;width:calc(100% - 80px)!important;margin:0 auto!important;padding:24px 0 48px!important;background:transparent!important;box-sizing:border-box}
+.cg-unified-brand main>section,.cg-unified-brand .work-panel,.cg-unified-brand .passport-reader-layout{box-sizing:border-box;background:var(--cg-cream)!important;color:var(--cg-ink)!important;border:1px solid #cbd5bf!important;border-radius:18px!important;padding:32px!important;margin:22px 0!important;box-shadow:none!important;width:100%!important;max-width:none!important}
+.cg-unified-brand main>section>.wrap,.cg-unified-brand main>section>.cg-wrap{width:100%!important;max-width:none!important;padding:0!important;margin:0!important}
+.cg-unified-brand main>section:first-of-type,.cg-unified-brand .work-intro{background:transparent!important;border:0!important;border-radius:0!important;color:#fff!important;padding:42px 0 32px!important;margin:0!important;box-shadow:none!important}
+.cg-unified-brand main h1{font-size:clamp(36px,5vw,66px)!important;line-height:1.08!important;letter-spacing:-1.5px!important;font-weight:750!important;max-width:24ch!important;margin:16px 0 24px!important;color:#e2edac!important}
+.cg-unified-brand main>section:first-of-type p,.cg-unified-brand .work-intro p{color:#fff!important;max-width:800px;line-height:1.65}
+.cg-unified-brand main>section:first-of-type .eyebrow,.cg-unified-brand main>section:first-of-type .cg-eyebrow{font-size:12px!important;letter-spacing:.1em!important;font-weight:800!important}
+.cg-unified-brand main h2{font-size:clamp(27px,3vw,39px)!important;line-height:1.2!important;letter-spacing:-.025em!important;margin:0 0 22px!important;color:var(--cg-ink)!important}
+.cg-unified-brand main h3{line-height:1.3;color:var(--cg-ink)}
+.cg-unified-brand main p,.cg-unified-brand main li{line-height:1.65}
+.cg-unified-brand main>section:not(:first-of-type) :is(p,li,h3,dt,dd){color:var(--cg-ink)}
+.cg-unified-brand main>section:not(:first-of-type) a:not(.btn):not(.button):not(.cg-action):not(.evidence-button){color:#245b3e}
+.cg-unified-brand :is(.story-shell,.story-panel,.chapter-panel,.cg-step,.cg-feature,.work-card,.question-card){background:#fffef7!important;border-color:#c6d4bb!important;border-radius:12px!important;box-shadow:none!important;color:var(--cg-ink)!important}
+.cg-unified-brand :is(.btn,.button,.cg-action,.evidence-button){border-radius:8px!important;font-weight:700}
+.cg-unified-brand main>section:first-of-type :is(a:not(.cg-action):not(.btn):not(.button)){color:#e2edac}
+.cg-unified-brand main .intro{max-width:none}
+.cg-unified-brand .work-main>.wrap{width:100%;max-width:none}
+.cg-unified-brand .evidence-main>.evidence-hero{max-width:none}
+.cg-unified-brand .cg-main>.cg-hero{border-bottom:0!important;gap:32px}
+.cg-unified-brand .cg-proof-context .wrap{width:100%}
+@media(max-width:800px){.cg-unified-brand main{width:calc(100% - 36px)!important}.cg-unified-brand main>section,.cg-unified-brand .work-panel,.cg-unified-brand .passport-reader-layout{padding:22px!important;margin:22px 0!important}.cg-unified-brand main>section:first-of-type,.cg-unified-brand .work-intro{padding:24px 0!important}.cg-unified-brand main h1{letter-spacing:-1px!important}}
