@@ -43,3 +43,7 @@ body.cg-unified-brand::before,body.cg-unified-brand::after{display:none!importan
 .cg-unified-brand .story-section .story-header,.cg-unified-brand .story-section .story-head{background:transparent!important}
 .cg-unified-brand main>section:not(:first-of-type) article{background:#fffef7!important;color:var(--cg-ink)!important;border:1px solid #c6d4bb!important;border-radius:12px!important;box-shadow:none!important}
 .cg-unified-brand main>section:not(:first-of-type) article :is(strong,span,small){color:var(--cg-ink)}
+
+/* Same approved logo and header geometry, including the legacy Passport reader. */
+.cg-header .cg-global-nav{flex-wrap:nowrap!important;grid-template-columns:none!important;width:calc(100% - 80px);max-width:1230px;margin:auto}
+@media(max-width:800px){.cg-header .cg-global-nav{width:calc(100% - 36px)}}
