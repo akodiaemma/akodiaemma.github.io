@@ -1,6 +1,6 @@
 """Conservative public-site normalisation. Standard library only; runs at build time."""
 from pathlib import Path
-import re, json, html
+import re, json, html, hashlib
 BASE='https://crossgatesconnect.com'
 LANGS={'en':'English','fr':'Français','de':'Deutsch','sw':'Kiswahili','lg':'Luganda'}
 LABELS={
@@ -48,6 +48,8 @@ def footer(prefix):
  return '<footer class="cg-global-footer"><div class="wrap"><div><strong>Crossgates Connect Limited</strong><p>Structured supplier evidence. Clearer trade preparation.</p><p class="small">UK company no. 16731416 · © 2026</p></div><nav aria-label="Further information">'+''.join('<a href="'+prefix+u+'">'+t+'</a>' for t,u in [('For suppliers','suppliers.html'),('For buyers','buyers.html'),('For institutions','partners.html'),('Investors','investors.html'),('Evidence guide','guide.html'),('Our work','our-work.html'),('Website privacy — review draft','privacy.html'),('Contact','contact.html')])+'</nav><p class="small">STIV supports preparation. Human-controlled review decisions and official certification have separate scopes.</p></div></footer>'
 
 def optimise(out):
+ css_version=hashlib.sha256((out/'site-system.css').read_bytes()).hexdigest()[:10]
+ js_version=hashlib.sha256((out/'site-system.js').read_bytes()).hexdigest()[:10]
  for f in sorted(out.rglob('*.html')):
   rel=f.relative_to(out)
   if len(rel.parts)>2:continue
@@ -58,11 +60,12 @@ def optimise(out):
   if not h:continue
   s=re.sub(r'<header\b.*?</header>',h,s,count=1,flags=re.S)
   s=re.sub(r'<div class="language-bar">.*?</details></div></div>','',s,count=1,flags=re.S)
+  s=re.sub(r'<nav class="cg-subnav".*?</nav>','',s,flags=re.S)
   gateway='gateway-home' in s
   s=re.sub(r'<footer\b.*?</footer>','' if gateway else footer(prefix),s,count=1,flags=re.S)
   if not gateway and '<footer' not in s:s=s.replace('</body>',footer(prefix)+'</body>')
-  s=s.replace('</head>','<link rel="stylesheet" href="'+prefix+'site-system.css">\n</head>')
-  s=s.replace('</body>','<script src="'+prefix+'site-system.js" defer></script>\n</body>')
+  s=s.replace('</head>','<link rel="stylesheet" href="'+prefix+'site-system.css?v='+css_version+'">\n</head>')
+  s=s.replace('</body>','<script src="'+prefix+'site-system.js?v='+js_version+'" defer></script>\n</body>')
   # Old deep links retain their audience query and go directly to the appropriate inner page.
   s=re.sub(r'href="((?:\.\./)?)index\.html(\?[^"#]*)?#enquiry"',lambda m:'href="'+m[1]+'contact.html'+(m[2] or '')+'#enquiry"',s)
   s=re.sub(r'href="((?:\.\./)?)index\.html#(?:team|about)"',lambda m:'href="'+m[1]+'about.html#team"',s)
