@@ -43,3 +43,9 @@
  :is(.page-home,.localized-page).audience-direct .hero-stiv-only .hero-stiv-spotlight{transform:translateX(-40px)}
 }
 .hero-stiv-only .stiv-home-copy .stiv-review-note{font-size:12px;line-height:1.5;margin:16px 0;color:#456150}
+
+/* Homepage gateway: supporting information is on inner pages. */
+@media(min-width:761px){
+ .gateway-home .home-hero{height:calc(100svh - var(--landing-header-height,85px));padding:clamp(52px,10svh,93px) 0 28px;box-sizing:border-box;position:relative;min-height:0}
+ .gateway-home .home-hero-grid{transform:scale(var(--gateway-scale,1));transform-origin:top center}
+}
