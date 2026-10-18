@@ -1,7 +1,10 @@
 'use strict';
 (() => {
  const menu=document.querySelector('.cg-nav-menu'),solutions=document.querySelector('.cg-solutions'),language=document.querySelector('.language-switch');
- const close=(details,focus=false)=>{if(!details?.open)return;details.open=false;if(focus)details.querySelector('summary')?.focus();};
+ const mobile=()=>matchMedia('(max-width:900px)').matches;
+ if(menu)menu.open=!mobile();
+ addEventListener('resize',()=>{if(menu&&!mobile())menu.open=true;});
+ const close=(details,focus=false)=>{if(!details?.open||(details===menu&&!mobile()))return;details.open=false;if(focus)details.querySelector('summary')?.focus();};
  document.addEventListener('keydown',event=>{if(event.key!=='Escape')return;if(language?.open){close(language,true);return;}if(solutions?.open){close(solutions,true);return;}close(menu,true);});
  document.addEventListener('click',event=>{if(language&&!language.contains(event.target))close(language);if(solutions&&!solutions.contains(event.target))close(solutions);if(menu&&!menu.contains(event.target))close(menu);});
  menu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>close(menu)));
