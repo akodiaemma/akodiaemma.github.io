@@ -1,0 +1,25 @@
+/* Audience routes: clear tasks, evidence and next actions. 18 October 2026. */
+.audience-direct .cg-route-intro{max-width:62ch;margin:18px 0 0;font-size:18px;line-height:1.65;color:#294d3d}
+.audience-direct .cg-role-grid{gap:28px}
+.audience-direct .cg-role-grid h3{font-size:clamp(1.25rem,1.8vw,1.65rem);text-wrap:balance}
+.audience-direct .cg-role-grid p{margin-bottom:16px;min-height:3.3em}
+.audience-direct .cg-role-grid ul{list-style:none;margin:0 0 28px;padding:0;color:#294d3d;font-size:14px;line-height:1.55}
+.audience-direct .cg-role-grid li{position:relative;padding-left:18px;margin:0 0 12px}
+.audience-direct .cg-role-grid li::before{content:'✓';position:absolute;left:0;color:#3b6b46;font-weight:750}
+.audience-direct .cg-role-grid a{padding-top:12px;max-width:100%}
+.audience-direct .cg-route-language{margin-top:18px;font-size:13px}
+:is(.page-home,.localized-page).audience-direct .home-hero-spread .home-intro>.hero-promise{font-size:clamp(1.65rem,5.9cqw,2.4rem);line-height:1.25;text-wrap:balance}
+:is(.page-home,.localized-page).audience-direct .home-hero-spread .home-intro>.hero-promise+p{font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.65;margin-top:32px!important;max-width:39ch}
+.audience-direct .hero-start-links .btn{font-size:15px!important}
+.audience-direct .cg-record-labels{display:grid;gap:0;margin:26px 0;color:#f6f4e9;font-size:15px;line-height:1.5}
+.audience-direct .cg-record-labels span{padding:11px 0;border-bottom:1px solid #b9ce8540}
+.cg-main .cg-example{padding:28px;margin-top:30px;background:#f6f4e9;color:#123c30;border-left:4px solid #a9bd72;border-radius:0 12px 12px 0;max-width:900px}
+.cg-main .cg-example p{color:#123c30}
+.cg-main .cg-example .cg-caption{font-size:12px}
+.cg-main .cg-cover .cg-eyebrow{margin:0 0 12px}
+.cg-main .cg-cover-row b{min-width:42px}
+.cg-main .cg-cream .cg-action{background:#123c30;color:#f6f4e9!important;border-color:#123c30}
+.cg-main .cg-cream .cg-action-light{background:transparent;color:#123c30!important}
+.cg-main .cg-stack article h3{line-height:1.35}
+@media(max-width:1000px){.audience-direct .cg-role-grid{gap:22px}.audience-direct .cg-role-grid p{min-height:0}}
+@media(max-width:600px){.audience-direct .cg-role-grid{gap:8px}.audience-direct .cg-role-grid article{padding:22px 0}.audience-direct .cg-route-intro{font-size:16px}.audience-direct .cg-role-grid ul{margin-bottom:16px}.cg-main .cg-example{padding:22px}}
