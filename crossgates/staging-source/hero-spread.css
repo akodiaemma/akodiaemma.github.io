@@ -356,3 +356,8 @@
 :is(.page-home,.localized-page).clarity-preview .home-hero-spread .home-intro>.hero-start-links{display:block;max-width:100%;width:100%;margin:30px auto 0!important;padding:0;align-self:auto}
 :is(.page-home,.localized-page).clarity-preview .hero-start-links .review-next-step-note{margin:0 0 14px!important;padding:0;font-size:13px;line-height:1.5}
 :is(.page-home,.localized-page).clarity-preview .hero-start-links .programme-link{display:inline-block;margin-top:18px;font-size:13px}
+/* Contact routes: a visible next step, without implying an email draft was submitted. */
+.cg-contact-next{grid-column:1/-1;max-width:760px;margin:0 0 28px}
+.cg-contact-next p{font-size:16px;line-height:1.65;margin:0 0 18px}
+.cg-contact-next a{display:inline-flex;align-items:center;min-height:48px;padding:13px 20px;white-space:normal}
+.opportunity-source+.opportunity-source{margin-top:12px}
