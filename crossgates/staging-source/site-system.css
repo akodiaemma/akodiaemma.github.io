@@ -37,3 +37,7 @@ body.cg-unified-brand::before,body.cg-unified-brand::after{display:none!importan
 .cg-unified-brand .cg-main>.cg-hero{border-bottom:0!important;gap:32px}
 .cg-unified-brand .cg-proof-context .wrap{width:100%}
 @media(max-width:800px){.cg-unified-brand main{width:calc(100% - 36px)!important}.cg-unified-brand main>section,.cg-unified-brand .work-panel,.cg-unified-brand .passport-reader-layout{padding:22px!important;margin:22px 0!important}.cg-unified-brand main>section:first-of-type,.cg-unified-brand .work-intro{padding:24px 0!important}.cg-unified-brand main h1{letter-spacing:-1px!important}}
+/* Retire legacy inset white panels so the shared cream panel is the only surface. */
+.cg-unified-brand main>section>.wrap,.cg-unified-brand main>section>.cg-wrap{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important}
+.cg-unified-brand main>section>.wrap::before,.cg-unified-brand main>section>.wrap::after{display:none!important}
+.cg-unified-brand .story-section .story-header,.cg-unified-brand .story-section .story-head{background:transparent!important}
