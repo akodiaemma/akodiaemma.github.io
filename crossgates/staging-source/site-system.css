@@ -51,3 +51,5 @@ body.cg-unified-brand::before,body.cg-unified-brand::after{display:none!importan
 body.cg-unified-brand{background:#0c3026!important;position:relative;isolation:isolate}
 body.cg-unified-brand::before{content:''!important;display:block!important;position:fixed!important;inset:0!important;z-index:-1!important;pointer-events:none!important;background:linear-gradient(rgba(4,29,21,.42),rgba(4,29,21,.58)),url('img/global-trade-map.webp') center/cover no-repeat!important;opacity:1!important;filter:none!important;transform:none!important}
 .cg-unified-brand .cg-header,.cg-unified-brand .cg-global-footer{background:rgba(14,54,41,.9)!important}
+body.cg-unified-brand{background:linear-gradient(rgba(4,29,21,.42),rgba(4,29,21,.58)),url('img/global-trade-map.webp') center/cover fixed no-repeat!important}
+body.cg-unified-brand::before{display:none!important}
