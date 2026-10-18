@@ -47,3 +47,7 @@ body.cg-unified-brand::before,body.cg-unified-brand::after{display:none!importan
 /* Same approved logo and header geometry, including the legacy Passport reader. */
 .cg-header .cg-global-nav{flex-wrap:nowrap!important;grid-template-columns:none!important;width:calc(100% - 80px);max-width:1230px;margin:auto}
 @media(max-width:800px){.cg-header .cg-global-nav{width:calc(100% - 36px)}}
+/* Owner correction: the connected world is the shared brand backdrop, not flat green. */
+body.cg-unified-brand{background:#0c3026!important;position:relative;isolation:isolate}
+body.cg-unified-brand::before{content:''!important;display:block!important;position:fixed!important;inset:0!important;z-index:-1!important;pointer-events:none!important;background:linear-gradient(rgba(4,29,21,.42),rgba(4,29,21,.58)),url('img/global-trade-map.webp') center/cover no-repeat!important;opacity:1!important;filter:none!important;transform:none!important}
+.cg-unified-brand .cg-header,.cg-unified-brand .cg-global-footer{background:rgba(14,54,41,.9)!important}
