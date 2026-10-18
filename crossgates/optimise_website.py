@@ -62,6 +62,8 @@ def optimise(out):
   s=re.sub(r'<div class="language-bar">.*?</details></div></div>','',s,count=1,flags=re.S)
   s=re.sub(r'<nav class="cg-subnav".*?</nav>','',s,flags=re.S)
   gateway='gateway-home' in s
+  if not gateway:
+   s=re.sub(r'<body([^>]*)>',lambda m:'<body'+re.sub(r'class="([^"]*)"',lambda c:'class="'+c[1]+' cg-unified-brand"',m[1])+'>' if 'class=' in m[1] else '<body'+m[1]+' class="cg-unified-brand">',s,count=1)
   s=re.sub(r'<footer\b.*?</footer>','' if gateway else footer(prefix),s,count=1,flags=re.S)
   if not gateway and '<footer' not in s:s=s.replace('</body>',footer(prefix)+'</body>')
   s=s.replace('</head>','<link rel="stylesheet" href="'+prefix+'site-system.css?v='+css_version+'">\n</head>')
