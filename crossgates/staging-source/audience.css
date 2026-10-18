@@ -40,6 +40,6 @@
 
 /* Give STIV a little more space from the central message on larger screens. */
 @media(min-width:761px){
- :is(.page-home,.localized-page).audience-direct .hero-stiv-only .hero-stiv-spotlight{transform:translateX(-56px)}
+ :is(.page-home,.localized-page).audience-direct .hero-stiv-only .hero-stiv-spotlight{transform:translateX(-40px)}
 }
 .hero-stiv-only .stiv-home-copy .stiv-review-note{font-size:12px;line-height:1.5;margin:16px 0;color:#456150}
