@@ -37,3 +37,8 @@
  :is(.page-home,.localized-page).audience-direct .hero-stiv-only .home-intro{order:-1;width:100%}
  :is(.page-home,.localized-page).audience-direct .hero-stiv-only .hero-stiv-spotlight{order:0;width:100%;align-self:center}
 }
+
+/* Give STIV a little more space from the central message on larger screens. */
+@media(min-width:761px){
+ :is(.page-home,.localized-page).audience-direct .hero-stiv-only .hero-stiv-spotlight{transform:translateX(-24px)}
+}
