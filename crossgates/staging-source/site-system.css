@@ -56,3 +56,12 @@ body.cg-unified-brand::before{display:none!important}
 /* One short enquiry form; no document upload or sensitive-data collection. */
 #secure-enquiry{max-width:850px;margin:24px 0}#secure-enquiry label{display:block;font-weight:700;line-height:1.5;margin:0 0 20px;color:#203c30}#secure-enquiry input:not([type=hidden]),#secure-enquiry select,#secure-enquiry textarea{display:block;width:100%;box-sizing:border-box;margin-top:8px;padding:13px;border:1px solid #899d88;border-radius:8px;background:#fffef7;color:#203c30;font:inherit}#secure-enquiry input,#secure-enquiry select{min-height:48px}.cg-enquiry-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 22px}#enquiry-status{min-height:1.5em}#secure-enquiry button:disabled{opacity:.6;cursor:wait}.service-definition .evidence-grid{gap:20px}.service-definition article{padding:24px}
 @media(max-width:650px){.cg-enquiry-grid{grid-template-columns:1fr}}
+
+/* Authentic photography: upright, uncropped and large enough to see people. */
+.cg-unified-brand .work-photo:not(.photo-turn-left):not(.photo-turn-right){height:auto;overflow:hidden}
+.cg-unified-brand .work-photo:not(.photo-turn-left):not(.photo-turn-right) img{width:100%;height:auto;max-height:760px;object-fit:contain;image-rendering:auto}
+.cg-unified-brand .launch-feature{align-self:start}
+.cg-unified-brand .launch-photo{display:block;aspect-ratio:auto!important;overflow:hidden;background:#173e30}
+.cg-unified-brand .launch-photo img.launch-portrait{position:static!important;display:block;width:100%!important;height:auto!important;max-height:960px;max-width:100%!important;object-fit:contain!important;transform:none!important;image-rendering:auto}
+.cg-unified-brand .launch-photo figcaption{padding:16px 20px;line-height:1.6}
+@media(max-width:650px){.cg-unified-brand .launch-photo img.launch-portrait{max-height:none}}
