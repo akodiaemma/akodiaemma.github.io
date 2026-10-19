@@ -1,6 +1,6 @@
 """Build the approved website with preview-only indexing protection."""
 from pathlib import Path
-import os, shutil, zipfile
+import os, shutil, zipfile, re
 base=Path(__file__).resolve().parent
 out=base/'website-staging'
 if out.exists():shutil.rmtree(out)
@@ -16,6 +16,13 @@ for source in (base/'staging-source').rglob('*'):
 shutil.copy2(base/'video/stiv.mp4',out/'media/stiv.mp4')
 from optimise_website import optimise
 optimise(out)
+# Preserve the full product name in archive pages and generated navigation too.
+for page in out.rglob('*'):
+ if page.suffix in {'.html', '.js', '.json'}:
+  original=page.read_text()
+  updated=re.sub(r'(?i)(?:verified\s+)?trade passports?', lambda m: 'Verified Trade Passports' if m.group().lower().endswith('passports') else 'Verified Trade Passport', original)
+  if updated != original: page.write_text(updated)
+
 # Keep review deployments out of search results; production uses archive defaults.
 if os.environ.get('CONTEXT') != 'production':
  shutil.copy2(base/'qa_preview.html',out/'qa-preview.html')
