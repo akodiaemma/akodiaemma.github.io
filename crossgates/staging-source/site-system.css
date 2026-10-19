@@ -65,3 +65,5 @@ body.cg-unified-brand::before{display:none!important}
 .cg-unified-brand .launch-photo img.launch-portrait{position:static!important;display:block;width:100%!important;height:auto!important;max-height:960px;max-width:100%!important;object-fit:contain!important;transform:none!important;image-rendering:auto}
 .cg-unified-brand .launch-photo figcaption{padding:16px 20px;line-height:1.6}
 @media(max-width:650px){.cg-unified-brand .launch-photo img.launch-portrait{max-height:none}}
+
+.cg-unified-brand .work-photo:not(.photo-turn-left):not(.photo-turn-right){container-type:normal!important;contain:none!important;flex-shrink:0}
