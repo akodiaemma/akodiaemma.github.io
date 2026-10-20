@@ -73,3 +73,22 @@ body.cg-unified-brand::before{display:none!important}
 .cg-agri-topics article :is(h2,h3,p){color:#153f31!important}.cg-agri-topics article h3{font-size:22px}
 
 html body.cg-unified-brand main .cg-agri-topics article :is(h2,h3,p){color:#153f31!important}
+
+
+/* Real sector evidence and the owner-confirmed Uganda contact base. */
+.cg-trust-section{padding:56px 0;color:#153f31;background:#fffef7}
+.cg-trust-section .wrap{max-width:1100px;width:calc(100% - 40px);margin-inline:auto}
+.cg-trust-section h1{font-size:clamp(30px,5vw,52px);line-height:1.12;margin:0 0 24px}
+.cg-trust-section h2{font-size:clamp(24px,3vw,36px);line-height:1.2;margin:0 0 24px}
+.cg-trust-section h3{font-size:22px;margin:20px 0 12px}
+.cg-trust-section p{max-width:76ch;line-height:1.75;margin:16px 0}
+.cg-trust-section a{color:#153f31;text-underline-offset:4px;overflow-wrap:anywhere}
+.cg-trust-section .btn.primary{background:#153f31;color:#fffef7}
+.cg-trust-section .btn.secondary{background:transparent;color:#153f31;border:1px solid #153f31}
+.cg-trust-cream{background:#f6f3e7}
+.cg-trust-grid{display:grid;grid-template-columns:minmax(180px,.7fr) minmax(0,1.5fr);gap:40px;align-items:start}
+.cg-support-portrait{display:block;width:240px;max-width:100%;height:300px;object-fit:contain;background:#e6eadb;border-radius:12px}
+.cg-trust-section address{font-style:normal;line-height:1.7}
+.cg-trust-sources{display:flex;flex-wrap:wrap;gap:16px 28px;margin:24px 0}
+.cg-trust-note{border-left:3px solid #6da770;padding-left:18px;font-size:14px}
+@media(max-width:680px){.cg-trust-grid{grid-template-columns:1fr;gap:24px}.cg-trust-section{padding:36px 0}.cg-trust-section .actions{flex-direction:column;align-items:stretch}}
