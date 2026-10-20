@@ -156,11 +156,10 @@ def optimise(out):
    credit='<div class="cg-card-credit"><p>© 2026 Crossgates Connect Limited. All rights reserved.</p><p>Website design &amp; development: Doris Beth Agency Ltd- DBA Group</p></div>'
    addresses='<address class="cg-office-addresses"><div><strong>🇬🇧 UK — Registered office</strong><br>75B Marlow Road<br>London<br>SE20 7YG<br>United Kingdom</div><div><strong>🇺🇬 Uganda</strong><br>DBA Manoir, Plot 4<br>Bukaya, Garuga<br>Entebbe<br>Uganda</div></address>'
    start=s.index('id="uganda-support"')
-   first_end=s.index('</div></article>',start)
-   s=s[:first_end]+credit+s[first_end:]
-   reidar=s.index('<p><strong>Reidar Robdrup Rasmussen</strong>',first_end)
-   end=s.index('</div></article>',reidar)
-   s=s[:reidar]+'<div class="cg-global-detail-grid"><div class="cg-global-person">'+s[reidar:end]+'</div>'+addresses+'</div>'+s[end:]
+   cards_start=s.index('<div class="cg-contact-cards">',start)+len('<div class="cg-contact-cards">')
+   cards_end=s.index('</div></details>',cards_start)
+   s=s[:cards_end]+addresses+s[cards_end:]
+   s=s[:cards_start]+credit+s[cards_start:]
 
   s=s.replace('</head>','<link rel="stylesheet" href="'+prefix+'site-system.css?v='+css_version+'">\n</head>')
   s=s.replace('</body>','<script src="'+prefix+'site-system.js?v='+js_version+'" defer></script>\n</body>')
