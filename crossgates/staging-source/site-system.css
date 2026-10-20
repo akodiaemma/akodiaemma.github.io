@@ -156,3 +156,8 @@ html body.cg-unified-brand main .cg-agri-topics article :is(h2,h3,p){color:#153f
 #uganda-support .cg-contact-flag{width:40px;height:30px;object-fit:contain}
 #uganda-support .cg-contact-globe{width:68px;height:34px;border:1px solid #bec9b7;border-radius:4px}
 @media(max-width:760px){#uganda-support .cg-contact-flag{width:36px;height:27px}#uganda-support .cg-contact-globe{width:64px;height:32px}}
+
+/* The approved website world map in a small circular badge. */
+#uganda-support .cg-contact-symbols{min-height:48px}
+#uganda-support img.cg-contact-world-badge{display:block!important;position:static!important;width:48px!important;height:48px!important;min-width:48px;max-width:48px!important;border-radius:50%!important;object-fit:contain!important;background:#082b20;border:1px solid #59764b;box-sizing:border-box;opacity:1!important;visibility:visible!important;transform:none!important;box-shadow:inset 0 0 5px #051b15}
+@media(max-width:760px){#uganda-support .cg-contact-symbols{min-height:42px}#uganda-support img.cg-contact-world-badge{width:42px!important;height:42px!important;min-width:42px;max-width:42px!important}}
