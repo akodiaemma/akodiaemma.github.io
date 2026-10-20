@@ -69,3 +69,5 @@ body.cg-unified-brand::before{display:none!important}
 .cg-unified-brand .work-photo:not(.photo-turn-left):not(.photo-turn-right){container-type:normal!important;contain:none!important;flex-shrink:0}
 
 .cg-sector-soon{display:flex;justify-content:space-between;gap:14px;padding:12px;color:#526354}.cg-sector-soon small{font-size:11px;white-space:nowrap}.cg-nav-items{gap:12px}.cg-solution-links{z-index:30}.cg-agribusiness-intro{max-width:760px}.cg-agri-topics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:30px 0}.cg-agri-topics article{padding:24px;border:1px solid #9bb18d;border-radius:14px;background:#f8f5e9;color:#153f31}.cg-agri-topics h2{font-size:22px}.cg-agri-topics p{line-height:1.6}.cg-agri-hero{padding:56px 0}.cg-agri-hero h1{max-width:800px}.cg-agri-hero .actions{margin:24px 0}.cg-sector-note{max-width:760px;font-size:14px;line-height:1.6}@media(max-width:760px){.cg-agri-topics{grid-template-columns:1fr}.cg-agri-hero{padding:32px 0}}
+
+.cg-agri-topics article :is(h2,h3,p){color:#153f31!important}.cg-agri-topics article h3{font-size:22px}
