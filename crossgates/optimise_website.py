@@ -158,8 +158,7 @@ def optimise(out):
    start=s.index('id="uganda-support"')
    cards_start=s.index('<div class="cg-contact-cards">',start)+len('<div class="cg-contact-cards">')
    cards_end=s.index('</div></details>',cards_start)
-   s=s[:cards_end]+addresses+s[cards_end:]
-   s=s[:cards_start]+credit+s[cards_start:]
+   s=s[:cards_end]+addresses+credit+s[cards_end:]
 
   s=s.replace('</head>','<link rel="stylesheet" href="'+prefix+'site-system.css?v='+css_version+'">\n</head>')
   s=s.replace('</body>','<script src="'+prefix+'site-system.js?v='+js_version+'" defer></script>\n</body>')
