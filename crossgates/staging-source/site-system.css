@@ -136,3 +136,17 @@ html body.cg-unified-brand main .cg-agri-topics article :is(h2,h3,p){color:#153f
 @media(min-width:761px){#uganda-support .cg-contact-disclosure[data-responsive]>summary{display:none}}
 @media(max-width:1000px){#uganda-support .cg-contact-cards{grid-template-columns:1fr}}
 @media(max-width:760px){#uganda-support.cg-compact-contacts{padding-block:18px!important}#uganda-support .cg-contact-card{grid-template-columns:80px minmax(0,1fr);gap:14px;padding:16px}#uganda-support .cg-support-portrait{width:80px;height:108px}#uganda-support .cg-contact-copy h3{font-size:17px}#uganda-support .cg-contact-copy p{font-size:13px}}
+
+
+/* Original portraits and graphic flags; aligned two-card layout. */
+#uganda-support .cg-contact-cards{align-items:stretch;gap:24px}
+#uganda-support .cg-contact-card{grid-template-columns:132px minmax(0,1fr);align-items:start;gap:20px;padding:24px;height:100%;box-sizing:border-box}
+#uganda-support img.cg-support-portrait{display:block!important;visibility:visible!important;opacity:1!important;position:static!important;width:132px!important;height:164px!important;max-width:100%!important;object-fit:cover!important;object-position:center 30%;transform:none!important;border-radius:10px}
+#uganda-support .cg-contact-copy{width:100%;align-self:start}
+#uganda-support .cg-contact-symbols{display:flex;align-items:center;gap:10px;min-height:30px;margin:0 0 10px}
+#uganda-support .cg-contact-flag{display:block;width:42px;height:28px;flex:none;border:1px solid #bec9b7;border-radius:3px}
+#uganda-support .cg-contact-globe{display:block;width:30px;height:30px;flex:none}
+#uganda-support .cg-contact-copy h3{min-height:2.6em;margin:0 0 10px;font-size:18px;line-height:1.3;text-align:left}
+#uganda-support .cg-contact-copy p{margin:8px 0;text-align:left}
+#uganda-support .cg-contact-copy p:first-of-type{min-height:3.2em}
+@media(max-width:760px){#uganda-support .cg-contact-card{grid-template-columns:84px minmax(0,1fr);gap:14px;padding:16px}#uganda-support img.cg-support-portrait{width:84px!important;height:108px!important}#uganda-support .cg-contact-copy h3{font-size:16px;min-height:0}#uganda-support .cg-contact-copy p:first-of-type{min-height:0}#uganda-support .cg-contact-flag{width:36px;height:24px}}
