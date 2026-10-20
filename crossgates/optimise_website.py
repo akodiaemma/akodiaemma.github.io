@@ -152,6 +152,10 @@ def optimise(out):
    s=re.sub(r'<body([^>]*)>',lambda m:'<body'+re.sub(r'class="([^"]*)"',lambda c:'class="'+c[1]+' cg-unified-brand"',m[1])+'>' if 'class=' in m[1] else '<body'+m[1]+' class="cg-unified-brand">',s,count=1)
   s=re.sub(r'<footer\b.*?</footer>','' if gateway else footer(prefix),s,count=1,flags=re.S)
   if not gateway and '<footer' not in s:s=s.replace('</body>',footer(prefix)+'</body>')
+  if gateway and lang=='en' and f.name=='index.html':
+   home_credit='<footer class="cg-home-credit"><div class="wrap"><p>© 2026 Crossgates Connect Limited. All rights reserved.</p><p>Website design &amp; development: Doris Beth Agency Ltd- DBA Group</p></div></footer>'
+   s=s.replace('</body>',home_credit+'</body>',1)
+
   s=s.replace('</head>','<link rel="stylesheet" href="'+prefix+'site-system.css?v='+css_version+'">\n</head>')
   s=s.replace('</body>','<script src="'+prefix+'site-system.js?v='+js_version+'" defer></script>\n</body>')
   # Old deep links retain their audience query and go directly to the appropriate inner page.
@@ -193,6 +197,7 @@ def optimise(out):
  redirects=(out/'_redirects').read_text() if (out/'_redirects').exists() else ''
  redirects='\n'.join(line for line in redirects.splitlines() if not line.startswith('/contact.html '))+'\n'
  (out/'_redirects').write_text(redirects)
+
 
 
 
