@@ -150,3 +150,9 @@ html body.cg-unified-brand main .cg-agri-topics article :is(h2,h3,p){color:#153f
 #uganda-support .cg-contact-copy p{margin:8px 0;text-align:left}
 #uganda-support .cg-contact-copy p:first-of-type{min-height:3.2em}
 @media(max-width:760px){#uganda-support .cg-contact-card{grid-template-columns:84px minmax(0,1fr);gap:14px;padding:16px}#uganda-support img.cg-support-portrait{width:84px!important;height:108px!important}#uganda-support .cg-contact-copy h3{font-size:16px;min-height:0}#uganda-support .cg-contact-copy p:first-of-type{min-height:0}#uganda-support .cg-contact-flag{width:36px;height:24px}}
+
+/* Detailed country flags and a geographic world map. */
+#uganda-support .cg-contact-symbols{min-height:34px}
+#uganda-support .cg-contact-flag{width:40px;height:30px;object-fit:contain}
+#uganda-support .cg-contact-globe{width:68px;height:34px;border:1px solid #bec9b7;border-radius:4px}
+@media(max-width:760px){#uganda-support .cg-contact-flag{width:36px;height:27px}#uganda-support .cg-contact-globe{width:64px;height:32px}}
