@@ -116,3 +116,23 @@ html body.cg-unified-brand main .cg-agri-topics article :is(h2,h3,p){color:#153f
 .cg-passport-details summary{cursor:pointer;font-weight:700;line-height:1.5}
 .cg-passport-details li{margin-block:10px;line-height:1.6}
 @media(max-width:680px){.cg-contact-cards,.cg-passport-fields,.cg-passport-scores{grid-template-columns:1fr}.cg-contact-card,.cg-passport-body,.cg-passport-heading{padding:20px}.cg-passport-sample{overflow-wrap:anywhere}}
+
+
+/* Compact contact cards: portraits left, flags above headings. */
+#uganda-support.cg-compact-contacts{padding-block:28px!important}
+#uganda-support .cg-contact-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+#uganda-support .cg-contact-card{display:grid;grid-template-columns:110px minmax(0,1fr);align-items:start;gap:18px;padding:22px;min-width:0}
+#uganda-support .cg-support-portrait{width:110px;max-width:100%;height:140px;object-fit:contain;margin:0;border-radius:10px}
+#uganda-support .cg-contact-copy{min-width:0}
+#uganda-support .cg-contact-symbols{font-size:25px;line-height:1.1;margin-bottom:9px}
+#uganda-support .cg-contact-copy h3{font-size:19px;line-height:1.3;margin:0 0 12px}
+#uganda-support .cg-contact-copy p{font-size:14px;line-height:1.6;margin:7px 0}
+#uganda-support .cg-contact-copy a{overflow-wrap:anywhere}
+#uganda-support .cg-contact-numbers a{display:inline-block}
+#uganda-support .cg-contact-disclosure>summary{cursor:pointer;padding:14px 18px;background:#153f31;color:#fffdf2;border-radius:8px;font-weight:700;list-style:none}
+#uganda-support .cg-contact-disclosure>summary::-webkit-details-marker{display:none}
+#uganda-support .cg-contact-disclosure>summary span{float:right}
+#uganda-support .cg-contact-disclosure[open]>summary{margin-bottom:16px}
+@media(min-width:761px){#uganda-support .cg-contact-disclosure[data-responsive]>summary{display:none}}
+@media(max-width:1000px){#uganda-support .cg-contact-cards{grid-template-columns:1fr}}
+@media(max-width:760px){#uganda-support.cg-compact-contacts{padding-block:18px!important}#uganda-support .cg-contact-card{grid-template-columns:80px minmax(0,1fr);gap:14px;padding:16px}#uganda-support .cg-support-portrait{width:80px;height:108px}#uganda-support .cg-contact-copy h3{font-size:17px}#uganda-support .cg-contact-copy p{font-size:13px}}
