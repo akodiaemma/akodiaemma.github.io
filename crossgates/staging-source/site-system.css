@@ -166,3 +166,8 @@ html body.cg-unified-brand main .cg-agri-topics article :is(h2,h3,p){color:#153f
 #uganda-support img.cg-contact-world-badge{width:60px!important;height:60px!important;min-width:60px;max-width:60px!important;background:#225e49;border:0;box-shadow:none;filter:none!important}
 #uganda-support .cg-contact-symbols{min-height:60px}
 @media(max-width:760px){#uganda-support img.cg-contact-world-badge{width:52px!important;height:52px!important;min-width:52px;max-width:52px!important}#uganda-support .cg-contact-symbols{min-height:52px}}
+
+/* Supplied globe: display the complete original, including source attribution. */
+#uganda-support img.cg-contact-world-badge{height:66px!important;border-radius:0!important;object-fit:contain!important;background:transparent;border:0;filter:none!important}
+#uganda-support .cg-contact-symbols{min-height:66px}
+@media(max-width:760px){#uganda-support img.cg-contact-world-badge{height:57px!important}#uganda-support .cg-contact-symbols{min-height:57px}}
