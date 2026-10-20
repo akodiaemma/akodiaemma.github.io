@@ -154,7 +154,7 @@ def optimise(out):
   if not gateway and '<footer' not in s:s=s.replace('</body>',footer(prefix)+'</body>')
   if gateway and lang=='en' and f.name=='index.html':
    credit='<div class="cg-card-credit"><p>© 2026 Crossgates Connect Limited. All rights reserved.</p><p>Website design &amp; development: Doris Beth Agency Ltd- DBA Group</p></div>'
-   addresses='<address class="cg-office-addresses"><div><strong>🇬🇧 UK — Registered office</strong><br>75B Marlow Road<br>London<br>SE20 7YG<br>United Kingdom</div><div><strong>🇺🇬 Uganda</strong><br>DBA Manoir, Plot 4<br>Bukaya, Garuga<br>Entebbe<br>Uganda</div></address>'
+   addresses='<address class="cg-office-addresses"><div><strong>UK registered office</strong><br>75B Marlow Road<br>London<br>SE20 7YG<br>United Kingdom</div><div><strong>Uganda office</strong><br>DBA Manoir, Plot 4<br>Bukaya, Garuga<br>Entebbe<br>Uganda</div></address>'
    start=s.index('id="uganda-support"')
    cards_start=s.index('<div class="cg-contact-cards">',start)+len('<div class="cg-contact-cards">')
    cards_end=s.index('</div></details>',cards_start)
