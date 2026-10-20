@@ -92,3 +92,27 @@ html body.cg-unified-brand main .cg-agri-topics article :is(h2,h3,p){color:#153f
 .cg-trust-sources{display:flex;flex-wrap:wrap;gap:16px 28px;margin:24px 0}
 .cg-trust-note{border-left:3px solid #6da770;padding-left:18px;font-size:14px}
 @media(max-width:680px){.cg-trust-grid{grid-template-columns:1fr;gap:24px}.cg-trust-section{padding:36px 0}.cg-trust-section .actions{flex-direction:column;align-items:stretch}}
+
+
+/* Readable issued-passport sample and Uganda / UK contacts. */
+.cg-unified-brand #case-study h2{color:#f6f3e7!important}
+.cg-contact-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.cg-contact-card{padding:28px;border:1px solid #c6d4bb;border-radius:14px;background:#fffef7;display:flex;flex-direction:column;align-items:flex-start}
+.cg-contact-card .cg-support-portrait{width:200px;height:250px}
+.cg-contact-card .cg-contact-location{font-size:14px}
+.cg-passport-sample{max-width:900px;margin:28px auto;border:2px solid #153f31;border-radius:14px;overflow:hidden;background:#fffdf2}
+.cg-unified-brand #passport-sample .cg-passport-heading,.cg-passport-heading{background:#153f31!important;color:#fffdf2!important;padding:28px}
+.cg-passport-heading span{display:block;margin-top:10px;font-size:12px;letter-spacing:.08em}
+.cg-unified-brand #passport-sample .cg-passport-heading :is(h3,p,strong,span){color:#fffdf2!important}
+.cg-passport-body{padding:28px}
+.cg-passport-id{font-weight:700;letter-spacing:.04em}
+.cg-passport-fields,.cg-passport-scores{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:24px 0}
+.cg-passport-fields>div,.cg-passport-scores>div{padding:14px;background:#f0eedf;border-radius:8px}
+.cg-passport-fields dt,.cg-passport-scores dt{font-size:13px;font-weight:700}
+.cg-passport-fields dd,.cg-passport-scores dd{margin:6px 0 0;line-height:1.5}
+.cg-passport-scores{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cg-passport-scores dd strong{display:block;font-size:28px}
+.cg-passport-details{padding:18px 0;border-block:1px solid #c6d4bb}
+.cg-passport-details summary{cursor:pointer;font-weight:700;line-height:1.5}
+.cg-passport-details li{margin-block:10px;line-height:1.6}
+@media(max-width:680px){.cg-contact-cards,.cg-passport-fields,.cg-passport-scores{grid-template-columns:1fr}.cg-contact-card,.cg-passport-body,.cg-passport-heading{padding:20px}.cg-passport-sample{overflow-wrap:anywhere}}
